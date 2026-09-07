@@ -20,6 +20,7 @@ import {
   OVERVIEW_WORD_LIMIT,
   PRESERVED_GENERATED,
 } from '../scripts/sync-content.mjs';
+import { README_CUT_AT } from '../content-manifest.mjs';
 
 test('link to an approved doc becomes a site route', () => {
   assert.equal(transformProse('see [the FAQ](faq.md)'), 'see [the FAQ](/faq/)');
@@ -228,6 +229,8 @@ test('selectStableVersion never returns a git-describe string', () => {
 
 test('README-derived overview is one concise paragraph with a next step', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'overview-'));
+  const readme = fs.readFileSync(path.resolve(process.cwd(), '..', 'README.md'), 'utf8');
+  assert.ok(readme.includes(`\n${README_CUT_AT}\n`));
   const generated = buildOverviewPage(undefined, dir);
   const page = fs.readFileSync(path.join(dir, 'overview.md'), 'utf8');
   assert.equal(page, generated);
