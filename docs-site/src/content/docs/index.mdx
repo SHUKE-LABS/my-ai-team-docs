@@ -1,0 +1,45 @@
+---
+title: my-ai-team documentation
+description: Public documentation for my-ai-team — a tmux-based framework for running structured AI-agent sessions against a GitHub repo.
+template: splash
+hero:
+  tagline: A tmux-based framework for running structured AI-agent sessions against a GitHub repo. It turns your issue backlog into an async delivery pipeline.
+  actions:
+    - text: Product overview
+      link: /overview/
+      icon: right-arrow
+    - text: Quickstart (Linux)
+      link: /quickstart-linux/
+      variant: minimal
+    - text: FAQ
+      link: /faq/
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+import versionInfo from '../../version.json';
+
+<p>
+  <strong>This site reflects the latest release ({versionInfo.version}) only.</strong>{' '}
+  Historical release changes are documented on the <a href="/changelog/">Changelog</a> page.
+</p>
+
+<CardGrid>
+  <Card title="Get started" icon="rocket">
+    Install and run your first session — [Linux quickstart](/quickstart-linux/) or [macOS quickstart](/quickstart-macos/).
+  </Card>
+  <Card title="Understand the modes" icon="puzzle">
+    The [product overview](/overview/) explains explore, caucus, audit, live, adhoc, duo, and team.
+  </Card>
+  <Card title="Go deep" icon="open-book">
+    The [user guide](/user-guide/) is the full first-run walkthrough and configuration reference.
+  </Card>
+  <Card title="Questions" icon="question">
+    The [FAQ](/faq/) covers licensing, cost, platforms, backends, and privacy.
+  </Card>
+</CardGrid>
+
+---
+
+This documentation is licensed under [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
+&copy; 2026 SHUKE LABS LTD. The my-ai-team software itself is separately licensed and proprietary.

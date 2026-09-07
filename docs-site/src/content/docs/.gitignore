@@ -1,0 +1,6 @@
+# Pages here are generated at build time by scripts/sync-content.mjs from the
+# approved public subset (see ../../../content-manifest.mjs). Only the
+# hand-authored landing page is tracked; everything else is regenerated.
+*
+!.gitignore
+!index.mdx

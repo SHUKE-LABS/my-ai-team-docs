@@ -1,0 +1,138 @@
+{
+  "backends": [
+    {
+      "nickname": "ccw",
+      "config_dir": "claudew",
+      "auth_var": "CLAUDE_CODE_OAUTH_TOKEN_CCW",
+      "prompt_file": "CLAUDE.md",
+      "kind": "claude"
+    },
+    {
+      "_comment": "default_model / default_effort are optional raw pass-through strings applied at launch. claude-kind: --model + --effort (the starting level can be changed in-session with /effort). codex: --model + --config model_reasoning_effort=<effort>. copilot: --model + --effort. Omit or empty-string default_model to add no model flag; omit or empty-string default_effort and the shared resolver falls back to high (pi and freebuff are the documented exceptions — neither launch argv carries an effort flag, and on freebuff the effort a turn runs at is server-owned). kind: freebuff also ignores default_model — its argv carries no model flag. No mat-side validation — the native CLI validates model/effort values. context_window_size caps the auto-compaction window: plain integer (250000) or k/m shorthand (350k, 1m). claude-kind exports CLAUDE_CODE_AUTO_COMPACT_WINDOW; codex adds --config model_auto_compact_token_limit. Omit to use the CLI's per-model default (200k standard / 1M extended). kind: copilot, kind: pi and kind: freebuff accept the field but no launch path reads it.",
+      "nickname": "cch",
+      "config_dir": "claudeh",
+      "auth_var": "CLAUDE_CODE_OAUTH_TOKEN_CCH",
+      "prompt_file": "CLAUDE.md",
+      "kind": "claude",
+      "default_model": "opus",
+      "default_effort": "high",
+      "context_window_size": "350k",
+      "models": {
+        "default": "opus",
+        "plan": "opus",
+        "explore": "sonnet"
+      }
+    },
+    {
+      "_comment": "Example: selector-only gateway backend. auth_var is omitted (null) so this backend requires MAT_ANTHROPIC_GATEWAY. gateway_selector 'auto' routes through AQG's pooled failover. Allowed charset: [A-Za-z0-9_-].",
+      "nickname": "ccauto",
+      "config_dir": "claudeauto",
+      "prompt_file": "CLAUDE.md",
+      "kind": "claude",
+      "gateway_selector": "auto"
+    },
+    {
+      "nickname": "ccz",
+      "config_dir": "claudez",
+      "auth_var": "Z_AI_API_KEY",
+      "prompt_file": "CLAUDE.md",
+      "kind": "claude",
+      "base_url_var": "Z_AI_CLAUDE_BASE_URL"
+    },
+    {
+      "nickname": "ccd",
+      "config_dir": "clauded",
+      "auth_var": "DEEPSEEK_API_KEY",
+      "prompt_file": "CLAUDE.md",
+      "kind": "claude",
+      "base_url_var": "DEEPSEEK_CLAUDE_BASE_URL"
+    },
+    {
+      "_comment": "Example: an enterprise/team Codex subscription through the same custom Responses provider path used by BYOK. auth_var names the opaque bearer key source; base_url is the configured OpenAI-compatible endpoint. mat exports the key only as MAT_CODEX_API_KEY and writes the provider into the real role-local CODEX_HOME/config.toml.",
+      "nickname": "codex",
+      "config_dir": "codex",
+      "auth_var": "CODEX_ACCESS_TOKEN_SEATA",
+      "base_url": "https://chatgpt.com/backend-api/codex",
+      "prompt_file": "AGENTS.md",
+      "kind": "codex",
+      "model_provider": "codex-team",
+      "default_model": "gpt-5.6-luna",
+      "default_effort": "high",
+      "wire_api": "responses"
+    },
+    {
+      "_comment": "Example: a third-party Codex provider. base_url_var is resolved from the current environment or ~/.bashrc.secret; model_catalog_json is copied as a real role-local models.json after JSON validation. Do not put an API key in config.toml.",
+      "nickname": "deepseek",
+      "config_dir": "deepseek",
+      "auth_var": "DEEPSEEK_API_KEY",
+      "base_url_var": "DEEPSEEK_BASE_URL",
+      "prompt_file": "AGENTS.md",
+      "kind": "codex",
+      "model_provider": "deepseek",
+      "wire_api": "responses",
+      "default_model": "deepseek-v4-flash",
+      "default_effort": "high",
+      "model_catalog_json": "~/.codex/models.json"
+    },
+    {
+      "_comment": "Personal subscriptions that expose no provider key and endpoint stay on legacy credential sharing. This path may symlink auth.json/config.toml from the backend's bare canonical home; it is not an implicit fallback for an explicit provider.",
+      "nickname": "codex-personal",
+      "config_dir": "codex-personal",
+      "prompt_file": "AGENTS.md",
+      "kind": "codex",
+      "default_effort": "high"
+    },
+    {
+      "_comment": "Example: Copilot BYOK. auth_var/base_url_var/default_model/default_effort stay the existing launch contract; copilot_provider_type is the new protocol discriminator. Omit copilot_provider_type and mat defaults Copilot BYOK to anthropic.",
+      "nickname": "copiloto",
+      "config_dir": "copiloto",
+      "auth_var": "OPENAI_API_KEY",
+      "prompt_file": "copilot-instructions.md",
+      "kind": "copilot",
+      "base_url_var": "OPENAI_BASE_URL",
+      "copilot_provider_type": "openai",
+      "default_model": "gpt-5",
+      "default_effort": "high"
+    },
+    {
+      "nickname": "copilot",
+      "config_dir": "copilot",
+      "prompt_file": "copilot-instructions.md",
+      "kind": "copilot",
+      "default_model": "gpt-5",
+      "default_effort": "high"
+    },
+    {
+      "_comment": "Example: Copilot native login with its own GitHub token variable. No base_url_var/gateway_selector/copilot_provider_type, so this stays a native-login backend (not BYOK); auth_var here resolves as COPILOT_GITHUB_TOKEN and takes precedence over the global MAT_COPILOT_GITHUB_TOKEN, letting this backend log in as a distinct GitHub identity. Must be a fine-grained PAT (github_pat_...) or `gh auth token` output (gho_...) -- a classic ghp_... PAT fails the launch.",
+      "nickname": "copilotgh",
+      "config_dir": "copilotgh",
+      "auth_var": "MAT_COPILOT_GITHUB_TOKEN_GH",
+      "prompt_file": "copilot-instructions.md",
+      "kind": "copilot",
+      "default_model": "gpt-5",
+      "default_effort": "high"
+    },
+    {
+      "_comment": "Example: OpenCode Zen. The role home owns all XDG roots and mat renders the global role prompt at config/opencode/AGENTS.md; auth_var is required because isolated homes do not inherit OpenCode's personal auth file. context_window_size caps the model's effective window via a provider model-limit override written to the role-isolated opencode.json under the default_model's <provider-id>/<model-id> pair (e.g. opencode/... or opencode-go/...).",
+      "nickname": "opencode",
+      "config_dir": "opencode",
+      "auth_var": "OPENCODE_API_KEY",
+      "prompt_file": "config/opencode/AGENTS.md",
+      "kind": "opencode",
+      "default_model": "opencode/deepseek-v4-flash-free",
+      "default_effort": "high",
+      "context_window_size": "256k"
+    },
+    {
+      "_comment": "Example: OpenCode BYOK through an OpenAI-compatible endpoint. Use an opencode/<model> default_model so it selects the provider config mat writes in the isolated role home.",
+      "nickname": "opencode-byok",
+      "config_dir": "opencode-byok",
+      "auth_var": "OPENAI_API_KEY",
+      "prompt_file": "config/opencode/AGENTS.md",
+      "kind": "opencode",
+      "base_url_var": "OPENAI_BASE_URL",
+      "default_model": "opencode/my-model",
+      "default_effort": "high"
+    }
+  ]
+}

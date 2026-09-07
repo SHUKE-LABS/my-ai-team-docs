@@ -1,0 +1,4 @@
+# pnpm build-script approval (pnpm 11 reads this file even outside a workspace).
+# esbuild's postinstall validates its platform binary; the frozen lockfile pins the tarball it comes from.
+allowBuilds:
+  esbuild: true

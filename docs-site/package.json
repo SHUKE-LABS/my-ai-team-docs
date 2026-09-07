@@ -1,0 +1,25 @@
+{
+  "name": "mat-docs-site",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.11.0",
+  "description": "Public documentation site for my-ai-team (Astro + Starlight). Content is synced at build time from the approved public subset of the repo docs; see README.md.",
+  "scripts": {
+    "prebuild": "node scripts/sync-content.mjs",
+    "build": "astro build",
+    "postbuild": "node scripts/leak-guard.mjs",
+    "predev": "node scripts/sync-content.mjs",
+    "dev": "astro dev",
+    "preview": "astro preview",
+    "sync": "node scripts/sync-content.mjs",
+    "test": "node --test",
+    "leak-guard": "node scripts/leak-guard.mjs",
+    "leak-guard:self-test": "node scripts/leak-guard.mjs --self-test"
+  },
+  "dependencies": {
+    "@astrojs/starlight": "^0.42.0",
+    "astro": "^7.3.1",
+    "sharp": "^0.35.4"
+  }
+}

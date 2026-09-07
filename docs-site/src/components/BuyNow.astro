@@ -1,0 +1,77 @@
+---
+// Purchase entry point rendered in the site header on every route. The link goes
+// straight to the LemonSqueezy checkout with the first-year discount pre-applied
+// (src/purchase.mjs explains why the brackets must stay percent-encoded), so a
+// reader never has to hunt for the store or type the code at checkout.
+import { LinkButton } from '@astrojs/starlight/components';
+import { CHECKOUT_URL, DISCOUNT_CODE } from '../purchase.mjs';
+---
+
+<div class="buy-now print:hidden">
+  <p class="offer">
+    First year <strong>50% off</strong> with code <code>{DISCOUNT_CODE}</code>
+  </p>
+  <LinkButton href={CHECKOUT_URL} variant="primary" target="_blank" rel="noopener noreferrer">
+    Buy Now
+  </LinkButton>
+</div>
+
+<style>
+  .buy-now {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    /* Never shrink: the button must stay reachable at every viewport width. */
+    flex: none;
+  }
+  .offer {
+    margin: 0;
+    color: var(--sl-color-gray-2);
+    font-size: var(--sl-text-sm);
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+  .offer strong {
+    color: var(--sl-color-white);
+    font-weight: 600;
+  }
+  .offer code {
+    font-family: var(--sl-font-mono);
+    font-size: var(--sl-text-xs);
+    padding: 0.1rem 0.3rem;
+    border-radius: 0.25rem;
+    border: 1px solid var(--sl-color-hairline);
+    background: var(--sl-color-gray-6);
+    white-space: nowrap;
+  }
+  /* The single-line header has no room for the offer copy on narrow viewports:
+     collapse it to visually-hidden (screen readers keep it) and rely on the
+     checkout link itself carrying the pre-applied discount. */
+  @media (max-width: 49.99rem) {
+    .offer {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+  }
+  /* LinkButton sizes for hero/body use; inside the fixed-height header it must
+     sit level with the search and theme controls, so pin the compact end of its
+     scale at every width. Below the desktop breakpoint the horizontal padding
+     tightens further: on a 320px viewport that is the difference between the
+     site title fitting and being clipped by the header's overflow rule. */
+  .buy-now :global(.sl-link-button) {
+    padding: 0.4375rem 1.125rem;
+    font-size: var(--sl-text-sm);
+  }
+  @media (max-width: 49.99rem) {
+    .buy-now :global(.sl-link-button) {
+      padding-inline: 0.75rem;
+    }
+  }
+</style>

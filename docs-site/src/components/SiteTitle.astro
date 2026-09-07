@@ -1,0 +1,54 @@
+---
+// Extends Starlight's default site title (shown in the header on every route)
+// with the build-time release version badge and the CC-BY-4.0 licence link, so
+// both appear site-wide in the header. Version comes from src/version.json,
+// written by scripts/sync-content.mjs during prebuild.
+import Default from '@astrojs/starlight/components/SiteTitle.astro';
+import versionInfo from '../version.json';
+---
+
+<div class="header-brand">
+  <Default {...Astro.props} />
+  <span class="version-badge" title="Latest release">{versionInfo.version}</span>
+  <a
+    class="cc-badge"
+    href="https://creativecommons.org/licenses/by/4.0/"
+    rel="license"
+    title="Documentation licensed under Creative Commons Attribution 4.0 International"
+  >CC BY 4.0</a>
+</div>
+
+<style>
+  .header-brand {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.5rem;
+    min-width: 0;
+  }
+  .version-badge,
+  .cc-badge {
+    flex: none;
+    font-size: var(--sl-text-xs);
+    line-height: 1.4;
+    padding: 0.05rem 0.4rem;
+    border-radius: 0.35rem;
+    border: 1px solid var(--sl-color-hairline);
+    white-space: nowrap;
+  }
+  .version-badge {
+    color: var(--sl-color-gray-2);
+    background: var(--sl-color-gray-6);
+    font-variant-numeric: tabular-nums;
+  }
+  .cc-badge {
+    color: var(--sl-color-text-accent);
+    text-decoration: none;
+  }
+  .cc-badge:hover {
+    text-decoration: underline;
+  }
+  /* Both badges stay visible on every viewport (acceptance criterion); on
+     narrow screens the flex-wrap above drops them to a second line instead of
+     hiding either one. */
+</style>
