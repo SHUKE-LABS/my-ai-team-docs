@@ -1,6 +1,6 @@
 # my-ai-team
 
-**A tmux-based framework for running structured AI-agent sessions against a GitHub repo.** `my-ai-team` turns an issue backlog into an async delivery pipeline where agents investigate, implement, review, and merge while you set direction.
+**A tmux-based framework for running structured AI-agent sessions against a GitHub repo.** `my-ai-team` turns your issue backlog into an async delivery pipeline: agents claim `ready` tickets, implement changes, open PRs, and **merge them themselves** — while you set direction and step in only on decisions.
 
 This repository is the public documentation projection for my-ai-team. Read the hosted [documentation](https://mat-docs.shukelabs.com/) or the local [user guide](docs/public/user-guide.md) to get started.
 

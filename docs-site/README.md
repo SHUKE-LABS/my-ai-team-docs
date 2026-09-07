@@ -55,7 +55,8 @@ pnpm run build
 pnpm run leak-guard:self-test
 ```
 
-Requires Node 20+ and pnpm 11.11.0, as pinned by `package.json`. The frozen
+Requires Node 20+ and pnpm 11.11.0, as pinned by `package.json`; CI uses Node
+22.19.0. The frozen
 `pnpm-lock.yaml` and `pnpm-workspace.yaml` keep installation reproducible and
 approve only the required dependency build step.
 
