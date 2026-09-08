@@ -113,6 +113,10 @@ const shouldRenderSearch =
 					auto
 					/* 4 (right items): use the space that these need. */
 					auto;
+				/* align-items centers each grid item within the row; align-content only
+				   centers the row track itself — without the former every item stretches
+				   to the header's full height and its content top-aligns. */
+				align-items: center;
 				align-content: center;
 			}
 		}

@@ -1,8 +1,9 @@
 # FAQ
 
 Answers for evaluating and operating `my-ai-team`. Use the [user guide](user-guide.md)
-for reference tasks, or follow the [Linux](quickstart-linux.md) or
-[macOS](quickstart-macos.md) quickstart to install it.
+for reference tasks, or follow the [Linux](quickstart-linux.md),
+[macOS](quickstart-macos.md), or [WSL2](quickstart-wsl2.md) quickstart to
+install it.
 
 ## What is my-ai-team?
 
@@ -31,12 +32,13 @@ not replace one.
 | Linux | Supported |
 | macOS | Supported (bash ≥ 4.3 required — stock macOS bash is 3.2; install a newer one via Homebrew) |
 | Windows Git Bash | Supported |
+| WSL2 | Supported — installs like Linux; see the [WSL2 quickstart](quickstart-wsl2.md) |
 
 Commercial install (the LemonSqueezy release tarball, first install and
-`mat upgrade` alike) works on all three: the tarball ships its symlinks resolved
-to file copies, so Git Bash needs no elevation or Developer Mode. A tarball built
-before that change is refused there fail-closed rather than installed with paths
-missing. The `tg-relay` Telegram relay installs
+`mat upgrade` alike) works on every supported platform above. The tarball ships
+its symlinks resolved to file copies, so Windows Git Bash needs no elevation or
+Developer Mode; a tarball built before that change is refused there fail-closed
+rather than installed with paths missing. The `tg-relay` Telegram relay installs
 automatically as a logon-triggered HKCU Run key entry on Windows Git Bash —
 no manual restart required after reboot.
 
@@ -176,6 +178,7 @@ first session + verify:
 
 - [Linux quickstart](quickstart-linux.md)
 - [macOS quickstart](quickstart-macos.md)
+- [WSL2 quickstart](quickstart-wsl2.md) (Windows Subsystem for Linux 2)
 
 To run a headless duo session (no tmux) once installed, see the
 [baton duo quickstart](quickstart-baton-duo.md).

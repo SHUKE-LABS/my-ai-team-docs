@@ -30,6 +30,7 @@ export default defineConfig({
           items: [
             { label: 'Linux', slug: 'quickstart-linux' },
             { label: 'macOS', slug: 'quickstart-macos' },
+            { label: 'WSL2', slug: 'quickstart-wsl2' },
             { label: 'baton & duo', slug: 'quickstart-baton-duo' },
           ],
         },

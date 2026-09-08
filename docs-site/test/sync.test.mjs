@@ -16,6 +16,7 @@ import {
   sanitizeGeneratedSource,
   resolveVersion,
   selectStableVersion,
+  PROJECTED_VERSION_FILE,
   buildOverviewPage,
   OVERVIEW_WORD_LIMIT,
   PRESERVED_GENERATED,
@@ -212,14 +213,46 @@ test('sanitizeGeneratedSource strips refs, doc names and internal paths together
 
 test('resolveVersion picks the highest stable tag and rejects a bad override', () => {
   const tags = ['v0.1.0-beta', 'v3.14.2', 'v3.13.13'];
-  assert.equal(resolveVersion({}, () => ['v3.14.2', 'v3.13.13']), 'v3.14.2');
+  // The projected-version reader is stubbed in every case, so the assertions
+  // describe the resolver rather than whatever the checkout happens to carry.
+  const none = () => '';
+  assert.equal(resolveVersion({}, () => ['v3.14.2', 'v3.13.13'], none), 'v3.14.2');
   // A prerelease tag sorts above nothing useful — it must be skipped, not taken.
-  assert.equal(resolveVersion({}, () => ['v0.1.0-beta', 'v3.13.13']), 'v3.13.13');
-  assert.equal(resolveVersion({}, () => []), 'dev');
-  assert.equal(resolveVersion({ DOCS_VERSION: 'v9.9.9' }, () => tags), 'v9.9.9');
+  assert.equal(resolveVersion({}, () => ['v0.1.0-beta', 'v3.13.13'], none), 'v3.13.13');
+  assert.equal(resolveVersion({}, () => [], none), 'dev');
+  assert.equal(resolveVersion({ DOCS_VERSION: 'v9.9.9' }, () => tags, none), 'v9.9.9');
   for (const bad of ['v3.13.13-2-g5bad266a', 'v0.1.0-beta', '5bad266a']) {
-    assert.throws(() => resolveVersion({ DOCS_VERSION: bad }, () => tags), /DOCS_VERSION/);
+    assert.throws(() => resolveVersion({ DOCS_VERSION: bad }, () => tags, none), /DOCS_VERSION/);
   }
+});
+
+test('the projected version file outranks tags and is validated like an override', () => {
+  const tags = () => ['v3.14.2'];
+  // A tag-less projected checkout is exactly the case the file exists for.
+  assert.equal(resolveVersion({}, () => [], () => 'v4.0.1'), 'v4.0.1');
+  // Present in a tagged checkout, the projected value still wins: the file
+  // states what THIS tree publishes, and a bootstrap tag is not that.
+  assert.equal(resolveVersion({}, tags, () => 'v4.0.1'), 'v4.0.1');
+  // Trailing newline from the projected file is not part of the version.
+  assert.equal(resolveVersion({}, tags, () => 'v4.0.1\n'), 'v4.0.1');
+  // The operator override still outranks it.
+  assert.equal(resolveVersion({ DOCS_VERSION: 'v9.9.9' }, tags, () => 'v4.0.1'), 'v9.9.9');
+  // Absent file -> fall through to tags, which is this repository's own path.
+  assert.equal(resolveVersion({}, tags, () => ''), 'v3.14.2');
+  // A malformed projected value fails the build; it never degrades to a tag.
+  for (const bad of ['dev', 'v0.1.0-beta', 'v3.13.13-2-g5bad266a', '5bad266a']) {
+    assert.throws(
+      () => resolveVersion({}, tags, () => bad),
+      new RegExp(PROJECTED_VERSION_FILE.replace('.', '\\.')),
+    );
+  }
+});
+
+test('the projected version file is named once and read from the repo root', () => {
+  // The name is a cross-repository contract: the projection writes this file and
+  // the resolver reads it, so it is exported rather than spelled twice.
+  assert.equal(PROJECTED_VERSION_FILE, '.docs-version');
+  assert.equal(path.dirname(PROJECTED_VERSION_FILE), '.');
 });
 
 test('selectStableVersion never returns a git-describe string', () => {
@@ -229,8 +262,6 @@ test('selectStableVersion never returns a git-describe string', () => {
 
 test('README-derived overview is one concise paragraph with a next step', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'overview-'));
-  const readme = fs.readFileSync(path.resolve(process.cwd(), '..', 'README.md'), 'utf8');
-  assert.ok(readme.includes(`\n${README_CUT_AT}\n`));
   const generated = buildOverviewPage(undefined, dir);
   const page = fs.readFileSync(path.join(dir, 'overview.md'), 'utf8');
   assert.equal(page, generated);
@@ -242,5 +273,10 @@ test('README-derived overview is one concise paragraph with a next step', () => 
   assert.ok(body.split(/\s+/).length <= OVERVIEW_WORD_LIMIT);
   assert.doesNotMatch(body, /(^|\n)#{1,6}\s|(^|\n)[-*]\s|```/m);
   assert.doesNotMatch(body, /Session modes|Lifecycle|Prerequisites/);
+
+  // The overview is the slice of README.md before this heading, so a README
+  // that lost the boundary would silently publish the whole document.
+  const readme = fs.readFileSync(path.resolve(process.cwd(), '..', 'README.md'), 'utf8');
+  assert.ok(readme.includes(`\n${README_CUT_AT}\n`));
   fs.rmSync(dir, { recursive: true, force: true });
 });

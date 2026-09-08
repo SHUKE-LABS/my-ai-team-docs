@@ -29,6 +29,7 @@ export const PUBLIC_DOC_TITLES = {
   'user-guide': 'User guide',
   'quickstart-linux': 'Quickstart: Linux',
   'quickstart-macos': 'Quickstart: macOS',
+  'quickstart-wsl2': 'Quickstart: WSL2',
   'quickstart-baton-duo': 'Quickstart: baton & duo',
 };
 
@@ -110,11 +111,11 @@ export const EXCLUDED_PATHS = [
   'docs/baton-session-manager.md',
   'docs/telegram-relay-setup.md',
   'docs/evidence/team-baton-acceptance.md',
-  'docs/relay-detector-matrix-2190.md',
-  'docs/evidence/relay-detector-matrix-2190-evidence.md',
   'docs/evidence/windows-real-close-evidence-3021.md',
   'docs/evidence/startup-baseline-windows-git-bash.md',
   'docs/evidence/hook-fanout-baseline-windows-git-bash.md',
+  'docs/evidence/relay-detector-matrix-2190.md',
+  'docs/evidence/relay-detector-matrix-2190-evidence.md',
   'docs/demo-script.md',
   'docs/devops-helper.md',
   'docs/gh-issue-helper.md',

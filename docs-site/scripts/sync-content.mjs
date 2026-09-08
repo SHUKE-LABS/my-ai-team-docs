@@ -11,7 +11,8 @@
 //     to plain text so no 404 and no clickable internal path ever ships.
 //
 // It also derives the product-overview page from README.md, renders the config
-// examples page, and writes src/version.json from the newest stable release tag.
+// examples page, and writes src/version.json from the resolved release version
+// (see resolveVersion for the precedence).
 
 import { execSync } from 'node:child_process';
 import fs from 'node:fs';
@@ -73,10 +74,33 @@ export function selectStableVersion(tagLines) {
   return DEV_VERSION;
 }
 
-// DOCS_VERSION is an explicit operator override; it is validated on the same
-// rule rather than passed through, so a typo or a `git describe` string piped
-// into it fails the build instead of shipping as the badge.
-export function resolveVersion(env = process.env, listTags = gitStableTags) {
+// A checkout that carries no release tags of its own states its version in this
+// repo-root file instead. That is the public documentation projection: it is
+// generated from the source repository's docs, so it has neither the release
+// history nor the tags the resolver below reads, and with no explicit value its
+// badge would degrade to `dev`. Only the projection commits this file; the
+// source repository has the tags and resolves through them.
+export const PROJECTED_VERSION_FILE = '.docs-version';
+
+// The projected version, or '' when the file is absent. Unreadable-for-any-other
+// reason is deliberately NOT swallowed: an existing file the build cannot read is
+// a broken projection, not a repository without one.
+function projectedVersion() {
+  const file = path.join(REPO_ROOT, PROJECTED_VERSION_FILE);
+  if (!fs.existsSync(file)) return '';
+  return fs.readFileSync(file, 'utf8').trim();
+}
+
+// Version precedence: DOCS_VERSION (operator override) > the projected version
+// file > the newest stable tag reachable from HEAD > `dev`. Every non-tag source
+// is validated on the same `vX.Y.Z` rule rather than passed through, so a typo,
+// a prerelease, or a `git describe` string reaching either one fails the build
+// instead of shipping as the badge.
+export function resolveVersion(
+  env = process.env,
+  listTags = gitStableTags,
+  readProjected = projectedVersion,
+) {
   const override = (env.DOCS_VERSION || '').trim();
   if (override) {
     if (!isStableVersion(override)) {
@@ -85,6 +109,16 @@ export function resolveVersion(env = process.env, listTags = gitStableTags) {
       );
     }
     return override;
+  }
+  const projected = String(readProjected() || '').trim();
+  if (projected) {
+    if (!isStableVersion(projected)) {
+      throw new Error(
+        `${PROJECTED_VERSION_FILE} must contain a stable release version (vX.Y.Z); ` +
+          `got "${projected}"`,
+      );
+    }
+    return projected;
   }
   return selectStableVersion(listTags());
 }

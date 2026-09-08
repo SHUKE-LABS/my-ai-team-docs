@@ -3,6 +3,9 @@
 Install the commercial release on Linux, activate it, connect Telegram, and
 run your first agent. Every command is copy-pastable.
 
+On a Windows machine? The [WSL2 quickstart](quickstart-wsl2.md) reuses this
+guide and adds the Windows Subsystem for Linux 2 specifics.
+
 ## 1. Prerequisites (apt)
 
 Install the runtime dependencies:

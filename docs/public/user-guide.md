@@ -532,6 +532,50 @@ untouched. If the reaped pane's supervisor does not republish a fresh child
 within the verify window, the command fails loudly and leaves the marker and the
 session event-log trail in place for manual recovery.
 
+### Baton console
+
+Baton sessions (`duo` and `caucus` on the baton driver) run headless, so there
+is no tmux window to look at. The console is a read-only web view of the same
+information `mat baton status` prints, plus the relay timeline:
+
+```bash
+mat baton console              # serve on 127.0.0.1:7380 and open a browser
+mat baton console --no-open    # print the URL only
+mat baton console --port 7391  # pick another port
+```
+
+It needs Node.js 20 or newer on your `PATH`. If Node is missing or too old the
+command prints a one-line hint and exits non-zero without starting a server.
+
+The left rail lists every session `mat baton status` reports, grouped by
+project, with its status and per-role queue depth. Selecting a session shows
+its participants, a merged relay timeline — each message once, labelled with
+its lane (pending, claimed, done, or outbox), with operator messages
+highlighted and routine system wakes collapsed — and the controls below. When
+a message is a handoff file reference, the console inlines the file's contents
+(up to 64 KiB) if the file is still there and reports it as gone if it is not;
+it will only read handoff files from the scratch directory, never an arbitrary
+path a message names. New messages appear within a few seconds without a
+reload.
+
+Crashed and stale sessions are hidden until you turn on the dead-session
+toggle.
+
+You can also intervene from the page. The composer sends a routed message to
+one of the session's participants; *Inject to inbox* is a separate control
+that bypasses topology routing and stays disabled until you acknowledge the
+same unscoped-injection warning the CLI prints. The action bar offers wake,
+restart, stop, and teardown: stop asks for a confirmation dialog, and teardown
+asks you to type the session name. Every control runs the same `mat baton` verb
+you would type in a terminal, and the verb's own output — including its
+refusals, such as a caucus session refusing wake — is shown verbatim afterwards.
+
+The console is deliberately local: it binds the loopback interface only and
+refuses requests that do not come from it. It never edits a session's state,
+mailbox, or transcript itself — every mutation is the existing verb, which
+keeps writing the operator event trail. Because it is unauthenticated, do not
+expose the port beyond your own machine.
+
 ### `mat backlog` — delivery queue view
 
 `mat backlog` prints a read-only snapshot of open issues by lifecycle, followed
