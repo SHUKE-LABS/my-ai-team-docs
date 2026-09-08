@@ -2,13 +2,16 @@
 
 _Generated from release tags._
 
-## v3.48.1 … v3.48.0 (2026-09-09)
+## v3.48.2 … v3.48.0 (2026-09-09)
 
 ### Features
 - feat(issues): close refining duplicates with teardown
 
 ### Fixes
 - fix(ownership): release claims with their owner record and claim receipt
+
+### Other Changes
+- test(prompt): fail CI when a rendered constitution line disappears
 
 ## v3.47.1 … v3.43.0 (2026-09-08)
 
