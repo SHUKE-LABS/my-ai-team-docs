@@ -7,3 +7,12 @@ allowBuilds:
   # workerd's postinstall selects the platform binary; the frozen lockfile pins the tarball.
   workerd: true
   wrangler: false
+
+# GHSA-rgj7-g3m4-5g8c / GHSA-g89c-p67h-r497 / GHSA-2jg2-4ch7-h545: libheif
+# vulnerabilities in sharp < 0.35.4. The direct dependency is already patched;
+# wrangler pulls an older copy transitively through miniflare, which fails
+# `pnpm audit --audit-level=high` and therefore blocks the whole publication
+# lane. The override lifts that transitive copy to the version the direct
+# dependency already resolves.
+overrides:
+  sharp: ^0.35.4

@@ -55,9 +55,13 @@ The projection materializes:
 
 One target prefix is **owned by this repository** and is never written or
 deleted by a projection run: `.github/**`, the hosted-runner verification and
-deploy workflow. Everything else, `docs-site/test/` included, is projected — the
+deploy workflow. Everything else is projected, `docs-site/test/` included — the
 unit suite travels with the site code it tests, so a projected change can never
-leave this repository with a suite that fails on it.
+leave this repository with a suite that fails on it. Two suites in the private
+source are the exception and never arrive here, because each imports a private
+tool that is not projected: the projection's own contract suite and the
+publication-confirmation suite. The tests present in this repository are
+therefore the complete suite for the site code it holds.
 
 Before publishing, the projection scans every projected content file with the
 site's own leak-guard rules and refuses to publish on any hit, so internal
@@ -140,29 +144,35 @@ build.
 
 ## Verification and deployment
 
-`.github/workflows/docs-deploy.yml` has no path filters: every pull request and
+`.github/workflows/docs-deploy.yml` is maintained in this repository and has no
+path filters: every pull request and
 every push to `main` runs on `ubuntu-latest` and performs dependency
 installation, the high-severity dependency audit, unit tests, the Astro build,
 the postbuild leak guard, and the leak-guard self-test. Checkout uses full
 history and tags (`fetch-depth: 0`, `fetch-tags: true`).
 
 The deploy job runs only after verification succeeds and only for a push to the
-trusted default branch `main`. It uploads `dist` to the existing Cloudflare
-Pages project `mat-docs`, preserving `mat-docs.shukelabs.com`. It skips cleanly
-until both repository secrets exist:
+trusted default branch `main` — a `workflow_dispatch` run therefore verifies
+without deploying, and recovering a failed deployment means re-running the
+failed push run rather than dispatching a new one. It installs the same frozen dependency tree as
+verification — `cloudflare/wrangler-action@v3` resolves its package manager
+from `docs-site/package.json`, so the deploy job needs Node and pnpm too — and
+uploads `dist` to the existing Cloudflare Pages project `mat-docs`, preserving
+`mat-docs.shukelabs.com`. It requires both repository secrets and fails with an
+explicit message when either is absent, so a credential regression cannot look
+like a successful publication:
 
 - `CLOUDFLARE_API_TOKEN` with Pages Edit permission.
 - `CLOUDFLARE_ACCOUNT_ID` for the Pages account.
 
 Those secrets are scoped to the deploy job, which is not created for fork pull
 requests. Forks receive verification only and cannot receive deployment
-credentials. The private publisher remains in place only as the documented
-rollback guard until the cutover evidence is captured. That evidence is one
-merged projection PR, a green `verify` and `deploy` run for its exact public
-head, and live route, badge, attribution, project, and hostname checks. After
-that point this protected-main workflow is the sole production publisher; if a
-later public build or deploy fails, the previously deployed projection remains
-current until the projection is fixed or reverted.
+credentials.
+
+This protected-main workflow is the sole production publisher. If a public
+build or deploy fails, the previously deployed revision remains current until
+the projection is fixed or the workflow is re-run; the update that carried it
+is reported as failed rather than published.
 
 ## Licensing
 
