@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v3.48.0 (2026-09-09)
+
+### Features
+- feat(issues): close refining duplicates with teardown
+
 ## v3.47.1 … v3.43.0 (2026-09-08)
 
 ### Features
