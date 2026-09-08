@@ -57,8 +57,7 @@ jobs:
   deploy:
     needs: verify
     # A fork pull request never creates this job, so its untrusted code cannot
-    # receive either Cloudflare secret. The step-level gate skips cleanly when
-    # the repository has not been provisioned yet.
+    # receive either Cloudflare secret.
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -69,16 +68,47 @@ jobs:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
     steps:
       - uses: actions/checkout@v7
+      # A missing Cloudflare secret on a main push is a credential regression,
+      # not an unprovisioned repository. Fail loudly rather than skipping the
+      # deploy step, so a successful `deploy` job always means the site was
+      # actually published and the private projection lane can trust that
+      # signal.
+      - name: Require Cloudflare credentials
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "${CLOUDFLARE_API_TOKEN:-}" || -z "${CLOUDFLARE_ACCOUNT_ID:-}" ]]; then
+            echo 'CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID are required to deploy mat-docs.' >&2
+            echo 'Provision both repository secrets, then re-run this workflow.' >&2
+            exit 1
+          fi
+      # `wrangler` is a docs-site devDependency pinned in its package.json, and
+      # wrangler-action resolves the package manager from that manifest
+      # (`pnpm@11.11.0`). This job therefore needs the same Node + pnpm
+      # toolchain and frozen install as `verify`; without them the action fails
+      # with `Unable to locate executable file: pnpm`.
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22.19.0'
+      - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: docs-site/package.json
+      - name: Install dependencies
+        working-directory: docs-site
+        run: pnpm install --frozen-lockfile
       - name: Download verified site
         uses: actions/download-artifact@v4
         with:
           name: docs-site-dist-${{ github.sha }}
           path: docs-site/dist
+      # wranglerVersion matches the `wrangler` pin in docs-site/package.json so
+      # the action uses the frozen install instead of mutating the manifest at
+      # deploy time; docs-site/README.md requires the two to stay in sync.
       - name: Deploy to Cloudflare Pages
-        if: ${{ env.CLOUDFLARE_API_TOKEN != '' && env.CLOUDFLARE_ACCOUNT_ID != '' }}
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: docs-site
+          wranglerVersion: '4.129.0'
           command: pages deploy dist --project-name=mat-docs --branch=main
