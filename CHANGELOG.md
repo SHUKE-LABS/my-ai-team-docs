@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.47.0 … v3.43.0 (2026-09-08)
+## v3.47.1 … v3.43.0 (2026-09-08)
 
 ### Features
 - feat(baton): mutual-idle stall recovery for duo — the waiting role re-nudges its peer
@@ -20,6 +20,7 @@ _Generated from release tags._
 ### Docs
 - docs(duo-protocol): fix reply-forward header list, drop false relay-episode claim
 - docs: add WSL2 quickstart guide
+- docs(freshness): document the graphql association proof and gh floor
 
 ### Other Changes
 - test: capture the inherited caller tmux socket before scrub-env unsets TMUX
