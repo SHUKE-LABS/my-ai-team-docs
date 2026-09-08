@@ -2,11 +2,33 @@
 
 _Generated from release tags._
 
-## v3.41.3 … v3.39.1 (2026-09-07)
+## v3.46.0 … v3.43.0 (2026-09-08)
+
+### Features
+- feat(baton): mutual-idle stall recovery for duo — the waiting role re-nudges its peer
+- feat(console): read-only baton console over loopback HTTP
+- feat(console): intervene through mat baton verbs
+- feat(docs): project public site from private source
+
+### Fixes
+- fix(baton): invalidate a closed cycle's relay state at the headless boundary
+- fix(docs-site): vertically center header items at desktop width
+- fix(test): split duo-baton-worker-transport to restore backstop headroom
+- fix(ownership): fail closed on malformed Baton task status
+
+### Docs
+- docs(duo-protocol): fix reply-forward header list, drop false relay-episode claim
+- docs: add WSL2 quickstart guide
+
+### Other Changes
+- test: capture the inherited caller tmux socket before scrub-env unsets TMUX
+
+## v3.42.5 … v3.39.1 (2026-09-07)
 
 ### Features
 - feat(merge-gate): treat a plan-gated 403 on protection as provable absence
 - feat(relay): add mat relay status|start|stop|restart control surface
+- feat(docs): project the curated public docs to my-ai-team-docs
 
 ### Fixes
 - fix(claude/windows): disable default PowerShell tool for Git Bash
@@ -16,6 +38,14 @@ _Generated from release tags._
 - fix(copilot/windows): guard the powershell shell tool and decode toolArgs in both payload shapes
 - fix(ticket-fresh): read PR closing-issue association via gh api graphql
 - fix(baton): remove the progress-blind per-turn timeout
+- fix(docs): pin audited Wrangler deployment dependency
+- fix(relay): calibrate the pane-idle probe for a ticking-TUI backend
+- fix(docs-site): point the modes card at the user guide's Modes section
+- fix(test): freeze the clock at the peer-activity horizon boundary
+- fix(test): tolerate a load-starved relaunch in run-memcap's retry case
+
+### Refactors
+- refactor(relay): delete the send-time viewport verification ladder
 
 ### Performance
 - perf(hooks): cut child processes per tool event

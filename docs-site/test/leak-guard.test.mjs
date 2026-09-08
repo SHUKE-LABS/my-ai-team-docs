@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { test } from 'node:test';
 import os from 'node:os';
+import path from 'node:path';
+import { test } from 'node:test';
 
 import {
   checkManifest,
@@ -28,7 +29,6 @@ import {
   internalPathPrefixes,
   publicDocEntry,
 } from '../content-manifest.mjs';
-import path from 'node:path';
 
 const PRESERVED = new Set(['index.mdx', '.gitignore']);
 const banned = new Set([...excludedSlugs(), ...excludedDirs().map((d) => path.basename(d))]);
@@ -269,10 +269,12 @@ test('checkExclusionCoverage requires every internal doc to be listed', () => {
 });
 
 test('internalDocNames covers nested docs but never prompt-source basenames', () => {
-  // The public projection intentionally has no private docs/rfcs tree. Use a
-  // disposable fixture so this contract still proves recursive discovery
-  // without publishing internal documents in the public repository.
-  const fixture = fs.mkdtempSync(path.join(os.tmpdir(), 'my-ai-team-docs-'));
+  // Driven by a disposable fixture rather than this checkout's own docs/rfcs/
+  // tree: the contract under test is the recursive discovery itself, and the
+  // public documentation projection ships this suite into a repository that
+  // deliberately carries no internal documents. Repository-state coverage —
+  // that every internal doc is actually excluded — is Guard A part 4's job.
+  const fixture = fs.mkdtempSync(path.join(os.tmpdir(), 'internal-doc-names-'));
   try {
     const nested = path.join(fixture, 'docs', 'rfcs');
     fs.mkdirSync(nested, { recursive: true });
@@ -280,8 +282,8 @@ test('internalDocNames covers nested docs but never prompt-source basenames', ()
     const names = internalDocNames(fixture);
     // Nested internal document, reached through the docs/rfcs/ prefix.
     assert.ok(names.includes('session-modes-rfc.md'));
-    // Prompt-source basenames are not derived from agents/ or skills/: `dev.md`
-    // is what a customer calls their own documented override file.
+    // Prompt sources under agents/ are NOT names: `dev.md` is what a customer
+    // calls their own documented override file.
     assert.ok(!names.includes('dev.md'));
     assert.ok(!names.includes('SKILL.md'));
   } finally {

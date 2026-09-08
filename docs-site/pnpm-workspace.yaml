@@ -2,3 +2,8 @@
 # esbuild's postinstall validates its platform binary; the frozen lockfile pins the tarball it comes from.
 allowBuilds:
   esbuild: true
+  # These packages do not need lifecycle scripts; keep them explicitly denied.
+  sharp: false
+  # workerd's postinstall selects the platform binary; the frozen lockfile pins the tarball.
+  workerd: true
+  wrangler: false
