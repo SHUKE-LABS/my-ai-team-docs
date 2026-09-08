@@ -128,6 +128,10 @@ The operator surface is `mat baton <verb> <session>` (interactive umbrella:
   preserves state; `mat baton teardown <session>` stops the services and removes
   the session state, mailbox, and launch-created worktree. Neither command
   touches the repo root.
+  Both fail closed: if a background task cannot be verified as finished, the
+  command exits non-zero, says which task host it left running, and keeps that
+  session's state, mailbox, and worktree so the task is not stranded. Re-run it
+  once the task settles.
 
 ## 7. Known boundaries
 

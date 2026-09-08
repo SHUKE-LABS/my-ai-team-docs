@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v3.48.3 … v3.48.0 (2026-09-09)
+## v3.49.0 … v3.48.0 (2026-09-09)
 
 ### Features
 - feat(issues): close refining duplicates with teardown
+- feat(docs): make the public repository the sole production publisher
 
 ### Fixes
 - fix(ownership): release claims with their owner record and claim receipt
