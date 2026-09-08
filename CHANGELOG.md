@@ -2,13 +2,14 @@
 
 _Generated from release tags._
 
-## v3.46.0 … v3.43.0 (2026-09-08)
+## v3.47.0 … v3.43.0 (2026-09-08)
 
 ### Features
 - feat(baton): mutual-idle stall recovery for duo — the waiting role re-nudges its peer
 - feat(console): read-only baton console over loopback HTTP
 - feat(console): intervene through mat baton verbs
 - feat(docs): project public site from private source
+- feat(console): role columns with transcript tail, stderr, and Rewind link
 
 ### Fixes
 - fix(baton): invalidate a closed cycle's relay state at the headless boundary

@@ -535,8 +535,9 @@ session event-log trail in place for manual recovery.
 ### Baton console
 
 Baton sessions (`duo` and `caucus` on the baton driver) run headless, so there
-is no tmux window to look at. The console is a read-only web view of the same
-information `mat baton status` prints, plus the relay timeline:
+is no tmux window to look at. The console is a web view of the same
+information `mat baton status` prints, plus the relay timeline, a live tail of
+each role, and the operator controls:
 
 ```bash
 mat baton console              # serve on 127.0.0.1:7380 and open a browser
@@ -560,6 +561,27 @@ reload.
 
 Crashed and stale sessions are hidden until you turn on the dead-session
 toggle.
+
+Under the session header there is one column per configured role — two for a
+duo or caucus session, three for a team. Each column tails what that role is
+doing right now: its recent user and assistant turns, with every tool call
+shown as a single line such as `Editing src/app.js`, `Reading README.md`,
+`Running bash test/run.sh`, or `Searching TODO`. A tool the console does not
+recognise is named outright (`Calling <tool>`), and a call it cannot describe
+at all says `Unknown tool call running`. Tool inputs and outputs are never
+shown — the one-line form is all a column carries. Columns update within a few
+seconds of the role writing a new turn.
+
+Not every backend records a transcript. A role that has none — a caucus role,
+or a role that has not started one yet — says so and shows its latest sent
+message plus the tail of its serve log instead of an empty panel. Every column
+also has a *show stderr* toggle that swaps the turns for that role's own serve
+log, which is where a backend that is failing to start says why.
+
+When a role does have a transcript, its column carries a *Rewind* link that
+opens that conversation in a local Rewind transcript viewer, assumed to be at
+`http://localhost:7373`. Set `MAT_REWIND_URL` if yours listens elsewhere; the
+console does not check whether Rewind is running before offering the link.
 
 You can also intervene from the page. The composer sends a routed message to
 one of the session's participants; *Inject to inbox* is a separate control
