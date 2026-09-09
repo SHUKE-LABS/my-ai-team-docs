@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.49.3 … v3.48.0 (2026-09-09)
+## v3.49.4 … v3.48.0 (2026-09-09)
 
 ### Features
 - feat(issues): close refining duplicates with teardown
@@ -14,6 +14,7 @@ _Generated from release tags._
 - fix(ownership): dispatch owner-record launch through a driver-appropriate carrier
 - fix(windows): reclaim a tg-relay lock directory with no owner stamp
 - fix(windows): pin the lock backend to mkdir on Windows
+- fix(lock): reclaim a dead holder's lockdir in the mkdir try-lock
 
 ### Other Changes
 - test(prompt): fail CI when a rendered constitution line disappears
