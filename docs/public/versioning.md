@@ -54,4 +54,24 @@ upgrading, since that copy is the rollback path. Configuration is forward- and
 backward-compatible within a major, so a rollback does not require reverting
 config files.
 
+If `mat upgrade` fails with:
+
+```
+released payload is missing a baked VERSION stamp; refusing to install
+```
+
+your installed installer predates the single-top-level-directory release
+layout and cannot consume the tarball it just downloaded. `mat upgrade`
+cannot recover itself — it is the failing channel — so recover manually:
+download a current release tarball, then
+
+```bash
+tar xzf <tarball>
+cd my-ai-team
+./install.sh
+```
+
+This replaces the installer with a current one; every `mat upgrade` afterward
+works normally again.
+
 The [user guide](user-guide.md#upgrading) covers the upgrade flags in full.
