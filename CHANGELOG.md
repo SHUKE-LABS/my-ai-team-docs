@@ -2,12 +2,13 @@
 
 _Generated from release tags._
 
-## v3.49.8 … v3.49.6 (2026-09-10)
+## v3.49.9 … v3.49.6 (2026-09-10)
 
 ### Fixes
 - fix(bg-run): refresh a dead task_host_session by inbox match before refusing
 - fix(test): gate Windows relay autostart behind MAT_INSTALL_SKIP_WINDOWS_AUTOSTART
 - fix(relay): duo-merge-release must be idempotent across compaction
+- fix(relay): fail fast when Copilot gateway path hits a Basic-auth edge
 
 ## v3.49.5 … v3.48.0 (2026-09-09)
 

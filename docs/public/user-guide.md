@@ -375,10 +375,17 @@ feature.
 
 `mat quota` (from your shell) and the agent statusline both read usage from the
 gateway when it is active, printing per-window utilization and reset countdowns.
-A gateway behind HTTP Basic auth is supported: declare the credential in
-`user:pass` form as `MAT_ANTHROPIC_GATEWAY_BASIC_AUTH` next to the gateway URL,
-and mat carries it through both the launch and the quota fetch without ever
-placing it on a command line.
+A gateway behind HTTP Basic auth is supported for Claude backends: declare the
+credential in `user:pass` form as `MAT_ANTHROPIC_GATEWAY_BASIC_AUTH` next to the
+gateway URL, and mat carries it through both the launch and the quota fetch
+without ever placing it on a command line.
+
+A Copilot backend cannot traverse a Basic-auth-protected gateway: the Copilot
+CLI's BYOK provider has no custom-header channel to carry the edge credential,
+so a Copilot pane on the gateway path fails fast at launch when
+`MAT_ANTHROPIC_GATEWAY_BASIC_AUTH` is set instead of silently 401ing at the
+edge. Relax the gateway edge to also accept Bearer selectors, or route the
+Copilot backend outside that gateway.
 
 ## Configuration reference
 
