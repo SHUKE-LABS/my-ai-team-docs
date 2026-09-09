@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.49.1 … v3.48.0 (2026-09-09)
+## v3.49.2 … v3.48.0 (2026-09-09)
 
 ### Features
 - feat(issues): close refining duplicates with teardown
@@ -12,6 +12,7 @@ _Generated from release tags._
 - fix(ownership): release claims with their owner record and claim receipt
 - fix(ci): run recovery-validator lanes under CI Required's pinned settings
 - fix(ownership): dispatch owner-record launch through a driver-appropriate carrier
+- fix(windows): reclaim a tg-relay lock directory with no owner stamp
 
 ### Other Changes
 - test(prompt): fail CI when a rendered constitution line disappears
