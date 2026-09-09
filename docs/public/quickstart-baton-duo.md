@@ -158,6 +158,19 @@ have lost that value. Run `mat baton restart <session>` to re-arm the session.
 If the task host is still missing, run `mat baton teardown <session>` and
 launch the session again.
 
+### `bg-run` says `task_host_session` is not live on control
+
+A Baton service restart (e.g. after a Windows service update) mints new
+session ids, so a recorded `task_host_session` can go stale even though the
+process behind it is still running. `bg-run` retries once automatically: it
+looks for exactly one currently live session whose inbox matches this
+session's own task-host mailbox and, if found, updates the state file and
+proceeds — no operator action needed. If it finds zero or more than one
+match, it still fails closed, and the message names the recorded id and every
+live session it found on the control. In that case, run `mat baton restart
+<session>` to re-arm the session, or `mat baton teardown <session>` and
+launch again if the task host is still missing afterward.
+
 ## Related pages
 
 - [Linux quickstart](quickstart-linux.md) / [macOS quickstart](quickstart-macos.md)

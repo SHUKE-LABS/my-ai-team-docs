@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v3.49.6 (2026-09-10)
+
+### Fixes
+- fix(bg-run): refresh a dead task_host_session by inbox match before refusing
+
 ## v3.49.5 … v3.48.0 (2026-09-09)
 
 ### Features
