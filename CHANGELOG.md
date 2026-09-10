@@ -2,13 +2,14 @@
 
 _Generated from release tags._
 
-## v3.53.3 … v3.49.6 (2026-09-10)
+## v3.54.0 … v3.49.6 (2026-09-10)
 
 ### Features
 - feat(relay): replace receipt verification with a pair-idle nudge
 - feat(relay): skip armed-waker panes in the pair-idle nudge
 - feat(review): route non-blocking defects to follow-up
 - feat(entitlement): list server versions and install a specific tag
+- feat(console): probe and start Rewind before opening a session
 
 ### Fixes
 - fix(bg-run): refresh a dead task_host_session by inbox match before refusing

@@ -588,8 +588,10 @@ log, which is where a backend that is failing to start says why.
 
 When a role does have a transcript, its column carries a *Rewind* link that
 opens that conversation in a local Rewind transcript viewer, assumed to be at
-`http://localhost:7373`. Set `MAT_REWIND_URL` if yours listens elsewhere; the
-console does not check whether Rewind is running before offering the link.
+`http://localhost:7373`. Set `MAT_REWIND_URL` if yours listens elsewhere.
+Clicking it checks whether Rewind is already running and starts it for you if
+not, then opens the link once it answers; if Rewind never comes up, you get a
+message telling you to start it yourself instead of a dead tab.
 
 You can also intervene from the page. The composer sends a routed message to
 one of the session's participants; *Inject to inbox* is a separate control
@@ -602,9 +604,10 @@ refusals, such as a caucus session refusing wake — is shown verbatim afterward
 
 The console is deliberately local: it binds the loopback interface only and
 refuses requests that do not come from it. It never edits a session's state,
-mailbox, or transcript itself — every mutation is the existing verb, which
-keeps writing the operator event trail. Because it is unauthenticated, do not
-expose the port beyond your own machine.
+mailbox, or transcript itself — every session mutation is the existing verb,
+which keeps writing the operator event trail. The one exception is the Rewind
+link's own start-it-for-me step, which is not a session mutation at all.
+Because it is unauthenticated, do not expose the port beyond your own machine.
 
 ### `mat backlog` — delivery queue view
 
