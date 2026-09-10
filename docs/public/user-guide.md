@@ -557,8 +557,10 @@ command prints a one-line hint and exits non-zero without starting a server.
 
 The left rail lists every session `mat baton status` reports, grouped by
 project, with its status, per-role queue depth, and how long ago its last
-operator event was — `no events` for a session that has not had one yet.
-Selecting a session shows its participants, a merged relay timeline — each message once, labelled with
+operator event was — `no events` for a session that has not had one yet. A
+`[!!]` marker flags a session that is not ready to progress (a role or its
+worktree is not ready, or the session is stranded); the rail's legend spells
+out what `[!!]` and every status mean. Selecting a session shows its participants, a merged relay timeline — each message once, labelled with
 its lane (pending, claimed, done, or outbox), with operator messages
 highlighted and routine system wakes collapsed — and the controls below. When
 a message is a handoff file reference, the console inlines the file's contents
@@ -568,10 +570,17 @@ path a message names. New messages appear within a few seconds without a
 reload.
 
 Crashed and stale sessions are hidden until you turn on the dead-session
-toggle. Clicking one always answers: a session the runtime can no longer
-describe still opens, showing its name, the kind and status the session list
-knows, and a note saying its detail is unavailable — so a dead session reads as
-dead rather than as a click that did nothing.
+toggle; once shown, a dead session's row is dimmed and its own view carries a
+distinct "dead" badge instead of a live status pill. Clicking one always
+answers: a session the runtime can no longer describe still opens, showing its
+name, the kind and status the session list knows, and a note saying its detail
+is unavailable — so a dead session reads as dead rather than as a click that
+did nothing.
+
+The session header also shows why a session is degraded, when it is: whether
+its roles and worktree are ready, and the reason a probe reported trouble.
+Each role column's header carries the same per-role detail — whether its serve
+is alive and any probe error — when the session kind publishes it.
 
 Under the session header there is one column per configured role — two for a
 duo or caucus session, three for a team. Each column tails what that role is
@@ -594,7 +603,10 @@ opens that conversation in a local Rewind transcript viewer, assumed to be at
 `http://localhost:7373`. Set `MAT_REWIND_URL` if yours listens elsewhere.
 Clicking it checks whether Rewind is already running and starts it for you if
 not, then opens the link once it answers; if Rewind never comes up, you get a
-message telling you to start it yourself instead of a dead tab.
+message telling you to start it yourself instead of a dead tab. On a host with
+no Rewind installed at all, that same tab goes to the Rewind product page
+(<https://shukelabs.com/products/rewind/>) rather than asking you to start
+something that is not there.
 
 Some of this takes a moment, and the page says so rather than sitting still.
 Picking a session shows its name and *Loading session…* until its detail

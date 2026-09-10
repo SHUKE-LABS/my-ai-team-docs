@@ -2,10 +2,12 @@
 
 _Generated from release tags._
 
-## v3.55.2 … v3.54.4 (2026-09-11)
+## v3.57.0 … v3.54.4 (2026-09-11)
 
 ### Features
 - feat(console): show loading and busy states for slow operations
+- feat(console): send an uninstalled Rewind to the product page
+- feat(console): explain status pills, [!!] marker, and per-session readiness
 
 ### Fixes
 - fix(relay): refuse byte-identical duplicate send-relay deliveries
