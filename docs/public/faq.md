@@ -82,8 +82,14 @@ First install does **not** require activation; only an activated machine can run
   changes nothing.
 - **Upgrade:** `mat upgrade` installs the latest release for your stored license;
   an identical version is a no-op, while `mat upgrade --force` reinstalls it.
-- **Roll back:** unpack the earlier release tarball and run its `./install.sh`.
-  Keep the tarball of the running release before upgrading.
+- **List:** `mat upgrade --list` prints the versions the release store still
+  holds for your license, newest first, and installs nothing.
+- **Roll back:** `mat upgrade --to <version>` installs that exact version through
+  the same verified path as a normal upgrade. A downgrade is always something you
+  ask for — plain `mat upgrade` follows the latest release and never rolls you
+  back on its own. How far back you can go is bounded by the store's retention:
+  a version that is no longer held is refused and nothing is installed. Beyond
+  that, unpack the earlier release tarball and run its `./install.sh`.
 
 ## What is the privacy / phone-home posture?
 
@@ -93,7 +99,8 @@ Day-to-day runtime makes **zero network calls**:
   (`mat duo`, `mat adhoc`, …) work fully offline. License validation happens
   *only* at `mat upgrade` time.
 - **License verbs** — `mat activate`, `mat upgrade` (including
-  `mat upgrade --check`), `mat license deactivate` — talk to LemonSqueezy and
+  `mat upgrade --check`, `--list`, and `--to`), `mat license deactivate` — talk
+  to LemonSqueezy and
   the release Worker, whose endpoint ships inside the release rather than as
   buyer configuration. That is the only outbound traffic the entitlement path
   makes. Update discovery is a verb you run, never a background poll.

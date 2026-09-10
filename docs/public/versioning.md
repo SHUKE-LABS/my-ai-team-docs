@@ -37,9 +37,11 @@ contains.
 ## Upgrade and rollback
 
 ```bash
-mat upgrade            # fetch and install the latest release
-mat upgrade --check    # report only; change nothing
-mat --version          # the version currently installed
+mat upgrade                 # fetch and install the latest release
+mat upgrade --check         # report only; change nothing
+mat upgrade --list          # list the versions still available to you
+mat upgrade --to v3.49.0    # install that specific version instead of the latest
+mat --version               # the version currently installed
 ```
 
 `mat upgrade` is in-place: it replaces the installed runtime under
@@ -48,11 +50,20 @@ untouched. Running agents keep the runtime they launched with — a new version
 takes effect at the next session launch, so upgrade between cycles rather than
 mid-cycle.
 
-To roll back, unpack the earlier release tarball you were sent and run its
-`./install.sh` again; keep the tarball of the release you are running before
-upgrading, since that copy is the rollback path. Configuration is forward- and
-backward-compatible within a major, so a rollback does not require reverting
-config files.
+To roll back, run `mat upgrade --to <version>` with a version from
+`mat upgrade --list`. It installs that exact release through the same verified,
+in-place path a normal upgrade uses. Going back is always something you ask for:
+`mat upgrade` on its own follows the latest release and never rolls you back on
+its own.
+
+`mat upgrade --list` reports what the release store still holds, newest first.
+Older releases are pruned on a rolling basis, so the list is how far back you can
+go — a version that is no longer held is refused and nothing is installed. If you
+need to go back further than the list reaches, unpack the earlier release tarball
+you were sent and run its `./install.sh` again; keeping the tarball of the
+release you are running is still worth doing before you upgrade. Configuration is
+forward- and backward-compatible within a major, so a rollback does not require
+reverting config files.
 
 If `mat upgrade` fails with:
 
