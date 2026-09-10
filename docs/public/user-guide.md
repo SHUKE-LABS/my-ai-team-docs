@@ -1319,10 +1319,12 @@ This keeps the server alive without a resident session; run
 ## Upgrading
 
 ```bash
-mat upgrade [--check|--force|--when-idle|--when-idle-unbounded|--override-locked]
-mat upgrade --check   # report installed vs. offered version; change nothing
-mat upgrade           # fetch and install the latest release for your license
-mat upgrade --force   # reinstall even when already current
+mat upgrade [--list|--to <version>|--check|--force|--when-idle|--when-idle-unbounded|--override-locked]
+mat upgrade --check       # report installed vs. offered version; change nothing
+mat upgrade               # fetch and install the latest release for your license
+mat upgrade --force       # reinstall even when already current
+mat upgrade --list        # list the versions still available to your license
+mat upgrade --to <ver>    # install that exact version instead of the latest
 ```
 
 `mat upgrade` needs an activated machine (`mat activate <LICENSE_KEY>`, once per
@@ -1334,7 +1336,12 @@ Running agents keep the runtime they launched with, so upgrade between cycles. O
 systemd and OpenRC hosts also restart the Telegram relay service so the daemon
 runs the code you just deployed.
 
-To roll back, unpack an earlier release tarball and run its `./install.sh` again.
+To roll back, pick a version from `mat upgrade --list` and install it with
+`mat upgrade --to <version>`; it uses the same verified in-place path, and how
+far back the list reaches is bounded by the release store's retention. Plain
+`mat upgrade` always follows the latest release and never rolls back on its own.
+Beyond what the list holds, unpack an earlier release tarball and run its
+`./install.sh` again.
 Before migrating a license to another machine, release this host's slot with
 `mat license deactivate`.
 
