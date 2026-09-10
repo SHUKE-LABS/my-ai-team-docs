@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v3.54.4 (2026-09-11)
+
+### Fixes
+- fix(relay): refuse byte-identical duplicate send-relay deliveries
+
 ## v3.54.3 … v3.49.6 (2026-09-10)
 
 ### Features
