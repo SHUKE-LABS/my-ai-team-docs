@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.55.1 … v3.54.4 (2026-09-11)
+## v3.55.2 … v3.54.4 (2026-09-11)
 
 ### Features
 - feat(console): show loading and busy states for slow operations
@@ -10,6 +10,7 @@ _Generated from release tags._
 ### Fixes
 - fix(relay): refuse byte-identical duplicate send-relay deliveries
 - fix(console): cache and async-spawn mat baton status to stop blocking polling
+- fix(console): answer a dead session instead of failing silently
 
 ## v3.54.3 … v3.49.6 (2026-09-10)
 

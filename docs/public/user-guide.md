@@ -568,7 +568,10 @@ path a message names. New messages appear within a few seconds without a
 reload.
 
 Crashed and stale sessions are hidden until you turn on the dead-session
-toggle.
+toggle. Clicking one always answers: a session the runtime can no longer
+describe still opens, showing its name, the kind and status the session list
+knows, and a note saying its detail is unavailable — so a dead session reads as
+dead rather than as a click that did nothing.
 
 Under the session header there is one column per configured role — two for a
 duo or caucus session, three for a team. Each column tails what that role is
