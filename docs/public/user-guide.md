@@ -593,6 +593,12 @@ Clicking it checks whether Rewind is already running and starts it for you if
 not, then opens the link once it answers; if Rewind never comes up, you get a
 message telling you to start it yourself instead of a dead tab.
 
+Some of this takes a moment, and the page says so rather than sitting still.
+Picking a session shows its name and *Loading session…* until its detail
+arrives — never the session you were looking at before — and a fetch that fails
+says so in its place. A fleet refresh and a running action both show in the
+status line at the top right, next to the live-connection state.
+
 You can also intervene from the page. The composer sends a routed message to
 one of the session's participants; *Inject to inbox* is a separate control
 that bypasses topology routing and stays disabled until you acknowledge the
@@ -601,6 +607,13 @@ restart, stop, and teardown: stop asks for a confirmation dialog, and teardown
 asks you to type the session name. Every control runs the same `mat baton` verb
 you would type in a terminal, and the verb's own output — including its
 refusals, such as a caucus session refusing wake — is shown verbatim afterwards.
+
+While a verb is running the controls are disabled and say which action it is;
+one action runs at a time, and the console refuses a second one until the first
+answers — including after you switch to another session, where the busy note
+tells you which session is still working. Some verbs take minutes, so nothing
+is lost by waiting; if the request never answers at all, that is reported in the
+same place the verb's own output would have been.
 
 The console is deliberately local: it binds the loopback interface only and
 refuses requests that do not come from it. It never edits a session's state,
