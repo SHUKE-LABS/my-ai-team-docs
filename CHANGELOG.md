@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.58.1 … v3.54.4 (2026-09-11)
+## v3.58.2 … v3.54.4 (2026-09-11)
 
 ### Features
 - feat(console): show loading and busy states for slow operations
@@ -17,6 +17,7 @@ _Generated from release tags._
 - fix(ci): defer Windows gate gh prerequisite to the dispatch path
 - fix(install): keep an internal path off PATH and ship check-open-pr from an internal path
 - fix(test): align installed send-relay usage assertion with duplicate-send flag
+- fix(codex): project skills into both discovery and system roots
 
 ## v3.54.3 … v3.49.6 (2026-09-10)
 
