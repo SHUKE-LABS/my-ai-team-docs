@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.54.2 … v3.49.6 (2026-09-10)
+## v3.54.3 … v3.49.6 (2026-09-10)
 
 ### Features
 - feat(relay): replace receipt verification with a pair-idle nudge
@@ -27,6 +27,7 @@ _Generated from release tags._
 - fix(console): render 'no events' for sessions with no operator event
 - fix(baton): pre-flight the backend CLI and converge service definitions
 - fix(relay): strip every retired receipt-hook filename variant at launch
+- fix(baton): make stall escalation confirmation-aware
 
 ## v3.49.5 … v3.48.0 (2026-09-09)
 
