@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.54.0 … v3.49.6 (2026-09-10)
+## v3.54.1 … v3.49.6 (2026-09-10)
 
 ### Features
 - feat(relay): replace receipt verification with a pair-idle nudge
@@ -25,6 +25,7 @@ _Generated from release tags._
 - fix(docs): recover from unrelated-histories merge on projection refresh
 - fix(supervisor): keep the caucus owner-identity sidecar on winpid modes
 - fix(console): render 'no events' for sessions with no operator event
+- fix(baton): pre-flight the backend CLI and converge service definitions
 
 ## v3.49.5 … v3.48.0 (2026-09-09)
 
