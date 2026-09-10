@@ -556,8 +556,9 @@ It needs Node.js 20 or newer on your `PATH`. If Node is missing or too old the
 command prints a one-line hint and exits non-zero without starting a server.
 
 The left rail lists every session `mat baton status` reports, grouped by
-project, with its status and per-role queue depth. Selecting a session shows
-its participants, a merged relay timeline — each message once, labelled with
+project, with its status, per-role queue depth, and how long ago its last
+operator event was — `no events` for a session that has not had one yet.
+Selecting a session shows its participants, a merged relay timeline — each message once, labelled with
 its lane (pending, claimed, done, or outbox), with operator messages
 highlighted and routine system wakes collapsed — and the controls below. When
 a message is a handoff file reference, the console inlines the file's contents

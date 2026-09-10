@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.53.2 … v3.49.6 (2026-09-10)
+## v3.53.3 … v3.49.6 (2026-09-10)
 
 ### Features
 - feat(relay): replace receipt verification with a pair-idle nudge
@@ -23,6 +23,7 @@ _Generated from release tags._
 - fix(skill): tighten ticket-self-critique AC and scope gates
 - fix(docs): recover from unrelated-histories merge on projection refresh
 - fix(supervisor): keep the caucus owner-identity sidecar on winpid modes
+- fix(console): render 'no events' for sessions with no operator event
 
 ## v3.49.5 … v3.48.0 (2026-09-09)
 
