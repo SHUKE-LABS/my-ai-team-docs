@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.49.13 … v3.49.6 (2026-09-10)
+## v3.49.14 … v3.49.6 (2026-09-10)
 
 ### Fixes
 - fix(bg-run): refresh a dead task_host_session by inbox match before refusing
@@ -13,6 +13,7 @@ _Generated from release tags._
 - fix(codex): prune stale managed Stop-hook entries by script basename
 - fix(test): build both release tarballs from one repo-root snapshot
 - fix(agents): reclaim duo-dev render margin under the 15,000-byte ceiling
+- fix(prompts): restore the reviewer preserve-purpose guardrail
 
 ## v3.49.5 … v3.48.0 (2026-09-09)
 
