@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.58.3 … v3.54.4 (2026-09-11)
+## v3.58.4 … v3.54.4 (2026-09-11)
 
 ### Features
 - feat(console): show loading and busy states for slow operations
@@ -19,6 +19,7 @@ _Generated from release tags._
 - fix(test): align installed send-relay usage assertion with duplicate-send flag
 - fix(codex): project skills into both discovery and system roots
 - fix(ownership): refresh a stale task_host_session before failing the owner record
+- fix(baton): recover a dropped bg-run terminal callback via the index/record locator
 
 ## v3.54.3 … v3.49.6 (2026-09-10)
 
