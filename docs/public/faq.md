@@ -81,7 +81,8 @@ First install does **not** require activation; only an activated machine can run
 - **Check:** `mat upgrade --check` prints installed and offered versions and
   changes nothing.
 - **Upgrade:** `mat upgrade` installs the latest release for your stored license;
-  an identical version is a no-op, while `mat upgrade --force` reinstalls it.
+  an identical version is a no-op (so is the same tag plus a commit suffix, such as
+  `v3.63.0-1-gabc1234`), while `mat upgrade --force` reinstalls it.
 - **List:** `mat upgrade --list` prints the versions the release store still
   holds for your license, newest first, and installs nothing.
 - **Roll back:** `mat upgrade --to <version>` installs that exact version through

@@ -27,7 +27,9 @@ Breaking changes bump like any other feature; they do not force a major version.
 `mat` treats the version as a numeric release identifier:
 
 - `mat upgrade` compares the version string it is offered against the one you
-  have installed; it does not parse semver precedence.
+  have installed; it does not parse semver precedence. The offered tag, or that
+  tag plus a commit suffix (`v3.63.0-1-gabc1234`), already covers the release
+  and is left in place.
 - Version ordering is numeric across the three components, regardless of what
   they signify.
 
@@ -54,7 +56,9 @@ To roll back, run `mat upgrade --to <version>` with a version from
 `mat upgrade --list`. It installs that exact release through the same verified,
 in-place path a normal upgrade uses. Going back is always something you ask for:
 `mat upgrade` on its own follows the latest release and never rolls you back on
-its own.
+its own. If `mat --version` is the offered tag plus a commit suffix, replacing
+it with the tag would be a rollback. `--force` installs the release tarball
+anyway; `--to <tag>` installs that exact tag.
 
 `mat upgrade --list` reports what the release store still holds, newest first.
 Older releases are pruned on a rolling basis, so the list is how far back you can

@@ -227,7 +227,7 @@ actually install it:
 mat upgrade
 ```
 
-`mat upgrade` reuses your stored key, installs only when a different version is
-offered (`--force` reinstalls the current one), and restarts the relay so the
-daemon picks up the new code. The license-gating Worker it contacts ships its
+`mat upgrade` reuses your stored key, installs only when the offered release is
+not already installed (`--force` reinstalls the current one), and restarts the
+relay so the daemon picks up the new code. The license-gating Worker it contacts ships its
 endpoint inside the release, so there is nothing for you to configure.

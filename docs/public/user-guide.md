@@ -1406,6 +1406,9 @@ To roll back, pick a version from `mat upgrade --list` and install it with
 `mat upgrade --to <version>`; it uses the same verified in-place path, and how
 far back the list reaches is bounded by the release store's retention. Plain
 `mat upgrade` always follows the latest release and never rolls back on its own.
+If the installed version is the offered tag, or that tag plus a commit
+suffix (`v3.63.0-1-gabc1234`), it already covers the release; `--force` replaces it
+with the tarball.
 Beyond what the list holds, unpack an earlier release tarball and run its
 `./install.sh` again.
 Before migrating a license to another machine, release this host's slot with
