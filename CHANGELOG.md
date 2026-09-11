@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v3.63.2 (2026-09-11)
+
+### Fixes
+- fix(ci): install the CI Full watchdog timer and restore its front door
+
 ## v3.63.1 … v3.59.0 (2026-09-12)
 
 ### Features
