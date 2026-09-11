@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.63.0 … v3.59.0 (2026-09-12)
+## v3.63.1 … v3.59.0 (2026-09-12)
 
 ### Features
 - feat(baton): add graceful pause and resume control with console actions
@@ -10,6 +10,9 @@ _Generated from release tags._
 - feat(console): add per-role inline composer and keyboard send
 - feat(console): show role stderr with turns by default
 - feat(console): label timeline rows with role and user names
+
+### Fixes
+- fix: skip upgrade when already on a source build of the offered tag
 
 ## v3.58.9 … v3.54.4 (2026-09-11)
 

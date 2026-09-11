@@ -311,12 +311,12 @@ actually install it:
 mat upgrade
 ```
 
-`mat upgrade` reuses your stored key and installs only when a different version
-is offered (`--force` reinstalls the current one); the license-gating Worker it
-contacts ships its endpoint inside the release, so there is nothing for you to
-configure. The install re-renders the LaunchAgent and restarts the relay onto
-the new code for you (a long-running bash daemon does not hot-reload), so no
-manual restart is needed. If you ever need to force one:
+`mat upgrade` reuses your stored key and installs only when the offered release
+is not already installed (`--force` reinstalls the current one); the
+license-gating Worker it contacts ships its endpoint inside the release, so there
+is nothing for you to configure. The install re-renders the LaunchAgent and
+restarts the relay onto the new code for you (a long-running bash daemon does
+not hot-reload), so no manual restart is needed. If you ever need to force one:
 
 ```bash
 launchctl kickstart -k gui/$(id -u)/com.my-ai-team.tg-relay
