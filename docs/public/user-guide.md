@@ -623,21 +623,31 @@ arrives — never the session you were looking at before — and a fetch that fa
 says so in its place. A fleet refresh and a running action both show in the
 status line at the top right, next to the live-connection state.
 
-You can also intervene from the page. The composer sends a routed message to
-one of the session's participants; *Inject to inbox* is a separate control
-that bypasses topology routing and stays disabled until you acknowledge the
-same unscoped-injection warning the CLI prints. The action bar offers wake,
-restart, stop, and teardown: stop asks for a confirmation dialog, and teardown
-asks you to type the session name. Every control runs the same `mat baton` verb
-you would type in a terminal, and the verb's own output — including its
-refusals, such as a caucus session refusing wake — is shown verbatim afterwards.
+You can also intervene from the page. Each role column has its own message box
+at the bottom, so you type under the role you are talking to and there is no
+dropdown to aim wrong. **Enter** sends that column's message; **Shift+Enter**
+and **Ctrl+J** insert a newline instead, and Enter while an input method is
+composing commits the candidate rather than sending. What you have typed
+survives the page's periodic refresh, including your cursor position, and it is
+cleared only once the send actually succeeds — a refused or failed send leaves
+the text there to retry. *Inject to inbox* is a separate control below the
+columns that bypasses topology routing; it keeps its own role selector, and
+stays disabled until you acknowledge the same unscoped-injection warning the
+CLI prints. The action bar offers wake, pause or resume, stop, restart, and
+teardown: stop asks for a confirmation dialog, and teardown asks you to type the
+session name. Every control runs the same `mat baton` verb you would type in a
+terminal, and the verb's own output — including its refusals, such as a caucus
+session refusing wake — is shown verbatim afterwards, labelled with the role it
+was routed to.
 
-While a verb is running the controls are disabled and say which action it is;
-one action runs at a time, and the console refuses a second one until the first
-answers — including after you switch to another session, where the busy note
-tells you which session is still working. Some verbs take minutes, so nothing
-is lost by waiting; if the request never answers at all, that is reported in the
-same place the verb's own output would have been.
+While a verb is running the controls are disabled and say which action it is —
+the column that is sending reads *sending…*, and the others say what is holding
+them. One action runs at a time, and the console refuses a second one until the
+first answers, so a repeated Enter or a double click cannot send twice —
+including after you switch to another session, where the busy note tells you
+which session is still working. Some verbs take minutes, so nothing is lost by
+waiting; if the request never answers at all, that is reported in the same place
+the verb's own output would have been.
 
 The console is deliberately local: it binds the loopback interface only and
 refuses requests that do not come from it. It never edits a session's state,
