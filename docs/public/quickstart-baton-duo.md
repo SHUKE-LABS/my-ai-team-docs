@@ -98,7 +98,7 @@ comment is a failed cycle signal; PR comments are not the durable destination.
 ## 5. Watch it run
 
 ```bash
-mat agents                 # live sessions, kind + status (standby/busy/stranded/live)
+mat agents                 # live sessions, kind + status (standby/busy/stranded/pausing/paused/resuming/live)
 mat baton status           # detailed read-only per-role health; add --json for automation
 mat baton watch            # repaint the same health view every 2 seconds (TTY only)
 mat baton show <session>   # backends, mailbox, worktree, serve sessions + pids
@@ -122,6 +122,21 @@ The operator surface is `mat baton <verb> <session>` (interactive umbrella:
 - **Reply from Telegram** — reply directly to a Baton-origin message such as
   `[baton:<session>:dev] ...`; the relay routes the reply to that role. A
   literal TUI command such as `/clear` is refused because Baton has no pane.
+- **Pause without losing work** — `mat baton pause <session>` stops the session
+  taking new work. The turn already running finishes; nothing further starts,
+  and every queued message stays queued. `mat baton resume <session>` puts it
+  back to work and the held messages are delivered in the order they arrived.
+  Pausing is the graceful alternative to `stop`, which kills a running turn.
+  - The status word tracks the change: `pausing` while the last turn finishes,
+    `paused` once it has, `resuming` briefly after the resume, then back to
+    `standby` or `busy`.
+  - `pause` is safe to repeat. `resume` only applies to a session that is
+    actually `paused`; from anything else it refuses and changes nothing.
+  - A paused session is still a running service. `stop` and `restart` behave as
+    they always do — they end whatever turn is in flight — so pause when you
+    want the work kept, and stop when you want the services down.
+  - Caucus sessions do not support either verb — a caucus is one finite
+    deliberation, not a continuously armed session.
 - **Rescue a role** — `mat baton restart <session>` re-arms both serves from
   the saved session state.
 - **Stop or reap** — `mat baton stop <session>` (halts serves, keeps state)
