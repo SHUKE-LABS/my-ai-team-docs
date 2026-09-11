@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.58.5 … v3.54.4 (2026-09-11)
+## v3.58.6 … v3.54.4 (2026-09-11)
 
 ### Features
 - feat(console): show loading and busy states for slow operations
@@ -21,6 +21,7 @@ _Generated from release tags._
 - fix(ownership): refresh a stale task_host_session before failing the owner record
 - fix(baton): recover a dropped bg-run terminal callback via the index/record locator
 - fix(console): scope the Rewind deep link to a project and source
+- fix(relay): trim send-relay skill back under the 50-line budget
 
 ## v3.54.3 … v3.49.6 (2026-09-10)
 
