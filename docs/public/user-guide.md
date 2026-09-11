@@ -594,9 +594,15 @@ seconds of the role writing a new turn.
 
 Not every backend records a transcript. A role that has none — a caucus role,
 or a role that has not started one yet — says so and shows its latest sent
-message plus the tail of its serve log instead of an empty panel. Every column
-also has a *show stderr* toggle that swaps the turns for that role's own serve
-log, which is where a backend that is failing to start says why.
+message instead of an empty panel.
+
+Under whichever of those a column shows, every column carries a *serve stderr*
+section: the tail of that role's own serve log, which is where a backend that
+is failing to start says why. Nothing has to be clicked to see it, and it
+refreshes along with the turns above it, so a failing serve can be read against
+the turns it did or did not produce. It scrolls in its own bounded area, and it
+always says which case it is in: still loading, empty, unavailable with the
+reason, or a long log shown as its tail only.
 
 When a role does have a transcript, its column carries a *Rewind* link that
 opens that conversation in a local Rewind transcript viewer, assumed to be at
