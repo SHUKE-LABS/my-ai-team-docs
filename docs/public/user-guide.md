@@ -569,6 +569,15 @@ it will only read handoff files from the scratch directory, never an arbitrary
 path a message names. New messages appear within a few seconds without a
 reload.
 
+Timeline messages are labelled with names rather than transport identities.
+Each role message is named for the role that sent or received it (`dev`,
+`reviewer`, `proposer`, and so on), including older sessions whose messages
+carry the generic `agent-a`/`agent-b` labels — the console works the role out
+from the mailbox the message is in, and says `unknown role (agent-a)` rather
+than guessing when it cannot. Your own messages are labelled with your
+configured name (`mat.username`); with no name configured they read as `the
+operator`.
+
 Crashed and stale sessions are hidden until you turn on the dead-session
 toggle; once shown, a dead session's row is dimmed and its own view carries a
 distinct "dead" badge instead of a live status pill. Clicking one always
