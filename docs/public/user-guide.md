@@ -1015,9 +1015,20 @@ When you are away and a directive arrives over Telegram, a routable mode (`team`
 reply comes back as a message, per follow-up, not into a pane you cannot see —
 until you type into the pane directly or say you are back at the console.
 
-If you reply to a message the relay can't place — a control message, or one that
-has scrolled out of the index — it says so and asks you to re-send with an
-explicit `#<session>` or `#<pane-number>` prefix rather than guessing.
+Some messages come from a **background task** rather than a pane — a long merge
+or test run an agent submitted to run on its own. Those carry an explicit origin
+instead of a pane number, e.g.
+`[tmux:myproj_duo_ccw_cch:reviewer] merge completed (reviewer - cch - myproj - xps)`.
+The identity is the submitting agent's own, and the project is the checkout the
+task ran in — never whichever pane happened to be focused at the time. A
+background task has no pane to answer on, so these messages are one-way:
+replying to one is refused, and you re-target with `#<session>` or
+`#<pane-number>` to reach the agent itself.
+
+If you reply to a message the relay can't place — a control message, a
+background task's message, or one that has scrolled out of the index — it says
+so and asks you to re-send with an explicit `#<session>` or `#<pane-number>`
+prefix rather than guessing.
 
 ### notify-user flags
 
