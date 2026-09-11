@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.58.8 … v3.54.4 (2026-09-11)
+## v3.58.9 … v3.54.4 (2026-09-11)
 
 ### Features
 - feat(console): show loading and busy states for slow operations
@@ -23,6 +23,7 @@ _Generated from release tags._
 - fix(console): scope the Rewind deep link to a project and source
 - fix(relay): trim send-relay skill back under the 50-line budget
 - fix(baton): give the task_host_session a no-op --agent-cmd
+- fix(baton): serialize headless turns per role before delivering the next message
 
 ### Other Changes
 - test(bg-run): sandbox every bg-run submission away from the host /tmp
