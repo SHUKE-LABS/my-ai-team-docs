@@ -608,6 +608,15 @@ no Rewind installed at all, that same tab goes to the Rewind product page
 (<https://shukelabs.com/products/rewind/>) rather than asking you to start
 something that is not there.
 
+The columns fit the window rather than scrolling sideways: they share the width
+evenly, wrap onto another row when the window is too narrow for all of them,
+and wrap long lines inside their own panel, so nothing is hidden off the right
+edge. The relay timeline sits below them in its own bordered, independently
+scrolling panel — scrolling it moves the timeline, not the page, and its
+position survives the periodic refresh, so reading back through a long
+conversation is not interrupted. A timeline you have scrolled to the bottom
+stays at the bottom as new messages arrive.
+
 Some of this takes a moment, and the page says so rather than sitting still.
 Picking a session shows its name and *Loading session…* until its detail
 arrives — never the session you were looking at before — and a fetch that fails

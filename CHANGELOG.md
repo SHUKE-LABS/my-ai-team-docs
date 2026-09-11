@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v3.59.0 (2026-09-12)
+## v3.60.0 … v3.59.0 (2026-09-12)
 
 ### Features
 - feat(baton): add graceful pause and resume control with console actions
+- feat(console): fit role columns to the view and box the relay timeline
 
 ## v3.58.9 … v3.54.4 (2026-09-11)
 
