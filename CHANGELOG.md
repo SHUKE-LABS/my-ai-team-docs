@@ -2,13 +2,16 @@
 
 _Generated from release tags._
 
-## v3.63.5 … v3.63.2 (2026-09-11)
+## v3.63.6 … v3.63.2 (2026-09-11)
 
 ### Fixes
 - fix(ci): install the CI Full watchdog timer and restore its front door
 - fix(baton): heal an endpoint whose registered baton binary is gone
 - fix(notify-user): render a pane-less origin for bg-run helper tasks
 - fix(baton): make the printed Windows endpoint restart actually runnable
+
+### Other Changes
+- ci: add a console-only fast merge lane
 
 ## v3.63.1 … v3.59.0 (2026-09-12)
 
