@@ -186,6 +186,17 @@ live session it found on the control. In that case, run `mat baton restart
 <session>` to re-arm the session, or `mat baton teardown <session>` and
 launch again if the task host is still missing afterward.
 
+### The launch says the baton service was started from a baton binary that is no longer there
+
+A baton install that moved — upgrading from a native binary to the npm package,
+say — leaves the previous daemon running. It was started from the old path, so it
+can no longer start a serve, and every new session fails inside it. mat finds
+this from the endpoint's own definition: with no live session to lose it stops
+that daemon and re-registers the endpoint against the baton this client
+resolved; with a live session still running it updates the definition in place,
+leaves the session alone, and stops the launch with the endpoint's restart
+command. Running that command once the live sessions have ended clears the state.
+
 ## Related pages
 
 - [Linux quickstart](quickstart-linux.md) / [macOS quickstart](quickstart-macos.md)

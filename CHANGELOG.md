@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v3.63.2 (2026-09-11)
+## v3.63.3 … v3.63.2 (2026-09-11)
 
 ### Fixes
 - fix(ci): install the CI Full watchdog timer and restore its front door
+- fix(baton): heal an endpoint whose registered baton binary is gone
 
 ## v3.63.1 … v3.59.0 (2026-09-12)
 
