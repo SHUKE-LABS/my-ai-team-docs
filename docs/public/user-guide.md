@@ -1030,6 +1030,28 @@ background task's message, or one that has scrolled out of the index — it says
 so and asks you to re-send with an explicit `#<session>` or `#<pane-number>`
 prefix rather than guessing.
 
+#### Replying to a session with no pane
+
+A session started with `mat.driver = local` has no tmux pane, so its messages
+carry an explicit origin instead of a pane number, e.g.
+`[local:myproj_cch_adhoc:adhoc] needs review (adhoc - cch - myproj - xps)`.
+Whether you can reply depends on whether that mode has anywhere to receive an
+answer:
+
+- **`adhoc` and `audit`** accept replies. Your reply becomes the input to that
+  session's next agent turn, on that exact session and role — never on whichever
+  pane happened to be active. Plain unprefixed follow-ups then stay with that
+  worker, the way they do after a reply to a pane.
+- **`explore` and `live`** are display-only. Those modes run the agent directly
+  in the terminal you launched them from, with no queue to hand an answer to, so
+  a reply is refused rather than delivered somewhere else. Answer in the terminal
+  instead.
+
+If the worker has exited — or cannot be confirmed to be still running — the reply
+is refused by session and role rather than routed elsewhere, and you re-target
+with `#<session>` or reply to a live agent message. Nothing is delivered on a
+guess.
+
 ### notify-user flags
 
 Agents notify you with `notify-user`:
