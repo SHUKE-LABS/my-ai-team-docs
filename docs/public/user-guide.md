@@ -1042,10 +1042,16 @@ answer:
   session's next agent turn, on that exact session and role — never on whichever
   pane happened to be active. Plain unprefixed follow-ups then stay with that
   worker, the way they do after a reply to a pane.
-- **`explore` and `live`** are display-only. Those modes run the agent directly
-  in the terminal you launched them from, with no queue to hand an answer to, so
-  a reply is refused rather than delivered somewhere else. Answer in the terminal
-  instead.
+- **`mat explore --auto-refine`** accepts replies too. The resident refinement
+  worker asks for a decision and keeps working, so your answer is handed to its
+  next agent turn: the next turn on the same ticket while that ticket is still
+  open, otherwise the first turn on the ticket it picks up next. Your reply is
+  delivered once — and if the worker is restarted before it reads the reply, the
+  reply is re-delivered rather than lost.
+- **Interactive `explore` and `live`** are display-only. Those modes run the
+  agent directly in the terminal you launched them from, with no queue to hand
+  an answer to, so a reply is refused rather than delivered somewhere else.
+  Answer in the terminal instead.
 
 If the worker has exited — or cannot be confirmed to be still running — the reply
 is refused by session and role rather than routed elsewhere, and you re-target
