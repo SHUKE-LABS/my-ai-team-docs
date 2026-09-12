@@ -2,13 +2,14 @@
 
 _Generated from release tags._
 
-## v3.67.1 … v3.63.8 (2026-09-12)
+## v3.68.0 … v3.63.8 (2026-09-12)
 
 ### Features
 - feat(release): announce every new release tag on X
 - feat(relay): consume Telegram replies in the resident auto-refine worker
 - feat(relay): add recoverable send-relay-and-comment handoff
 - feat(console): name each role's issue and drop a previous task's turns
+- feat(ci): surface suite trend and escalation in lane tracker updates
 
 ### Fixes
 - fix(console): run the exported mat launcher through Git Bash on Windows
