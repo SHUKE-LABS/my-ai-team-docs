@@ -599,11 +599,20 @@ shown as a single line such as `Editing src/app.js`, `Reading README.md`,
 recognise is named outright (`Calling <tool>`), and a call it cannot describe
 at all says `Unknown tool call running`. Tool inputs and outputs are never
 shown — the one-line form is all a column carries. Columns update within a few
-seconds of the role writing a new turn.
+seconds of the role writing a new turn. Each column's header also names the issue
+that role is working on (`issue #<number>`), or says `no task claimed` while the
+role is on a turn that has not claimed one.
 
 Not every backend records a transcript. A role that has none — a caucus role,
 or a role that has not started one yet — says so and shows its latest sent
 message instead of an empty panel.
+
+A role's conversation belongs to one issue at a time, and the console holds each
+column to that: when a role moves on to a new task, the previous task's turns
+are cleared from its column and the column says which conversation it is waiting
+for. That is what makes a column readable at a task boundary — an empty one
+means the new task's turn has not recorded anything yet, not that the old
+conversation is still running.
 
 Under whichever of those a column shows, every column carries a *serve stderr*
 section: the tail of that role's own serve log, which is where a backend that
