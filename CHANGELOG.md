@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.67.0 … v3.63.8 (2026-09-12)
+## v3.67.1 … v3.63.8 (2026-09-12)
 
 ### Features
 - feat(release): announce every new release tag on X
@@ -14,6 +14,7 @@ _Generated from release tags._
 - fix(console): run the exported mat launcher through Git Bash on Windows
 - fix(relay): route Telegram replies to local adhoc/audit workers
 - fix(test): dearmor the NodeSource key so the docker test lane builds
+- fix(baton): bootstrap the Windows host launcher's own PATH
 
 ## v3.63.7 … v3.63.2 (2026-09-11)
 
