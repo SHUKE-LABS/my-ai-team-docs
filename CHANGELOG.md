@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v3.63.8 (2026-09-12)
+## v3.63.9 … v3.63.8 (2026-09-12)
 
 ### Fixes
 - fix(console): run the exported mat launcher through Git Bash on Windows
+- fix(relay): route Telegram replies to local adhoc/audit workers
 
 ## v3.63.7 … v3.63.2 (2026-09-11)
 
