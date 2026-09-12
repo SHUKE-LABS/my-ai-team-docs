@@ -2,7 +2,10 @@
 
 _Generated from release tags._
 
-## v3.63.10 … v3.63.8 (2026-09-12)
+## v3.64.0 … v3.63.8 (2026-09-12)
+
+### Features
+- feat(release): announce every new release tag on X
 
 ### Fixes
 - fix(console): run the exported mat launcher through Git Bash on Windows
