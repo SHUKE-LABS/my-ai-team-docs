@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.68.1 … v3.63.8 (2026-09-12)
+## v3.68.2 … v3.63.8 (2026-09-12)
 
 ### Features
 - feat(release): announce every new release tag on X
@@ -16,6 +16,9 @@ _Generated from release tags._
 - fix(relay): route Telegram replies to local adhoc/audit workers
 - fix(test): dearmor the NodeSource key so the docker test lane builds
 - fix(baton): bootstrap the Windows host launcher's own PATH
+
+### Docs
+- docs(ci): enforce private runner policy
 
 ### Other Changes
 - ci: run Windows gate on private Linux runners
