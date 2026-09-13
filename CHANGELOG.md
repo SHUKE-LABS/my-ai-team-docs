@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.69.4 … v3.68.4 (2026-09-13)
+## v3.69.5 … v3.68.4 (2026-09-13)
 
 ### Features
 - feat(agents): make test economy a constitution rule
@@ -16,6 +16,7 @@ _Generated from release tags._
 - fix(bg-run): gate superseded wakes by frozen generation identity
 - fix(test): pin duplicate-guard fixtures to the layer-1 payload glob
 - fix(headless): never silently replace a task's conversation
+- fix(prompt): restore the bolded "**not** auto-merge" sentence in review.md
 
 ### Docs
 - docs(ci): document the dispatched-workflow-definition evidence standard
