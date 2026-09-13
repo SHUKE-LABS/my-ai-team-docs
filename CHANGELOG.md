@@ -2,13 +2,17 @@
 
 _Generated from release tags._
 
-## v3.68.7 … v3.68.4 (2026-09-13)
+## v3.69.0 … v3.68.4 (2026-09-13)
+
+### Features
+- feat(agents): make test economy a constitution rule
 
 ### Fixes
 - fix: shorten release announce ad copy
 - fix: keep the closed-cycle fence alive through clock failures
 - fix(baton): one bounded re-read in marker liveness
 - fix(test): delimit _hcx_argv_n at the requested block's argv-end
+- fix(owner-record): tmux carrier dedupes per-key helper, no foreign-session kill
 
 ## v3.68.3 … v3.63.8 (2026-09-12)
 
