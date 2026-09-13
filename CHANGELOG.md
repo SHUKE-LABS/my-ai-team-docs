@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.69.2 … v3.68.4 (2026-09-13)
+## v3.69.3 … v3.68.4 (2026-09-13)
 
 ### Features
 - feat(agents): make test economy a constitution rule
@@ -15,6 +15,9 @@ _Generated from release tags._
 - fix(owner-record): tmux carrier dedupes per-key helper, no foreign-session kill
 - fix(bg-run): gate superseded wakes by frozen generation identity
 - fix(test): pin duplicate-guard fixtures to the layer-1 payload glob
+
+### Docs
+- docs(ci): document the dispatched-workflow-definition evidence standard
 
 ## v3.68.3 … v3.63.8 (2026-09-12)
 
