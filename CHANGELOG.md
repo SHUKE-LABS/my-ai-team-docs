@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v3.68.4 (2026-09-13)
+
+### Fixes
+- fix: shorten release announce ad copy
+
 ## v3.68.3 … v3.63.8 (2026-09-12)
 
 ### Features
