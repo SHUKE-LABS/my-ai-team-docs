@@ -411,6 +411,12 @@ appends `/v1/messages` itself).
 With the gateway unset, every backend behaves exactly as it does without this
 feature.
 
+A `claude setup-token` credential cannot read usage directly: its OAuth token
+carries inference scope only, and Anthropic's usage API requires `user:profile`.
+`mat quota` reports this as `error: token lacks user:profile scope` and points
+at `MAT_ANTHROPIC_GATEWAY` — configuring the gateway is the fix, since the
+gateway's own quota endpoint doesn't need that scope.
+
 `mat quota` (from your shell) and the agent statusline both read usage from the
 gateway when it is active, printing per-window utilization and reset countdowns.
 A gateway behind HTTP Basic auth is supported for Claude backends: declare the

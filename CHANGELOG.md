@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.70.0 … v3.68.4 (2026-09-13)
+## v3.70.1 … v3.68.4 (2026-09-13)
 
 ### Features
 - feat(agents): make test economy a constitution rule
@@ -18,6 +18,7 @@ _Generated from release tags._
 - fix(test): pin duplicate-guard fixtures to the layer-1 payload glob
 - fix(headless): never silently replace a task's conversation
 - fix(prompt): restore the bolded "**not** auto-merge" sentence in review.md
+- fix(quota): classify the 403 oauth_scope_insufficient response from setup-token backends
 
 ### Docs
 - docs(ci): document the dispatched-workflow-definition evidence standard
