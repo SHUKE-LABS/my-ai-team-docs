@@ -2,7 +2,10 @@
 
 _Generated from release tags._
 
-## v3.68.8 … v3.68.4 (2026-09-13)
+## v3.69.0 … v3.68.4 (2026-09-13)
+
+### Features
+- feat(agents): make test economy a constitution rule
 
 ### Fixes
 - fix: shorten release announce ad copy
