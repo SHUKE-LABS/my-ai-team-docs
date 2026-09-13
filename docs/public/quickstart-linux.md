@@ -34,7 +34,7 @@ You also need:
   GitHub's own apt repository, not the default archive; follow
   [cli.github.com](https://cli.github.com) to add the repo, then
   `sudo apt install gh`.
-- **A backend CLI** — one of `claude` (Claude Code), `codex`, `copilot`, `pi`, `opencode`, or `freebuff`.
+- **A backend CLI** — one of `claude` (Claude Code), `codex`, `copilot`, `pi`, `opencode`, `freebuff`, or `cmd` (Command Code).
   This quickstart assumes the default `claude` backend; see
   [First session](#5-first-session--verify-the-telegram-round-trip) for auth.
 

@@ -111,7 +111,7 @@ backend object:
 | `config_dir` | Required. Home/config directory stem under `$HOME/.<config_dir>`. Kept independent from `nickname` on purpose. |
 | `auth_var` | Optional. Name of the environment variable holding the auth token or API key. Omit it (or set `null`) when the backend uses its own login flow. A `claude` backend is token-auth only. |
 | `prompt_file` | Required. Prompt filename written into that backend's home (`CLAUDE.md` for Claude, `AGENTS.md` for Codex, and so on). |
-| `kind` | Required. Backend family: `claude`, `codex`, `copilot`, `pi`, `opencode`, `freebuff`, or `grok`. The family decides which modes a backend can run — see [the notes below](#opencode-workers) and each family's subsection. |
+| `kind` | Required. Backend family: `claude`, `codex`, `copilot`, `pi`, `opencode`, `freebuff`, `grok`, or `commandcode`. The family decides which modes a backend can run — see [the notes below](#opencode-workers) and each family's subsection. |
 | `base_url_var` | Optional. Name of the environment variable whose value becomes the backend's API endpoint. Omit it for the default endpoint or a native login flow. |
 | `base_url` | Optional literal endpoint for an explicit Codex or pi provider, or a Grok BYOK backend. Use `base_url` or `base_url_var`, not both. |
 | `tier` | Optional. `strong` or `weak`. A `weak` backend is refused for `explore` and `audit` (those roles produce the tickets everyone else works from) but stays usable as a Developer under a strong reviewer. Defaults to `strong`. |
@@ -289,6 +289,44 @@ freebuff's model catalog is re-tuned faster than a mat release, and a model can
 be metered or closed for part of the day, so pin capability to the `tier` field
 in `backends.json` rather than to a model name. Declare `weak` where the catalog
 is limited — `explore` and `audit` gate on it.
+
+### Command Code workers
+
+Command Code workers run the `cmd` CLI headless-first: the duo, team, and
+caucus delivery relays serve it, and `mat doctor` checks it like any other
+backend. Register one with:
+
+```json
+{
+  "nickname": "commandcode",
+  "config_dir": "commandcode",
+  "auth_var": null,
+  "prompt_file": ".commandcode/AGENTS.md",
+  "kind": "commandcode",
+  "tier": "strong"
+}
+```
+
+The equivalent compact registry entry is
+`commandcode:commandcode:-:.commandcode/AGENTS.md:commandcode`.
+
+There is no `auth_var`: authenticate once with an interactive `cmd login` in
+your own home. Every role home links that `auth.json`, so one login serves all
+roles. A worker's constitution renders at `<role home>/.commandcode/AGENTS.md`,
+its skills project to `<role home>/.commandcode/skills`, and its session
+transcripts stay under the role home — so a worker never reads or writes your
+interactive Command Code history.
+
+Two limits to know before you register one:
+
+- **No write guard.** Like OpenCode and freebuff, Command Code runs restricted
+  modes full-auto after a warning: mat has no hook surface to install a policy
+  into. Keep worktree isolation on (the default) so a stray write lands in a
+  throwaway checkout.
+- **Interactive panes are not wired.** mat drives Command Code headless. The
+  tmux and local pane drivers, including their relay send paths, are not
+  adapted to the `cmd` TUI in this release — use Command Code for the headless
+  delivery modes, and pick a pane-backed backend for interactive drivers.
 
 ### grok workers
 

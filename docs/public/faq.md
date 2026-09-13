@@ -22,7 +22,7 @@ Bare Claude Code is a single interactive coding CLI. `my-ai-team` adds:
 - **Role separation** — investigation, implementation, and review use separate
   modes and backend slots.
 
-It runs *on top of* a backend CLI (`claude`, `codex`, `copilot`, `pi`, `opencode`, or `freebuff`) — it does
+It runs *on top of* a backend CLI (`claude`, `codex`, `copilot`, `pi`, `opencode`, `freebuff`, or `cmd` (Command Code)) — it does
 not replace one.
 
 ## Which platforms are supported?
@@ -45,7 +45,7 @@ no manual restart required after reboot.
 ## Which backends and models does it use? Do I bring my own tokens?
 
 You bring your own account and token/login. Supported CLIs are `claude`,
-`codex`, `copilot`, `pi`, `opencode`, and `freebuff`; configure each backend in
+`codex`, `copilot`, `pi`, `opencode`, `freebuff`, and `cmd` (Command Code); configure each backend in
 `backends.json`. `default_model` and `default_effort` pass through to the
 native CLI where supported; an omitted or empty effort defaults to `high` except
 for `pi`.
