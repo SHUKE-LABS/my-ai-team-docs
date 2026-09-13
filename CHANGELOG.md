@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v3.68.4 (2026-09-13)
+## v3.68.5 … v3.68.4 (2026-09-13)
 
 ### Fixes
 - fix: shorten release announce ad copy
+- fix: keep the closed-cycle fence alive through clock failures
 
 ## v3.68.3 … v3.63.8 (2026-09-12)
 
