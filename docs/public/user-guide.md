@@ -1225,6 +1225,31 @@ submission of the same command returns the existing task rather than launching a
 duplicate. A milestone or completion wake is evidence of an existing task — do
 not resubmit the same command on a wake. Use `--retry` for a deliberate rerun.
 
+**Retries, attempt identity, and stale wakes.** `--retry` replaces the running
+task behind the same admission slot. Every admission record carries three
+identity fields — a `lineage` (derived from the caller and command, so a changed
+command or a different caller is always an independent lineage whose wakes can
+never supersede or be superseded by another lineage's), a generation `epoch`
+(fresh on first admission, lease reclaim, and post-cancel re-admission; kept by
+`--retry`), and a monotonic `attempt` (bumped by `--retry`). Every wake and
+result carries these fields plus the event kind, frozen at launch — so each
+attempt's notifications name their own attempt.
+
+When a replaced attempt's wake arrives after the replacement took over,
+`bg-run` drops it *by identity, not by age*: a wake is rejected only when the
+admission record is readable, its lineage and epoch match the sender's, and the
+sender's attempt is behind the record's. A dropped wake creates nothing — no
+result event, no turn, no notification — and prints one superseded diagnostic
+naming the rejected task and attempts; the replaced attempt's wake and result
+files stay on disk until their normal retention lease expires. Wall-clock age
+never decides a drop: a delayed completion from the *current* attempt is still
+delivered after any delay (a very old one arrives through the stale-digest
+coalescing path instead of a live turn). Redelivering the same event stays
+idempotent — one turn per task/event, however many times it arrives. Records
+from before this scheme (no identity fields) always deliver, and a task whose
+record is missing or unreadable delivers too — rejection requires a live record
+that positively names a replacement.
+
 `bg-run` is available on tmux and baton sessions, which have a wake channel. On a
 headless local turn it is unavailable — use `nohup <command> >validation.log 2>&1
 & disown` from a foreground call and confirm from the log instead.
