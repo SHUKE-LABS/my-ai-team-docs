@@ -60,7 +60,7 @@ You also need:
 
 - **`gh`** (GitHub CLI) — required for the issue/PR workflow (`brew install gh`,
   included above).
-- **A backend CLI** — one of `claude` (Claude Code), `codex`, `copilot`, `pi`, `opencode`, or `freebuff`.
+- **A backend CLI** — one of `claude` (Claude Code), `codex`, `copilot`, `pi`, `opencode`, `freebuff`, or `cmd` (Command Code).
   This quickstart assumes the default `claude` backend; see
   [First session](#5-first-session--verify-the-telegram-round-trip) for auth.
 

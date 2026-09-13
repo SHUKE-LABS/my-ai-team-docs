@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v3.69.5 … v3.68.4 (2026-09-13)
+## v3.70.0 … v3.68.4 (2026-09-13)
 
 ### Features
 - feat(agents): make test economy a constitution rule
+- feat(backends): add commandcode kind as a headless backend adapter
 
 ### Fixes
 - fix: shorten release announce ad copy
