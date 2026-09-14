@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v3.70.2 (2026-09-14)
+## v3.70.3 … v3.70.2 (2026-09-14)
 
 ### Fixes
 - fix(relay): strip retired Claude hooks stored in legacy .command form
+- fix(test): preserve assert_eq/assert_contains intent message
 
 ## v3.70.1 … v3.68.4 (2026-09-13)
 
