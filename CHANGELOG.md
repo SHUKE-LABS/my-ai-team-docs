@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.70.8 … v3.70.2 (2026-09-14)
+## v3.70.9 … v3.70.2 (2026-09-14)
 
 ### Fixes
 - fix(relay): strip retired Claude hooks stored in legacy .command form
@@ -14,6 +14,7 @@ _Generated from release tags._
 
 ### Other Changes
 - enhancement(ci): report why the Windows Bash bootstrap failed
+- test(baton): discover role-qualified poller pairs in duo-launch assertion
 
 ## v3.70.1 … v3.68.4 (2026-09-13)
 
