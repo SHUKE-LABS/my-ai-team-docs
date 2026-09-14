@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v3.70.10 (2026-09-15)
+## v3.70.11 … v3.70.10 (2026-09-15)
 
 ### Fixes
 - fix(ci): pin Windows smoke and extended lanes to g3-runner-01
+- fix(ownership): convert _mat_jq file operands via _mat_path mixed
 
 ## v3.70.9 … v3.70.2 (2026-09-14)
 
