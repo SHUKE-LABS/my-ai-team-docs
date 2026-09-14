@@ -2,7 +2,10 @@
 
 _Generated from release tags._
 
-## v3.70.11 … v3.70.10 (2026-09-15)
+## v3.71.0 … v3.70.10 (2026-09-15)
+
+### Features
+- feat(baton): add read-only `mat baton doctor` host endpoint diagnostic
 
 ### Fixes
 - fix(ci): pin Windows smoke and extended lanes to g3-runner-01
