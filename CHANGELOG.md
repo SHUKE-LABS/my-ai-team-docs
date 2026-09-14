@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.72.0 … v3.70.10 (2026-09-15)
+## v3.72.1 … v3.70.10 (2026-09-15)
 
 ### Features
 - feat(baton): add read-only `mat baton doctor` host endpoint diagnostic
@@ -15,6 +15,7 @@ _Generated from release tags._
 - fix(baton): recover duo cycles when both roles idle without an owed handoff
 - fix(scratch-guard): align Write/Edit route with Bash allowances and tighten the denial message
 - fix(test): restore the coreutils the nodeless-PATH filter orphans
+- fix(test): own disposable baton service lifecycle in real-host harness fixtures
 
 ## v3.70.9 … v3.70.2 (2026-09-14)
 
