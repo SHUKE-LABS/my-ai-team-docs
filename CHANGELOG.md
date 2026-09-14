@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.71.1 … v3.70.10 (2026-09-15)
+## v3.71.2 … v3.70.10 (2026-09-15)
 
 ### Features
 - feat(baton): add read-only `mat baton doctor` host endpoint diagnostic
@@ -11,6 +11,7 @@ _Generated from release tags._
 - fix(ci): pin Windows smoke and extended lanes to g3-runner-01
 - fix(ownership): convert _mat_jq file operands via _mat_path mixed
 - fix(test): reclaim orphaned tmux servers and pids via a per-suite ownership ledger
+- fix(baton): recover duo cycles when both roles idle without an owed handoff
 
 ## v3.70.9 … v3.70.2 (2026-09-14)
 
