@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v3.73.2 (2026-09-16)
+
+### Fixes
+- fix(test): reclaim normal-exit roots via descendant discovery
+
 ## v3.73.1 … v3.70.10 (2026-09-15)
 
 ### Features
