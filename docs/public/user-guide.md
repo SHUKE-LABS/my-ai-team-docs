@@ -871,6 +871,10 @@ its own, run `mat explore --auto-refine [backend]` (or `-a`). It launches a
 fresh child per ticket, parks on relay wakes when idle, and never implements,
 opens PRs, or merges.
 
+For a one-shot explore with a faster startup, use `--lean` on the local
+driver; see [The `--lean` startup profile](#the---lean-startup-profile) for
+the contract and the prerequisite run.
+
 Auto-refine runs under the baton driver too, and it is the one single-agent mode
 that does: instead of a resident child in a pane, each ticket is refined over a
 series of headless turns, every turn a whole process that starts and exits.
@@ -977,6 +981,90 @@ Use `live --domain <name> claude` to attach a configured domain toolbox home
 as the primary workspace. `--domain` is Claude-only and does not require any
 extra consent gate; put domain-specific operating rules in the home repository's
 own `CLAUDE.md`.
+
+### The `--lean` startup profile
+
+`explore` and `live` accept a `--lean` flag on the local driver
+(`mat.driver local`). Lean trades the per-launch snapshot isolation and
+provisioning work for faster startup, on the precondition that you have
+already prepared the agent home with one normal launch (so the home, prompt,
+settings, and project trust are already in place).
+
+The prerequisite is **per mode**, and every refusal prints the exact command:
+
+| lean launch | prerequisite (run once in this directory) |
+| --- | --- |
+| `mat explore --lean [backend]` | `mat explore --no-worktree [backend]` |
+| `mat live --lean [backend]` | `mat live [backend]` |
+
+A plain `mat explore` is not sufficient: it runs inside its own detached
+snapshot and grants trust to that snapshot, not to the checkout a lean launch
+shares. `mat explore --no-worktree` prepares the checkout you actually run in,
+and works for every backend.
+
+```bash
+mat explore --no-worktree claude   # once, to prepare the home
+mat explore --lean claude          # thereafter
+
+mat live claude                    # once, to prepare the home
+mat live --lean claude             # thereafter
+```
+
+Lean shares the worktree across runs and reuses the existing home verbatim
+without rewriting it. Every other piece of the contract — supervisor
+ownership, role routing, credential handling, restricted-role guards, and
+event logging — is identical to the normal profile.
+
+Lean refuses up front with a one-line reason when:
+
+- the mode is not `explore` or `live` (e.g. `mat team --lean`),
+  saying `--lean is supported only for \`explore\` and \`live\` (got \`team\`)`;
+- the resolved driver is not `local` (the tmux and baton drivers are not
+  eligible), saying `--lean requires the local driver (resolved driver is
+  \`tmux\`); run \`mat explore --no-worktree claude\` without --lean, or set
+  the local driver`;
+- the backend kind does not deliver an initial prompt to its native CLI,
+  because lean's contract reaches the agent only through that path,
+  saying `backend \`X\` (kind \`Y\`) does not deliver an initial prompt to
+  its native CLI, and the lean contract reaches the agent only that way;
+  run ... without --lean`.
+
+A lean launch then re-validates the home and refuses with the same one-line
+shape whenever the home is missing, stale, or held by another live
+generation, so a lean launch is fail-closed: a refusal leaves the home and
+the operator's session untouched.
+
+Three more refusals protect concurrent sessions and your shared config:
+
+- **A normal launch refuses while a lean session is running on the same
+  agent home**, saying `agent home <home> is held by a live lean session
+  (pid <pid>); provisioning it now would rewrite state that session is
+  already running on. Exit that session, then relaunch` — a normal launch
+  rewrites the prompt, settings, and trust a running lean session depends
+  on. Two normal launches keep their existing last-writer-wins behavior.
+- **A lean launch refuses any home another live session already holds**,
+  saying `agent home <home> is busy — held by a live <profile>-profile
+  session (pid <pid>). Lean reuses a home rather than provisioning its own,
+  so it cannot share one; exit that session, then relaunch`. Once the other
+  session has exited, the stale lease is pruned on contact and the launch
+  proceeds.
+- **Lean never rewrites the shared super-global `~/.claude/CLAUDE.md`.**
+  The normal profile resets a symlinked or non-empty copy of that file on
+  every launch (keeping a timestamped backup); lean performs no write
+  outside its own lease. If the file would be injected into the agent's
+  constitution, the lean launch refuses and tells you to run the
+  prerequisite once — which resets and backs the file up — then relaunch
+  with `--lean`. `/handover` and `/wrapup` archive the
+session as usual; `/wrapup --continue` and a bare `context_renewal` are
+refused under lean, because a respawn would re-enter the launcher with
+the same reuse-only contract and no fresh proof of the operator's intent.
+The explicit `context-renewal --archive-only <doc>` form stays available:
+it validates the archived document and stops there — no respawn, on any
+session shape.
+
+A lean run does not expose credentials or other secret environment values
+to the agent; the initial prompt is generated locally and contains only
+the checkout path the operator themselves named on the command line.
 
 ### Running a mode in the foreground
 

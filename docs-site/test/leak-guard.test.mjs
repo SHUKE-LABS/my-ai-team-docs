@@ -266,6 +266,16 @@ test('checkExclusionCoverage requires every internal doc to be listed', () => {
       v.includes('docs/notes/scratch.md'),
     ),
   );
+  // The lean profile evidence page is an internal doc; Guard A part 4
+  // requires every docs/evidence/ entry the repo carries to be listed
+  // (otherwise a customer page may name it in prose and the guard misses it).
+  assert.equal(
+    checkExclusionCoverage(
+      ['docs/evidence/startup-baseline-lean-windows-git-bash.md'],
+      EXCLUDED_PATHS,
+    ).length,
+    0,
+  );
 });
 
 test('internalDocNames covers nested docs but never prompt-source basenames', () => {
