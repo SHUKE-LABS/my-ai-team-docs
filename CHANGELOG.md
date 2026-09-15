@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.74.6 … v3.73.2 (2026-09-16)
+## v3.74.7 … v3.73.2 (2026-09-16)
 
 ### Features
 - feat(explore): move unready refinement to resident worker
@@ -15,6 +15,9 @@ _Generated from release tags._
 - fix(explore): explain gated queues in the auto-refine idle poll log
 - fix(test): protect live sibling suites from stale-record sweeps
 - fix(explore): draw the standby countdown and parked pane for auto-refine
+
+### Docs
+- docs: drop retired `mat consult` from the backend-CLI prerequisite
 
 ## v3.73.1 … v3.70.10 (2026-09-15)
 
