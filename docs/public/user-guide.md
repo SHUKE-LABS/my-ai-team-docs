@@ -870,7 +870,10 @@ For a resident, repository-scoped explorer that walks every open unready issue
 on its own, run `mat explore --auto-refine [backend]` (or `-a`). It selects issues
 with `refining` or no workflow label, then launches a
 fresh child per ticket, parks on relay wakes when idle, and never implements,
-opens PRs, or merges.
+opens PRs, or merges. While parked, the pane shows an explicit
+`explore auto-refine [<backend>] parked` status line — the finished child's
+last screen is cleared — and the pane border counts down `↻ mm:ss` to the next
+poll check, so a waiting worker is never mistaken for a dead one.
 
 For a one-shot explore with a faster startup, use `--lean` on the local
 driver; see [The `--lean` startup profile](#the---lean-startup-profile) for
