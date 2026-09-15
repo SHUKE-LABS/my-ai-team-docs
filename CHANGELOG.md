@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.73.0 … v3.70.10 (2026-09-15)
+## v3.73.1 … v3.70.10 (2026-09-15)
 
 ### Features
 - feat(baton): add read-only `mat baton doctor` host endpoint diagnostic
@@ -18,6 +18,7 @@ _Generated from release tags._
 - fix(test): restore the coreutils the nodeless-PATH filter orphans
 - fix(test): own disposable baton service lifecycle in real-host harness fixtures
 - fix(test): close Windows team-cycle fixture report
+- fix(install): compare ownership paths in one canonical form
 
 ## v3.70.9 … v3.70.2 (2026-09-14)
 
