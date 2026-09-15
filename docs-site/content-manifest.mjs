@@ -113,6 +113,7 @@ export const EXCLUDED_PATHS = [
   'docs/evidence/team-baton-acceptance.md',
   'docs/evidence/windows-real-close-evidence-3021.md',
   'docs/evidence/startup-baseline-windows-git-bash.md',
+  'docs/evidence/startup-baseline-lean-windows-git-bash.md',
   'docs/evidence/hook-fanout-baseline-windows-git-bash.md',
   'docs/evidence/relay-detector-matrix-2190.md',
   'docs/evidence/relay-detector-matrix-2190-evidence.md',
