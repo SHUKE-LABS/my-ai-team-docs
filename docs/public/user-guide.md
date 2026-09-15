@@ -442,7 +442,7 @@ defaults. Unless noted, Git resolves them from local to global configuration.
 | `mat.username` | `MAT_USER_NAME` | Your display name in prompts and notifications | — |
 | `mat.enableWorktree` | `MAT_ENABLE_WORKTREE` (or `--worktree` / `--no-worktree`) | Run each mode in its own worktree | on |
 | `mat.autoStart` | `-a` / `-n` flags | Start seeking work on launch | on |
-| `mat.autoRefine` | `MAT_AUTO_REFINE` | Let a delivery agent refine an unpromoted backlog ticket when idle | on |
+| `mat.autoRefine` | `MAT_AUTO_REFINE` | Deprecated and inactive; unready backlog refinement belongs to resident `mat explore --auto-refine` | — |
 | `mat.autoNotifyUser` | `MAT_AUTO_NOTIFY_USER` | Emit the built-in PR/merge status notifications | on |
 | `mat.verbose` | `MAT_VERBOSE` (or `--verbose`) | Show full per-step launch progress | off |
 | `mat.driver` | `MAT_DRIVER` | Session driver: `tmux`, `local`, or `baton` | tmux |
@@ -866,8 +866,9 @@ Explore and Audit gather concrete source and runtime evidence, test the leading
 conclusion, and report `confirmed`, `not confirmed`, or `insufficient evidence`
 with a next action. They report findings; they never open a ticket themselves.
 
-For a resident, repository-scoped explorer that walks the refining backlog on
-its own, run `mat explore --auto-refine [backend]` (or `-a`). It launches a
+For a resident, repository-scoped explorer that walks every open unready issue
+on its own, run `mat explore --auto-refine [backend]` (or `-a`). It selects issues
+with `refining` or no workflow label, then launches a
 fresh child per ticket, parks on relay wakes when idle, and never implements,
 opens PRs, or merges.
 
