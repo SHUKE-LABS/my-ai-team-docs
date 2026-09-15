@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.74.4 … v3.73.2 (2026-09-16)
+## v3.74.5 … v3.73.2 (2026-09-16)
 
 ### Features
 - feat(explore): move unready refinement to resident worker
@@ -13,6 +13,7 @@ _Generated from release tags._
 - fix(baton-status): dedupe external probes per `mat baton status` call
 - fix(ownership): keep bounded-gh timeout identity through the owner-record read
 - fix(explore): explain gated queues in the auto-refine idle poll log
+- fix(test): protect live sibling suites from stale-record sweeps
 
 ## v3.73.1 … v3.70.10 (2026-09-15)
 
