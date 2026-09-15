@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.74.3 … v3.73.2 (2026-09-16)
+## v3.74.4 … v3.73.2 (2026-09-16)
 
 ### Features
 - feat(explore): move unready refinement to resident worker
@@ -12,6 +12,7 @@ _Generated from release tags._
 - fix(hooks/scratch): key the scratch-path guard on spelling resolvability
 - fix(baton-status): dedupe external probes per `mat baton status` call
 - fix(ownership): keep bounded-gh timeout identity through the owner-record read
+- fix(explore): explain gated queues in the auto-refine idle poll log
 
 ## v3.73.1 … v3.70.10 (2026-09-15)
 
