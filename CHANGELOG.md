@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.74.8 … v3.73.2 (2026-09-16)
+## v3.74.9 … v3.73.2 (2026-09-16)
 
 ### Features
 - feat(explore): move unready refinement to resident worker
@@ -19,6 +19,9 @@ _Generated from release tags._
 
 ### Docs
 - docs: drop retired `mat consult` from the backend-CLI prerequisite
+
+### Other Changes
+- ci: run CI Full three times daily (8 h apart) to absorb scheduler drops
 
 ## v3.73.1 … v3.70.10 (2026-09-15)
 
