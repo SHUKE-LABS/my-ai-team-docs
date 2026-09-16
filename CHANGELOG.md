@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.77.7 … v3.73.2 (2026-09-16)
+## v3.77.8 … v3.73.2 (2026-09-16)
 
 ### Features
 - feat(explore): move unready refinement to resident worker
@@ -32,6 +32,9 @@ _Generated from release tags._
 - fix(ci): route required worker checks by path
 - fix(baton): use SID for Windows scheduled task logon trigger
 - fix(freebuff): arm startup watcher for every seeded role
+
+### Refactors
+- refactor(ci): share Windows bootstrap action
 
 ### Docs
 - docs: drop retired `mat consult` from the backend-CLI prerequisite
