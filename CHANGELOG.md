@@ -2,13 +2,14 @@
 
 _Generated from release tags._
 
-## v3.81.3 … v3.81.2 (2026-09-17)
+## v3.81.4 … v3.81.2 (2026-09-17)
 
 ### Fixes
 - fix(ci): adopt approved 3600s interim measurement tier for diagnostic lane
 
 ### Other Changes
 - test(prompts): protect only [DIRECTIVE] blocks; make deletion the default move
+- Move personality-review include to top alongside other shared guides
 
 ## v3.81.1 … v3.73.2 (2026-09-16)
 
