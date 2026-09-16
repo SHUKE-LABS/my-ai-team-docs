@@ -2,13 +2,16 @@
 
 _Generated from release tags._
 
-## v3.82.0 … v3.81.2 (2026-09-17)
+## v3.82.1 … v3.81.2 (2026-09-17)
 
 ### Features
 - feat(freebuff): share canonical credentials and converge release artifacts
 
 ### Fixes
 - fix(ci): adopt approved 3600s interim measurement tier for diagnostic lane
+
+### Performance
+- perf(baton): make parked waits fork-free (replacement for)
 
 ### Other Changes
 - test(prompts): protect only [DIRECTIVE] blocks; make deletion the default move
