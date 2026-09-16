@@ -2,12 +2,13 @@
 
 _Generated from release tags._
 
-## v3.76.2 … v3.73.2 (2026-09-16)
+## v3.77.0 … v3.73.2 (2026-09-16)
 
 ### Features
 - feat(explore): move unready refinement to resident worker
 - feat(codex): support live domain attachment
 - feat(live): extend --domain to the commandcode kind
+- feat(baton): coalesce duo worker turn messages
 
 ### Fixes
 - fix(test): reclaim normal-exit roots via descendant discovery
