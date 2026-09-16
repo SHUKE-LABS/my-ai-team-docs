@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.74.10 … v3.73.2 (2026-09-16)
+## v3.74.11 … v3.73.2 (2026-09-16)
 
 ### Features
 - feat(explore): move unready refinement to resident worker
@@ -17,6 +17,7 @@ _Generated from release tags._
 - fix(explore): draw the standby countdown and parked pane for auto-refine
 - fix(install): print a failure notice and always release the lock in cleanup_install
 - fix(audit): hand off non-ancestral completion safely
+- fix(launch): resync supervised team/duo pane titles from role identity
 
 ### Docs
 - docs: drop retired `mat consult` from the backend-CLI prerequisite
