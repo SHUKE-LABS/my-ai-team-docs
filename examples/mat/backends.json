@@ -83,6 +83,31 @@
       "default_effort": "high"
     },
     {
+      "_comment": "Example: Codex via the gateway route. gateway_selector is authoritative — auth_var / base_url / model_provider / wire_api / model_catalog_json are ignored on this entry. mat writes the fixed provider identity `mat-codex-gateway` into a real role-local config.toml and exports MAT_CODEX_API_KEY=<gateway_selector>. Requires MAT_CODEX_GATEWAY (e.g. `export MAT_CODEX_GATEWAY=http://gateway.local:8080`); a missing / empty / malformed / path-bearing value fails before Codex starts. MAT_ANTHROPIC_GATEWAY is NOT consulted on this route.",
+      "nickname": "codex-gateway",
+      "config_dir": "codex-gateway",
+      "prompt_file": "AGENTS.md",
+      "kind": "codex",
+      "gateway_selector": "chn"
+    },
+    {
+      "_comment": "Example: Codex on the official auth-only route. No endpoint declared — mat resolves the entry to https://chatgpt.com/backend-api/codex with provider identity `codex-team`. auth_var resolves from the current environment or ~/.bashrc.secret; nothing else is consulted.",
+      "nickname": "codex-official",
+      "config_dir": "codex-official",
+      "auth_var": "CODEX_OFFICIAL_KEY",
+      "prompt_file": "AGENTS.md",
+      "kind": "codex"
+    },
+    {
+      "_comment": "INVALID example (do NOT enable): provider metadata (model_provider) without an endpoint (base_url / base_url_var). The classifier returns `invalid-direct` and the launcher fails closed before Codex starts. Fix by adding an endpoint, or strip the metadata fields so the entry resolves to a valid route.",
+      "_comment_disabled": "codex-bad",
+      "_comment_config_dir": "codex-bad",
+      "_comment_auth_var": "CODEX_BAD_KEY",
+      "_comment_prompt_file": "AGENTS.md",
+      "_comment_kind": "codex",
+      "_comment_model_provider": "custom"
+    },
+    {
       "_comment": "Example: Copilot BYOK. auth_var/base_url_var/default_model/default_effort stay the existing launch contract; copilot_provider_type is the new protocol discriminator. Omit copilot_provider_type and mat defaults Copilot BYOK to anthropic.",
       "nickname": "copiloto",
       "config_dir": "copiloto",

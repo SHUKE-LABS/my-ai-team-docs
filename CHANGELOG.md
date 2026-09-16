@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v3.82.1 … v3.81.2 (2026-09-17)
+## v3.83.0 … v3.81.2 (2026-09-17)
 
 ### Features
 - feat(freebuff): share canonical credentials and converge release artifacts
+- feat(codex): prioritize gateway routing and default the official endpoint
 
 ### Fixes
 - fix(ci): adopt approved 3600s interim measurement tier for diagnostic lane
@@ -16,6 +17,7 @@ _Generated from release tags._
 ### Other Changes
 - test(prompts): protect only [DIRECTIVE] blocks; make deletion the default move
 - Move personality-review include to top alongside other shared guides
+- test(prompts): fold prompt-prose literals into the directive ledger
 
 ## v3.81.1 … v3.73.2 (2026-09-16)
 
