@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.77.4 … v3.73.2 (2026-09-16)
+## v3.77.5 … v3.73.2 (2026-09-16)
 
 ### Features
 - feat(explore): move unready refinement to resident worker
@@ -29,6 +29,7 @@ _Generated from release tags._
 - fix(test): align supervisor cleanup fixture dependencies
 - fix(ci): close required routing gaps
 - fix(ci): isolate Windows gate waiter and cancel old waves
+- fix(ci): route required worker checks by path
 
 ### Docs
 - docs: drop retired `mat consult` from the backend-CLI prerequisite
