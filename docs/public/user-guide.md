@@ -274,16 +274,27 @@ freebuff workers are interactive-only. Register one with:
 
 The `prompt_file` **must** be `.AGENTS.md` — the leading dot is load-bearing;
 freebuff reads a home-level dotfile and never a plain `AGENTS.md`. There is no
-`auth_var`: authenticate each role once with an interactive `freebuff login`.
+`auth_var`: run one interactive `freebuff login` from the operator's canonical
+home (`~/.config/manicode/`), and every role links that `credentials.json`.
+The release files (`freebuff`, its metadata, `tree-sitter.wasm`, and `rg`) are
+also converged and hardlinked between the canonical home and each role, so a
+role that downloads an update promotes it on the next launch without making
+every other role download another copy. Role settings, history, projects,
+analytics ID, and instance-owner state remain independent real files.
 
 Three limits are worth knowing before you register one:
 
-- **One active session per freebuff account.** Two panes on the same account
-  evict each other — the later one takes over and the earlier stops responding.
-  Running two freebuff roles at once needs two accounts.
+- **One active session per freebuff account.** Run only one freebuff instance at
+  a time; concurrent-instance safety is not provided. Two panes on the same
+  account otherwise evict each other — the later one takes over and the earlier
+  stops responding.
 - **No write guard.** Like OpenCode, freebuff runs restricted modes full-auto
   after a warning; keep it on interactive modes and leave worktree isolation on.
-- **First launch downloads a ~140 MB binary** into each new role home.
+- **Hardlink/symlink degradation.** On different filesystems, or on Windows
+  without symlink privilege, mat leaves role-local copies/files in place rather
+  than copying stale credentials. Log in separately in that degraded case. The
+  wrapper's rename-based binary update briefly breaks hardlinks and is repaired
+  on the next launch.
 
 freebuff's model catalog is re-tuned faster than a mat release, and a model can
 be metered or closed for part of the day, so pin capability to the `tier` field
