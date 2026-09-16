@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.79.1 … v3.73.2 (2026-09-16)
+## v3.80.0 … v3.73.2 (2026-09-16)
 
 ### Features
 - feat(explore): move unready refinement to resident worker
@@ -11,6 +11,7 @@ _Generated from release tags._
 - feat(baton): coalesce duo worker turn messages
 - feat(ci): extract pinned Linux tool installers
 - feat(test): report per-case skips
+- feat: add per-case test profiling
 
 ### Fixes
 - fix(test): reclaim normal-exit roots via descendant discovery
