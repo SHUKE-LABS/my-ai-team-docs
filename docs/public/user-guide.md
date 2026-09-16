@@ -987,14 +987,16 @@ Live's one queue-like carve-out is issue *capture*: when it spots an incidental,
 out-of-scope concern, it may open a `gh issue` to record it rather than dropping
 it or scope-creeping. Capture only — live never implements the ticket it files.
 
-Use `live --domain <name> claude` or `live --domain <name> codex` to attach a
-configured domain toolbox home (its own instructions, skills, and runbooks)
-while keeping the current repository as the primary workspace. The attachment
-is writable and does not require an extra consent gate. Claude discovers the
-domain home instructions natively; Codex receives `--add-dir` for access and
-mat copies the domain root's non-empty `AGENTS.override.md`, otherwise
-`AGENTS.md`, into one managed block in the role instructions. Codex does not
-auto-load the domain file from `--add-dir`.
+Use `live --domain <name> claude`, `live --domain <name> codex`, or
+`live --domain <name> commandcode` to attach a configured domain toolbox home
+(its own instructions, skills, and runbooks) while keeping the current
+repository as the primary workspace. The attachment is writable and does not
+require an extra consent gate. Claude discovers the domain home instructions
+natively. Codex and commandcode receive `--add-dir` for access, and mat folds
+the domain root's non-empty `AGENTS.override.md`, otherwise `AGENTS.md`
+(Codex), or `.commandcode/AGENTS.md` (commandcode) into one managed block in
+the role instructions, because neither auto-loads the domain file from
+`--add-dir`.
 
 ### The `--lean` startup profile
 
