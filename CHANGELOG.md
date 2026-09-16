@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.80.0 … v3.73.2 (2026-09-16)
+## v3.81.0 … v3.73.2 (2026-09-16)
 
 ### Features
 - feat(explore): move unready refinement to resident worker
@@ -12,6 +12,7 @@ _Generated from release tags._
 - feat(ci): extract pinned Linux tool installers
 - feat(test): report per-case skips
 - feat: add per-case test profiling
+- feat(freebuff): add idle keepalive watcher
 
 ### Fixes
 - fix(test): reclaim normal-exit roots via descendant discovery
