@@ -2,13 +2,14 @@
 
 _Generated from release tags._
 
-## v3.77.8 … v3.73.2 (2026-09-16)
+## v3.78.0 … v3.73.2 (2026-09-16)
 
 ### Features
 - feat(explore): move unready refinement to resident worker
 - feat(codex): support live domain attachment
 - feat(live): extend --domain to the commandcode kind
 - feat(baton): coalesce duo worker turn messages
+- feat(ci): extract pinned Linux tool installers
 
 ### Fixes
 - fix(test): reclaim normal-exit roots via descendant discovery
