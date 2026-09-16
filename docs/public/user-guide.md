@@ -922,6 +922,13 @@ wakes but keeps watching the remote tip. A wake can file up to three quality-fin
 surface and tickets red runs. Closing the session stops the pollers and
 preserves the worktree for reuse.
 
+The supervisor recognizes both direct child completion and non-ancestral
+Command Code shell/tool completion. The latter carries the current child PID
+and capability; the supervisor validates the generation and process identity,
+claims it once, boundedly reaps that child, and clears the handoff record.
+Copied, stale, malformed, or duplicate completion signals only re-arm the
+poller and cannot end another child.
+
 `mat audit status` reports the poller state, queued-wake depth, current child
 elapsed time, and the latest wake kind.
 
