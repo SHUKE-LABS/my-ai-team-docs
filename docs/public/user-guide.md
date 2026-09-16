@@ -875,9 +875,9 @@ opens PRs, or merges. While parked, the pane shows an explicit
 last screen is cleared — and the pane border counts down `↻ mm:ss` to the next
 poll check, so a waiting worker is never mistaken for a dead one.
 
-For a one-shot explore with a faster startup, use `--lean` on the local
-driver; see [The `--lean` startup profile](#the---lean-startup-profile) for
-the contract and the prerequisite run.
+For a one-shot explore with a faster startup, use `--lean`; see [The `--lean`
+startup profile](#the---lean-startup-profile) for the contract and the
+prerequisite run.
 
 Auto-refine runs under the baton driver too, and it is the one single-agent mode
 that does: instead of a resident child in a pane, each ticket is refined over a
@@ -987,19 +987,23 @@ Live's one queue-like carve-out is issue *capture*: when it spots an incidental,
 out-of-scope concern, it may open a `gh issue` to record it rather than dropping
 it or scope-creeping. Capture only — live never implements the ticket it files.
 
-Use `live --domain <name> claude` to attach a configured domain toolbox home
-(its own `CLAUDE.md`, skills, and runbooks) while keeping the current repository
-as the primary workspace. `--domain` is Claude-only and does not require any
-extra consent gate; put domain-specific operating rules in the home repository's
-own `CLAUDE.md`.
+Use `live --domain <name> claude` or `live --domain <name> codex` to attach a
+configured domain toolbox home (its own instructions, skills, and runbooks)
+while keeping the current repository as the primary workspace. The attachment
+is writable and does not require an extra consent gate. Claude discovers the
+domain home instructions natively; Codex receives `--add-dir` for access and
+mat copies the domain root's non-empty `AGENTS.override.md`, otherwise
+`AGENTS.md`, into one managed block in the role instructions. Codex does not
+auto-load the domain file from `--add-dir`.
 
 ### The `--lean` startup profile
 
-`explore` and `live` accept a `--lean` flag on the local driver
-(`mat.driver local`). Lean trades the per-launch snapshot isolation and
-provisioning work for faster startup, on the precondition that you have
-already prepared the agent home with one normal launch (so the home, prompt,
-settings, and project trust are already in place).
+`explore` and `live` accept a `--lean` flag. Ordinary single-agent launches
+configured for baton collapse to the effective local path before lean
+admission; lean trades the per-launch snapshot isolation and provisioning work
+for faster startup, on the precondition that you have already prepared the
+agent home with one normal launch (so the home, prompt, settings, and project
+trust are already in place).
 
 The prerequisite is **per mode**, and every refusal prints the exact command:
 
@@ -1007,11 +1011,17 @@ The prerequisite is **per mode**, and every refusal prints the exact command:
 | --- | --- |
 | `mat explore --lean [backend]` | `mat explore --no-worktree [backend]` |
 | `mat live --lean [backend]` | `mat live [backend]` |
+| `mat live --domain <name> --lean [backend]` | `mat live --domain <name> [backend]` |
 
 A plain `mat explore` is not sufficient: it runs inside its own detached
 snapshot and grants trust to that snapshot, not to the checkout a lean launch
 shares. `mat explore --no-worktree` prepares the checkout you actually run in,
 and works for every backend.
+
+Lean always runs Explore in the shared checkout, so an explicit
+`mat explore --worktree --lean` combination is rejected before launch. Remove
+`--worktree` or use a normal, non-lean Explore launch; `--no-worktree` is
+accepted with lean but is redundant.
 
 ```bash
 mat explore --no-worktree claude   # once, to prepare the home
@@ -1019,6 +1029,9 @@ mat explore --lean claude          # thereafter
 
 mat live claude                    # once, to prepare the home
 mat live --lean claude             # thereafter
+
+mat live --domain platform codex   # once, to prepare the domain-aware home
+mat live --domain platform --lean codex # thereafter
 ```
 
 Lean shares the worktree across runs and reuses the existing home verbatim
@@ -1030,10 +1043,10 @@ Lean refuses up front with a one-line reason when:
 
 - the mode is not `explore` or `live` (e.g. `mat team --lean`),
   saying `--lean is supported only for \`explore\` and \`live\` (got \`team\`)`;
-- the resolved driver is not `local` (the tmux and baton drivers are not
-  eligible), saying `--lean requires the local driver (resolved driver is
-  \`tmux\`); run \`mat explore --no-worktree claude\` without --lean, or set
-  the local driver`;
+- the effective driver is not `local` after mode resolution (ordinary
+  baton-configured explore/live launches have already collapsed to local),
+  saying `--lean requires the local driver (resolved driver is \`tmux\`); run
+  \`mat explore --no-worktree claude\` without --lean`;
 - the backend kind does not deliver an initial prompt to its native CLI,
   because lean's contract reaches the agent only through that path,
   saying `backend \`X\` (kind \`Y\`) does not deliver an initial prompt to
