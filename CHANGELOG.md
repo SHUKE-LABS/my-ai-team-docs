@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.76.0 … v3.73.2 (2026-09-16)
+## v3.76.1 … v3.73.2 (2026-09-16)
 
 ### Features
 - feat(explore): move unready refinement to resident worker
@@ -21,6 +21,7 @@ _Generated from release tags._
 - fix(audit): hand off non-ancestral completion safely
 - fix(launch): resync supervised team/duo pane titles from role identity
 - fix(explore): honor effective driver for lean launches
+- fix(ci): normalize HOME/.local/bin PATH entry in ci-full-watch front door
 
 ### Docs
 - docs: drop retired `mat consult` from the backend-CLI prerequisite
