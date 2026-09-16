@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.77.1 … v3.73.2 (2026-09-16)
+## v3.77.2 … v3.73.2 (2026-09-16)
 
 ### Features
 - feat(explore): move unready refinement to resident worker
@@ -25,6 +25,7 @@ _Generated from release tags._
 - fix(ci): normalize HOME/.local/bin PATH entry in ci-full-watch front door
 - fix(baton): pin --agent-timeout-ms 0 on every service start
 - fix(ci): preserve nightly matrix signal
+- fix(test): override the systemd registrar seam in the baton self-start test
 
 ### Docs
 - docs: drop retired `mat consult` from the backend-CLI prerequisite
