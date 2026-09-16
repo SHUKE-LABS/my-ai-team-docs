@@ -133,29 +133,84 @@ appears; when unset it falls back to `the user`.
 
 ### Codex backends
 
-Codex has two credential modes:
+Codex has five routes. The classifier walks them in order — `gateway_selector`
+wins over every other field, then endpoint, then auth_var alone, then legacy.
+Every route ends up writing a real role-local Codex config (gateway,
+official-auth-only, direct custom) or keeps the native `auth.json` /
+`config.toml` credentials (legacy native).
 
-- **Explicit provider.** An entry with any provider metadata (`base_url`,
-  `base_url_var`, `model_provider`, `wire_api`) must be complete and uses a
-  real role-local Codex config. Declare the key source and endpoint rather than
-  putting the token in `backends.json`:
+- **Gateway-selected.** A non-empty `gateway_selector` field routes the
+  entry through `MAT_CODEX_GATEWAY` — the variable must be exported to an
+  `http(s)://host[:port]` root origin (no path, no query string, no
+  fragment, port in `1`–`65535` if present; a trailing `/` is stripped).
+  A missing, empty, malformed, or path-bearing value fails the launch
+  with a diagnostic naming `MAT_CODEX_GATEWAY`.
+  Codex's effective endpoint is `<origin>/v1`, with a fixed mat-owned
+  provider identity `mat-codex-gateway` and the selector value carried as
+  `MAT_CODEX_API_KEY`. The declared `auth_var`, `base_url`, `base_url_var`,
+  `model_provider`, `wire_api`, and `model_catalog_json` are deliberately
+  ignored on this route — set them only as comments documenting the
+  upstream subscription. `MAT_ANTHROPIC_GATEWAY` is never consulted here.
+
+  ```json
+  {
+    "nickname": "codex-gateway",
+    "config_dir": "codex-gateway",
+    "prompt_file": "AGENTS.md",
+    "kind": "codex",
+    "gateway_selector": "chn"
+  }
+  ```
+
+  ```text
+  export MAT_CODEX_GATEWAY=http://gateway.local:8080
+  ```
+
+- **Official auth-only.** A non-empty `auth_var` with no endpoint and no
+  other provider metadata uses the official Responses endpoint
+  `https://chatgpt.com/backend-api/codex` with the provider identity
+  `codex-team`. No `base_url` / `base_url_var` is required and no model
+  catalog is copied.
 
   ```json
   {
     "nickname": "codex-account-a",
     "config_dir": "codex-account-a",
     "auth_var": "CODEX_TOKEN_ACCOUNT_A",
-    "base_url": "https://chatgpt.com/backend-api/codex",
     "prompt_file": "AGENTS.md",
-    "kind": "codex",
-    "model_provider": "codex-team"
+    "kind": "codex"
   }
   ```
 
-- **Personal-subscription legacy.** An entry with none of that metadata keeps
-  Codex's own login: put `config.toml` in the backend's bare canonical home
-  `~/.<config_dir>/`, and every role home links to it automatically. Add one
-  entry per account to run multiple accounts.
+- **Direct custom.** Any entry with an endpoint (`base_url` or
+  `base_url_var`) is provisioned as a role-local Responses provider with
+  the operator's chosen endpoint, `model_provider`, and `wire_api`.
+  Declare the key source and endpoint rather than putting the token in
+  `backends.json`:
+
+  ```json
+  {
+    "nickname": "deepseek",
+    "config_dir": "deepseek",
+    "auth_var": "DEEPSEEK_API_KEY",
+    "base_url_var": "DEEPSEEK_BASE_URL",
+    "prompt_file": "AGENTS.md",
+    "kind": "codex",
+    "model_provider": "deepseek",
+    "wire_api": "responses",
+    "model_catalog_json": "~/.codex/models.json"
+  }
+  ```
+
+- **Personal-subscription legacy.** An entry with neither `auth_var` nor
+  provider metadata keeps Codex's own login: put `config.toml` in the
+  backend's bare canonical home `~/.<config_dir>/`, and every role home
+  links to it automatically. Add one entry per account to run multiple
+  accounts.
+
+- **Invalid direct.** An entry with provider metadata but no endpoint is
+  refused before launch with an actionable diagnostic. Either set an
+  endpoint or strip the metadata so the entry resolves to a valid route.
 
 Every Codex launch starts in Standard mode; `/fast on` inside a running session
 switches that one session to Fast.
@@ -421,6 +476,12 @@ appends `/v1/messages` itself).
 
 With the gateway unset, every backend behaves exactly as it does without this
 feature.
+
+`MAT_ANTHROPIC_GATEWAY` is for Claude only. Codex backends that declare a
+`gateway_selector` route through `MAT_CODEX_GATEWAY` (see the Codex backends
+section above), never through `MAT_ANTHROPIC_GATEWAY` — the two variables
+target different wire protocols (`/v1/messages` vs `/v1/responses`) and
+sharing one across them would route Codex traffic to the Anthropic endpoint.
 
 A `claude setup-token` credential cannot read usage directly: its OAuth token
 carries inference scope only, and Anthropic's usage API requires `user:profile`.
