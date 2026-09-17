@@ -2,11 +2,12 @@
 
 _Generated from release tags._
 
-## v3.83.1 … v3.81.2 (2026-09-17)
+## v3.84.0 … v3.81.2 (2026-09-17)
 
 ### Features
 - feat(freebuff): share canonical credentials and converge release artifacts
 - feat(codex): prioritize gateway routing and default the official endpoint
+- feat(prompts): move the reviewer merge-evidence procedure into the merge-gate skill
 
 ### Fixes
 - fix(ci): adopt approved 3600s interim measurement tier for diagnostic lane
