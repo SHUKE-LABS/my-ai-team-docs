@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.84.12 … v3.81.2 (2026-09-17)
+## v3.84.13 … v3.81.2 (2026-09-17)
 
 ### Features
 - feat(freebuff): share canonical credentials and converge release artifacts
@@ -18,6 +18,7 @@ _Generated from release tags._
 - fix(test): bound case-profile output and stop staging it
 - fix(ci): record Windows tracker ownership suppression
 - fix(baton): bound waiter observation at three samples and fail resume closed on an unobservable scan
+- fix(relay): make baton worker admission waits signal-safe with external sleep
 
 ### Refactors
 - refactor: share live-domain reconciliation
