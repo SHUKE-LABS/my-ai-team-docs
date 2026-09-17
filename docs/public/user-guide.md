@@ -215,6 +215,12 @@ official-auth-only, direct custom) or keeps the native `auth.json` /
 Every Codex launch starts in Standard mode; `/fast on` inside a running session
 switches that one session to Fast.
 
+For interactive launches, mat disables Codex's automatic TUI conversation recaps
+with a process-scoped setting, so recap requests are not scheduled and do not
+consume additional model tokens. Manual `/recap` remains available. This does
+not disable automatic context compaction; a configured `context_window_size`
+still controls the Codex compaction threshold.
+
 ### pi workers
 
 `pi` is a multi-provider AI coding assistant. Add a `kind: "pi"` entry:

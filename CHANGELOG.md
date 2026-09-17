@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.84.14 … v3.81.2 (2026-09-17)
+## v3.84.15 … v3.81.2 (2026-09-17)
 
 ### Features
 - feat(freebuff): share canonical credentials and converge release artifacts
@@ -20,6 +20,7 @@ _Generated from release tags._
 - fix(baton): bound waiter observation at three samples and fail resume closed on an unobservable scan
 - fix(relay): make baton worker admission waits signal-safe with external sleep
 - fix(ci): validate required parallel selection evidence
+- fix(codex): disable automatic TUI recaps
 
 ### Refactors
 - refactor: share live-domain reconciliation
