@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v3.84.17 (2026-09-18)
+
+### Fixes
+- fix(relay): suppress watchdog poller revival when a mid-cycle waker is present
+
 ## v3.84.16 … v3.81.2 (2026-09-17)
 
 ### Features
