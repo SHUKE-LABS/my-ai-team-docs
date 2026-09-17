@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v3.84.17 (2026-09-18)
+## v3.84.18 … v3.84.17 (2026-09-18)
 
 ### Fixes
 - fix(relay): suppress watchdog poller revival when a mid-cycle waker is present
+- fix(test): refuse backends-fixture writes outside the test-owned TMPDIR sandbox
 
 ## v3.84.16 … v3.81.2 (2026-09-17)
 
