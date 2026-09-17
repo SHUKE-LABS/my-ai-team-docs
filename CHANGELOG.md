@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.84.2 … v3.81.2 (2026-09-17)
+## v3.84.3 … v3.81.2 (2026-09-17)
 
 ### Features
 - feat(freebuff): share canonical credentials and converge release artifacts
@@ -13,6 +13,7 @@ _Generated from release tags._
 - fix(ci): adopt approved 3600s interim measurement tier for diagnostic lane
 - fix(test): pin allow-duplicate dupguard fixture to the layer-1 payload glob
 - fix(prompts): restore clean personality-review include position in duo-review
+- fix(relay): qualify agent-facing substantive handoffs with absolute entrypoint
 
 ### Performance
 - perf(baton): make parked waits fork-free (replacement for)
