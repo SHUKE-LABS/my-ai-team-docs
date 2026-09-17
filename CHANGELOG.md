@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.84.9 … v3.81.2 (2026-09-17)
+## v3.84.10 … v3.81.2 (2026-09-17)
 
 ### Features
 - feat(freebuff): share canonical credentials and converge release artifacts
@@ -31,6 +31,7 @@ _Generated from release tags._
 - test(baton): tolerate the fail-closed stranded projection between transition surface reads
 - test: scale production waits in wait-heavy suites
 - test: align relay help usage labels
+- test: cover Codex lean provisioning proofs
 
 ## v3.81.1 … v3.73.2 (2026-09-16)
 
