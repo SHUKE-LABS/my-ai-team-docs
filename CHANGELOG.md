@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.84.4 … v3.81.2 (2026-09-17)
+## v3.84.6 … v3.81.2 (2026-09-17)
 
 ### Features
 - feat(freebuff): share canonical credentials and converge release artifacts
@@ -15,6 +15,7 @@ _Generated from release tags._
 - fix(prompts): restore clean personality-review include position in duo-review
 - fix(relay): qualify agent-facing substantive handoffs with absolute entrypoint
 - fix(relay): verify baton enqueue presence before send-relay reports success
+- fix(test): bound case-profile output and stop staging it
 
 ### Performance
 - perf(baton): make parked waits fork-free (replacement for)
@@ -24,6 +25,7 @@ _Generated from release tags._
 - Move personality-review include to top alongside other shared guides
 - test(prompts): fold prompt-prose literals into the directive ledger
 - test(baton): tolerate the fail-closed stranded projection between transition surface reads
+- test: scale production waits in wait-heavy suites
 
 ## v3.81.1 … v3.73.2 (2026-09-16)
 
