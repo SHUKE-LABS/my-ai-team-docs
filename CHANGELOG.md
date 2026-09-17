@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.84.11 … v3.81.2 (2026-09-17)
+## v3.84.12 … v3.81.2 (2026-09-17)
 
 ### Features
 - feat(freebuff): share canonical credentials and converge release artifacts
@@ -17,6 +17,7 @@ _Generated from release tags._
 - fix(relay): verify baton enqueue presence before send-relay reports success
 - fix(test): bound case-profile output and stop staging it
 - fix(ci): record Windows tracker ownership suppression
+- fix(baton): bound waiter observation at three samples and fail resume closed on an unobservable scan
 
 ### Refactors
 - refactor: share live-domain reconciliation
