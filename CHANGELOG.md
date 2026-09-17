@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.84.0 … v3.81.2 (2026-09-17)
+## v3.84.1 … v3.81.2 (2026-09-17)
 
 ### Features
 - feat(freebuff): share canonical credentials and converge release artifacts
@@ -20,6 +20,7 @@ _Generated from release tags._
 - test(prompts): protect only [DIRECTIVE] blocks; make deletion the default move
 - Move personality-review include to top alongside other shared guides
 - test(prompts): fold prompt-prose literals into the directive ledger
+- test(baton): tolerate the fail-closed stranded projection between transition surface reads
 
 ## v3.81.1 … v3.73.2 (2026-09-16)
 
