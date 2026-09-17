@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.84.21 … v3.84.17 (2026-09-18)
+## v3.84.22 … v3.84.17 (2026-09-18)
 
 ### Fixes
 - fix(relay): suppress watchdog poller revival when a mid-cycle waker is present
@@ -12,6 +12,7 @@ _Generated from release tags._
 ### Other Changes
 - test(pyramid): apply the pyramid pattern to the adhoc and audit mode pairs
 - test(relay): pin remaining duplicate-guard fixtures to the scratch payload glob
+- test(waits): add the wait-scaling validation lane and evidence gate
 
 ## v3.84.16 … v3.81.2 (2026-09-17)
 
