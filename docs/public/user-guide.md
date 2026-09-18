@@ -817,8 +817,11 @@ the text there to retry. *Inject to inbox* is a separate control below the
 columns that bypasses topology routing; it keeps its own role selector, and
 stays disabled until you acknowledge the same unscoped-injection warning the
 CLI prints. The action bar offers wake, pause or resume, stop, restart, and
-teardown: stop asks for a confirmation dialog, and teardown asks you to type the
-session name. Every control runs the same `mat baton` verb you would type in a
+teardown: stop asks for a confirmation dialog, and teardown — which is
+destructive, stopping every service and removing the session's state — is
+directly clickable and asks for two confirmations in a row, naming the session
+it will tear down before the final one. Cancelling either dialog sends nothing.
+Every control runs the same `mat baton` verb you would type in a
 terminal, and the verb's own output — including its refusals, such as a caucus
 session refusing wake — is shown verbatim afterwards, labelled with the role it
 was routed to.
