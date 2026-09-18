@@ -2,7 +2,10 @@
 
 _Generated from release tags._
 
-## v3.86.5 (2026-09-19)
+## v3.87.0 … v3.86.5 (2026-09-19)
+
+### Features
+- feat(baton): reconcile interrupted duo sessions after host restart
 
 ### Fixes
 - fix(explore/live): fold identity path fields so lean admits an intact home
