@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v3.85.6 … v3.84.17 (2026-09-18)
+## v3.86.0 … v3.84.17 (2026-09-18)
 
 ### Features
 - feat(baton): persist duo recovery ledger
+- feat(baton): make duo recovery queues durable
 
 ### Fixes
 - fix(relay): suppress watchdog poller revival when a mid-cycle waker is present

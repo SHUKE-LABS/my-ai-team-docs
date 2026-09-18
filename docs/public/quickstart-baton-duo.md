@@ -90,6 +90,23 @@ record is retained for inspection but is not runnable. If cleanup cannot be
 verified, the record stays non-terminal and the session files are retained so
 the task host can be repaired safely.
 
+### Durable queue and replay behavior
+
+The active duo queue is stored outside the temporary session files under the
+framework's durable state directory, in
+`duo-recovery/<safe-session>/queue/`. It contains
+the role mailboxes, batch staging, and one transition record per message. The
+queue uses Baton’s message ID as its stable identity and records these states:
+`queued`, `claimed`, `completed`, and `acknowledged`.
+
+If a host disappears, queued work is replayed once, acknowledged work is
+retired, and completed work is finalized without running the backend again.
+Claimed, ambiguous, or incomplete batch work is preserved for review with a
+durable reason; recovery never starts a worker automatically. A duplicate
+acknowledged message is a no-op. Teardown removes the queue only when all
+transitions are terminal; otherwise it keeps the queue and recovery metadata
+so the work can be inspected safely.
+
 ## 4. Feed it work
 
 File and ready issues as usual:
@@ -157,8 +174,10 @@ The operator surface is `mat baton <verb> <session>` (interactive umbrella:
   the saved session state.
 - **Stop or reap** — `mat baton stop <session>` (halts serves, keeps state)
   preserves state; `mat baton teardown <session>` stops the services and removes
-  the session state, mailbox, and launch-created worktree. Neither command
-  touches the repo root.
+  the session state, durable queue, mailbox, and launch-created worktree after
+  terminal verification. Neither command touches the repo root. If queue or
+  owner-record cleanup cannot be verified, the durable queue and session state
+  remain in place.
   Both fail closed: if a background task cannot be verified as finished, the
   command exits non-zero, says which task host it left running, and keeps that
   session's state, mailbox, and worktree so the task is not stranded. Re-run it
