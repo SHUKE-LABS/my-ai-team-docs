@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.91.2 … v3.86.5 (2026-09-19)
+## v3.91.3 … v3.86.5 (2026-09-19)
 
 ### Features
 - feat(baton): reconcile interrupted duo sessions after host restart
@@ -15,6 +15,7 @@ _Generated from release tags._
 - fix(explore/live): fold identity path fields so lean admits an intact home
 - fix(docs): make evidence coverage test projection-safe
 - fix(test): align installed send-relay usage assertion
+- fix(live): reattach to an existing tmux session before duplicate guard
 
 ### Other Changes
 - test(relay): stabilize multiline inline duplicate-guard case
