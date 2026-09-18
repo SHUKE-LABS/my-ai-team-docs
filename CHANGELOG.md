@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v3.86.5 (2026-09-19)
+
+### Fixes
+- fix(explore/live): fold identity path fields so lean admits an intact home
+
 ## v3.86.4 … v3.84.17 (2026-09-18)
 
 ### Features

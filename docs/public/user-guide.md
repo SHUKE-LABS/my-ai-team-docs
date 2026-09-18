@@ -1126,9 +1126,13 @@ mat live --domain platform --lean codex # thereafter
 ```
 
 Lean shares the worktree across runs and reuses the existing home verbatim
-without rewriting it. Every other piece of the contract — supervisor
-ownership, role routing, credential handling, restricted-role guards, and
-event logging — is identical to the normal profile.
+without rewriting it, with one exception: if the launch context (directory,
+driver) differs from what the stored constitution record was rendered for,
+lean re-renders just the constitution so the home is admitted against an
+artifact that matches this launch. A damaged prompt or render-cache sidecar
+still refuses before any re-render. Every other piece of the contract —
+supervisor ownership, role routing, credential handling, restricted-role
+guards, and event logging — is identical to the normal profile.
 
 Lean refuses up front with a one-line reason when:
 
@@ -1147,7 +1151,12 @@ Lean refuses up front with a one-line reason when:
 A lean launch then re-validates the home and refuses with the same one-line
 shape whenever the home is missing, stale, or held by another live
 generation, so a lean launch is fail-closed: a refusal leaves the home and
-the operator's session untouched.
+the operator's session untouched. A correctly provisioned home is admitted
+regardless of which driver prepared it or how the install path is spelled;
+a launch from a different directory re-renders the constitution for that
+directory rather than refusing, while genuinely damaged managed files
+(deleted or edited credentials, skills, rendered prompt, settings, or
+onboarding state) always refuse with a message naming the stage.
 
 Three more refusals protect concurrent sessions and your shared config:
 
@@ -1165,8 +1174,9 @@ Three more refusals protect concurrent sessions and your shared config:
   proceeds.
 - **Lean never rewrites the shared super-global `~/.claude/CLAUDE.md`.**
   The normal profile resets a symlinked or non-empty copy of that file on
-  every launch (keeping a timestamped backup); lean performs no write
-  outside its own lease. If the file would be injected into the agent's
+  every launch (keeping a timestamped backup); lean's only write into the
+  home is the constitution re-render above, and it touches nothing outside
+  its own lease and that artifact. If the file would be injected into the agent's
   constitution, the lean launch refuses and tells you to run the
   prerequisite once — which resets and backs the file up — then relaunch
   with `--lean`. `/handover` and `/wrapup` archive the
