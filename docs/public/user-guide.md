@@ -140,17 +140,22 @@ official-auth-only, direct custom) or keeps the native `auth.json` /
 `config.toml` credentials (legacy native).
 
 - **Gateway-selected.** A non-empty `gateway_selector` field routes the
-  entry through `MAT_CODEX_GATEWAY` — the variable must be exported to an
-  `http(s)://host[:port]` root origin (no path, no query string, no
-  fragment, port in `1`–`65535` if present; a trailing `/` is stripped).
-  A missing, empty, malformed, or path-bearing value fails the launch
-  with a diagnostic naming `MAT_CODEX_GATEWAY`.
-  Codex's effective endpoint is `<origin>/v1`, with a fixed mat-owned
-  provider identity `mat-codex-gateway` and the selector value carried as
+  entry through the gateway origin: `MAT_CODEX_GATEWAY` when set and
+  non-empty, with `MAT_ANTHROPIC_GATEWAY` as the fallback — an operator
+  running one gateway for several protocols exports the origin once. The
+  selected value becomes the role's `base_url` verbatim (only one trailing
+  `/` is stripped): the gateway owns URL handling and joins Codex's
+  `/responses` request path onto its pool member's base URL, so any origin
+  shape the gateway accepts works, path prefixes included. Only when both
+  variables are unset or empty does the launch fail, with a diagnostic
+  naming both. The role is provisioned with a fixed mat-owned provider
+  identity `mat-codex-gateway` and the selector value carried as
   `MAT_CODEX_API_KEY`. The declared `auth_var`, `base_url`, `base_url_var`,
   `model_provider`, `wire_api`, and `model_catalog_json` are deliberately
   ignored on this route — set them only as comments documenting the
-  upstream subscription. `MAT_ANTHROPIC_GATEWAY` is never consulted here.
+  upstream subscription. `MAT_GATEWAY_QUOTA_URL` is scrubbed on every Codex
+  route; the gateway route re-establishes it from the fallback origin so
+  the statusline queries the right pool's quota.
   Team/duo launches also scrub any inherited `OPENAI_API_KEY`,
   `OPENAI_BASE_URL`, and `CODEX_ACCESS_TOKEN` from the pane environment at
   the supervisor boundary, before the Codex TUI starts.
@@ -486,11 +491,14 @@ appends `/v1/messages` itself).
 With the gateway unset, every backend behaves exactly as it does without this
 feature.
 
-`MAT_ANTHROPIC_GATEWAY` is for Claude only. Codex backends that declare a
-`gateway_selector` route through `MAT_CODEX_GATEWAY` (see the Codex backends
-section above), never through `MAT_ANTHROPIC_GATEWAY` — the two variables
-target different wire protocols (`/v1/messages` vs `/v1/responses`) and
-sharing one across them would route Codex traffic to the Anthropic endpoint.
+`MAT_ANTHROPIC_GATEWAY` serves Claude and Copilot backends directly, and is
+also the fallback origin for Codex backends on the gateway route (see the
+Codex backends section above): a Codex `gateway_selector` entry uses
+`MAT_CODEX_GATEWAY` when it is set and `MAT_ANTHROPIC_GATEWAY` otherwise.
+The variables carry a gateway origin, not a wire path — each client appends
+its own protocol path (`/v1/messages` for Claude Code, `/responses` for
+Codex) and the gateway joins that inbound path onto the selected pool
+member's base URL, so one gateway origin serves every protocol at once.
 
 A `claude setup-token` credential cannot read usage directly: its OAuth token
 carries inference scope only, and Anthropic's usage API requires `user:profile`.
