@@ -40,21 +40,30 @@ brew install git tmux jq gh
 ```
 
 These tools cover installation and the end-to-end path. `install.sh` hard-checks
-`jq` and soft-warns for missing `tmux` (`check_dependencies` in `install.sh`);
-the other tools are used by the install or runtime but not guarded, so they are
-listed here regardless —
+`tar` with gzip support, `jq`, and `cmp`, and soft-warns for missing `tmux`
+(`check_dependencies` in `install.sh`); the other tools are used by the install
+or runtime but not guarded, so they are listed here regardless —
 `mat doctor` ([step 2](#verify-the-install-with-mat-doctor)) reports on every one
 after install:
 
 | Tool | Needed for | On macOS |
 |------|-----------|----------|
 | `bash` ≥ 4.3 | the interpreter (namerefs, `mapfile`) | **brew** — system bash is 3.2 |
+| `tar` + `gzip` | extracting the release tarball | preinstalled — `install.sh` fails fast if either is missing |
 | `jq` | JSON config the runtime reads | **brew** — `install.sh` fails fast if missing |
 | `cmp` | guarded byte-for-byte configuration and prompt reconciliation | macOS `/usr/bin/cmp`; `install.sh` fails fast if missing |
 | `tmux` | the whole framework runs in tmux panes | **brew**; `install.sh` warns if missing |
-| `git` | repo operations (`install.sh` does **not** check for it, but the runtime needs it) | preinstalled with Xcode Command Line Tools; brew installs a newer one |
+| `git` | repo operations (reported by the install preflight, not enforced) | preinstalled with Xcode Command Line Tools; brew installs a newer one |
 | `curl` | downloading the tarball and later `mat upgrade` | preinstalled |
-| `tar` | extracting the release tarball | preinstalled (BSD tar reads `.tar.gz`) |
+
+Before installing you can audit all of this read-only with
+`./install.sh --check-dependencies` (add `--backend <kind>` to include a
+specific backend CLI). It reports the hard prerequisites, the runtime tools,
+and the account steps that no package manager can install — backend login,
+GitHub authentication, license activation, Telegram credentials — and it never
+invokes `mat doctor`, which stays the post-install diagnostic. See the
+[Linux quickstart](quickstart-linux.md#pre-install-dependency-check) for the
+full contract.
 
 You also need:
 

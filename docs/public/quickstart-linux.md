@@ -3,6 +3,10 @@
 Install the commercial release on Linux, activate it, connect Telegram, and
 run your first agent. Every command is copy-pastable.
 
+If a CLI coding agent is already set up on this machine, the
+[agent-assisted quickstart](quickstart-agent-assisted.md) runs the whole
+first install for you from one pasted prompt.
+
 On a Windows machine? The [WSL2 quickstart](quickstart-wsl2.md) reuses this
 guide and adds the Windows Subsystem for Linux 2 specifics.
 
@@ -12,7 +16,7 @@ Install the runtime dependencies:
 
 ```bash
 sudo apt update
-sudo apt install -y git bash tmux jq curl tar diffutils
+sudo apt install -y git bash tmux jq curl tar gzip diffutils
 ```
 
 These tools cover installation and the end-to-end path. `mat doctor`
@@ -20,13 +24,36 @@ These tools cover installation and the end-to-end path. `mat doctor`
 
 | Tool | Needed for | Enforced by |
 |------|-----------|-------------|
+| `tar` + `gzip` | extracting the release tarball | `install.sh` fails fast if either is missing |
 | `jq` | JSON config the runtime reads | `install.sh` fails fast if missing; `mat doctor` |
 | `cmp` | guarded byte-for-byte configuration and prompt reconciliation | `diffutils`; `install.sh` fails fast if missing |
 | `curl` | downloading the tarball and later `mat upgrade` | `install.sh` (fetch path); `mat doctor` |
-| `tar` | extracting the release tarball | used during install |
 | `tmux` | the whole framework runs in tmux panes | `install.sh` warns if missing; `mat doctor` |
-| `git` | repo operations (`install.sh` does **not** check for it) | runtime; `mat doctor` |
+| `git` | repo operations (reported by the install preflight, not enforced) | runtime; `mat doctor` |
 | `bash` ≥ 4.3 | the interpreter (namerefs, `mapfile`); Ubuntu/Debian ship a new enough bash | runtime; `mat doctor` |
+
+### Pre-install dependency check
+
+On a minimal host (or inside WSL2), check what the installer needs **before**
+installing. From the extracted payload:
+
+```bash
+./install.sh --check-dependencies
+```
+
+This is read-only: it installs nothing, migrates nothing, touches no service,
+and works even on hosts that do not have `jq` yet. It prints one line per item
+— hard install prerequisites (`bash` ≥ 4.3, `tar` with gzip support, `jq`,
+`cmp`), runtime/first-session tools (`git`, `tmux`, `curl`, `gh`, `python3`
+with PyYAML), and finally the account steps that no package manager can
+install: backend login/token, GitHub authentication (`gh auth login`), license
+activation, and Telegram credentials. The installer exits non-zero while any
+hard item is missing; repair those with your package manager, then rerun the
+check. To also verify a specific backend CLI (for example `codex`), add
+`--backend codex`.
+
+`mat doctor` remains the post-install diagnostic — the preflight covers only
+what must be true before `mat` exists.
 
 You also need:
 

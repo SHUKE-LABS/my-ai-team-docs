@@ -65,6 +65,32 @@ git config --global mat.username "your name"
 git config resolves system → global → local, so a per-repo override applies
 inside that repo while global values apply everywhere else.
 
+### One-command setup: `mat setup`
+
+`mat setup --backend <kind> --make-default` writes the canonical registry
+entry for one supported backend family and makes it your default — the
+first-run path used by the [agent-assisted quickstart](quickstart-agent-assisted.md).
+It is non-interactive and safe to rerun:
+
+- The entry is inserted, or reconciled in place if a backend with that
+  nickname already exists. Every other entry in `backends.json` — including
+  unrelated credential variables — is preserved untouched, and the generated
+  file is the same human-readable JSON the installer writes.
+- Token/API-key families (`claude`, `opencode`) name the environment variable
+  that will hold your token or key (`CLAUDE_CODE_OAUTH_TOKEN`,
+  `OPENCODE_API_KEY`) and never read, print, or store a secret value.
+  Native-login families (`codex`, `copilot`, `pi`, `freebuff`, `grok`,
+  `commandcode`) get the native-login shape; authenticate later with the
+  CLI's own login flow (`codex`, `gh auth login` for Copilot, `pi` with
+  `/login`, `freebuff login`, the Grok Build TUI, `cmd login`).
+- `--make-default` sets `git config --global mat.defaultBackend <kind>` after
+  the registry write succeeds.
+- Fail-closed: an unsupported kind or a malformed existing `backends.json`
+  exits non-zero with a diagnostic and changes nothing.
+
+After setup, run `mat doctor` for the short list of steps only you can do
+(backend login/token, GitHub auth, license activation, Telegram credentials).
+
 **The zero-config path.** The built-in registry contains a single Claude
 backend. Run `claude setup-token`, export the result as `CLAUDE_CODE_OAUTH_TOKEN`
 (mat sources `~/.bashrc.secret` at launch, so exporting it there is enough), and
@@ -791,8 +817,11 @@ the text there to retry. *Inject to inbox* is a separate control below the
 columns that bypasses topology routing; it keeps its own role selector, and
 stays disabled until you acknowledge the same unscoped-injection warning the
 CLI prints. The action bar offers wake, pause or resume, stop, restart, and
-teardown: stop asks for a confirmation dialog, and teardown asks you to type the
-session name. Every control runs the same `mat baton` verb you would type in a
+teardown: stop asks for a confirmation dialog, and teardown — which is
+destructive, stopping every service and removing the session's state — is
+directly clickable and asks for two confirmations in a row, naming the session
+it will tear down before the final one. Cancelling either dialog sends nothing.
+Every control runs the same `mat baton` verb you would type in a
 terminal, and the verb's own output — including its refusals, such as a caucus
 session refusing wake — is shown verbatim afterwards, labelled with the role it
 was routed to.
@@ -1126,9 +1155,13 @@ mat live --domain platform --lean codex # thereafter
 ```
 
 Lean shares the worktree across runs and reuses the existing home verbatim
-without rewriting it. Every other piece of the contract — supervisor
-ownership, role routing, credential handling, restricted-role guards, and
-event logging — is identical to the normal profile.
+without rewriting it, with one exception: if the launch context (directory,
+driver) differs from what the stored constitution record was rendered for,
+lean re-renders just the constitution so the home is admitted against an
+artifact that matches this launch. A damaged prompt or render-cache sidecar
+still refuses before any re-render. Every other piece of the contract —
+supervisor ownership, role routing, credential handling, restricted-role
+guards, and event logging — is identical to the normal profile.
 
 Lean refuses up front with a one-line reason when:
 
@@ -1147,7 +1180,12 @@ Lean refuses up front with a one-line reason when:
 A lean launch then re-validates the home and refuses with the same one-line
 shape whenever the home is missing, stale, or held by another live
 generation, so a lean launch is fail-closed: a refusal leaves the home and
-the operator's session untouched.
+the operator's session untouched. A correctly provisioned home is admitted
+regardless of which driver prepared it or how the install path is spelled;
+a launch from a different directory re-renders the constitution for that
+directory rather than refusing, while genuinely damaged managed files
+(deleted or edited credentials, skills, rendered prompt, settings, or
+onboarding state) always refuse with a message naming the stage.
 
 Three more refusals protect concurrent sessions and your shared config:
 
@@ -1165,8 +1203,9 @@ Three more refusals protect concurrent sessions and your shared config:
   proceeds.
 - **Lean never rewrites the shared super-global `~/.claude/CLAUDE.md`.**
   The normal profile resets a symlinked or non-empty copy of that file on
-  every launch (keeping a timestamped backup); lean performs no write
-  outside its own lease. If the file would be injected into the agent's
+  every launch (keeping a timestamped backup); lean's only write into the
+  home is the constitution re-render above, and it touches nothing outside
+  its own lease and that artifact. If the file would be injected into the agent's
   constitution, the lean launch refuses and tells you to run the
   prerequisite once — which resets and backs the file up — then relaunch
   with `--lean`. `/handover` and `/wrapup` archive the

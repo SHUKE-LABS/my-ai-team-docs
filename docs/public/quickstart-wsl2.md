@@ -8,6 +8,23 @@ this page covers only what is different inside WSL2.
 
 ## WSL2-specific notes
 
+### Check dependencies before installing
+
+Minimal WSL2 distributions commonly ship without `jq`. Before installing, run
+the read-only preflight from the extracted payload:
+
+```bash
+./install.sh --check-dependencies
+```
+
+It reports the install prerequisites (`bash` ≥ 4.3, `tar` with gzip support,
+`jq`, `cmp`) with the `apt` commands to repair any gap, lists the
+runtime/first-session tools separately, and names the account steps — backend
+login/token, `gh auth login`, license activation, Telegram credentials — that
+a package manager cannot install. Repair what it flags, rerun it until it
+passes, then continue with the Linux quickstart's install step. `mat doctor`
+remains the post-install diagnostic.
+
 ### Keep everything inside the WSL2 filesystem
 
 Clone your repos and install mat under your Linux home (`~/…`), not under a
