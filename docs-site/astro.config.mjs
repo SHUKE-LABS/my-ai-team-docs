@@ -28,6 +28,7 @@ export default defineConfig({
         {
           label: 'Quickstart',
           items: [
+            { label: 'Agent-assisted', slug: 'quickstart-agent-assisted' },
             { label: 'Linux', slug: 'quickstart-linux' },
             { label: 'macOS', slug: 'quickstart-macos' },
             { label: 'WSL2', slug: 'quickstart-wsl2' },

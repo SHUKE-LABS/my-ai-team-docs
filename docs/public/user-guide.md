@@ -65,6 +65,32 @@ git config --global mat.username "your name"
 git config resolves system → global → local, so a per-repo override applies
 inside that repo while global values apply everywhere else.
 
+### One-command setup: `mat setup`
+
+`mat setup --backend <kind> --make-default` writes the canonical registry
+entry for one supported backend family and makes it your default — the
+first-run path used by the [agent-assisted quickstart](quickstart-agent-assisted.md).
+It is non-interactive and safe to rerun:
+
+- The entry is inserted, or reconciled in place if a backend with that
+  nickname already exists. Every other entry in `backends.json` — including
+  unrelated credential variables — is preserved untouched, and the generated
+  file is the same human-readable JSON the installer writes.
+- Token/API-key families (`claude`, `opencode`) name the environment variable
+  that will hold your token or key (`CLAUDE_CODE_OAUTH_TOKEN`,
+  `OPENCODE_API_KEY`) and never read, print, or store a secret value.
+  Native-login families (`codex`, `copilot`, `pi`, `freebuff`, `grok`,
+  `commandcode`) get the native-login shape; authenticate later with the
+  CLI's own login flow (`codex`, `gh auth login` for Copilot, `pi` with
+  `/login`, `freebuff login`, the Grok Build TUI, `cmd login`).
+- `--make-default` sets `git config --global mat.defaultBackend <kind>` after
+  the registry write succeeds.
+- Fail-closed: an unsupported kind or a malformed existing `backends.json`
+  exits non-zero with a diagnostic and changes nothing.
+
+After setup, run `mat doctor` for the short list of steps only you can do
+(backend login/token, GitHub auth, license activation, Telegram credentials).
+
 **The zero-config path.** The built-in registry contains a single Claude
 backend. Run `claude setup-token`, export the result as `CLAUDE_CODE_OAUTH_TOKEN`
 (mat sources `~/.bashrc.secret` at launch, so exporting it there is enough), and

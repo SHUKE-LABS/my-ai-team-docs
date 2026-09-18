@@ -3,6 +3,10 @@
 Install the commercial release on Linux, activate it, connect Telegram, and
 run your first agent. Every command is copy-pastable.
 
+If a CLI coding agent is already set up on this machine, the
+[agent-assisted quickstart](quickstart-agent-assisted.md) runs the whole
+first install for you from one pasted prompt.
+
 On a Windows machine? The [WSL2 quickstart](quickstart-wsl2.md) reuses this
 guide and adds the Windows Subsystem for Linux 2 specifics.
 

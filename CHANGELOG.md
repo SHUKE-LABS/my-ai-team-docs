@@ -2,12 +2,13 @@
 
 _Generated from release tags._
 
-## v3.89.2 … v3.86.5 (2026-09-19)
+## v3.90.0 … v3.86.5 (2026-09-19)
 
 ### Features
 - feat(baton): reconcile interrupted duo sessions after host restart
 - feat(install): add a pre-install dependency preflight for local payloads
 - feat(baton): add operator controls for duo recovery
+- feat(bootstrap): add one agent-neutral first-install setup path
 
 ### Fixes
 - fix(explore/live): fold identity path fields so lean admits an intact home

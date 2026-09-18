@@ -27,6 +27,7 @@ export const PUBLIC_DOCS_DIR = 'docs/public';
 // shipping untitled.
 export const PUBLIC_DOC_TITLES = {
   'user-guide': 'User guide',
+  'quickstart-agent-assisted': 'Quickstart: agent-assisted',
   'quickstart-linux': 'Quickstart: Linux',
   'quickstart-macos': 'Quickstart: macOS',
   'quickstart-wsl2': 'Quickstart: WSL2',
