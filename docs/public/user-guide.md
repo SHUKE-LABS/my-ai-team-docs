@@ -151,6 +151,9 @@ official-auth-only, direct custom) or keeps the native `auth.json` /
   `model_provider`, `wire_api`, and `model_catalog_json` are deliberately
   ignored on this route — set them only as comments documenting the
   upstream subscription. `MAT_ANTHROPIC_GATEWAY` is never consulted here.
+  Team/duo launches also scrub any inherited `OPENAI_API_KEY`,
+  `OPENAI_BASE_URL`, and `CODEX_ACCESS_TOKEN` from the pane environment at
+  the supervisor boundary, before the Codex TUI starts.
 
   ```json
   {
