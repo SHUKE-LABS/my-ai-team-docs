@@ -3,7 +3,6 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { test } from 'node:test';
-import { fileURLToPath } from 'node:url';
 
 import {
   checkManifest,
@@ -32,7 +31,6 @@ import {
   publicDocEntry,
 } from '../content-manifest.mjs';
 
-const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const PRESERVED = new Set(['index.mdx', '.gitignore']);
 const banned = new Set([...excludedSlugs(), ...excludedDirs().map((d) => path.basename(d))]);
 
@@ -281,12 +279,26 @@ test('checkExclusionCoverage requires every internal doc to be listed', () => {
   );
 });
 
-test('the repository evidence inventory is covered by the recursive exclusion', () => {
-  const evidenceDocs = markdownPathsUnder(REPO_ROOT, 'docs/evidence');
-  assert.ok(EXCLUDED_PATHS.includes('docs/evidence/'));
-  assert.ok(evidenceDocs.includes('docs/evidence/case-profile-4355/README.md'));
-  assert.ok(evidenceDocs.includes('docs/evidence/case-profile-4356/README.md'));
-  assert.equal(checkExclusionCoverage(evidenceDocs, EXCLUDED_PATHS).length, 0);
+test('a recursive evidence inventory is covered by the exclusion prefix', () => {
+  const fixture = fs.mkdtempSync(path.join(os.tmpdir(), 'evidence-inventory-'));
+  try {
+    for (const profile of ['case-profile-4355', 'case-profile-4356']) {
+      const dir = path.join(fixture, 'docs', 'evidence', profile);
+      fs.mkdirSync(dir, { recursive: true });
+      fs.writeFileSync(path.join(dir, 'README.md'), '# Internal evidence\n');
+    }
+    fs.writeFileSync(path.join(fixture, 'docs', 'evidence', 'metrics.tsv'), 'internal\n');
+
+    const evidenceDocs = markdownPathsUnder(fixture, 'docs/evidence');
+    assert.deepEqual(evidenceDocs.sort(), [
+      'docs/evidence/case-profile-4355/README.md',
+      'docs/evidence/case-profile-4356/README.md',
+    ]);
+    assert.ok(EXCLUDED_PATHS.includes('docs/evidence/'));
+    assert.equal(checkExclusionCoverage(evidenceDocs, EXCLUDED_PATHS).length, 0);
+  } finally {
+    fs.rmSync(fixture, { recursive: true, force: true });
+  }
 });
 
 test('internalDocNames covers nested docs but never prompt-source basenames', () => {
