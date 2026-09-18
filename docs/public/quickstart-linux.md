@@ -60,8 +60,8 @@ service on OpenRC hosts; see step 4). If
 make `mat` discoverable and leaves your shell configuration unchanged.
 
 When `~/.config/mat/backends.json` does not exist, the installer also writes a
-minimal inspectable Claude registry with `default_effort` set to `high`. Existing
-or migrated backend configuration is preserved.
+minimal, human-readable Claude registry with `default_effort` set to `high`.
+Existing or migrated backend configuration is preserved.
 
 The tarball is self-contained: it carries the runtime, the product skills, and
 the relay service templates, and `install.sh` needs no network access.

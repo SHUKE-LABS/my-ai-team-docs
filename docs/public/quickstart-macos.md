@@ -84,8 +84,8 @@ into `~/.local/share/my-ai-team` and links commands into `~/.local/bin`. If
 make `mat` discoverable and leaves your shell configuration unchanged.
 
 When `~/.config/mat/backends.json` does not exist, the installer also writes a
-minimal inspectable Claude registry with `default_effort` set to `high`. Existing
-or migrated backend configuration is preserved.
+minimal, human-readable Claude registry with `default_effort` set to `high`.
+Existing or migrated backend configuration is preserved.
 
 Like Linux, `install.sh` brings up the resident relay automatically — on macOS
 it renders the bundled launchd LaunchAgent and `launchctl bootstrap`s it. If the
