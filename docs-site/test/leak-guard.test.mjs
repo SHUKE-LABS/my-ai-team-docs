@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { test } from 'node:test';
+import { fileURLToPath } from 'node:url';
 
 import {
   checkManifest,
@@ -13,6 +14,7 @@ import {
   scanForInternalDocNames,
   scanForIssueRefs,
   checkExclusionCoverage,
+  markdownPathsUnder,
   scanForInternalPaths,
   checkVersionShape,
   checkPresence,
@@ -30,6 +32,7 @@ import {
   publicDocEntry,
 } from '../content-manifest.mjs';
 
+const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const PRESERVED = new Set(['index.mdx', '.gitignore']);
 const banned = new Set([...excludedSlugs(), ...excludedDirs().map((d) => path.basename(d))]);
 
@@ -278,6 +281,14 @@ test('checkExclusionCoverage requires every internal doc to be listed', () => {
   );
 });
 
+test('the repository evidence inventory is covered by the recursive exclusion', () => {
+  const evidenceDocs = markdownPathsUnder(REPO_ROOT, 'docs/evidence');
+  assert.ok(EXCLUDED_PATHS.includes('docs/evidence/'));
+  assert.ok(evidenceDocs.includes('docs/evidence/case-profile-4355/README.md'));
+  assert.ok(evidenceDocs.includes('docs/evidence/case-profile-4356/README.md'));
+  assert.equal(checkExclusionCoverage(evidenceDocs, EXCLUDED_PATHS).length, 0);
+});
+
 test('internalDocNames covers nested docs but never prompt-source basenames', () => {
   // Driven by a disposable fixture rather than this checkout's own docs/rfcs/
   // tree: the contract under test is the recursive discovery itself, and the
@@ -289,9 +300,13 @@ test('internalDocNames covers nested docs but never prompt-source basenames', ()
     const nested = path.join(fixture, 'docs', 'rfcs');
     fs.mkdirSync(nested, { recursive: true });
     fs.writeFileSync(path.join(nested, 'session-modes-rfc.md'), '# Internal\n');
+    fs.writeFileSync(path.join(nested, 'README.md'), '# Internal index\n');
     const names = internalDocNames(fixture);
     // Nested internal document, reached through the docs/rfcs/ prefix.
     assert.ok(names.includes('session-modes-rfc.md'));
+    // A basename shared with a public source is too generic to identify the
+    // internal document; the full docs/rfcs/ path is still guarded separately.
+    assert.ok(!names.includes('README.md'));
     // Prompt sources under agents/ are NOT names: `dev.md` is what a customer
     // calls their own documented override file.
     assert.ok(!names.includes('dev.md'));

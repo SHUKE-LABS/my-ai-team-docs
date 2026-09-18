@@ -95,6 +95,14 @@ export const README_SRC = 'README.md';
 export const README_CUT_AT = '## Install';
 export const README_OVERVIEW = { slug: 'overview', title: 'Product overview' };
 
+// Basenames shared with a public source cannot identify an internal document
+// on their own. A customer page may legitimately name the public README or a
+// published page; the path guard still catches the full internal path.
+const PUBLIC_DOC_NAMES = new Set([
+  path.basename(README_SRC),
+  ...APPROVED_DOCS.map((doc) => path.basename(doc.src)),
+]);
+
 // Explicitly excluded internal paths (prefix match). No source under any of
 // these may ever enter the published set; the leak guard asserts this
 // independently of the approved list.
@@ -110,20 +118,12 @@ export const EXCLUDED_PATHS = [
   'docs/dispatch-daemon.md',
   'docs/baton-session-manager.md',
   'docs/telegram-relay-setup.md',
-  'docs/evidence/team-baton-acceptance.md',
-  'docs/evidence/windows-real-close-evidence-3021.md',
-  'docs/evidence/startup-baseline-windows-git-bash.md',
-  'docs/evidence/startup-baseline-lean-windows-git-bash.md',
-  'docs/evidence/hook-fanout-baseline-windows-git-bash.md',
-  'docs/evidence/relay-detector-matrix-2190.md',
-  'docs/evidence/relay-detector-matrix-2190-evidence.md',
+  'docs/evidence/',
   'docs/demo-script.md',
   'docs/devops-helper.md',
   'docs/gh-issue-helper.md',
-  'docs/evidence/driver-dispatch-inventory.md',
   'docs/test-framework-capabilities.md',
   'docs/test-framework-porting-guide.md',
-  'docs/evidence/auto-refine-hold-arbitration-evidence-3731.md',
   // Internal infrastructure / security docs.
   'docs/ci.md',
   'docs/entitlement.md',
@@ -194,11 +194,15 @@ function excludedDocDirs() {
 // that actually leaks implementation detail.
 export function internalDocNames(repoRoot = REPO_ROOT) {
   const names = new Set(
-    EXCLUDED_PATHS.filter((p) => p.endsWith('.md')).map((p) => p.replace(/^.*\//, '')),
+    EXCLUDED_PATHS
+      .filter((p) => p.endsWith('.md'))
+      .map((p) => p.replace(/^.*\//, ''))
+      .filter((name) => !PUBLIC_DOC_NAMES.has(name)),
   );
   for (const dir of excludedDocDirs()) {
     for (const rel of markdownUnder(path.join(repoRoot, dir), dir)) {
-      names.add(rel.replace(/^.*\//, ''));
+      const name = rel.replace(/^.*\//, '');
+      if (!PUBLIC_DOC_NAMES.has(name)) names.add(name);
     }
   }
   return [...names].sort();

@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.86.3 … v3.84.17 (2026-09-18)
+## v3.86.4 … v3.84.17 (2026-09-18)
 
 ### Features
 - feat(baton): persist duo recovery ledger
@@ -17,6 +17,7 @@ _Generated from release tags._
 - fix(backends): codex gateway falls back to MAT_ANTHROPIC_GATEWAY and passes the origin verbatim
 - fix(relay): serialize freebuff paste before synthetic submit
 - fix(relay): anchor handoffs to runtime root
+- fix(docs): exclude recursive evidence artifacts
 
 ### Other Changes
 - test(pyramid): apply the pyramid pattern to the adhoc and audit mode pairs
