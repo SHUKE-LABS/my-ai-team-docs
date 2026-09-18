@@ -74,6 +74,22 @@ The launch boots the Dev with a bootstrap kick; its first turn runs
 `mat next-work` and claims the top ready issue on its own — no manual wake
 needed for the first task.
 
+### Durable session metadata
+
+The session keeps a small durable recovery record outside its temporary session
+files. It contains only non-secret identity, backend, lifecycle, and issue/task
+references; mailbox contents, transcripts, queue contents, and credentials are
+never copied there. The record is complete before the role services start, and
+it becomes runnable only after both roles, the bootstrap handoff, and the
+resident poller are ready.
+
+Its lifecycle follows the operator actions: pause/resume transitions are
+recorded, stop records a stopped session, and teardown records `stopping` before
+cleanup and `terminal` after the temporary state has been removed. A terminal
+record is retained for inspection but is not runnable. If cleanup cannot be
+verified, the record stays non-terminal and the session files are retained so
+the task host can be repaired safely.
+
 ## 4. Feed it work
 
 File and ready issues as usual:
