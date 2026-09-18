@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.84.23 … v3.84.17 (2026-09-18)
+## v3.84.24 … v3.84.17 (2026-09-18)
 
 ### Fixes
 - fix(relay): suppress watchdog poller revival when a mid-cycle waker is present
@@ -14,6 +14,7 @@ _Generated from release tags._
 - test(relay): pin remaining duplicate-guard fixtures to the scratch payload glob
 - test(waits): add the wait-scaling validation lane and evidence gate
 - test(windows): add direct Copilot hook suites to Windows core coverage
+- test(ownership): isolate malformed sibling records during stale sweep
 
 ## v3.84.16 … v3.81.2 (2026-09-17)
 
