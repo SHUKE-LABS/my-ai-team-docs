@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.85.1 … v3.84.17 (2026-09-18)
+## v3.85.2 … v3.84.17 (2026-09-18)
 
 ### Features
 - feat(baton): persist duo recovery ledger
@@ -19,6 +19,7 @@ _Generated from release tags._
 - test(waits): add the wait-scaling validation lane and evidence gate
 - test(windows): add direct Copilot hook suites to Windows core coverage
 - test(ownership): isolate malformed sibling records during stale sweep
+- test(explore): register post-fetch fallback case
 
 ## v3.84.16 … v3.81.2 (2026-09-17)
 
