@@ -1079,7 +1079,10 @@ immediately with no typed topic.
 
 ### Live mode
 
-`live` starts a hands-on single-agent session and reattaches on later launches.
+`live` starts a hands-on single-agent session and reattaches on later launches:
+rerunning the command reattaches to the existing tmux live session when one is
+usable. A second supervisor is still rejected while a live state owner exists
+and no usable tmux session is available.
 Unlike the delivery modes it has no issue queue, no reviewer, and no relay — it
 is you and one agent working directly.
 
