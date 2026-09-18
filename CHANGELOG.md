@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.85.0 … v3.84.17 (2026-09-18)
+## v3.85.1 … v3.84.17 (2026-09-18)
 
 ### Features
 - feat(baton): persist duo recovery ledger
@@ -11,6 +11,7 @@ _Generated from release tags._
 - fix(relay): suppress watchdog poller revival when a mid-cycle waker is present
 - fix(test): refuse backends-fixture writes outside the test-owned TMPDIR sandbox
 - fix(agents): keep duo-dev direct issue turns out of next-work selection
+- fix(ownership): cap the startup stale-record sweep at 4 records
 
 ### Other Changes
 - test(pyramid): apply the pyramid pattern to the adhoc and audit mode pairs
