@@ -581,6 +581,9 @@ defaults. Unless noted, Git resolves them from local to global configuration.
 | `mat.autoNotifyUser` | `MAT_AUTO_NOTIFY_USER` | Emit the built-in PR/merge status notifications | on |
 | `mat.verbose` | `MAT_VERBOSE` (or `--verbose`) | Show full per-step launch progress | off |
 | `mat.driver` | `MAT_DRIVER` | Session driver: `tmux`, `local`, or `baton` | tmux |
+| `mat.ghAuthOwnerMap` | — | Repeatable global mapping from `owner=login` (or `host/owner=login`) to the GitHub identity used by Baton | — |
+| `mat.ghAuthTokenVar` | — | Repeatable global mapping from `login=ENV_VAR_NAME` to a static credential variable | — |
+| `mat.ghAuthTokenFile` | — | Repeatable global mapping from `login=/absolute/path` to a caller-refreshed credential file | — |
 | `mat.auditPollMinutes` | `MAT_AUDIT_POLL_MINUTES` | Audit broad-sweep interval, in minutes | 300 |
 | `mat.personalPromptOverride` | — | Enable user-global prompt overrides (see [Prompt overrides](#prompt-overrides)) | off |
 | `mat.personalSkillsOverride` | — | Let a personal skill override a product skill of the same name | off |
@@ -597,6 +600,30 @@ Set a key locally for one repo (`git config --local mat.<key> <value>`) or
 globally for the machine (`git config --global …`). The two override toggles
 (`personalPromptOverride`, `personalSkillsOverride`) are git-config only — no env
 var — so a stale environment value can never flip them.
+
+### Refreshable GitHub App credentials for Baton
+
+Baton normally uses the GitHub account available to `gh`. For a GitHub App
+installation, map the repository owner to the App identity and point mat at a
+caller-managed token file:
+
+```bash
+git config --global --add mat.ghAuthOwnerMap 'your-org=your-app[bot]'
+git config --global --add mat.ghAuthTokenFile 'your-app[bot]=/absolute/path/app-token'
+chmod 600 /absolute/path/app-token
+```
+
+The file must contain only the current installation token. The caller refreshes
+it; mat does not mint tokens or handle an App private key. Baton reads the file
+when selecting the account and again before every worker turn, so replacing the
+file takes effect on the next turn. If the file is unavailable at launch, mat
+warns and uses the same user-account selection it would use without this
+configuration. If it becomes unavailable during a session, that turn is refused
+instead of reusing an expired token.
+
+The App appears on commits and pull requests as `your-app[bot]`. Its installation
+needs `contents:write`, `issues:write`, and `pull_requests:write` for the normal
+Baton delivery workflow.
 
 ## Your first project
 
