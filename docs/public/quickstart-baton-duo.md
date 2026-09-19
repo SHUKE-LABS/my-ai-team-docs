@@ -145,6 +145,25 @@ seconds. It needs a TTY; use `--interval N` for a different positive interval.
 `mat baton show <session>` for its worktree, mailbox, and current transcripts;
 these status commands do not modify the session or query GitHub.
 
+### How the two roles talk
+
+Three facts explain most of what you see in that health view:
+
+- **A role's inbox is the only way in.** A message reaches a role because
+  something wrote it into that role's inbox — its peer, you, or a system wake.
+  The outbox is the opposite: an archive of what a turn replied, kept for the
+  record and forwarded nowhere.
+- **A role speaks only when it decides to.** Finishing a turn is not the same
+  as saying something. If a role wants to reach its peer it makes an explicit
+  send during its turn; the text it prints at the end of a turn goes to no one.
+- **A turn that sends nothing is a normal end.** The Reviewer that merged the
+  PR and closed the cycle has nothing left to say. A quiet role is not by
+  itself a stuck role — `mat baton status` is what tells you the difference.
+
+Sends are one-way and unacknowledged: a sender never learns whether its peer
+read the message. Recovering a genuinely stalled pair is `mat`'s own job, which
+is why the poller and the idle fallback exist rather than a delivery receipt.
+
 ## 6. Intervene mid-run
 
 The operator surface is `mat baton <verb> <session>` (interactive umbrella:
