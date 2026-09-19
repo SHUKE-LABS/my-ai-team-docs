@@ -434,6 +434,26 @@ Two limits to know before you register one:
   adapted to the `cmd` TUI in this release — use Command Code for the headless
   delivery modes, and pick a pane-backed backend for interactive drivers.
 
+### HOME-mapped worker paths
+
+`freebuff` and Command Code use `HOME` as their native home variable. For these
+workers, mat sets `$HOME` to the per-session role snapshot so each role has an
+isolated native configuration. That snapshot is not the operator's real home,
+and a `~/` path must not be assumed to reach it.
+
+Use these pinned anchors for operator-live paths:
+
+- `GIT_CONFIG_GLOBAL` — the operator's Git global configuration.
+- `GH_CONFIG_DIR` — the operator's GitHub CLI configuration.
+- `MAT_HOST_SECRET_FILE` — the operator's host secret file.
+- `MAT_STATE_HOME` — mat's operator state directory.
+- `MAT_WORKTREE_ROOT` — the operator's worktree root.
+
+Non-git directories copied into the snapshot may be stale. Git-tracked snapshot
+content refreshes with the snapshot contract; live operator content belongs in
+git or behind an explicit anchor. This boundary does not change snapshot copy,
+credential linking, or HOME mapping behavior.
+
 ### grok workers
 
 Grok workers run the interactive Grok Build TUI. Register one with native
