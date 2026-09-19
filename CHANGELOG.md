@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.94.0 … v3.86.5 (2026-09-19)
+## v3.94.1 … v3.86.5 (2026-09-19)
 
 ### Features
 - feat(baton): reconcile interrupted duo sessions after host restart
@@ -21,6 +21,7 @@ _Generated from release tags._
 - fix(live): reattach to an existing tmux session before duplicate guard
 - fix(test): make the ownership ledger identity boot-stable
 - fix(test): gate the budget-warn fixtures on the measuring clock
+- fix(test): pin the supervised baton unit shape after
 
 ### Refactors
 - refactor(live): share explore/live reuse-before-guard candidate loop
