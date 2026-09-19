@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.97.0 … v3.86.5 (2026-09-19)
+## v3.97.1 … v3.86.5 (2026-09-19)
 
 ### Features
 - feat(baton): reconcile interrupted duo sessions after host restart
@@ -36,6 +36,7 @@ _Generated from release tags._
 
 ### Docs
 - docs: state the baton collaboration model once in duo-protocol
+- docs(examples): remove stale backend models
 
 ### Other Changes
 - test(relay): stabilize multiline inline duplicate-guard case

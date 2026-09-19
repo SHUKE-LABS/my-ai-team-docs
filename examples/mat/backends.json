@@ -16,12 +16,7 @@
       "kind": "claude",
       "default_model": "opus",
       "default_effort": "high",
-      "context_window_size": "350k",
-      "models": {
-        "default": "opus",
-        "plan": "opus",
-        "explore": "sonnet"
-      }
+      "context_window_size": "350k"
     },
     {
       "_comment": "Example: selector-only gateway backend. auth_var is omitted (null) so this backend requires MAT_ANTHROPIC_GATEWAY. gateway_selector 'auto' routes through AQG's pooled failover. Allowed charset: [A-Za-z0-9_-].",
