@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.95.1 … v3.86.5 (2026-09-19)
+## v3.95.2 … v3.86.5 (2026-09-19)
 
 ### Features
 - feat(baton): reconcile interrupted duo sessions after host restart
@@ -27,6 +27,7 @@ _Generated from release tags._
 
 ### Refactors
 - refactor(live): share explore/live reuse-before-guard candidate loop
+- refactor(docs-projection): make projection self-contained
 
 ### Docs
 - docs: state the baton collaboration model once in duo-protocol
