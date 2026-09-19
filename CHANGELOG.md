@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.92.2 … v3.86.5 (2026-09-19)
+## v3.93.0 … v3.86.5 (2026-09-19)
 
 ### Features
 - feat(baton): reconcile interrupted duo sessions after host restart
@@ -11,6 +11,7 @@ _Generated from release tags._
 - feat(bootstrap): add one agent-neutral first-install setup path
 - feat(console): make teardown directly clickable behind two confirm dialogs
 - feat(duo): make baton peer communication explicit-only
+- feat: explain HOME snapshot anchors in constitutions
 
 ### Fixes
 - fix(explore/live): fold identity path fields so lean admits an intact home
