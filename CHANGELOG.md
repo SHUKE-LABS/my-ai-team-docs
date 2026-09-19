@@ -2,10 +2,13 @@
 
 _Generated from release tags._
 
-## v3.97.3 (2026-09-20)
+## v3.97.4 … v3.97.3 (2026-09-20)
 
 ### Fixes
 - fix(prompts): restore rendered-prompt ceiling for HOME-mapped kinds
+
+### Refactors
+- refactor(prompts): strip the refinement role from delivery constitutions
 
 ## v3.97.2 … v3.86.5 (2026-09-19)
 
