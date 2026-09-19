@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.95.3 … v3.86.5 (2026-09-19)
+## v3.96.0 … v3.86.5 (2026-09-19)
 
 ### Features
 - feat(baton): reconcile interrupted duo sessions after host restart
@@ -14,6 +14,7 @@ _Generated from release tags._
 - feat: explain HOME snapshot anchors in constitutions
 - feat(explore): operator-driven headless explore session over baton
 - feat(baton): support refreshable GitHub token files
+- feat(issue): atomically claim explore holds on creation
 
 ### Fixes
 - fix(explore/live): fold identity path fields so lean admits an intact home
