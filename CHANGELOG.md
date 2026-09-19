@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.97.1 … v3.86.5 (2026-09-19)
+## v3.97.2 … v3.86.5 (2026-09-19)
 
 ### Features
 - feat(baton): reconcile interrupted duo sessions after host restart
@@ -41,6 +41,7 @@ _Generated from release tags._
 ### Other Changes
 - test(relay): stabilize multiline inline duplicate-guard case
 - test(baton): align refresh-service regression with generated wrapper
+- test: stabilize Freebuff submit race fixture
 
 ## v3.86.4 … v3.84.17 (2026-09-18)
 
