@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v3.97.3 (2026-09-20)
+
+### Fixes
+- fix(prompts): restore rendered-prompt ceiling for HOME-mapped kinds
+
 ## v3.97.2 … v3.86.5 (2026-09-19)
 
 ### Features
