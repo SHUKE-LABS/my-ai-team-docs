@@ -1209,9 +1209,24 @@ without rewriting it, with one exception: if the launch context (directory,
 driver) differs from what the stored constitution record was rendered for,
 lean re-renders just the constitution so the home is admitted against an
 artifact that matches this launch. A damaged prompt or render-cache sidecar
-still refuses before any re-render. Every other piece of the contract —
-supervisor ownership, role routing, credential handling, restricted-role
-guards, and event logging — is identical to the normal profile.
+still refuses before any re-render.
+
+After the first lean launch validates the home, later launches with nothing
+changed are admitted by a fast warm-path check instead of repeating the full
+validation; any change to the home's managed files, its provisioning
+records, or the launch context falls back to the full validation first, so
+the fail-closed behavior is the same on both paths. The warm check compares
+file metadata rather than file contents, so an edit that deliberately forges
+a file's size and modification time — or an in-place edit to the install
+tree without a version bump — goes unnoticed until the next full validation
+runs. Anyone with write access to the home could simply edit the cached
+admission record instead, so this adds no new exposure.
+
+A lean session runs without a separate supervisor process: the launcher
+itself owns the session listing (`mat agents` still shows it), the backend
+child, and the cleanup on exit. Role routing, credential handling,
+restricted-role guards, and event logging are identical to the normal
+profile.
 
 Lean refuses up front with a one-line reason when:
 
@@ -1227,7 +1242,8 @@ Lean refuses up front with a one-line reason when:
   its native CLI, and the lean contract reaches the agent only that way;
   run ... without --lean`.
 
-A lean launch then re-validates the home and refuses with the same one-line
+A lean launch then validates the home (the warm-path check, or the full
+validation whenever anything changed) and refuses with the same one-line
 shape whenever the home is missing, stale, or held by another live
 generation, so a lean launch is fail-closed: a refusal leaves the home and
 the operator's session untouched. A correctly provisioned home is admitted
