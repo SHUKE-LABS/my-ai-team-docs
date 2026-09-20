@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v3.97.10 (2026-09-21)
+
+### Other Changes
+- test(baton): give caucus worker prompt waits a 300-poll Windows budget
+
 ## v3.97.9 … v3.97.3 (2026-09-20)
 
 ### Fixes
