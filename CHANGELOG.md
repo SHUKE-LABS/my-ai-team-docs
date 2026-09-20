@@ -2,7 +2,10 @@
 
 _Generated from release tags._
 
-## v3.97.10 (2026-09-21)
+## v3.97.11 … v3.97.10 (2026-09-21)
+
+### Fixes
+- fix(ci): queue real-host serial shards one at a time
 
 ### Other Changes
 - test(baton): give caucus worker prompt waits a 300-poll Windows budget
