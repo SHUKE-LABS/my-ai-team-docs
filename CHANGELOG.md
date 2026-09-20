@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v3.97.6 … v3.97.3 (2026-09-20)
+## v3.97.7 … v3.97.3 (2026-09-20)
 
 ### Fixes
 - fix(prompts): restore rendered-prompt ceiling for HOME-mapped kinds
+- fix(ci): split the CI Full parallel corpus into ten groups with recalibrated weights
 
 ### Refactors
 - refactor(prompts): strip the refinement role from delivery constitutions
