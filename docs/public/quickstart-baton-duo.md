@@ -1,7 +1,7 @@
 # Baton duo quickstart (headless, no tmux)
 
 Run a **duo** session (Dev + Reviewer) headlessly through Baton on Linux or
-Windows Git Bash. This page covers setup, unattended issue delivery, monitoring,
+Windows Git Bash. This page covers setup, unattended delivery, monitoring,
 and operator steering without a tmux server.
 
 ## 1. Prerequisites
