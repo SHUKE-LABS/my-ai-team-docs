@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.97.7 … v3.97.3 (2026-09-20)
+## v3.97.8 … v3.97.3 (2026-09-20)
 
 ### Fixes
 - fix(prompts): restore rendered-prompt ceiling for HOME-mapped kinds
@@ -14,6 +14,7 @@ _Generated from release tags._
 
 ### Other Changes
 - test(windows): unmask the three PR-independent core-wave harness reds
+- test(baton): replace per-poll marker liveness with worker-pid readiness in the pause-drain fixture
 
 ## v3.97.2 … v3.86.5 (2026-09-19)
 
