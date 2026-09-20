@@ -2,11 +2,12 @@
 
 _Generated from release tags._
 
-## v3.97.12 … v3.97.10 (2026-09-21)
+## v3.97.13 … v3.97.10 (2026-09-21)
 
 ### Fixes
 - fix(ci): queue real-host serial shards one at a time
 - fix(ci): make never-green auxiliary lanes dispatch-only
+- fix(ci): act on watched ci-windows core run terminal state instead of polling to the deadline
 
 ### Other Changes
 - test(baton): give caucus worker prompt waits a 300-poll Windows budget
