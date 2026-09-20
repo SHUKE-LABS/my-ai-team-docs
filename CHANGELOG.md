@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.97.5 … v3.97.3 (2026-09-20)
+## v3.97.6 … v3.97.3 (2026-09-20)
 
 ### Fixes
 - fix(prompts): restore rendered-prompt ceiling for HOME-mapped kinds
@@ -10,6 +10,9 @@ _Generated from release tags._
 ### Refactors
 - refactor(prompts): strip the refinement role from delivery constitutions
 - refactor(relay): drop the refine #N directive; retire mat issue delivery and mat refine-next
+
+### Other Changes
+- test(windows): unmask the three PR-independent core-wave harness reds
 
 ## v3.97.2 … v3.86.5 (2026-09-19)
 
