@@ -7,7 +7,12 @@ and operator steering without a tmux server.
 ## 1. Prerequisites
 
 - **baton ≥ 0.2.0** (the `service` control plane). **0.3.0** adds Windows
-  service/task ownership — use 0.3.0+ on Windows. Verify: `baton service
+  service/task ownership — use 0.3.0+ on Windows. **Duo sessions additionally
+  require a baton ≥ 0.16.0, which carries batch mode through the service path
+  (`--agent-input` available on `baton service start`)**: the
+  launch verifies the client and any live service before provisioning a
+  mailbox and refuses with the required version otherwise. Verify: `baton
+  service
   status --control ~/.baton/service` parses without an unknown-command error.
 - **mat installed** (`mat --version`) with at least one backend nickname
   registered in `~/.config/mat/backends.json` whose **kind has a headless
@@ -95,13 +100,13 @@ the task host can be repaired safely.
 The active duo queue is stored outside the temporary session files under the
 framework's durable state directory, in
 `duo-recovery/<safe-session>/queue/`. It contains
-the role mailboxes, batch staging, and one transition record per message. The
+the role mailboxes and one transition record per message. The
 queue uses Baton’s message ID as its stable identity and records these states:
 `queued`, `claimed`, `completed`, and `acknowledged`.
 
 If a host disappears, queued work is replayed once, acknowledged work is
 retired, and completed work is finalized without running the backend again.
-Claimed, ambiguous, or incomplete batch work is preserved for review with a
+Claimed or ambiguous work is preserved for review with a
 durable reason; recovery never starts a worker automatically. A duplicate
 acknowledged message is a no-op. Teardown removes the queue only when all
 transitions are terminal; otherwise it keeps the queue and recovery metadata
