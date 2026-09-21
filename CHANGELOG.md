@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.99.0 … v3.97.10 (2026-09-21)
+## v3.99.1 … v3.97.10 (2026-09-21)
 
 ### Features
 - feat(duo): let baton serve own batch claims and hand the worker an assembled batch
@@ -14,6 +14,9 @@ _Generated from release tags._
 - fix(ci): act on watched ci-windows core run terminal state instead of polling to the deadline
 - fix(release): ship a customer landing page as the payload README
 - fix(ci): restore exact-head profile recovery
+
+### Docs
+- docs(skill): add planner scope check
 
 ### Other Changes
 - test(baton): give caucus worker prompt waits a 300-poll Windows budget
