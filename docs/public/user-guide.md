@@ -954,6 +954,20 @@ failure, so it is safe as a script gate. It is strictly diagnostic: it creates
 no session, writes no config, prints no secret value, and never remediates — each
 FAIL line tells you the command to run yourself. No launch path gates on it.
 
+### Scratch-file handoffs
+
+Prompt guidance follows the host operating system. On Linux and macOS, a direct
+`/tmp/<name>.md` handoff is permitted only when `MAT_SCRATCH_DIR` is unset and
+the effective root is the default `/tmp`; the file must exist, be readable, and
+use the `.md` handoff contract before it is sent. If `MAT_SCRATCH_DIR` is set,
+use its printed root or `mat scratch-file` instead. Use `mat scratch-file` when
+you need collision-safe reservation or atomic stdin-backed writing.
+
+Windows Git Bash/MSYS2 and unknown hosts use the conservative rule: use the
+printed scratch root and `mat scratch-file` for relay files. This keeps Bash,
+native tools, and agent file tools on one path. The runtime scratch commands and
+relay transport are the same on every platform.
+
 ### Worktree isolation
 
 By default every worktree-creating mode — `adhoc`, `team`, `duo`, `audit`,

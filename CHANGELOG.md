@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v4.0.2 … v3.99.2 (2026-09-22)
+## v4.1.0 … v3.99.2 (2026-09-22)
 
 ### Features
 - feat: add module boundary lint
+- feat(prompts): add OS-specific scratch guidance
 
 ### Refactors
 - refactor: organize runtime libraries by package
