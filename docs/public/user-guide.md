@@ -1219,11 +1219,14 @@ mat live --domain platform --lean codex # thereafter
 ```
 
 Lean shares the worktree across runs and reuses the existing home verbatim
-without rewriting it, with one exception: if the launch context (directory,
-driver) differs from what the stored constitution record was rendered for,
-lean re-renders just the constitution so the home is admitted against an
-artifact that matches this launch. A damaged prompt or render-cache sidecar
-still refuses before any re-render.
+without rewriting it, with one exception: if the base render context
+(directory, driver, host, or another render input) differs from the identity
+preserved in the render-cache sidecar, lean re-renders just the constitution
+so the home is admitted against an artifact that matches this launch. Live
+domain path, source, or content drift is a proof mismatch, not a render
+context change, so lean refuses before rewriting the constitution, sidecar,
+or provisioning records. A damaged prompt or render-cache sidecar also
+refuses before any re-render.
 
 After the first lean launch validates the home, later launches with nothing
 changed are admitted by a fast warm-path check instead of repeating the full
