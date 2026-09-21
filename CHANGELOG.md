@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.1.4 … v3.99.2 (2026-09-22)
+## v4.1.5 … v3.99.2 (2026-09-22)
 
 ### Features
 - feat: add module boundary lint
@@ -20,6 +20,7 @@ _Generated from release tags._
 - test(ci): split launcher contract suite
 - test(relay): harden duplicate guard preconditions
 - test: scope lean record stamps
+- test(bg-run): split bg-run-regression into three budgeted suites
 
 ## v3.99.1 … v3.97.10 (2026-09-21)
 
