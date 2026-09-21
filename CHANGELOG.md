@@ -2,10 +2,13 @@
 
 _Generated from release tags._
 
-## v4.0.0 … v3.99.2 (2026-09-22)
+## v4.0.1 … v3.99.2 (2026-09-22)
 
 ### Features
 - feat: add module boundary lint
+
+### Refactors
+- refactor: organize runtime libraries by package
 
 ### Other Changes
 - test(ci): split launcher contract suite
