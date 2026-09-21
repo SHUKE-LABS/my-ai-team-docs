@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v3.99.2 (2026-09-22)
+
+### Other Changes
+- test(ci): split launcher contract suite
+
 ## v3.99.1 … v3.97.10 (2026-09-21)
 
 ### Features
