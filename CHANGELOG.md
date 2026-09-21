@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v3.98.0 … v3.97.10 (2026-09-21)
+## v3.98.1 … v3.97.10 (2026-09-21)
 
 ### Features
 - feat(duo): let baton serve own batch claims and hand the worker an assembled batch
@@ -11,6 +11,7 @@ _Generated from release tags._
 - fix(ci): queue real-host serial shards one at a time
 - fix(ci): make never-green auxiliary lanes dispatch-only
 - fix(ci): act on watched ci-windows core run terminal state instead of polling to the deadline
+- fix(release): ship a customer landing page as the payload README
 
 ### Other Changes
 - test(baton): give caucus worker prompt waits a 300-poll Windows budget
