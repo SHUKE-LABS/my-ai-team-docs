@@ -2,7 +2,10 @@
 
 _Generated from release tags._
 
-## v3.97.13 … v3.97.10 (2026-09-21)
+## v3.98.0 … v3.97.10 (2026-09-21)
+
+### Features
+- feat(duo): let baton serve own batch claims and hand the worker an assembled batch
 
 ### Fixes
 - fix(ci): queue real-host serial shards one at a time
