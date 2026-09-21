@@ -1611,9 +1611,12 @@ sender's attempt is behind the record's. A dropped wake creates nothing — no
 result event, no turn, no notification — and prints one superseded diagnostic
 naming the rejected task and attempts; the replaced attempt's wake and result
 files stay on disk until their normal retention lease expires. Wall-clock age
-never decides a drop: a delayed completion from the *current* attempt is still
-delivered after any delay (a very old one arrives through the stale-digest
-coalescing path instead of a live turn). Redelivering the same event stays
+never decides a drop: a delayed completion from the *current* attempt is
+delivered after any delay. What age can do is quiet the *notification* when
+nothing else is known: if the cycle a task was launched under has provably
+finished, or a very old completion arrives with no evidence that its workflow is
+still running, the result and wake are still written and kept — only the turn
+that would have announced them is skipped. Redelivering the same event stays
 idempotent — one turn per task/event, however many times it arrives. Records
 from before this scheme (no identity fields) always deliver, and a task whose
 record is missing or unreadable delivers too — rejection requires a live record
