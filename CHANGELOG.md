@@ -2,7 +2,10 @@
 
 _Generated from release tags._
 
-## v3.99.2 (2026-09-22)
+## v4.0.0 … v3.99.2 (2026-09-22)
+
+### Features
+- feat: add module boundary lint
 
 ### Other Changes
 - test(ci): split launcher contract suite
