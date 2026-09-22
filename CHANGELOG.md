@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.1.8 … v3.99.2 (2026-09-22)
+## v4.1.9 … v3.99.2 (2026-09-22)
 
 ### Features
 - feat: add module boundary lint
@@ -13,6 +13,7 @@ _Generated from release tags._
 - fix(relay-poll): track direct interruptible sleeper
 - fix(bg-run): unify event delivery and stale semantics across drivers
 - fix(duo): request the tmux boundary restart from merge release
+- fix(duo): accept the role name a live Duo Reviewer pane carries
 
 ### Refactors
 - refactor: organize runtime libraries by package
