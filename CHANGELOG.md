@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.1.6 … v3.99.2 (2026-09-22)
+## v4.1.7 … v3.99.2 (2026-09-22)
 
 ### Features
 - feat: add module boundary lint
@@ -22,6 +22,7 @@ _Generated from release tags._
 - test: scope lean record stamps
 - test(bg-run): split bg-run-regression into three budgeted suites
 - test(audit): sandbox the Windows-simulation scratch root
+- test(baton): make the ensure_service body guard rename-aware
 
 ## v3.99.1 … v3.97.10 (2026-09-21)
 
