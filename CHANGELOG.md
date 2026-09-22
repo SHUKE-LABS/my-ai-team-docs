@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.1.7 … v3.99.2 (2026-09-22)
+## v4.1.8 … v3.99.2 (2026-09-22)
 
 ### Features
 - feat: add module boundary lint
@@ -12,6 +12,7 @@ _Generated from release tags._
 - fix: fail closed on lean domain proof drift
 - fix(relay-poll): track direct interruptible sleeper
 - fix(bg-run): unify event delivery and stale semantics across drivers
+- fix(duo): request the tmux boundary restart from merge release
 
 ### Refactors
 - refactor: organize runtime libraries by package
