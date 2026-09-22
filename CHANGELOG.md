@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.1.12 … v3.99.2 (2026-09-22)
+## v4.1.13 … v3.99.2 (2026-09-22)
 
 ### Features
 - feat: add module boundary lint
@@ -28,6 +28,7 @@ _Generated from release tags._
 - test(duo): prove restart rollback through the stubbed status endpoint
 - test(team): make the real-launcher rebirth fixture self-contained
 - test(helpers): isolate the real-tmux cleanup fixture from the suite ledger record
+- test(ownership): bind sibling teardown to its own process tree
 
 ## v3.99.1 … v3.97.10 (2026-09-21)
 
