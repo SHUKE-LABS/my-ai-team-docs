@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.1.19 … v4.1.14 (2026-09-23)
+## v4.1.20 … v4.1.14 (2026-09-23)
 
 ### Fixes
 - fix(baton): keep a pause pausing while a turn marker is unobservable
@@ -11,6 +11,9 @@ _Generated from release tags._
 - fix(local): name the local driver, not a pane, on terminal records
 - fix(duo): suppress pending and clean-review verdict relays
 - fix(docs): attach via the mat socket in README; lint root Markdown
+
+### Performance
+- perf(test): refill lane slots as suites finish
 
 ## v4.1.13 … v3.99.2 (2026-09-22)
 
