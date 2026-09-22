@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v4.1.14 (2026-09-23)
+## v4.1.15 … v4.1.14 (2026-09-23)
 
 ### Fixes
 - fix(baton): keep a pause pausing while a turn marker is unobservable
+- fix(ci): refuse a dispatch already red on the same commit
 
 ## v4.1.13 … v3.99.2 (2026-09-22)
 
