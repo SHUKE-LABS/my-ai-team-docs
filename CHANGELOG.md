@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.1.10 … v3.99.2 (2026-09-22)
+## v4.1.11 … v3.99.2 (2026-09-22)
 
 ### Features
 - feat: add module boundary lint
@@ -26,6 +26,7 @@ _Generated from release tags._
 - test(audit): sandbox the Windows-simulation scratch root
 - test(baton): make the ensure_service body guard rename-aware
 - test(duo): prove restart rollback through the stubbed status endpoint
+- test(team): make the real-launcher rebirth fixture self-contained
 
 ## v3.99.1 … v3.97.10 (2026-09-21)
 
