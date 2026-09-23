@@ -247,6 +247,9 @@ doesn't, tail the log:
 tail -f ~/.local/state/my-ai-team/tg-relay.log
 ```
 
+The log is capped at 50 MiB: when it grows past that, the oldest lines are
+truncated and a `truncated to newest … bytes` line marks the cut.
+
 A `no token for host` or `TG_CHAT_ID unset` line means step 4a's exports aren't
 reaching the relay — confirm they are in `~/.bashrc.secret` and that the plist's
 `source "$HOME/.bashrc.secret"` line is intact.
