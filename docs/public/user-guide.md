@@ -1484,6 +1484,10 @@ Resolution order:
    **skipped unless `mat.personalPromptOverride=true`** (opt-in)
 3. Shipped default: the `<mode>.md` prompt installed with mat
 
+The project `.my-ai-team` directory may itself be a symlink, for example to a
+bundle kept in a shared dotfiles repository. mat reads it through the link and
+still reuses the rendered prompt across launches.
+
 Supported mode filenames: `adhoc.md`, `dev.md`, `plan.md`, `review.md`,
 `explore.md`, `audit.md`, `live.md`, `duo-dev.md`, `duo-review.md`,
 `caucus-proposer.md`, `caucus-challenger.md`.
