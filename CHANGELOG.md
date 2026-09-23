@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.2.0 … v4.1.14 (2026-09-23)
+## v4.2.1 … v4.1.14 (2026-09-23)
 
 ### Features
 - feat(agy): add HOME-mapped headless adapter
@@ -18,6 +18,7 @@ _Generated from release tags._
 - fix(duo): hand the post-merge boundary to a freshly loaded installed runtime
 - fix(release): skip positional-parameter source paths in the payload lint
 - fix(test): derive installed names without per-entry basename children
+- fix(prompt-cache): sign symlinked project bundles regardless of trust
 
 ### Performance
 - perf(test): refill lane slots as suites finish
