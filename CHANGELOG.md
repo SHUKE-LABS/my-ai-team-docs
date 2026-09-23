@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.7.3 … v4.5.0 (2026-09-24)
+## v4.7.4 … v4.5.0 (2026-09-24)
 
 ### Features
 - feat(console): repository lifecycle feed
@@ -34,6 +34,7 @@ _Generated from release tags._
 - test(ci): split prompt render contract suite
 - test(docker): mount the source tree read-only and move in-tree test writes out
 - ci: run Linux test lanes in Docker
+- test(audit): keep the queued-wake fake-launch stub off test/helpers.sh
 
 ## v4.4.2 … v4.1.14 (2026-09-23)
 
