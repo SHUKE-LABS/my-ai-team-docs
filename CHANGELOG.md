@@ -2,11 +2,12 @@
 
 _Generated from release tags._
 
-## v4.3.1 … v4.1.14 (2026-09-23)
+## v4.4.0 … v4.1.14 (2026-09-23)
 
 ### Features
 - feat(agy): add HOME-mapped headless adapter
 - feat(hooks): refuse bare notify-user --action without Tried:/Decision:
+- feat(agents): name the duo escalation shape; drop next-work restatement
 
 ### Fixes
 - fix(baton): keep a pause pausing while a turn marker is unobservable
