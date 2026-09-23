@@ -43,6 +43,13 @@ unattended agent needs, installs mat's safety guards for backends that support
 them, and marks the launched checkout trusted so the agent does not stop on a
 trust prompt.
 
+One of those guards shapes the action requests an agent sends you: a
+`notify-user --action` is held until its message either lists what the agent
+already tried under a `Tried:` header or asks for a choice under `Decision:`, so
+an action notification states the attempts or the decision it needs from you. It
+covers Claude, Codex, Copilot, and pi agents; OpenCode and freebuff are not
+covered. An agent can bypass it for one command with `MAT_ALLOW_BARE_ACTION=1`.
+
 To upgrade later, run `mat upgrade` (see [Upgrading](#upgrading)); you can delete
 the unpacked tarball directory once the install has completed.
 
