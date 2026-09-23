@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.1.21 … v4.1.14 (2026-09-23)
+## v4.1.22 … v4.1.14 (2026-09-23)
 
 ### Fixes
 - fix(baton): keep a pause pausing while a turn marker is unobservable
@@ -12,6 +12,7 @@ _Generated from release tags._
 - fix(duo): suppress pending and clean-review verdict relays
 - fix(docs): attach via the mat socket in README; lint root Markdown
 - fix(test): answer the batch version floor from the bg-run baton stub
+- fix(duo): hand the post-merge boundary to a freshly loaded installed runtime
 
 ### Performance
 - perf(test): refill lane slots as suites finish
