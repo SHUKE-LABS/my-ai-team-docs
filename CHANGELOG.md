@@ -2,11 +2,14 @@
 
 _Generated from release tags._
 
-## v4.6.3 … v4.5.0 (2026-09-24)
+## v4.6.4 … v4.5.0 (2026-09-24)
 
 ### Features
 - feat(console): repository lifecycle feed
 - feat(console): local lifecycle writers nudge an immediate feed poll
+
+### Fixes
+- fix(ci): reduce run-lanes timeout risk
 
 ### Refactors
 - refactor(agents): delete seed and wrapper-internal water from live and adhoc
