@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v4.2.1 … v4.1.14 (2026-09-23)
+## v4.3.0 … v4.1.14 (2026-09-23)
 
 ### Features
 - feat(agy): add HOME-mapped headless adapter
+- feat(hooks): refuse bare notify-user --action without Tried:/Decision:
 
 ### Fixes
 - fix(baton): keep a pause pausing while a turn marker is unobservable
