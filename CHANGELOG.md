@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.5.0 (2026-09-24)
+
+### Features
+- feat(console): repository lifecycle feed
+
 ## v4.4.2 … v4.1.14 (2026-09-23)
 
 ### Features
