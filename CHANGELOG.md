@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.1.23 … v4.1.14 (2026-09-23)
+## v4.1.25 … v4.1.14 (2026-09-23)
 
 ### Fixes
 - fix(baton): keep a pause pausing while a turn marker is unobservable
@@ -13,12 +13,14 @@ _Generated from release tags._
 - fix(docs): attach via the mat socket in README; lint root Markdown
 - fix(test): answer the batch version floor from the bg-run baton stub
 - fix(duo): hand the post-merge boundary to a freshly loaded installed runtime
+- fix(release): skip positional-parameter source paths in the payload lint
 
 ### Performance
 - perf(test): refill lane slots as suites finish
 
 ### Other Changes
 - test(dedupe): drop audit missing-key case duplicated by adhoc suite
+- chore(platform): retire the Windows tmux driver runtime
 
 ## v4.1.13 … v3.99.2 (2026-09-22)
 

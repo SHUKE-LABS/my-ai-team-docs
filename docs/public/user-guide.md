@@ -580,7 +580,7 @@ defaults. Unless noted, Git resolves them from local to global configuration.
 | `mat.autoRefine` | `MAT_AUTO_REFINE` | Deprecated and inactive; unready backlog refinement belongs to resident `mat explore --auto-refine` | — |
 | `mat.autoNotifyUser` | `MAT_AUTO_NOTIFY_USER` | Emit the built-in PR/merge status notifications | on |
 | `mat.verbose` | `MAT_VERBOSE` (or `--verbose`) | Show full per-step launch progress | off |
-| `mat.driver` | `MAT_DRIVER` | Session driver: `tmux`, `local`, or `baton` | tmux |
+| `mat.driver` | `MAT_DRIVER` | Session driver: `tmux`, `local`, or `baton` (Windows Git Bash: `local` or `baton` only — see below) | tmux (Windows Git Bash: baton) |
 | `mat.ghAuthOwnerMap` | — | Repeatable global mapping from `owner=login` (or `host/owner=login`) to the GitHub identity used by Baton | — |
 | `mat.ghAuthTokenVar` | — | Repeatable global mapping from `login=ENV_VAR_NAME` to a static credential variable | — |
 | `mat.ghAuthTokenFile` | — | Repeatable global mapping from `login=/absolute/path` to a caller-refreshed credential file | — |
@@ -1316,6 +1316,20 @@ into a pane. If a later launch reports the singleton as already running and the
 recorded supervisor's liveness is unprovable, `mat local-state clear <state-file>` clears
 the state file named in that message; a proven-live supervisor is never
 bypassed.
+
+### Windows Git Bash has no tmux driver
+
+On Windows Git Bash the driver enum is `local` and `baton` only — MSYS2 tmux is
+an unsupported transport, so the tmux driver is retired there. Leave
+`mat.driver` unset and you get **baton**, the Windows default: `team`, `duo` and
+seeded `caucus` run as baton serves, while `explore`, `live`, `audit` and
+`adhoc` run through the same local headless path `mat.driver local` gives you.
+
+Pinning tmux explicitly — `MAT_DRIVER=tmux` or `git config mat.driver tmux` —
+is refused with a migration message before any session is created, so there is
+never a half-started session to clean up. tmux is therefore not a Windows
+prerequisite: the installer does not ask for it and `mat doctor` reports it as
+`n/a`. Linux and macOS are unchanged and still default to tmux.
 
 ## Telegram relay
 
