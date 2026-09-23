@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.1.29 … v4.1.14 (2026-09-23)
+## v4.1.30 … v4.1.14 (2026-09-23)
 
 ### Fixes
 - fix(baton): keep a pause pausing while a turn marker is unobservable
@@ -14,6 +14,7 @@ _Generated from release tags._
 - fix(test): answer the batch version floor from the bg-run baton stub
 - fix(duo): hand the post-merge boundary to a freshly loaded installed runtime
 - fix(release): skip positional-parameter source paths in the payload lint
+- fix(test): derive installed names without per-entry basename children
 
 ### Performance
 - perf(test): refill lane slots as suites finish
