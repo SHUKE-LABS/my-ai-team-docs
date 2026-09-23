@@ -1700,7 +1700,21 @@ never reaped.
 
 ## Troubleshooting
 
-Start with [`mat doctor`](#mat-doctor); it names tools, `gh` auth, `PATH`/links,
+Start with the local diagnostic log, `~/.local/state/my-ai-team/mat.log`
+(`$MAT_STATE_HOME/my-ai-team/mat.log` when `MAT_STATE_HOME` is set). Set
+`MAT_LOG_FILE` to write it somewhere else. A launcher failure, a session temp
+directory that cannot be created, or a mode launch that exits non-zero leaves
+one line there, and the line outlives the pane:
+
+```text
+[2026-09-24T09:15:02+0000] ERROR mode: mat explore exited with status 1 (cwd /home/me/repo)
+```
+
+Read the newest lines with `tail -n 50 ~/.local/state/my-ai-team/mat.log`. The
+log holds diagnostics only, never credentials. It is capped at 50 MiB, and when
+it reaches the cap it keeps the newest half and records a truncation line.
+
+Next, run [`mat doctor`](#mat-doctor); it names tools, `gh` auth, `PATH`/links,
 backend token, Telegram credentials, and relay-unit failures in one read-only
 pass.
 
