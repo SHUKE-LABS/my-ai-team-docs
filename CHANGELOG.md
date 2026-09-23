@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.7.0 … v4.5.0 (2026-09-24)
+## v4.7.1 … v4.5.0 (2026-09-24)
 
 ### Features
 - feat(console): repository lifecycle feed
@@ -11,6 +11,7 @@ _Generated from release tags._
 
 ### Fixes
 - fix(ci): reduce run-lanes timeout risk
+- fix(tmux): create panes from an agent with its base PATH
 
 ### Refactors
 - refactor(agents): delete seed and wrapper-internal water from live and adhoc
