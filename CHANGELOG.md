@@ -2,10 +2,13 @@
 
 _Generated from release tags._
 
-## v4.5.0 (2026-09-24)
+## v4.5.1 … v4.5.0 (2026-09-24)
 
 ### Features
 - feat(console): repository lifecycle feed
+
+### Refactors
+- refactor(agents): delete seed and wrapper-internal water from live and adhoc
 
 ## v4.4.2 … v4.1.14 (2026-09-23)
 
