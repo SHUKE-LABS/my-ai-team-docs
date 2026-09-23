@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.4.0 … v4.1.14 (2026-09-23)
+## v4.4.1 … v4.1.14 (2026-09-23)
 
 ### Features
 - feat(agy): add HOME-mapped headless adapter
@@ -22,6 +22,9 @@ _Generated from release tags._
 - fix(test): derive installed names without per-entry basename children
 - fix(prompt-cache): sign symlinked project bundles regardless of trust
 - fix(ci): derive required suite timeouts from budgets
+
+### Refactors
+- refactor(agents): delete restated water from explore and audit constitutions
 
 ### Performance
 - perf(test): refill lane slots as suites finish
