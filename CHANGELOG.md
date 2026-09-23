@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.5.4 … v4.5.0 (2026-09-24)
+## v4.5.6 … v4.5.0 (2026-09-24)
 
 ### Features
 - feat(console): repository lifecycle feed
@@ -12,6 +12,12 @@ _Generated from release tags._
 - refactor(agents): delete wrapper-restated water from duo-review.md
 - refactor(agents): delete tool-restated water from shared fragments
 - refactor(agents): trim redundant plan and caucus prompts
+
+### Docs
+- docs(evidence): point driver-dispatch inventory at post- modules
+
+### Other Changes
+- test(ownership): isolate recycled-pid teardown scenarios
 
 ## v4.4.2 … v4.1.14 (2026-09-23)
 
