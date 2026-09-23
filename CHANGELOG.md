@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.5.7 … v4.5.0 (2026-09-24)
+## v4.5.9 … v4.5.0 (2026-09-24)
 
 ### Features
 - feat(console): repository lifecycle feed
@@ -19,6 +19,8 @@ _Generated from release tags._
 ### Other Changes
 - test(ownership): isolate recycled-pid teardown scenarios
 - test(relay-poll): update baton stub for version preflight
+- test(agent-home): root _mah_sandbox under the test tmpdir
+- test(no-long-sleep): run the corpus self-check over a private root
 
 ## v4.4.2 … v4.1.14 (2026-09-23)
 
