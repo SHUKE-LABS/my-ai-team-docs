@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.1.26 … v4.1.14 (2026-09-23)
+## v4.1.27 … v4.1.14 (2026-09-23)
 
 ### Fixes
 - fix(baton): keep a pause pausing while a turn marker is unobservable
@@ -22,6 +22,7 @@ _Generated from release tags._
 - test(dedupe): drop audit missing-key case duplicated by adhoc suite
 - chore(platform): retire the Windows tmux driver runtime
 - test(lint): flag helpers referenced only by their own tests
+- test(bench): scope Linux baseline digest to measured code
 
 ## v4.1.13 … v3.99.2 (2026-09-22)
 
