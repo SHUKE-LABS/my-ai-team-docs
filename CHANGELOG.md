@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.11.3 … v4.5.0 (2026-09-24)
+## v4.11.4 … v4.5.0 (2026-09-24)
 
 ### Features
 - feat(console): repository lifecycle feed
@@ -18,6 +18,7 @@ _Generated from release tags._
 - fix(tmux): create panes from an agent with its base PATH
 - fix(logging): cap tg-relay.log through the shared bounded writer, truncating in place
 - fix(ci): record serial suites dropped by Required as deferred
+- fix(duo): end reviewer turn after plan approval
 
 ### Refactors
 - refactor(agents): delete seed and wrapper-internal water from live and adhoc
