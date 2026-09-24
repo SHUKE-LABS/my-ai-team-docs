@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.11.1 … v4.5.0 (2026-09-24)
+## v4.11.2 … v4.5.0 (2026-09-24)
 
 ### Features
 - feat(console): repository lifecycle feed
@@ -25,6 +25,7 @@ _Generated from release tags._
 - refactor(agents): delete tool-restated water from shared fragments
 - refactor(agents): trim redundant plan and caucus prompts
 - refactor: resolve the unverified orphaned-helper lint candidates
+- refactor(runtime): hoist relay definitions into mat-core
 
 ### Docs
 - docs(evidence): point driver-dispatch inventory at post- modules
