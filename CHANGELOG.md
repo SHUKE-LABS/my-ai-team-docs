@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.11.6 (2026-09-25)
+
+### Other Changes
+- test(helpers): per-package test source groups with isolation check
+
 ## v4.11.5 … v4.5.0 (2026-09-24)
 
 ### Features
