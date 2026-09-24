@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v4.11.7 … v4.11.6 (2026-09-25)
+## v4.11.8 … v4.11.6 (2026-09-25)
 
 ### Fixes
 - fix: allow cross-platform Windows issue refinement
+- fix(test): dead-owner unknown sibling no longer freezes ledger reclaim
 
 ### Other Changes
 - test(helpers): per-package test source groups with isolation check
