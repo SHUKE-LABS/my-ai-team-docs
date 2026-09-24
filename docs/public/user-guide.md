@@ -273,7 +273,7 @@ still controls the Codex compaction threshold.
 The `prompt_file` **must** be `SYSTEM.md` — pi loads its system prompt from that
 filename and ignores any other.
 
-pi backends have two credential modes:
+pi backends have three credential modes:
 
 - **Shared login (default).** An entry with no provider metadata links every
   role to the bare agent dir `~/.<config_dir>/agent`: log in once there (run
@@ -287,6 +287,17 @@ pi backends have two credential modes:
   key is never written to disk or the command line: `models.json` stores only
   the `$VARIABLE` reference pi resolves at request time, and mat exports
   `auth_var` for it.
+- **Gateway.** An entry with a non-empty `gateway_selector` routes through the
+  companion gateway (see [Light Anthropic gateway](#light-anthropic-gateway))
+  with no vendor key on the worker. The selector is the only credential: mat
+  exports it as `MAT_PI_API_KEY` and writes a role-local `models.json` for the
+  fixed provider `mat-pi-gateway`, whose `baseUrl` is `MAT_PI_GATEWAY` or, when
+  that is unset, `MAT_ANTHROPIC_GATEWAY`. `auth_var`, `base_url`,
+  `base_url_var`, and `model_provider` are ignored. `wire_api` is optional and
+  defaults to `anthropic` on this route. Use a `default_model` prefixed
+  `mat-pi-gateway/` so the launched model matches the provider block. As with
+  an explicit provider, the shared `auth.json` link is detached and the shared
+  settings file stays linked.
 
 ```json
 {
@@ -305,10 +316,22 @@ pi backends have two credential modes:
 Messages), `openai` (OpenAI Chat Completions — the format most
 OpenAI-compatible proxies clone), `responses` (OpenAI Responses), or `google`
 (Google Generative AI). When an endpoint is declared without `wire_api`, mat
-defaults to `openai`. One provider per entry: `model_provider`, when set, and
+defaults to `openai`; a gateway entry without `wire_api` defaults to
+`anthropic`. One provider per entry: `model_provider`, when set, and
 the `provider/` prefix of `default_model` must agree — that agreement picks
 the provider id written into `models.json`. `model_catalog_json` is not
 supported for kind `pi`.
+
+```json
+{
+  "nickname": "pi-gateway",
+  "config_dir": "pi-gateway",
+  "gateway_selector": "chn",
+  "default_model": "mat-pi-gateway/claude-sonnet-4-5",
+  "prompt_file": "SYSTEM.md",
+  "kind": "pi"
+}
+```
 
 `default_model` and `default_effort` apply at launch like on any other backend:
 the model forwards as `--model <provider/model-id>` (pass the model id exactly
@@ -586,12 +609,14 @@ With the gateway unset, every backend behaves exactly as it does without this
 feature.
 
 `MAT_ANTHROPIC_GATEWAY` serves Claude and Copilot backends directly, and is
-also the fallback origin for Codex backends on the gateway route (see the
-Codex backends section above): a Codex `gateway_selector` entry uses
-`MAT_CODEX_GATEWAY` when it is set and `MAT_ANTHROPIC_GATEWAY` otherwise.
-The variables carry a gateway origin, not a wire path — each client appends
-its own protocol path (`/v1/messages` for Claude Code, `/responses` for
-Codex) and the gateway joins that inbound path onto the selected pool
+also the fallback origin for Codex and pi backends on the gateway route (see
+the Codex backends and pi workers sections above): a Codex
+`gateway_selector` entry uses `MAT_CODEX_GATEWAY` when it is set and
+`MAT_ANTHROPIC_GATEWAY` otherwise, and a pi `gateway_selector` entry uses
+`MAT_PI_GATEWAY` the same way. The variables carry a gateway origin, not a
+wire path — each client appends its own protocol path (`/v1/messages` for
+Claude Code, `/responses` for Codex, the path of its `wire_api` protocol for
+pi) and the gateway joins that inbound path onto the selected pool
 member's base URL, so one gateway origin serves every protocol at once.
 
 A `claude setup-token` credential cannot read usage directly: its OAuth token
@@ -612,7 +637,8 @@ CLI's BYOK provider has no custom-header channel to carry the edge credential,
 so a Copilot pane on the gateway path fails fast at launch when
 `MAT_ANTHROPIC_GATEWAY_BASIC_AUTH` is set instead of silently 401ing at the
 edge. Relax the gateway edge to also accept Bearer selectors, or route the
-Copilot backend outside that gateway.
+Copilot backend outside that gateway. A pi gateway backend has the same limit
+and fails fast the same way.
 
 ## Configuration reference
 
