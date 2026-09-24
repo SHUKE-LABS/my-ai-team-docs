@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.11.2 … v4.5.0 (2026-09-24)
+## v4.11.3 … v4.5.0 (2026-09-24)
 
 ### Features
 - feat(console): repository lifecycle feed
@@ -29,6 +29,7 @@ _Generated from release tags._
 
 ### Docs
 - docs(evidence): point driver-dispatch inventory at post- modules
+- docs(agents): ban foreground CI watch; bg-run the wait, act on wake
 
 ### Other Changes
 - test(ownership): isolate recycled-pid teardown scenarios
