@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.12.1 … v4.11.6 (2026-09-25)
+## v4.12.2 … v4.11.6 (2026-09-25)
 
 ### Features
 - feat: mode-qualified delivery claim labels
@@ -12,6 +12,7 @@ _Generated from release tags._
 - fix(test): dead-owner unknown sibling no longer freezes ledger reclaim
 - fix(test): consult dead-owner ledger siblings without forking
 - fix(test): pin notification formatter project to a fixture repo
+- fix(ownership): POSIX-quote the tmux owner-record carrier pane command
 
 ### Other Changes
 - test(helpers): per-package test source groups with isolation check
