@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.11.4 … v4.5.0 (2026-09-24)
+## v4.11.5 … v4.5.0 (2026-09-24)
 
 ### Features
 - feat(console): repository lifecycle feed
@@ -46,6 +46,7 @@ _Generated from release tags._
 - test(scratch): initialize launch marker state in cleanup fixtures
 - test(windows): make scratch-fragment render assertion host-aware
 - test(audit): widen load-sensitive supervisor waits in mat-audit-tmux
+- test: write lane fixture status files
 
 ## v4.4.2 … v4.1.14 (2026-09-23)
 
