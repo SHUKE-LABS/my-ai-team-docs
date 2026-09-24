@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.10.0 … v4.5.0 (2026-09-24)
+## v4.10.1 … v4.5.0 (2026-09-24)
 
 ### Features
 - feat(console): repository lifecycle feed
@@ -39,6 +39,7 @@ _Generated from release tags._
 - ci: run Linux test lanes in Docker
 - test(audit): keep the queued-wake fake-launch stub off test/helpers.sh
 - test(baton): make the doctor's node-absent case hold where node is a system binary
+- test(scratch): initialize launch marker state in cleanup fixtures
 
 ## v4.4.2 … v4.1.14 (2026-09-23)
 
