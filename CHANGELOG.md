@@ -2,7 +2,10 @@
 
 _Generated from release tags._
 
-## v4.11.10 … v4.11.6 (2026-09-25)
+## v4.12.0 … v4.11.6 (2026-09-25)
+
+### Features
+- feat: mode-qualified delivery claim labels
 
 ### Fixes
 - fix: allow cross-platform Windows issue refinement
