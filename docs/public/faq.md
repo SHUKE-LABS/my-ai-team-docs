@@ -18,7 +18,7 @@ Bare Claude Code is a single interactive coding CLI. `my-ai-team` adds:
 
 - **Async sessions** — drive and intervene remotely over Telegram.
 - **Issue handoff** — agents pass work through GitHub issues and labels;
-  claiming a ticket swaps `ready` for `assigned_to:<lock>`.
+  claiming a ticket swaps `ready` for `<mode>:<lock>`.
 - **Role separation** — investigation, implementation, and review use separate
   modes and backend slots.
 
