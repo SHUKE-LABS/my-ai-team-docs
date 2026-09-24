@@ -144,7 +144,7 @@ backend object:
 | `config_dir` | Required. Home/config directory stem under `$HOME/.<config_dir>`. Kept independent from `nickname` on purpose. |
 | `auth_var` | Optional. Name of the environment variable holding the auth token or API key. Omit it (or set `null`) when the backend uses its own login flow. A `claude` backend is token-auth only. |
 | `prompt_file` | Required. Prompt filename written into that backend's home (`CLAUDE.md` for Claude, `AGENTS.md` for Codex, and so on). |
-| `kind` | Required. Backend family: `claude`, `codex`, `copilot`, `pi`, `opencode`, `freebuff`, `grok`, or `commandcode`. The family decides which modes a backend can run — see [the notes below](#opencode-workers) and each family's subsection. |
+| `kind` | Required. Backend family: `claude`, `codex`, `copilot`, `pi`, `opencode`, `freebuff`, `grok`, `commandcode`, or `agy`. The family decides which modes a backend can run — see [the notes below](#opencode-workers) and each family's subsection. |
 | `base_url_var` | Optional. Name of the environment variable whose value becomes the backend's API endpoint. Omit it for the default endpoint or a native login flow. |
 | `base_url` | Optional literal endpoint for an explicit Codex or pi provider, or a Grok BYOK backend. Use `base_url` or `base_url_var`, not both. |
 | `tier` | Optional. `strong` or `weak`. A `weak` backend is refused for `explore` and `audit` (those roles produce the tickets everyone else works from) but stays usable as a Developer under a strong reviewer. Defaults to `strong`. |
@@ -441,9 +441,50 @@ Two limits to know before you register one:
   adapted to the `cmd` TUI in this release — use Command Code for the headless
   delivery modes, and pick a pane-backed backend for interactive drivers.
 
+### agy workers
+
+agy workers run the Google Antigravity CLI (`agy`) headless-first: the duo,
+team, and caucus baton relays serve it. Register one with:
+
+```json
+{
+  "nickname": "agy",
+  "config_dir": "agy",
+  "auth_var": null,
+  "prompt_file": ".gemini/GEMINI.md",
+  "kind": "agy",
+  "tier": "strong"
+}
+```
+
+The equivalent compact registry entry is
+`agy:agy:-:.gemini/GEMINI.md:agy:-:strong`.
+
+There is no `auth_var`: sign in once with `agy`'s own login. mat stages no token
+for agy and does not copy or link its Google account file into role homes; each
+role runs with `$HOME` set to its own role home, so its `.gemini` state and
+conversations stay separate from yours and from other roles.
+
+Every agy turn passes `--dangerously-skip-permissions`, so agy never stops to
+ask for tool approval, and one `--add-dir` for each workspace the turn may
+use. agy only grants access to directories passed with `--add-dir`: starting it
+in a directory or naming a `--project` is not enough.
+
+Restricted modes (`explore`, `audit`, `review`, `duo-review`, `live`) get a
+PreToolUse write guard. mat keeps one hook named `mat-role-guard` in
+`<role home>/.gemini/config/hooks.json`. It refuses tracked-file writes and
+delivery commands, and read-only tools and unrestricted roles keep their
+normal behavior. Other hooks in that file are left as they are. If the file is
+not valid JSON, mat refuses to launch the role and leaves the file in place.
+A workspace `.agents/hooks.json` is not used as the role guard.
+
+This release is headless/Baton-first. The tmux and local pane drivers are not
+adapted to agy's interactive TUI, so choose a pane-backed backend for
+interactive drivers.
+
 ### HOME-mapped worker paths
 
-`freebuff` and Command Code use `HOME` as their native home variable. For these
+`freebuff`, Command Code, and agy use `HOME` as their native home variable. For these
 workers, mat sets `$HOME` to the per-session role snapshot so each role has an
 isolated native configuration. That snapshot is not the operator's real home,
 and a `~/` path must not be assumed to reach it.
