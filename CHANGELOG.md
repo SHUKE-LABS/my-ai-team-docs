@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.10.2 … v4.5.0 (2026-09-24)
+## v4.11.0 … v4.5.0 (2026-09-24)
 
 ### Features
 - feat(console): repository lifecycle feed
@@ -11,6 +11,7 @@ _Generated from release tags._
 - feat(release): announce releases with the full commit message, no ad line
 - feat(release): announce the first commit's prose plus named co-authors
 - feat(agent-cli): version-aware once-per-session baton provisioning
+- feat(agy): add role-home guard provisioning and operator documentation
 
 ### Fixes
 - fix(ci): reduce run-lanes timeout risk
