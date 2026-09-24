@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.10.1 … v4.5.0 (2026-09-24)
+## v4.10.2 … v4.5.0 (2026-09-24)
 
 ### Features
 - feat(console): repository lifecycle feed
@@ -40,6 +40,7 @@ _Generated from release tags._
 - test(audit): keep the queued-wake fake-launch stub off test/helpers.sh
 - test(baton): make the doctor's node-absent case hold where node is a system binary
 - test(scratch): initialize launch marker state in cleanup fixtures
+- test(windows): make scratch-fragment render assertion host-aware
 
 ## v4.4.2 … v4.1.14 (2026-09-23)
 
