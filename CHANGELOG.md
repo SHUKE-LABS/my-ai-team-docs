@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.15.0 … v4.11.6 (2026-09-25)
+## v4.15.1 … v4.11.6 (2026-09-25)
 
 ### Features
 - feat: mode-qualified delivery claim labels
@@ -17,6 +17,7 @@ _Generated from release tags._
 - fix(test): pin notification formatter project to a fixture repo
 - fix(ownership): POSIX-quote the tmux owner-record carrier pane command
 - fix(test): keep renewal-reap victims one process so none outlive the suite
+- fix(ci): split ownership-ledger-regression.sh into four serial wrappers
 
 ### Other Changes
 - test(helpers): per-package test source groups with isolation check
