@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.19.6 … v4.18.9 (2026-09-26)
+## v4.19.7 … v4.18.9 (2026-09-26)
 
 ### Features
 - feat(backends): add leg headless backend kind
@@ -17,6 +17,7 @@ _Generated from release tags._
 - fix(test): run the four final-gate ownership-ledger cases and guard their wiring
 - fix(test): pin DOCS_VERSION in the session-scratch docs-projection case
 - fix(windows): reconcile stale Baton endpoint records after upgrades
+- fix(merge-release): route PR and issue operations to separate repositories
 
 ### Docs
 - docs(ci): Dockerfile header and sandbox recipe match the CI gate
