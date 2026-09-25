@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.19.4 … v4.18.9 (2026-09-26)
+## v4.19.5 … v4.18.9 (2026-09-26)
 
 ### Features
 - feat(backends): add leg headless backend kind
@@ -21,6 +21,9 @@ _Generated from release tags._
 - docs(ci): Dockerfile header and sandbox recipe match the CI gate
 - docs: copilot-instructions and handover skill name the <mode>:<slot> delivery lock
 - docs: reconcile stale mbp15-vm ci-heavy membership comments
+
+### Other Changes
+- chore(lint): route engine packages to tmux through a driver seam
 
 ## v4.18.8 … v4.11.6 (2026-09-25)
 
