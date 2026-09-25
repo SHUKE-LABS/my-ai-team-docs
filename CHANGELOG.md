@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.17.0 … v4.11.6 (2026-09-25)
+## v4.17.1 … v4.11.6 (2026-09-25)
 
 ### Features
 - feat: mode-qualified delivery claim labels
@@ -24,6 +24,7 @@ _Generated from release tags._
 ### Other Changes
 - test(helpers): per-package test source groups with isolation check
 - ci: let ci-real-host.yml dispatches target one runner and one shard
+- test: declare package groups for six core/tmux suites
 
 ## v4.11.5 … v4.5.0 (2026-09-24)
 
