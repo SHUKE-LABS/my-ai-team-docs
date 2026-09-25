@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.17.5 … v4.11.6 (2026-09-25)
+## v4.17.6 … v4.11.6 (2026-09-25)
 
 ### Features
 - feat: mode-qualified delivery claim labels
@@ -29,6 +29,7 @@ _Generated from release tags._
 - ci: let ci-real-host.yml dispatches target one runner and one shard
 - test: declare package groups for six core/tmux suites
 - test(doctor): isolate inherited user-bus variables in sandbox
+- test: gate relay-poll countdown and TERM-race cases on observed events
 
 ## v4.11.5 … v4.5.0 (2026-09-24)
 
