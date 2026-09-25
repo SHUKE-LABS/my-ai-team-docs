@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.18.12 … v4.18.9 (2026-09-26)
+## v4.18.13 … v4.18.9 (2026-09-26)
 
 ### Fixes
 - fix(ci): install a C compiler in the test image so doctor native-stub cases run
@@ -11,6 +11,7 @@ _Generated from release tags._
 
 ### Docs
 - docs(ci): Dockerfile header and sandbox recipe match the CI gate
+- docs: copilot-instructions and handover skill name the <mode>:<slot> delivery lock
 
 ## v4.18.8 … v4.11.6 (2026-09-25)
 
