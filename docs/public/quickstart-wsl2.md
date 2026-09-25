@@ -59,6 +59,8 @@ with `systemctl --user status tg-relay` as in the Linux quickstart.
 
 `mat` makes no WSL2 distinction: installation, `mat doctor`, tmux sessions,
 and the Telegram relay all follow the Linux behavior. In particular, a WSL2
-session never claims Windows-specific work — that stays with a native Windows
-Git Bash host. If you want that setup instead, see
+session does not deliver Windows-specific work — implementation stays with a
+native Windows Git Bash host. Its Explore may still refine those tickets,
+recording any Windows-specific claim it could not verify under a
+`Windows verification` note in the issue. If you want that setup instead, see
 [Windows Git Bash](faq.md#which-platforms-are-supported).
