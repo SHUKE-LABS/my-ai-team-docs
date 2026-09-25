@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.18.0 … v4.11.6 (2026-09-25)
+## v4.18.1 … v4.11.6 (2026-09-25)
 
 ### Features
 - feat: mode-qualified delivery claim labels
@@ -27,6 +27,7 @@ _Generated from release tags._
 - fix(test): interrupt start-marker fixture only after case body starts
 - fix(live): resolve patch commit guard against preceding cd
 - fix(backlog): scope the platform:windows note to delivery rows
+- fix(ci): retry transient read failures in platform-windows-gate
 
 ### Other Changes
 - test(helpers): per-package test source groups with isolation check
