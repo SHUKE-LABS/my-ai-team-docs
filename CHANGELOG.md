@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.18.2 … v4.11.6 (2026-09-25)
+## v4.18.3 … v4.11.6 (2026-09-25)
 
 ### Features
 - feat: mode-qualified delivery claim labels
@@ -29,6 +29,7 @@ _Generated from release tags._
 - fix(backlog): scope the platform:windows note to delivery rows
 - fix(ci): retry transient read failures in platform-windows-gate
 - fix(renewal): fall back to MAT_AGENT_PID winpid when the Windows adhoc pidfile refuses
+- fix: bound duo worker waits and stabilize pause markers
 
 ### Other Changes
 - test(helpers): per-package test source groups with isolation check
