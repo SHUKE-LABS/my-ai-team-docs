@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.19.3 … v4.18.9 (2026-09-26)
+## v4.19.4 … v4.18.9 (2026-09-26)
 
 ### Features
 - feat(backends): add leg headless backend kind
@@ -15,6 +15,7 @@ _Generated from release tags._
 - fix(test): re-measure three stale 1 s lint partition weights from Required timing
 - fix(test): install 2>/dev/null before the input redirect on vanishing-file reads
 - fix(test): run the four final-gate ownership-ledger cases and guard their wiring
+- fix(test): pin DOCS_VERSION in the session-scratch docs-projection case
 
 ### Docs
 - docs(ci): Dockerfile header and sandbox recipe match the CI gate
