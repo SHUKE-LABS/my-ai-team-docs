@@ -2,11 +2,12 @@
 
 _Generated from release tags._
 
-## v4.18.11 … v4.18.9 (2026-09-26)
+## v4.18.12 … v4.18.9 (2026-09-26)
 
 ### Fixes
 - fix(ci): install a C compiler in the test image so doctor native-stub cases run
 - fix(claim): claim-time uniqueness reads the legacy assigned_to label
+- fix(agy): hash the managed hooks.json in the settings-stage proof
 
 ### Docs
 - docs(ci): Dockerfile header and sandbox recipe match the CI gate
