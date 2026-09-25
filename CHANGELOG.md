@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.17.7 … v4.11.6 (2026-09-25)
+## v4.17.8 … v4.11.6 (2026-09-25)
 
 ### Features
 - feat: mode-qualified delivery claim labels
@@ -24,6 +24,7 @@ _Generated from release tags._
 - fix(test): bound harness teardown waits by wall clock
 - fix(cycle): refresh owner record under the mode-qualified label at cycle start
 - fix(test): interrupt start-marker fixture only after case body starts
+- fix(live): resolve patch commit guard against preceding cd
 
 ### Other Changes
 - test(helpers): per-package test source groups with isolation check
