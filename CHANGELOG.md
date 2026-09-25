@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.18.9 (2026-09-26)
+
+### Fixes
+- fix(ci): install a C compiler in the test image so doctor native-stub cases run
+
 ## v4.18.8 … v4.11.6 (2026-09-25)
 
 ### Features
