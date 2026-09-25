@@ -177,7 +177,8 @@ official-auth-only, direct custom) or keeps the native `auth.json` /
   non-empty, with `MAT_ANTHROPIC_GATEWAY` as the fallback — an operator
   running one gateway for several protocols exports the origin once. The
   selected value becomes the role's `base_url` with only one trailing `/`
-  stripped and the [worker namespace](#per-worker-gateway-url) inserted: the
+  stripped and, when enabled, the [worker namespace](#per-worker-gateway-url)
+  inserted: the
   gateway owns URL handling and joins Codex's `/responses` request path onto
   its pool member's base URL, so any origin shape the gateway accepts works,
   path prefixes included. Only when both
@@ -294,7 +295,7 @@ pi backends have three credential modes:
   exports it as `MAT_PI_API_KEY` and writes a role-local `models.json` for the
   fixed provider `mat-pi-gateway`, whose `baseUrl` is `MAT_PI_GATEWAY` or, when
   that is unset, `MAT_ANTHROPIC_GATEWAY`, with the
-  [worker namespace](#per-worker-gateway-url) inserted. `auth_var`, `base_url`,
+  [worker namespace](#per-worker-gateway-url) inserted when enabled. `auth_var`, `base_url`,
   `base_url_var`, and `model_provider` are ignored. `wire_api` is optional and
   defaults to `anthropic` on this route. `default_model` is required and must
   be `mat-pi-gateway/<model-id>`, so pi routes to that provider block; an
@@ -694,17 +695,27 @@ and fails fast the same way.
 
 #### Per-worker gateway URL
 
-Every client URL that points at the gateway carries the worker's
-`backends.json` `nickname` in the gateway's reserved worker namespace,
-inserted between the gateway origin and any path it has:
+The worker namespace is off by default: every gateway client URL is the plain
+gateway URL. Set `MAT_GATEWAY_WORKER_NAMESPACE=1` to enable it. Every client
+URL that points at the gateway then carries the worker's `backends.json`
+`nickname` in the gateway's reserved worker namespace, inserted between the
+gateway origin and any path it has:
 
 ```text
+MAT_GATEWAY_WORKER_NAMESPACE=1
 MAT_CODEX_GATEWAY=http://127.0.0.1:8080/v1, nickname agent-a
   -> http://127.0.0.1:8080/_aqg/w/agent-a/v1
 ```
 
-The URL is derived at every launch — there is no extra field to set and
-`backends.json` is never rewritten. The nickname is routing identity only: the
+Enable it only when the gateway supports the worker namespace. It is useful
+only for a gateway pool configured to spread workers (`concurrency > 1`). A
+gateway without that support forwards the prefixed path upstream, and every
+gateway-routed agent fails. Any value other than `1` leaves the namespace off.
+Changing the setting re-provisions a Codex or pi role's provider file on its
+next launch.
+
+With the namespace enabled, the URL is derived at every launch — there is no
+extra field to set and `backends.json` is never rewritten. The nickname is routing identity only: the
 gateway uses it to keep each worker on its own pool member, while
 `gateway_selector` still selects the pool and is still the only credential.
 Claude, Copilot, Codex, and pi gateway launches all use the derived URL; the
@@ -713,8 +724,7 @@ quota endpoint does not.
 A nickname that is not a safe single URL segment — anything outside letters,
 digits, `.`, `_`, `~`, and `-`, a leading `.`, or longer than 64 characters —
 is left out: that worker uses the plain gateway URL and the gateway's shared,
-non-per-worker routing. The gateway must support the worker namespace; an
-older gateway that does not will reject the derived URL.
+non-per-worker routing.
 
 ## Configuration reference
 

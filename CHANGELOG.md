@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v4.19.7 … v4.18.9 (2026-09-26)
+## v4.20.0 … v4.18.9 (2026-09-26)
 
 ### Features
 - feat(backends): add leg headless backend kind
+- feat(providers): make the per-worker gateway URL opt-in via MAT_GATEWAY_WORKER_NAMESPACE=1
 
 ### Fixes
 - fix(ci): install a C compiler in the test image so doctor native-stub cases run
