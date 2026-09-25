@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.17.3 … v4.11.6 (2026-09-25)
+## v4.17.4 … v4.11.6 (2026-09-25)
 
 ### Features
 - feat: mode-qualified delivery claim labels
@@ -21,6 +21,7 @@ _Generated from release tags._
 - fix(test): keep renewal-reap victims one process so none outlive the suite
 - fix(ci): split ownership-ledger-regression.sh into four serial wrappers
 - fix(review): retry and park transient Required CI failures
+- fix(test): bound harness teardown waits by wall clock
 
 ### Other Changes
 - test(helpers): per-package test source groups with isolation check
