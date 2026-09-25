@@ -2,7 +2,10 @@
 
 _Generated from release tags._
 
-## v4.18.15 … v4.18.9 (2026-09-26)
+## v4.19.0 … v4.18.9 (2026-09-26)
+
+### Features
+- feat(backends): add leg headless backend kind
 
 ### Fixes
 - fix(ci): install a C compiler in the test image so doctor native-stub cases run

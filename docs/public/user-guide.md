@@ -142,9 +142,9 @@ backend object:
 | --- | --- |
 | `nickname` | Required. The CLI alias and the slot name used in commands and locks. |
 | `config_dir` | Required. Home/config directory stem under `$HOME/.<config_dir>`. Kept independent from `nickname` on purpose. |
-| `auth_var` | Optional. Name of the environment variable holding the auth token or API key. Omit it (or set `null`) when the backend uses its own login flow. A `claude` backend is token-auth only. |
+| `auth_var` | Optional. Name of the environment variable holding the auth token or API key. Omit it (or set `null`) when the backend uses its own login flow. A `claude` or `leg` backend is token/API-key auth only. |
 | `prompt_file` | Required. Prompt filename written into that backend's home (`CLAUDE.md` for Claude, `AGENTS.md` for Codex, and so on). |
-| `kind` | Required. Backend family: `claude`, `codex`, `copilot`, `pi`, `opencode`, `freebuff`, `grok`, `commandcode`, or `agy`. The family decides which modes a backend can run — see [the notes below](#opencode-workers) and each family's subsection. |
+| `kind` | Required. Backend family: `claude`, `codex`, `copilot`, `pi`, `opencode`, `freebuff`, `grok`, `commandcode`, `agy`, or `leg`. The family decides which modes a backend can run — see [the notes below](#opencode-workers) and each family's subsection. |
 | `base_url_var` | Optional. Name of the environment variable whose value becomes the backend's API endpoint. Omit it for the default endpoint or a native login flow. |
 | `base_url` | Optional literal endpoint for an explicit Codex or pi provider, or a Grok BYOK backend. Use `base_url` or `base_url_var`, not both. |
 | `tier` | Optional. `strong` or `weak`. A `weak` backend is refused for `explore` and `audit` (those roles produce the tickets everyone else works from) but stays usable as a Developer under a strong reviewer. Defaults to `strong`. |
@@ -508,6 +508,54 @@ A workspace `.agents/hooks.json` is not used as the role guard.
 This release is headless/Baton-first. The tmux and local pane drivers are not
 adapted to agy's interactive TUI, so choose a pane-backed backend for
 interactive drivers.
+
+### leg workers
+
+leg workers run the leg CLI headless-first: the duo, team, and caucus baton
+relays serve it. Register one with:
+
+```json
+{
+  "nickname": "leg",
+  "config_dir": "leg",
+  "auth_var": "ANTHROPIC_API_KEY",
+  "prompt_file": "AGENTS.md",
+  "kind": "leg",
+  "tier": "strong"
+}
+```
+
+The equivalent compact registry entry is
+`leg:leg:ANTHROPIC_API_KEY:AGENTS.md:leg:-:strong`.
+
+leg is token/API-key auth: `auth_var` is required, and mat refuses to start a
+turn when it is missing or its value is empty. The credential reaches leg only
+through its environment, never its command line. Two credential types work:
+
+- An Anthropic API key: name the variable `ANTHROPIC_API_KEY`, and its value is
+  passed as an API key.
+- An Anthropic-compatible provider's key: use any other variable name together
+  with a `base_url_var` naming the provider's endpoint. The key is passed as a
+  bearer token (`ANTHROPIC_AUTH_TOKEN`) and the endpoint as
+  `ANTHROPIC_BASE_URL`.
+
+A Claude Code subscription token (from `claude setup-token`) is not supported:
+leg is passed such a token as a bearer token, but every turn fails with a
+`rate_limit_error`. Other Anthropic credential variables in your shell do not
+reach leg.
+
+Each role keeps its own leg session store under its role home, so roles never
+share a conversation. A task's later turns continue its session; if leg reports
+that session is gone, mat starts that turn in a new session once.
+
+Restricted modes (`explore`, `audit`, `review`, `duo-review`, `live`) get a
+write guard through leg's pre-tool hook. It refuses tracked-file writes and
+delivery commands from leg's `bash`, `write`, and `edit` tools; reads and
+unrestricted roles keep their normal behavior.
+
+This release is headless/Baton-only. The tmux and local pane drivers are not
+adapted to leg, so choose a pane-backed backend for interactive drivers.
+`mat setup` does not write leg entries; add one to `backends.json` by hand.
 
 ### HOME-mapped worker paths
 
