@@ -176,10 +176,11 @@ official-auth-only, direct custom) or keeps the native `auth.json` /
   entry through the gateway origin: `MAT_CODEX_GATEWAY` when set and
   non-empty, with `MAT_ANTHROPIC_GATEWAY` as the fallback — an operator
   running one gateway for several protocols exports the origin once. The
-  selected value becomes the role's `base_url` verbatim (only one trailing
-  `/` is stripped): the gateway owns URL handling and joins Codex's
-  `/responses` request path onto its pool member's base URL, so any origin
-  shape the gateway accepts works, path prefixes included. Only when both
+  selected value becomes the role's `base_url` with only one trailing `/`
+  stripped and the [worker namespace](#per-worker-gateway-url) inserted: the
+  gateway owns URL handling and joins Codex's `/responses` request path onto
+  its pool member's base URL, so any origin shape the gateway accepts works,
+  path prefixes included. Only when both
   variables are unset or empty does the launch fail, with a diagnostic
   naming both. The role is provisioned with a fixed mat-owned provider
   identity `mat-codex-gateway` and the selector value carried as
@@ -292,7 +293,8 @@ pi backends have three credential modes:
   with no vendor key on the worker. The selector is the only credential: mat
   exports it as `MAT_PI_API_KEY` and writes a role-local `models.json` for the
   fixed provider `mat-pi-gateway`, whose `baseUrl` is `MAT_PI_GATEWAY` or, when
-  that is unset, `MAT_ANTHROPIC_GATEWAY`. `auth_var`, `base_url`,
+  that is unset, `MAT_ANTHROPIC_GATEWAY`, with the
+  [worker namespace](#per-worker-gateway-url) inserted. `auth_var`, `base_url`,
   `base_url_var`, and `model_provider` are ignored. `wire_api` is optional and
   defaults to `anthropic` on this route. Use a `default_model` prefixed
   `mat-pi-gateway/` so the launched model matches the provider block. As with
@@ -639,6 +641,30 @@ so a Copilot pane on the gateway path fails fast at launch when
 edge. Relax the gateway edge to also accept Bearer selectors, or route the
 Copilot backend outside that gateway. A pi gateway backend has the same limit
 and fails fast the same way.
+
+#### Per-worker gateway URL
+
+Every client URL that points at the gateway carries the worker's
+`backends.json` `nickname` in the gateway's reserved worker namespace,
+inserted between the gateway origin and any path it has:
+
+```text
+MAT_CODEX_GATEWAY=http://127.0.0.1:8080/v1, nickname agent-a
+  -> http://127.0.0.1:8080/_aqg/w/agent-a/v1
+```
+
+The URL is derived at every launch — there is no extra field to set and
+`backends.json` is never rewritten. The nickname is routing identity only: the
+gateway uses it to keep each worker on its own pool member, while
+`gateway_selector` still selects the pool and is still the only credential.
+Claude, Copilot, Codex, and pi gateway launches all use the derived URL; the
+quota endpoint does not.
+
+A nickname that is not a safe single URL segment — anything outside letters,
+digits, `.`, `_`, `~`, and `-`, a leading `.`, or longer than 64 characters —
+is left out: that worker uses the plain gateway URL and the gateway's shared,
+non-per-worker routing. The gateway must support the worker namespace; an
+older gateway that does not will reject the derived URL.
 
 ## Configuration reference
 
