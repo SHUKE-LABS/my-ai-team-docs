@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.18.5 … v4.11.6 (2026-09-25)
+## v4.18.6 … v4.11.6 (2026-09-25)
 
 ### Features
 - feat: mode-qualified delivery claim labels
@@ -31,6 +31,7 @@ _Generated from release tags._
 - fix(renewal): fall back to MAT_AGENT_PID winpid when the Windows adhoc pidfile refuses
 - fix: bound duo worker waits and stabilize pause markers
 - fix(issue): mat issue ready releases the caller's own explore hold
+- fix(prompts): repair water-cut remnants in duo-review and scratch-files-linux
 
 ### Refactors
 - refactor: move tmux-free session/next-work helpers out of an internal path
