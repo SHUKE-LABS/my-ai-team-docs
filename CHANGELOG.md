@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.18.6 … v4.11.6 (2026-09-25)
+## v4.18.7 … v4.11.6 (2026-09-25)
 
 ### Features
 - feat: mode-qualified delivery claim labels
@@ -32,6 +32,7 @@ _Generated from release tags._
 - fix: bound duo worker waits and stabilize pause markers
 - fix(issue): mat issue ready releases the caller's own explore hold
 - fix(prompts): repair water-cut remnants in duo-review and scratch-files-linux
+- fix(pi): require a mat-pi-gateway/ default_model on the gateway route
 
 ### Refactors
 - refactor: move tmux-free session/next-work helpers out of an internal path

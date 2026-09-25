@@ -296,8 +296,10 @@ pi backends have three credential modes:
   that is unset, `MAT_ANTHROPIC_GATEWAY`, with the
   [worker namespace](#per-worker-gateway-url) inserted. `auth_var`, `base_url`,
   `base_url_var`, and `model_provider` are ignored. `wire_api` is optional and
-  defaults to `anthropic` on this route. Use a `default_model` prefixed
-  `mat-pi-gateway/` so the launched model matches the provider block. As with
+  defaults to `anthropic` on this route. `default_model` is required and must
+  be `mat-pi-gateway/<model-id>`, so pi routes to that provider block; an
+  entry with no `default_model` or any other prefix fails before pi starts,
+  because pi would otherwise fall back to a vendor provider. As with
   an explicit provider, the shared `auth.json` link is detached and the shared
   settings file stays linked.
 
