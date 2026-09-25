@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.17.9 … v4.11.6 (2026-09-25)
+## v4.17.10 … v4.11.6 (2026-09-25)
 
 ### Features
 - feat: mode-qualified delivery claim labels
@@ -33,6 +33,7 @@ _Generated from release tags._
 - test: declare package groups for six core/tmux suites
 - test(doctor): isolate inherited user-bus variables in sandbox
 - test: gate relay-poll countdown and TERM-race cases on observed events
+- test: attribute and fix the sydney2 _relay-poll leak
 
 ## v4.11.5 … v4.5.0 (2026-09-24)
 
