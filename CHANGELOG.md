@@ -2,11 +2,12 @@
 
 _Generated from release tags._
 
-## v4.13.1 … v4.11.6 (2026-09-25)
+## v4.14.0 … v4.11.6 (2026-09-25)
 
 ### Features
 - feat: mode-qualified delivery claim labels
 - feat(pi): gateway_selector route with selector auth and no client-side key
+- feat(codex): port ticket-critique reminder/stop/clear hooks
 
 ### Fixes
 - fix: allow cross-platform Windows issue refinement
