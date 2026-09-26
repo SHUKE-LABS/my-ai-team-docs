@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.21.8 … v4.18.9 (2026-09-26)
+## v4.21.9 … v4.18.9 (2026-09-26)
 
 ### Features
 - feat(backends): add leg headless backend kind
@@ -48,6 +48,7 @@ _Generated from release tags._
 - ci(windows): provision the gh CLI in the Windows bootstrap
 - ci(windows-gate): make platform-windows-gate advisory
 - test: refresh ownership-ledger wrapper weights after follow-up changes
+- test(console): give server readiness a 30s deadline and diagnose failures
 
 ## v4.18.8 … v4.11.6 (2026-09-25)
 
