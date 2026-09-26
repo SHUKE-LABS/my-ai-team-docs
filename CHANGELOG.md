@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.25.4 … v4.22.1 (2026-09-27)
+## v4.25.5 … v4.22.1 (2026-09-27)
 
 ### Features
 - feat: forward notify-user --action to an opt-in devops host
@@ -21,6 +21,7 @@ _Generated from release tags._
 - fix(console): re-arm a transcript watcher that failed with EMFILE
 - fix(ci): route timing tables to sync lint
 - fix(ci): ship ShellCheck in the test image and fail closed without it
+- fix: allow send-relay pane targets outside tmux
 
 ### Other Changes
 - test: isolate core package suites in batch 2

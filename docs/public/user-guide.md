@@ -1171,6 +1171,10 @@ printed scratch root and `mat scratch-file` for relay files. This keeps Bash,
 native tools, and agent file tools on one path. The runtime scratch commands and
 relay transport are the same on every platform.
 
+To send a handoff directly to a pane, `send-relay %<pane-id> <handoff-file>`
+also works outside a tmux client, such as from an SSH shell. Role-word targets
+such as `reviewer` still require a tmux client.
+
 ### Worktree isolation
 
 By default every worktree-creating mode — `adhoc`, `team`, `duo`, `audit`,
