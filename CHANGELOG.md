@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.25.5 … v4.22.1 (2026-09-27)
+## v4.25.6 … v4.22.1 (2026-09-27)
 
 ### Features
 - feat: forward notify-user --action to an opt-in devops host
@@ -22,6 +22,7 @@ _Generated from release tags._
 - fix(ci): route timing tables to sync lint
 - fix(ci): ship ShellCheck in the test image and fail closed without it
 - fix: allow send-relay pane targets outside tmux
+- fix: bound ad-hoc Windows debug scripts
 
 ### Other Changes
 - test: isolate core package suites in batch 2
