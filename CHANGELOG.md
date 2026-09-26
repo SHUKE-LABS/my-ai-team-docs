@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.20.5 … v4.18.9 (2026-09-26)
+## v4.20.6 … v4.18.9 (2026-09-26)
 
 ### Features
 - feat(backends): add leg headless backend kind
@@ -20,6 +20,7 @@ _Generated from release tags._
 - fix(windows): reconcile stale Baton endpoint records after upgrades
 - fix(merge-release): route PR and issue operations to separate repositories
 - fix(console): keep the Baton console usable when Windows status/show reads are slow
+- fix(test): visit the capped ownership sweep least-recently-visited first
 
 ### Performance
 - perf(console): cache dead fleet snapshot per page
