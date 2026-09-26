@@ -1579,6 +1579,18 @@ that pane has exited, the relay refuses the follow-up with recovery guidance
 rather than sending it somewhere else. Re-target with `#<session>` or
 `#<pane-number>`, or reply to a live agent message.
 
+For a session running under tmux, a refusal tells you what tmux actually
+confirmed. (Baton and `local` driver sessions are checked without tmux and keep
+their own refusal wording.) "No session named …", "has exited", or "not running" means tmux answered and
+that exact session is gone. "Couldn't confirm session … is running" means tmux
+could not be asked: the server is unreachable (the reason is named, including a
+server whose socket file went missing), tmux did not answer in time, or tmux
+returned an error. The session may still be alive, so try again shortly. An
+`Available:` list is added only when the session listing itself succeeded; if
+it failed, the reply names the cause and has no list, rather than saying none
+are running. `send-relay` on tmux makes the same distinction: `no session
+named` versus `cannot confirm session` with the cause.
+
 A team session announces its panes when it starts:
 
 ```

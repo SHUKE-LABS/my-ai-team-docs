@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.21.2 … v4.18.9 (2026-09-26)
+## v4.21.4 … v4.18.9 (2026-09-26)
 
 ### Features
 - feat(backends): add leg headless backend kind
@@ -27,6 +27,7 @@ _Generated from release tags._
 - fix(bg-run): single-quote tmux pane command words for a POSIX default-shell
 - fix(test): drop Linux 'root /tmp' scratch pins removed by
 - fix(live): claim an issue before patch work
+- fix(tmux): distinguish an unreachable tmux server from a missing session
 
 ### Performance
 - perf(console): cache dead fleet snapshot per page
@@ -35,6 +36,7 @@ _Generated from release tags._
 - docs(ci): Dockerfile header and sandbox recipe match the CI gate
 - docs: copilot-instructions and handover skill name the <mode>:<slot> delivery lock
 - docs: reconcile stale mbp15-vm ci-heavy membership comments
+- docs(codex): clarify opt-in namespace in route identity comment
 
 ### Other Changes
 - chore(lint): route engine packages to tmux through a driver seam
