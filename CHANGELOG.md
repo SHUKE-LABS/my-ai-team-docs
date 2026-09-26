@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.22.1 (2026-09-27)
+
+### Other Changes
+- test: isolate core package suites in batch 2
+
 ## v4.22.0 … v4.18.9 (2026-09-26)
 
 ### Features
