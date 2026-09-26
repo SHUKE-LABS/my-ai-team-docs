@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.21.10 … v4.18.9 (2026-09-26)
+## v4.21.12 … v4.18.9 (2026-09-26)
 
 ### Features
 - feat(backends): add leg headless backend kind
@@ -32,6 +32,7 @@ _Generated from release tags._
 - fix: silence read open race diagnostics
 - fix(baton): read verbs must not recreate missing session cubbies
 - fix(ci): skip a Windows gate re-dispatch the remaining budget cannot watch
+- fix(test): exempt console Node lane from address-space cap
 
 ### Performance
 - perf(console): cache dead fleet snapshot per page
@@ -50,6 +51,7 @@ _Generated from release tags._
 - test: refresh ownership-ledger wrapper weights after follow-up changes
 - test(console): give server readiness a 30s deadline and diagnose failures
 - test(case-profile): assert the nested profile on a named child case
+- ci: recalibrate soft test budgets
 
 ## v4.18.8 … v4.11.6 (2026-09-25)
 
