@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.21.14 … v4.18.9 (2026-09-26)
+## v4.21.16 … v4.18.9 (2026-09-26)
 
 ### Features
 - feat(backends): add leg headless backend kind
@@ -35,6 +35,8 @@ _Generated from release tags._
 - fix(test): exempt console Node lane from address-space cap
 - fix(ci): rename gh download to .zip before Expand-Archive in windows bootstrap
 - fix(hooks): deny only write-shaped bare /tmp tokens off Windows
+- fix(doctor): validate leg backend credentials
+- fix(live): place quoted-with-space and line-continued cd targets; track escaped \cd
 
 ### Performance
 - perf(console): cache dead fleet snapshot per page

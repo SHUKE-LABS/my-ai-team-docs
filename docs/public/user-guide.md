@@ -531,7 +531,9 @@ The equivalent compact registry entry is
 
 leg is token/API-key auth: `auth_var` is required, and mat refuses to start a
 turn when it is missing or its value is empty. The credential reaches leg only
-through its environment, never its command line. Two credential types work:
+through its environment, never its command line. `mat doctor` checks that
+`auth_var` resolves and reports how to fix a missing or empty value without
+showing the credential. Two credential types work:
 
 - An Anthropic API key: name the variable `ANTHROPIC_API_KEY`, and its value is
   passed as an API key.
