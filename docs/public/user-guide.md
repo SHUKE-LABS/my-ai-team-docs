@@ -1183,6 +1183,14 @@ git config --local  mat.enableWorktree false   # this repo
 git config --global mat.enableWorktree false   # every repo on this machine
 ```
 
+Live still starts in the checkout you launched it from. Direct work and tasks
+that repair that checkout stay there and preserve its contents. An ordinary
+issue-backed patch task gets its own managed worktree from the latest verified
+default branch, so unrelated or uncommitted checkout state stays out of the
+patch. If the default branch or a safe task worktree cannot be resolved, the
+task stops instead of using the shared checkout. This live patch boundary
+remains in effect when the general worktree setting above is disabled.
+
 With worktrees disabled, the write-capable modes (`adhoc`/`team`/`duo`) share the
 one main checkout, so mat refuses a second write-capable session against a repo
 that already has a live one. Remove an inactive, clean worktree explicitly with
