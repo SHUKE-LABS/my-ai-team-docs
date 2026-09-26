@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.21.6 … v4.18.9 (2026-09-26)
+## v4.21.8 … v4.18.9 (2026-09-26)
 
 ### Features
 - feat(backends): add leg headless backend kind
@@ -30,6 +30,8 @@ _Generated from release tags._
 - fix(tmux): distinguish an unreachable tmux server from a missing session
 - fix(baton): target systemd user manager
 - fix: silence read open race diagnostics
+- fix(baton): read verbs must not recreate missing session cubbies
+- fix(ci): skip a Windows gate re-dispatch the remaining budget cannot watch
 
 ### Performance
 - perf(console): cache dead fleet snapshot per page
