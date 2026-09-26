@@ -2,14 +2,16 @@
 
 _Generated from release tags._
 
-## v4.23.2 … v4.22.1 (2026-09-27)
+## v4.24.0 … v4.22.1 (2026-09-27)
 
 ### Features
 - feat: forward notify-user --action to an opt-in devops host
+- feat(prompts): add shared local devops rules hook
 
 ### Fixes
 - fix(ci): reject stale ShellCheck baseline counts
 - fix(gate): make merge-gate read the advisory Windows gate's step summary
+- fix(console): keep a session stopped mid-page as a dead row until teardown
 
 ### Other Changes
 - test: isolate core package suites in batch 2

@@ -1754,6 +1754,20 @@ The per-role personality hook (`shared/personality-<role>.md`, or
 the user-global tier even when the toggle is off, because the built-in
 personality files are empty hooks with nothing to drift from.
 
+### Operator extension points
+
+To add shared house rules without replacing a role prompt, create a fragment in
+`<project-root>/.my-ai-team/shared/` or
+`${XDG_CONFIG_HOME:-~/.config}/my-ai-team/shared/`. The project tier always
+applies; the user-global tier requires `mat.personalPromptOverride=true`.
+
+- `local-issue-rules.md` reaches the issue-acting roles.
+- `local-devops-rules.md` reaches every standalone role. Its shipped fragment is
+  empty; add only the rules your deployment needs.
+
+For a project override, `.my-ai-team` may be a symlink, but its `shared/`
+directory and fragment must be real directories and files.
+
 When an override is active, mat names it on the resolved launch line (the
 `(personal override)` marker) so you can always tell which prompt is live.
 
