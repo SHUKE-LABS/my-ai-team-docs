@@ -2,11 +2,12 @@
 
 _Generated from release tags._
 
-## v4.24.6 … v4.22.1 (2026-09-27)
+## v4.25.1 … v4.22.1 (2026-09-27)
 
 ### Features
 - feat: forward notify-user --action to an opt-in devops host
 - feat(prompts): add shared local devops rules hook
+- feat(review): carry evidence across PR heads
 
 ### Fixes
 - fix(ci): reject stale ShellCheck baseline counts
@@ -17,6 +18,7 @@ _Generated from release tags._
 - fix: read ownership sweep mtimes portably
 - fix(baton): reconstruct systemd user bus for manager calls
 - fix(test): avoid SIGPIPE in console route regression
+- fix(console): re-arm a transcript watcher that failed with EMFILE
 
 ### Other Changes
 - test: isolate core package suites in batch 2
