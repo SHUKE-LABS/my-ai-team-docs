@@ -292,15 +292,21 @@ pi backends have three credential modes:
 - **Gateway.** An entry with a non-empty `gateway_selector` routes through the
   companion gateway (see [Light Anthropic gateway](#light-anthropic-gateway))
   with no vendor key on the worker. The selector is the only credential: mat
-  exports it as `MAT_PI_API_KEY` and writes a role-local `models.json` for the
-  fixed provider `mat-pi-gateway`, whose `baseUrl` is `MAT_PI_GATEWAY` or, when
+  exports it as `MAT_PI_API_KEY` and writes a role-local `models.json`
+  provider block whose `baseUrl` is `MAT_PI_GATEWAY` or, when
   that is unset, `MAT_ANTHROPIC_GATEWAY`, with the
   [worker namespace](#per-worker-gateway-url) inserted when enabled. `auth_var`, `base_url`,
   `base_url_var`, and `model_provider` are ignored. `wire_api` is optional and
-  defaults to `anthropic` on this route. `default_model` is required and must
-  be `mat-pi-gateway/<model-id>`, so pi routes to that provider block; an
-  entry with no `default_model` or any other prefix fails before pi starts,
-  because pi would otherwise fall back to a vendor provider. As with
+  defaults to `anthropic` on this route. `default_model` is required. The
+  recommended form is a bare model id (`claude-sonnet-4-5`): mat names the
+  block `mat` and launches pi with `--model mat/<model-id>`. A
+  `<prefix>/<model-id>` names the block `<prefix>` instead; only the first `/`
+  splits, so `mat/vendor/model` routes model `vendor/model`. A prefix that
+  matches a pi built-in provider also routes to the gateway, but a credential
+  stored for that provider by an in-pane `/login` would take precedence, and
+  `mat doctor` notes any prefix other than `mat`. An entry with no
+  `default_model`, or with an empty model id (`gw/`), fails before pi starts,
+  because pi would otherwise pick a model from a vendor provider. As with
   an explicit provider, the shared `auth.json` link is detached and the shared
   settings file stays linked.
 
@@ -332,7 +338,7 @@ supported for kind `pi`.
   "nickname": "pi-gateway",
   "config_dir": "pi-gateway",
   "gateway_selector": "chn",
-  "default_model": "mat-pi-gateway/claude-sonnet-4-5",
+  "default_model": "claude-sonnet-4-5",
   "prompt_file": "SYSTEM.md",
   "kind": "pi"
 }
