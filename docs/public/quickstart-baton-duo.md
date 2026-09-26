@@ -32,6 +32,11 @@ Scheduler on Windows — waits up to the default 30 seconds for liveness, and
 then submits the serves. The supervisor restarts after an unexpected exit and
 survives re-login; `mat` does not own it as a background child.
 
+On Linux, when the standard systemd user bus at `/run/user/<uid>/bus` is active,
+`mat` can reach it even if a headless shell has not inherited
+`XDG_RUNTIME_DIR` or `DBUS_SESSION_BUS_ADDRESS`; it supplies the standard bus
+values for its manager calls.
+
 The control directory is resolved from `MAT_BATON_CONTROL_DIR`, then
 `git config mat.batonControlDir`, then `~/.baton/service`. The default needs no
 extra config; an override gives the session a separate service endpoint.

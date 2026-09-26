@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.24.4 … v4.22.1 (2026-09-27)
+## v4.24.5 … v4.22.1 (2026-09-27)
 
 ### Features
 - feat: forward notify-user --action to an opt-in devops host
@@ -15,6 +15,7 @@ _Generated from release tags._
 - fix(live): isolate issue patch worktree lifecycle
 - fix(local-state): decide reboot by the kernel boot UUID, not a drifting btime
 - fix: read ownership sweep mtimes portably
+- fix(baton): reconstruct systemd user bus for manager calls
 
 ### Other Changes
 - test: isolate core package suites in batch 2
