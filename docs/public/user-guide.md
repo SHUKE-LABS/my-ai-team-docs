@@ -1013,6 +1013,30 @@ arrives — never the session you were looking at before — and a fetch that fa
 says so in its place. A fleet refresh and a running action both show in the
 status line at the top right, next to the live-connection state.
 
+A slow host — native Windows especially, where `mat baton status` can take
+over a minute — does not make the console lose a session. Once the page has
+shown a session list or a session's detail, a refresh that is slow or never
+answers keeps what was last shown and labels it instead of replacing it with an
+error:
+
+- **refreshing** — a refresh is still running behind the data on screen
+  (*refresh still running; showing last known as of …*). The page updates on
+  its own when the refresh finishes.
+- **stale** — the last refresh failed or timed out, so the data on screen is
+  the last good answer, with the time it was read and why the refresh failed
+  (*stale as of … UTC: mat baton status --json timed out after …*). The next
+  successful refresh clears it without a reload.
+- **error** — there was nothing to fall back on (the very first load failed),
+  so the page says the read failed rather than showing an empty list.
+
+The fleet's state is shown in the status line; a session's is shown as a note
+under the session header. A session disappears from the list only when a
+successful `mat baton status` stops reporting it, never because a refresh
+timed out. Each read is bounded — about 30 seconds for a status scan and 15
+seconds for one session's detail, raised to 3 minutes and 2 minutes on Windows —
+and a read that hits its bound is stopped together with everything it
+started.
+
 You can also intervene from the page. Each role column has its own message box
 at the bottom, so you type under the role you are talking to and there is no
 dropdown to aim wrong. **Enter** sends that column's message; **Shift+Enter**
