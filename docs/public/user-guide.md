@@ -756,6 +756,7 @@ defaults. Unless noted, Git resolves them from local to global configuration.
 | `mat.personalPromptOverride` | — | Enable user-global prompt overrides (see [Prompt overrides](#prompt-overrides)) | off |
 | `mat.personalSkillsOverride` | — | Let a personal skill override a product skill of the same name | off |
 | `mat.stallWatchdog` | `MAT_STALL_WATCHDOG` | Nudge/escalate a stalled delivery turn | on |
+| `mat.devopsHost` | `MAT_DEVOPS_HOST` | ssh host that also receives every `notify-user --action` message (see [Forwarding action messages](#forwarding-action-messages)) | — |
 
 Worktree selection has its own precedence: `MAT_ENABLE_WORKTREE` first (the
 `--worktree` and `--no-worktree` flags set this value for that launch), then
@@ -1680,6 +1681,34 @@ review only you can perform. Those carry a leading **`❗ACTION:`** marker, so y
 can scan a stream of notifications and see at a glance which ones are waiting on
 you. Reply to a marked message the same way you reply to any other — the marker
 is a signal to you, not a change in routing.
+
+### Forwarding action messages
+
+You can have a second agent, such as an oncall agent on another machine, see
+every action message too. Set an ssh host alias that works without a password
+prompt:
+
+```bash
+git config --global mat.devopsHost <ssh-alias>   # or export MAT_DEVOPS_HOST
+```
+
+`MAT_DEVOPS_HOST` overrides the git setting. After every `notify-user --action`
+send, mat runs `ssh <ssh-alias> oncall-inbox` and passes the message on standard
+input, exactly as it went to Telegram plus a final newline: the `❗ACTION:` marker, the pane prefix,
+and the identity suffix. Plain `notify-user` messages are not forwarded. When
+neither setting is present, nothing changes.
+
+- **`oncall-inbox` is yours to provide.** mat does not ship it. It must be on the
+  remote host's `PATH` for non-interactive ssh commands, which read neither
+  `~/.profile` nor an interactive `~/.bashrc`. It decides how the message reaches
+  the oncall agent.
+- **The forward never blocks or fails the send.** Telegram delivery comes first
+  and does not depend on the forward. The ssh runs in the background with a
+  15-second limit. A failure or timeout adds a `devops_forward status=fail` line
+  to the notification log. The message and `notify-user`'s exit status stay
+  unchanged.
+- **Set `MAT_DEVOPS_SELF=1` on the receiving host.** Agents there then never
+  forward to themselves, even when a copied configuration also sets the host.
 
 ## Advanced and customization
 
