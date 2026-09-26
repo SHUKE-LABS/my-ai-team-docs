@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.20.3 … v4.18.9 (2026-09-26)
+## v4.20.5 … v4.18.9 (2026-09-26)
 
 ### Features
 - feat(backends): add leg headless backend kind
@@ -32,6 +32,8 @@ _Generated from release tags._
 ### Other Changes
 - chore(lint): route engine packages to tmux through a driver seam
 - ci(windows): size the core wave budget from its manifest and enforce it
+- ci(windows): provision the gh CLI in the Windows bootstrap
+- ci(windows-gate): make platform-windows-gate advisory
 
 ## v4.18.8 … v4.11.6 (2026-09-25)
 
