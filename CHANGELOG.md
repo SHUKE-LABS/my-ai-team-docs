@@ -2,7 +2,10 @@
 
 _Generated from release tags._
 
-## v4.22.3 … v4.22.1 (2026-09-27)
+## v4.22.4 … v4.22.1 (2026-09-27)
+
+### Fixes
+- fix(ci): reject stale ShellCheck baseline counts
 
 ### Other Changes
 - test: isolate core package suites in batch 2
