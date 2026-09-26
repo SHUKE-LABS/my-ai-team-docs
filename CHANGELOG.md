@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.24.1 … v4.22.1 (2026-09-27)
+## v4.24.2 … v4.22.1 (2026-09-27)
 
 ### Features
 - feat: forward notify-user --action to an opt-in devops host
@@ -13,6 +13,7 @@ _Generated from release tags._
 - fix(gate): make merge-gate read the advisory Windows gate's step summary
 - fix(console): keep a session stopped mid-page as a dead row until teardown
 - fix(live): isolate issue patch worktree lifecycle
+- fix(local-state): decide reboot by the kernel boot UUID, not a drifting btime
 
 ### Other Changes
 - test: isolate core package suites in batch 2
