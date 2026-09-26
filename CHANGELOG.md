@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.21.1 … v4.18.9 (2026-09-26)
+## v4.21.2 … v4.18.9 (2026-09-26)
 
 ### Features
 - feat(backends): add leg headless backend kind
@@ -26,6 +26,7 @@ _Generated from release tags._
 - fix(test): suppress intentional harness SC2031
 - fix(bg-run): single-quote tmux pane command words for a POSIX default-shell
 - fix(test): drop Linux 'root /tmp' scratch pins removed by
+- fix(live): claim an issue before patch work
 
 ### Performance
 - perf(console): cache dead fleet snapshot per page
