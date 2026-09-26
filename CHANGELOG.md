@@ -2,11 +2,12 @@
 
 _Generated from release tags._
 
-## v4.20.9 … v4.18.9 (2026-09-26)
+## v4.21.1 … v4.18.9 (2026-09-26)
 
 ### Features
 - feat(backends): add leg headless backend kind
 - feat(providers): make the per-worker gateway URL opt-in via MAT_GATEWAY_WORKER_NAMESPACE=1
+- feat: select GitHub App token files by owner
 
 ### Fixes
 - fix(ci): install a C compiler in the test image so doctor native-stub cases run
@@ -23,6 +24,8 @@ _Generated from release tags._
 - fix(test): visit the capped ownership sweep least-recently-visited first
 - fix(ci): require a behavior-owner router row for every an internal path helper
 - fix(test): suppress intentional harness SC2031
+- fix(bg-run): single-quote tmux pane command words for a POSIX default-shell
+- fix(test): drop Linux 'root /tmp' scratch pins removed by
 
 ### Performance
 - perf(console): cache dead fleet snapshot per page
