@@ -743,7 +743,7 @@ defaults. Unless noted, Git resolves them from local to global configuration.
 | `mat.driver` | `MAT_DRIVER` | Session driver: `tmux`, `local`, or `baton` (Windows Git Bash: `local` or `baton` only — see below) | tmux (Windows Git Bash: baton) |
 | `mat.ghAuthOwnerMap` | — | Repeatable global mapping from `owner=login` (or `host/owner=login`) to the GitHub identity used by Baton | — |
 | `mat.ghAuthTokenVar` | — | Repeatable global mapping from `login=ENV_VAR_NAME` to a static credential variable | — |
-| `mat.ghAuthTokenFile` | — | Repeatable global mapping from `login=/absolute/path` to a caller-refreshed credential file | — |
+| `mat.ghAuthTokenFile` | — | Repeatable global mapping from `login@owner=/absolute/path` or `login=/absolute/path` to a caller-refreshed credential file | — |
 | `mat.auditPollMinutes` | `MAT_AUDIT_POLL_MINUTES` | Audit broad-sweep interval, in minutes | 300 |
 | `mat.personalPromptOverride` | — | Enable user-global prompt overrides (see [Prompt overrides](#prompt-overrides)) | off |
 | `mat.personalSkillsOverride` | — | Let a personal skill override a product skill of the same name | off |
@@ -764,22 +764,28 @@ var — so a stale environment value can never flip them.
 ### Refreshable GitHub App credentials for Baton
 
 Baton normally uses the GitHub account available to `gh`. For a GitHub App
-installation, map the repository owner to the App identity and point mat at a
-caller-managed token file:
+installation, map each repository owner to the App identity and point mat at
+its caller-managed token file:
 
 ```bash
-git config --global --add mat.ghAuthOwnerMap 'your-org=your-app[bot]'
-git config --global --add mat.ghAuthTokenFile 'your-app[bot]=/absolute/path/app-token'
-chmod 600 /absolute/path/app-token
+git config --global --add mat.ghAuthOwnerMap 'team-one=your-app[bot]'
+git config --global --add mat.ghAuthOwnerMap 'team-two=your-app[bot]'
+git config --global --add mat.ghAuthTokenFile 'your-app[bot]@team-one=/absolute/path/team-one-token'
+git config --global --add mat.ghAuthTokenFile 'your-app[bot]@team-two=/absolute/path/team-two-token'
+chmod 600 /absolute/path/team-one-token /absolute/path/team-two-token
 ```
 
-The file must contain only the current installation token. The caller refreshes
-it; mat does not mint tokens or handle an App private key. Baton reads the file
-when selecting the account and again before every worker turn, so replacing the
-file takes effect on the next turn. If the file is unavailable at launch, mat
-warns and uses the same user-account selection it would use without this
-configuration. If it becomes unavailable during a session, that turn is refused
-instead of reusing an expired token.
+Login and owner matching is case-insensitive. A matching `login@owner` entry
+outranks a `login=/absolute/path` entry; the login-only form is a fallback when
+that owner has no specific entry. The first valid entry for the same key wins,
+and later duplicates warn. Each file must contain only its current installation
+token. The caller refreshes it; mat does not mint tokens or handle an App private
+key. Baton reads the selected file when choosing the account and again before
+every worker turn, so replacing it takes effect on the next turn. If the chosen
+file is unavailable or denied access at launch, mat warns and uses its normal
+user-account selection without trying a less-specific file. If it becomes
+unavailable during a session, that turn is refused instead of reusing an expired
+token.
 
 The App appears on commits and pull requests as `your-app[bot]`. Its installation
 needs `contents:write`, `issues:write`, and `pull_requests:write` for the normal
