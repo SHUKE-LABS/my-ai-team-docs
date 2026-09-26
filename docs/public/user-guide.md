@@ -960,7 +960,11 @@ configured name (`mat.username`); with no name configured they read as `the
 operator`.
 
 Crashed and stale sessions are hidden until you turn on the dead-session
-toggle; once shown, a dead session's row is dimmed and its own view carries a
+toggle. The list of dead sessions is read when the page loads. A session that
+stops while the page is open, such as one you stop from the console, joins it
+after the next refresh and stays there, so you can still open it and tear it
+down, until a teardown from the console removes it. Reload the page to re-read
+the full dead-session list. Once shown, a dead session's row is dimmed and its own view carries a
 distinct "dead" badge instead of a live status pill. Clicking one always
 answers: a session the runtime can no longer describe still opens, showing its
 name, the kind and status the session list knows, and a note saying its detail
