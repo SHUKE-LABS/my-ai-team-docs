@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.25.2 … v4.22.1 (2026-09-27)
+## v4.25.3 … v4.22.1 (2026-09-27)
 
 ### Features
 - feat: forward notify-user --action to an opt-in devops host
@@ -19,6 +19,7 @@ _Generated from release tags._
 - fix(baton): reconstruct systemd user bus for manager calls
 - fix(test): avoid SIGPIPE in console route regression
 - fix(console): re-arm a transcript watcher that failed with EMFILE
+- fix(ci): route timing tables to sync lint
 
 ### Other Changes
 - test: isolate core package suites in batch 2
