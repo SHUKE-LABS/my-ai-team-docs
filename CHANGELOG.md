@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.24.3 … v4.22.1 (2026-09-27)
+## v4.24.4 … v4.22.1 (2026-09-27)
 
 ### Features
 - feat: forward notify-user --action to an opt-in devops host
@@ -21,6 +21,7 @@ _Generated from release tags._
 - test: declare core package group for four launch suites
 - test: declare core/tmux package groups for three batch-4 suites
 - ci(windows): add nightly main baseline
+- test(bg-run): attribute host artifact movement to the suite's own tasks
 
 ## v4.22.0 … v4.18.9 (2026-09-26)
 
