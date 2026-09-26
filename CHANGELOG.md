@@ -2,12 +2,13 @@
 
 _Generated from release tags._
 
-## v4.21.16 … v4.18.9 (2026-09-26)
+## v4.22.0 … v4.18.9 (2026-09-26)
 
 ### Features
 - feat(backends): add leg headless backend kind
 - feat(providers): make the per-worker gateway URL opt-in via MAT_GATEWAY_WORKER_NAMESPACE=1
 - feat: select GitHub App token files by owner
+- feat(pi): gateway route takes the provider id from the default_model prefix, defaulting to mat
 
 ### Fixes
 - fix(ci): install a C compiler in the test image so doctor native-stub cases run

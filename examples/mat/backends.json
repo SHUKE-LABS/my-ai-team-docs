@@ -155,11 +155,11 @@
       "default_effort": "high"
     },
     {
-      "_comment": "Example: pi via the gateway route. gateway_selector is authoritative — auth_var / base_url / base_url_var / model_provider are ignored on this entry. mat writes a real role-local models.json for the fixed provider `mat-pi-gateway` (baseUrl = MAT_PI_GATEWAY, falling back to MAT_ANTHROPIC_GATEWAY) and exports MAT_PI_API_KEY=<gateway_selector>. wire_api is optional here and defaults to anthropic; set openai, responses, or google for a non-Anthropic pool member.",
+      "_comment": "Example: pi via the gateway route. gateway_selector is authoritative — auth_var / base_url / base_url_var / model_provider are ignored on this entry. mat writes a real role-local models.json (baseUrl = MAT_PI_GATEWAY, falling back to MAT_ANTHROPIC_GATEWAY) and exports MAT_PI_API_KEY=<gateway_selector>. default_model is required: a bare model id (recommended) renders provider `mat` and launches as `--model mat/<model-id>`; a `<prefix>/<model-id>` renders provider `<prefix>`. wire_api is optional here and defaults to anthropic; set openai, responses, or google for a non-Anthropic pool member.",
       "nickname": "pi-gateway",
       "config_dir": "pi-gateway",
       "gateway_selector": "chn",
-      "default_model": "mat-pi-gateway/claude-sonnet-4-5",
+      "default_model": "claude-sonnet-4-5",
       "prompt_file": "SYSTEM.md",
       "kind": "pi"
     }
