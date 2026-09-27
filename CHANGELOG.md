@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.25.19 … v4.22.1 (2026-09-27)
+## v4.25.22 … v4.22.1 (2026-09-27)
 
 ### Features
 - feat: forward notify-user --action to an opt-in devops host
@@ -30,6 +30,9 @@ _Generated from release tags._
 - fix(test): isolate devops forwarding in Telegram runtime suite
 - fix(worktree): remove preserved live issue worktrees
 - fix: allow OpenCode Windows renewal reaping
+- fix(live): merge in-place repair PRs from the launch checkout
+- fix(console): publish teardowns to every open page and fence only older payloads
+- fix(upgrade): end Windows logon-relay race on Git Bash swaps
 
 ### Other Changes
 - test: isolate core package suites in batch 2

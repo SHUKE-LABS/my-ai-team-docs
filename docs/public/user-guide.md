@@ -963,7 +963,10 @@ Crashed and stale sessions are hidden until you turn on the dead-session
 toggle. The list of dead sessions is read when the page loads. A session that
 stops while the page is open, such as one you stop from the console, joins it
 after the next refresh and stays there, so you can still open it and tear it
-down, until a teardown from the console removes it. Reload the page to re-read
+down, until a teardown from the console removes it. A teardown removes the
+session from every open console page, not only the one you used, and a
+session you create again under the same name shows up again on its own, with
+no reload. Reload the page to re-read
 the full dead-session list. Once shown, a dead session's row is dimmed and its own view carries a
 distinct "dead" badge instead of a live status pill. Clicking one always
 answers: a session the runtime can no longer describe still opens, showing its
@@ -2162,14 +2165,21 @@ Before migrating a license to another machine, release this host's slot with
 
 On Windows, an in-place upgrade can hit files a running session still holds open.
 `mat upgrade --when-idle` waits for running sessions to go quiet first (up to
-five minutes; `--when-idle-unbounded` removes the ceiling). If a critical file is
-still held, the install leaves a resumable journal and reports what it could not
-replace. Retry when the host is idle, or use `--override-locked` when the failure
-message suggests it and you deliberately accept a mixed runtime. In an interactive
-terminal, the installer asks the equivalent yes/no question; `--override-locked`
-accepts that decision without prompting. The upgrade continues with files it can
-replace, while held files remain from the previous release. The new version is
-recorded even though some files are still old.
+five minutes; `--when-idle-unbounded` removes the ceiling). When sessions are
+busy, or on a host that has just booted (where the Telegram relay's logon
+autostart can race the upgrade), the installer skips the stop-and-swap attempt
+and upgrades in place while the relay keeps running; the relay restarts when the
+install finishes. If a critical file is still held, the install leaves a
+resumable journal and reports what it could not replace, together with the
+holder process names and PIDs when Windows can identify them (reported for the
+held path set as a whole); when it cannot, the report says attribution is
+unavailable. The report never stops any process. Retry when the host is idle, or
+use `--override-locked` when the failure message suggests it and you deliberately
+accept a mixed runtime. In an interactive terminal, the installer asks the
+equivalent yes/no question; `--override-locked` accepts that decision without
+prompting. The upgrade continues with files it can replace, while held files
+remain from the previous release. The new version is recorded even though some
+files are still old.
 
 After accepting a mixed runtime, a plain `mat upgrade` reports that the host is
 already on the latest version and does nothing. Once every `mat` session on the
