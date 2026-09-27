@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.26.8 … v4.22.1 (2026-09-27)
+## v4.26.10 … v4.22.1 (2026-09-27)
 
 ### Features
 - feat: forward notify-user --action to an opt-in devops host
@@ -58,6 +58,8 @@ _Generated from release tags._
 - test(ci): align pinned digest regression with Dockerfile copy
 - test(backends): allow documented LEG doctor hook location
 - ci(windows): route advisory gate by changed paths
+- test: compare credential symlink targets by path identity
+- test(console): bound fixtures and reap interrupted runs
 
 ## v4.22.0 … v4.18.9 (2026-09-26)
 
