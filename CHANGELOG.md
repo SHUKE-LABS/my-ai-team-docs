@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.26.14 … v4.22.1 (2026-09-27)
+## v4.26.15 … v4.22.1 (2026-09-27)
 
 ### Features
 - feat: forward notify-user --action to an opt-in devops host
@@ -64,6 +64,7 @@ _Generated from release tags._
 - test(console): bound fixtures and reap interrupted runs
 - test(audit): stabilize windows completion reap fixture
 - test: stabilize audit poll watchdog teardown
+- test(ci): run the routing-completeness suite on the PR that omits a route row
 
 ## v4.22.0 … v4.18.9 (2026-09-26)
 
