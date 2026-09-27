@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.25.13 … v4.22.1 (2026-09-27)
+## v4.25.14 … v4.22.1 (2026-09-27)
 
 ### Features
 - feat: forward notify-user --action to an opt-in devops host
@@ -26,6 +26,7 @@ _Generated from release tags._
 - fix: arbitrate concurrent delivery claims by canonical reservation
 - fix(bg-run): pin validated session in tmux task helper
 - fix(ci): refresh ShellCheck baseline on scheduled lane
+- fix(ci): route backend dispatch implementations to confinement suite
 
 ### Other Changes
 - test: isolate core package suites in batch 2
