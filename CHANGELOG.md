@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.27.2 (2026-09-28)
+
+### Fixes
+- fix(test): bind the final gate to a per-reclaim marker
+
 ## v4.27.1 … v4.22.1 (2026-09-27)
 
 ### Features
