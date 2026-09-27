@@ -344,6 +344,21 @@ The selected endpoint must support the configured output cap. These limits are
 written only on a model entry: an endpoint without `default_model` keeps its
 baseUrl-only provider block, and shared-login or auth-only routes do not gain one.
 
+Each mat-managed model entry with `default_model` also sets pi's `reasoning` flag
+so the `--thinking` effort selected at launch reaches pi's native request
+builder. The control pi sends depends on the selected API:
+
+| `wire_api` | pi API | Thinking control |
+| --- | --- | --- |
+| unset on a gateway, or `anthropic` | `anthropic-messages` | Anthropic `thinking` (budget-based unless pi selects adaptive thinking) |
+| unset on an explicit endpoint, or `openai` | `openai-completions` | pi's detected compatibility format, commonly `reasoning_effort` |
+| `responses` | `openai-responses` | `reasoning.effort` |
+| `google` | `google-generative-ai` | Google `thinkingConfig` |
+
+mat does not override pi's thinking format. If an endpoint rejects the controls
+pi selects for its API, pi reports the request error and mat does not disable
+thinking as a fallback.
+
 ```json
 {
   "nickname": "pi-gateway",
