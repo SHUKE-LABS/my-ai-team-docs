@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.25.9 … v4.22.1 (2026-09-27)
+## v4.25.10 … v4.22.1 (2026-09-27)
 
 ### Features
 - feat: forward notify-user --action to an opt-in devops host
@@ -34,6 +34,7 @@ _Generated from release tags._
 - ci: recalibrate baton service enable suite budget
 - test: align live claim policy regression
 - test(explore): diagnose child-ready hold cleanup
+- test(doctor): isolate git-bash env in tests
 
 ## v4.22.0 … v4.18.9 (2026-09-26)
 
