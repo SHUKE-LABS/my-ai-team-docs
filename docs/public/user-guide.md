@@ -2131,6 +2131,39 @@ git config --global credential.helper manager
 Certificate verification stays on throughout. `http.sslVerify=false` is never the
 fix for this, and nothing in mat suggests it.
 
+### Windows MSYS2: Telegram relay fails with `curl exit 60`
+
+- Symptom: no Telegram messages arrive, and the relay log
+  (`~/.local/state/my-ai-team/tg-relay.log`) repeats
+  `getUpdates failed rc=60 (untrusted TLS certificate ...)`, retrying with a
+  growing delay of up to 60 seconds.
+- Cause: a corporate proxy intercepts TLS and re-signs `api.telegram.org` with
+  its own root CA. Windows trusts that root, so Git for Windows' `curl`
+  (Schannel) works, but when the relay runs under the MSYS2 shell, MSYS2's
+  `curl` uses its own OpenSSL trust store, which does not contain it.
+- Fix: add the proxy's root CA to MSYS2's trust anchors. Anchors survive
+  `ca-certificates` package upgrades, but edits made directly to the bundle file
+  do not. In PowerShell, export the root (replace `<Proxy Root CA>` with the
+  issuer name shown by `openssl s_client -connect api.telegram.org:443`):
+
+```powershell
+$c = Get-ChildItem Cert:\LocalMachine\Root | Where-Object Subject -match '<Proxy Root CA>'
+$c | ForEach-Object { "-----BEGIN CERTIFICATE-----`n" + [Convert]::ToBase64String($_.RawData, 'InsertLineBreaks') + "`n-----END CERTIFICATE-----" } |
+    Set-Content C:\msys64\etc\pki\ca-trust\source\anchors\proxy-root.crt
+```
+
+Then, in the MSYS2 shell (adjust the path above if MSYS2 is not installed in
+`C:\msys64`):
+
+```bash
+update-ca-trust
+curl -sS -o /dev/null -w '%{http_code}\n' https://api.telegram.org/   # expect 302
+```
+
+The running relay picks up the new trust store on its next poll; you do not need
+to restart it. Certificate verification stays on, so never disable it as a
+workaround.
+
 ### Windows Git Bash: `cmp` installer prerequisite
 
 `install.sh` needs `cmp` from the active shell. A Git for Windows `cmp.exe` does
