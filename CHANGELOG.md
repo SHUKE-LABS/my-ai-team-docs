@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.25.16 … v4.22.1 (2026-09-27)
+## v4.25.18 … v4.22.1 (2026-09-27)
 
 ### Features
 - feat: forward notify-user --action to an opt-in devops host
@@ -28,6 +28,8 @@ _Generated from release tags._
 - fix(ci): refresh ShellCheck baseline on scheduled lane
 - fix(ci): route backend dispatch implementations to confinement suite
 - fix(test): isolate devops forwarding in Telegram runtime suite
+- fix(worktree): remove preserved live issue worktrees
+- fix: allow OpenCode Windows renewal reaping
 
 ### Other Changes
 - test: isolate core package suites in batch 2

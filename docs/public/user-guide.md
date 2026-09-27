@@ -1198,8 +1198,8 @@ remains in effect when the general worktree setting above is disabled.
 With worktrees disabled, the write-capable modes (`adhoc`/`team`/`duo`) share the
 one main checkout, so mat refuses a second write-capable session against a repo
 that already has a live one. Remove an inactive, clean worktree explicitly with
-`mat remove-worktree <path>` (it refuses dirty worktrees and any path still used
-by a live pane).
+`mat remove-worktree <path>`; this also accepts a preserved live issue-patch
+worktree. It refuses dirty worktrees and any path still used by a live pane.
 
 ## Modes
 
