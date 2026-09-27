@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.27.0 … v4.22.1 (2026-09-27)
+## v4.27.1 … v4.22.1 (2026-09-27)
 
 ### Features
 - feat: forward notify-user --action to an opt-in devops host
@@ -41,6 +41,7 @@ _Generated from release tags._
 - fix(pi): enable reasoning for managed models
 - fix: suppress Claude gateway selector prompt
 - fix(github-auth): accept Windows absolute token files
+- fix(ci): expose Windows diagnostic case markers
 
 ### Docs
 - docs(examples): add commandcode backend entry to examples backends.json
