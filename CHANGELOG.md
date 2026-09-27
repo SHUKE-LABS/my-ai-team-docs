@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.26.1 … v4.22.1 (2026-09-27)
+## v4.26.2 … v4.22.1 (2026-09-27)
 
 ### Features
 - feat: forward notify-user --action to an opt-in devops host
@@ -34,6 +34,7 @@ _Generated from release tags._
 - fix(live): merge in-place repair PRs from the launch checkout
 - fix(console): publish teardowns to every open page and fence only older payloads
 - fix(upgrade): end Windows logon-relay race on Git Bash swaps
+- fix(ci): make Windows platform gate manual to prevent PR queue buildup
 
 ### Other Changes
 - test: isolate core package suites in batch 2
