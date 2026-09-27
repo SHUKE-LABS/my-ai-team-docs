@@ -718,6 +718,9 @@ A gateway behind HTTP Basic auth is supported for Claude backends: declare the
 credential in `user:pass` form as `MAT_ANTHROPIC_GATEWAY_BASIC_AUTH` next to the
 gateway URL, and mat carries it through both the launch and the quota fetch
 without ever placing it on a command line.
+On this Claude Code path, mat pre-seeds the active Claude home's remembered
+rejection for the gateway selector, preventing the CLI's selector confirmation
+prompt while keeping `ANTHROPIC_API_KEY` available to Agent-SDK sub-agents.
 
 A Copilot backend cannot traverse a Basic-auth-protected gateway: the Copilot
 CLI's BYOK provider has no custom-header channel to carry the edge credential,
