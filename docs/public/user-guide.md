@@ -151,6 +151,7 @@ backend object:
 | `default_model` | Optional. Model applied at launch, passed through verbatim. Omit it to launch with the backend's default. |
 | `default_effort` | Optional. Reasoning-effort level applied at launch. Omit it or set it to an empty string and effort falls back to `high`. On Claude, change it in-session with `/effort`. |
 | `context_window_size` | Optional. Effective context window for auto-compaction: an integer (`250000`) or a `k`/`m` shorthand (`350k`, `1m`). Omit it and mat sets nothing. |
+| `max_output_tokens` | Optional for `kind: "pi"`. Positive integer or `k`/`K` shorthand (base 1000), such as `96000` or `96k`. Defaults to `64000` for pi model entries; an invalid value stops pi from launching. |
 
 The auth and base-url variables name environment variables; mat reads their
 values from `~/.bashrc.secret` when they are not already exported. mat records
@@ -318,6 +319,8 @@ pi backends have three credential modes:
   "base_url_var": "PI_PROXY_URL",
   "wire_api": "anthropic",
   "default_model": "myproxy/claude-sonnet-4-5",
+  "context_window_size": "256k",
+  "max_output_tokens": "96k",
   "prompt_file": "SYSTEM.md",
   "kind": "pi"
 }
@@ -332,6 +335,14 @@ defaults to `openai`; a gateway entry without `wire_api` defaults to
 the `provider/` prefix of `default_model` must agree — that agreement picks
 the provider id written into `models.json`. `model_catalog_json` is not
 supported for kind `pi`.
+
+For gateway and endpoint-backed entries that set `default_model`, mat writes numeric
+`maxTokens` from `max_output_tokens`, defaulting to `64000`, and writes numeric
+`contextWindow` from `context_window_size` when configured. As a session grows,
+pi can clamp each request's output allowance to fit the remaining context.
+The selected endpoint must support the configured output cap. These limits are
+written only on a model entry: an endpoint without `default_model` keeps its
+baseUrl-only provider block, and shared-login or auth-only routes do not gain one.
 
 ```json
 {
