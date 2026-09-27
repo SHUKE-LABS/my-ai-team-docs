@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.25.18 … v4.22.1 (2026-09-27)
+## v4.25.19 … v4.22.1 (2026-09-27)
 
 ### Features
 - feat: forward notify-user --action to an opt-in devops host
@@ -43,6 +43,7 @@ _Generated from release tags._
 - test(doctor): isolate git-bash env in tests
 - test(prompts): regenerate review directive ledger after wording change
 - ci: recalibrate budget-drift rows to the max ci-heavy host p50
+- test(ci): recognize backend dispatch in orphan lint
 
 ## v4.22.0 … v4.18.9 (2026-09-26)
 
