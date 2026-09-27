@@ -2,12 +2,13 @@
 
 _Generated from release tags._
 
-## v4.27.5 … v4.27.2 (2026-09-28)
+## v4.27.6 … v4.27.2 (2026-09-28)
 
 ### Fixes
 - fix(test): bind the final gate to a per-reclaim marker
 - fix: avoid action for same-session lease re-fence
 - fix(tg-relay): share the reply index across HOME-rebinding backends
+- fix(relay): resolve Windows lock owner MSYS PID before native lookup
 
 ### Other Changes
 - ci(windows): planned-wave watchdog
