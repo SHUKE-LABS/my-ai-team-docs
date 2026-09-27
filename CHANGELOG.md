@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.26.2 … v4.22.1 (2026-09-27)
+## v4.26.3 … v4.22.1 (2026-09-27)
 
 ### Features
 - feat: forward notify-user --action to an opt-in devops host
@@ -50,6 +50,7 @@ _Generated from release tags._
 - ci: recalibrate budget-drift rows to the max ci-heavy host p50
 - test(ci): recognize backend dispatch in orphan lint
 - test(ci): align pinned digest regression with Dockerfile copy
+- test(backends): allow documented LEG doctor hook location
 
 ## v4.22.0 … v4.18.9 (2026-09-26)
 
