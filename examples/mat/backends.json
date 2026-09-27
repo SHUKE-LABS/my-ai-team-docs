@@ -162,6 +162,14 @@
       "default_model": "claude-sonnet-4-5",
       "prompt_file": "SYSTEM.md",
       "kind": "pi"
+    },
+    {
+      "_comment": "Example: Command Code (cmd). HOME is cmd's native home variable, so per-role isolation rides the launcher's HOME rebind; credentials symlink the role-home .commandcode/auth.json to the canonical ~/.commandcode/auth.json so one `cmd login` serves every role. nested prompt_file renders the role constitution at .commandcode/AGENTS.md, where cmd's user-memory load finds it. default_model / default_effort / context_window_size are inert on this kind — cmd's argv carries no model or effort flag, and no launch path reads context_window_size. tier still gates explore/audit. Authenticate later with `cmd login`.",
+      "nickname": "commandcode",
+      "config_dir": "commandcode",
+      "prompt_file": ".commandcode/AGENTS.md",
+      "kind": "commandcode",
+      "tier": "strong"
     }
   ]
 }
