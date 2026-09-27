@@ -780,7 +780,7 @@ defaults. Unless noted, Git resolves them from local to global configuration.
 | `mat.driver` | `MAT_DRIVER` | Session driver: `tmux`, `local`, or `baton` (Windows Git Bash: `local` or `baton` only — see below) | tmux (Windows Git Bash: baton) |
 | `mat.ghAuthOwnerMap` | — | Repeatable global mapping from `owner=login` (or `host/owner=login`) to the GitHub identity used by Baton | — |
 | `mat.ghAuthTokenVar` | — | Repeatable global mapping from `login=ENV_VAR_NAME` to a static credential variable | — |
-| `mat.ghAuthTokenFile` | — | Repeatable global mapping from `login@owner=/absolute/path` or `login=/absolute/path` to a caller-refreshed credential file | — |
+| `mat.ghAuthTokenFile` | — | Repeatable global mapping from `login@owner=/absolute/path` or `login=/absolute/path` to a caller-refreshed credential file (Windows Git Bash also accepts drive-absolute paths) | — |
 | `mat.auditPollMinutes` | `MAT_AUDIT_POLL_MINUTES` | Audit broad-sweep interval, in minutes | 300 |
 | `mat.personalPromptOverride` | — | Enable user-global prompt overrides (see [Prompt overrides](#prompt-overrides)) | off |
 | `mat.personalSkillsOverride` | — | Let a personal skill override a product skill of the same name | off |
@@ -824,6 +824,10 @@ file is unavailable or denied access at launch, mat warns and uses its normal
 user-account selection without trying a less-specific file. If it becomes
 unavailable during a session, that turn is refused instead of reusing an expired
 token.
+
+Token-file paths must be absolute for the current platform. On Windows Git Bash,
+drive-absolute paths such as `C:/tokens/app-token` and `C:\tokens\app-token` are
+accepted; drive paths are rejected on POSIX hosts.
 
 The App appears on commits and pull requests as `your-app[bot]`. Its installation
 needs `contents:write`, `issues:write`, and `pull_requests:write` for the normal

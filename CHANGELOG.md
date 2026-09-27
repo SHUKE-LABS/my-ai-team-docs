@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.26.12 … v4.22.1 (2026-09-27)
+## v4.26.13 … v4.22.1 (2026-09-27)
 
 ### Features
 - feat: forward notify-user --action to an opt-in devops host
@@ -39,6 +39,7 @@ _Generated from release tags._
 - fix(launch): strip exported bash functions before native exec
 - fix(pi): enable reasoning for managed models
 - fix: suppress Claude gateway selector prompt
+- fix(github-auth): accept Windows absolute token files
 
 ### Docs
 - docs(examples): add commandcode backend entry to examples backends.json
