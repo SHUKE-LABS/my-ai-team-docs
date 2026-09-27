@@ -2,11 +2,14 @@
 
 _Generated from release tags._
 
-## v4.27.3 … v4.27.2 (2026-09-28)
+## v4.27.4 … v4.27.2 (2026-09-28)
 
 ### Fixes
 - fix(test): bind the final gate to a per-reclaim marker
 - fix: avoid action for same-session lease re-fence
+
+### Other Changes
+- ci(windows): planned-wave watchdog
 
 ## v4.27.1 … v4.22.1 (2026-09-27)
 
