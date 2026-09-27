@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.26.11 … v4.22.1 (2026-09-27)
+## v4.26.12 … v4.22.1 (2026-09-27)
 
 ### Features
 - feat: forward notify-user --action to an opt-in devops host
@@ -61,6 +61,7 @@ _Generated from release tags._
 - ci(windows): route advisory gate by changed paths
 - test: compare credential symlink targets by path identity
 - test(console): bound fixtures and reap interrupted runs
+- test(audit): stabilize windows completion reap fixture
 
 ## v4.22.0 … v4.18.9 (2026-09-26)
 
