@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.26.4 … v4.22.1 (2026-09-27)
+## v4.26.5 … v4.22.1 (2026-09-27)
 
 ### Features
 - feat: forward notify-user --action to an opt-in devops host
@@ -36,6 +36,7 @@ _Generated from release tags._
 - fix(upgrade): end Windows logon-relay race on Git Bash swaps
 - fix(ci): make Windows platform gate manual to prevent PR queue buildup
 - fix(pi): provision context and output token limits
+- fix(launch): strip exported bash functions before native exec
 
 ### Other Changes
 - test: isolate core package suites in batch 2
