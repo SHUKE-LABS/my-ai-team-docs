@@ -2,7 +2,10 @@
 
 _Generated from release tags._
 
-## v4.27.18 … v4.27.2 (2026-09-28)
+## v4.28.0 … v4.27.2 (2026-09-28)
+
+### Features
+- feat(explore): pass auto-refine startup instructions inline
 
 ### Fixes
 - fix(test): bind the final gate to a per-reclaim marker
