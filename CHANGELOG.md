@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.27.12 … v4.27.2 (2026-09-28)
+## v4.27.13 … v4.27.2 (2026-09-28)
 
 ### Fixes
 - fix(test): bind the final gate to a per-reclaim marker
@@ -20,6 +20,7 @@ _Generated from release tags._
 ### Other Changes
 - ci(windows): planned-wave watchdog
 - ci(budget-drift): recalibrate eight flagged suite weights
+- ci(budget-drift): recalibrate shared-fragment-dedup-regression.sh weight to 6
 
 ## v4.27.1 … v4.22.1 (2026-09-27)
 
