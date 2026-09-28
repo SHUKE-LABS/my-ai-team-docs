@@ -2232,10 +2232,14 @@ Before migrating a license to another machine, release this host's slot with
 On Windows, an in-place upgrade can hit files a running session still holds open.
 `mat upgrade --when-idle` waits for running sessions to go quiet first (up to
 five minutes; `--when-idle-unbounded` removes the ceiling). When sessions are
-busy, or on a host that has just booted (where the Telegram relay's logon
-autostart can race the upgrade), the installer skips the stop-and-swap attempt
-and upgrades in place while the relay keeps running; the relay restarts when the
-install finishes. If a critical file is still held, the install leaves a
+busy, the installer leaves the resident relay running and upgrades files in
+place; it ensures the relay is running with the installed files when the install
+finishes. When sessions are idle, the installer briefly stops the relay and
+attempts an atomic directory swap. If the relay starts again during that
+attempt, the installer waits briefly and retries; it falls back to the in-place
+upgrade only if the swap still cannot complete. The relay is briefly unavailable
+during this idle upgrade, which normally completes with the atomic swap. If a
+critical file is still held, the install leaves a
 resumable journal and reports what it could not replace, together with the
 holder process names and PIDs when Windows can identify them (reported for the
 held path set as a whole); when it cannot, the report says attribution is
