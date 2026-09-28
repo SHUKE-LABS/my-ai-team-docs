@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.27.17 … v4.27.2 (2026-09-28)
+## v4.27.18 … v4.27.2 (2026-09-28)
 
 ### Fixes
 - fix(test): bind the final gate to a per-reclaim marker
@@ -16,6 +16,7 @@ _Generated from release tags._
 - fix(test): fail on skipped final-gate coverage
 - fix(ci): avoid Windows tracker marker pipefail race
 - fix(ci): judge planned Windows waves absent only after the schedule-delivery grace
+- fix(relay): judge Windows mkdir-lock holders across MSYS runtimes
 
 ### Docs
 - docs: clarify Windows upgrade paths
