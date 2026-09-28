@@ -2,11 +2,12 @@
 
 _Generated from release tags._
 
-## v4.28.12 … v4.28.6 (2026-09-29)
+## v4.28.13 … v4.28.6 (2026-09-29)
 
 ### Fixes
 - fix(cycle): report boundary preflight refusal reason
 - fix(live): adopt released slot task branches
+- fix(ownership): stop the owner heartbeat once its claim is settled
 
 ### Docs
 - docs(copilot): fix lock ownership sentence
