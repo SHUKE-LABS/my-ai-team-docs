@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.27.7 … v4.27.2 (2026-09-28)
+## v4.27.8 … v4.27.2 (2026-09-28)
 
 ### Fixes
 - fix(test): bind the final gate to a per-reclaim marker
@@ -10,6 +10,7 @@ _Generated from release tags._
 - fix(tg-relay): share the reply index across HOME-rebinding backends
 - fix(relay): resolve Windows lock owner MSYS PID before native lookup
 - fix(relay): back off on getUpdates transport failures
+- fix(relay): kill Windows relay processes that escape the launcher tree
 
 ### Other Changes
 - ci(windows): planned-wave watchdog
