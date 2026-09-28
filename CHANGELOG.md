@@ -2,7 +2,10 @@
 
 _Generated from release tags._
 
-## v4.28.7 … v4.28.6 (2026-09-29)
+## v4.28.8 … v4.28.6 (2026-09-29)
+
+### Docs
+- docs(copilot): fix lock ownership sentence
 
 ### Other Changes
 - ci(full): derive CI Full per-suite timeouts from budgets
