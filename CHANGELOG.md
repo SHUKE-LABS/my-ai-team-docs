@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.28.0 … v4.27.2 (2026-09-28)
+## v4.28.1 … v4.27.2 (2026-09-28)
 
 ### Features
 - feat(explore): pass auto-refine startup instructions inline
@@ -20,6 +20,7 @@ _Generated from release tags._
 - fix(ci): avoid Windows tracker marker pipefail race
 - fix(ci): judge planned Windows waves absent only after the schedule-delivery grace
 - fix(relay): judge Windows mkdir-lock holders across MSYS runtimes
+- fix(worktree): ignore unrelated sibling when resolving a managed slot leaf
 
 ### Docs
 - docs: clarify Windows upgrade paths
