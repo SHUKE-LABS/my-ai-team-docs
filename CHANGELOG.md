@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.28.11 … v4.28.6 (2026-09-29)
+## v4.28.12 … v4.28.6 (2026-09-29)
 
 ### Fixes
 - fix(cycle): report boundary preflight refusal reason
@@ -15,6 +15,7 @@ _Generated from release tags._
 - ci(full): derive CI Full per-suite timeouts from budgets
 - test(doctor): normalize HOME before fake install in driver summary test
 - test(session): reap the stubborn fake helper on case exit
+- test(cycle): exercise superseded owner merge guard
 
 ## v4.28.5 … v4.27.2 (2026-09-28)
 
