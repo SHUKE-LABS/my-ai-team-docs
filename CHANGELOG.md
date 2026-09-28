@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v4.28.6 (2026-09-29)
+## v4.28.7 … v4.28.6 (2026-09-29)
 
 ### Other Changes
 - ci(full): derive CI Full per-suite timeouts from budgets
+- test(doctor): normalize HOME before fake install in driver summary test
 
 ## v4.28.5 … v4.27.2 (2026-09-28)
 
