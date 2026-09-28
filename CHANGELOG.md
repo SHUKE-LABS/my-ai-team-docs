@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.27.11 … v4.27.2 (2026-09-28)
+## v4.27.12 … v4.27.2 (2026-09-28)
 
 ### Fixes
 - fix(test): bind the final gate to a per-reclaim marker
@@ -15,6 +15,7 @@ _Generated from release tags._
 
 ### Docs
 - docs: clarify Windows upgrade paths
+- docs(ci): align Windows gate review contract
 
 ### Other Changes
 - ci(windows): planned-wave watchdog
