@@ -2,7 +2,10 @@
 
 _Generated from release tags._
 
-## v4.28.8 … v4.28.6 (2026-09-29)
+## v4.28.9 … v4.28.6 (2026-09-29)
+
+### Fixes
+- fix(cycle): report boundary preflight refusal reason
 
 ### Docs
 - docs(copilot): fix lock ownership sentence
