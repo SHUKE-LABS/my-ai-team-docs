@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.28.6 (2026-09-29)
+
+### Other Changes
+- ci(full): derive CI Full per-suite timeouts from budgets
+
 ## v4.28.5 … v4.27.2 (2026-09-28)
 
 ### Features
