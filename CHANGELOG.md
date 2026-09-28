@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.27.10 … v4.27.2 (2026-09-28)
+## v4.27.11 … v4.27.2 (2026-09-28)
 
 ### Fixes
 - fix(test): bind the final gate to a per-reclaim marker
@@ -12,6 +12,9 @@ _Generated from release tags._
 - fix(relay): back off on getUpdates transport failures
 - fix(relay): kill Windows relay processes that escape the launcher tree
 - fix(send-relay): print SEND FAILED banner on outside-tmux pane-id failure
+
+### Docs
+- docs: clarify Windows upgrade paths
 
 ### Other Changes
 - ci(windows): planned-wave watchdog
