@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.27.14 … v4.27.2 (2026-09-28)
+## v4.27.15 … v4.27.2 (2026-09-28)
 
 ### Fixes
 - fix(test): bind the final gate to a per-reclaim marker
@@ -13,6 +13,7 @@ _Generated from release tags._
 - fix(relay): kill Windows relay processes that escape the launcher tree
 - fix(send-relay): print SEND FAILED banner on outside-tmux pane-id failure
 - fix(ci): judge routing completeness from router rows again
+- fix(test): fail on skipped final-gate coverage
 
 ### Docs
 - docs: clarify Windows upgrade paths
