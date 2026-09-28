@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.28.3 … v4.27.2 (2026-09-28)
+## v4.28.4 … v4.27.2 (2026-09-28)
 
 ### Features
 - feat(explore): pass auto-refine startup instructions inline
@@ -22,6 +22,7 @@ _Generated from release tags._
 - fix(relay): judge Windows mkdir-lock holders across MSYS runtimes
 - fix(worktree): ignore unrelated sibling when resolving a managed slot leaf
 - fix(prompts): target local Windows validation in Dev roles
+- fix(console): run the baton binary through Git Bash on Windows
 
 ### Refactors
 - refactor(ownership): retire assigned_to delivery locks
