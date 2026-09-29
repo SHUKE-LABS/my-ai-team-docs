@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.28.25 … v4.28.6 (2026-09-29)
+## v4.28.26 … v4.28.6 (2026-09-29)
 
 ### Fixes
 - fix(cycle): report boundary preflight refusal reason
@@ -29,6 +29,7 @@ _Generated from release tags._
 - ci: recalibrate headless task test budgets
 - ci(windows): recalibrate core lane timeouts from 4-run evidence and re-size budgets
 - ci(windows): replace the long-running PR gate waiter with async admission and a writer
+- test(harness): normalize the analyzer-free shim PATH entry on Git Bash
 
 ## v4.28.5 … v4.27.2 (2026-09-28)
 
