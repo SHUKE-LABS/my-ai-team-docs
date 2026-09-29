@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v4.29.1 … v4.28.6 (2026-09-29)
+## v4.30.0 … v4.28.6 (2026-09-29)
 
 ### Features
 - feat(opencode): adapt kind=opencode launch to OpenCode v2
+- feat(opencode): support OpenCode v1 and v2 via per-launch version detection
 
 ### Fixes
 - fix(cycle): report boundary preflight refusal reason
@@ -17,6 +18,7 @@ _Generated from release tags._
 - fix(test): align ownership health probe and reclaim gate
 - fix(ci): retry docs projection publish operations
 - fix(pi): digest the full resolved provider shape in settings identity
+- fix(pi): omit max_output_tokens on responses wires by default
 
 ### Docs
 - docs(copilot): fix lock ownership sentence
