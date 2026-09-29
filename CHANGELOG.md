@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.28.18 … v4.28.6 (2026-09-29)
+## v4.28.19 … v4.28.6 (2026-09-29)
 
 ### Fixes
 - fix(cycle): report boundary preflight refusal reason
@@ -10,6 +10,7 @@ _Generated from release tags._
 - fix(ownership): stop the owner heartbeat once its claim is settled
 - fix(notify-user): run devops forwards on tmux and Baton carriers
 - fix(ci): treat mid-download expiry as missing
+- fix(ci): recalibrate budget drift weights
 
 ### Docs
 - docs(copilot): fix lock ownership sentence
