@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.28.21 … v4.28.6 (2026-09-29)
+## v4.28.22 … v4.28.6 (2026-09-29)
 
 ### Fixes
 - fix(cycle): report boundary preflight refusal reason
@@ -25,6 +25,7 @@ _Generated from release tags._
 - test: model delivery reservation API in agent helper fixture
 - test(bg-run): capture multiline tmux helper argv
 - test(release): skip unsupported symlink staging
+- ci: recalibrate headless task test budgets
 
 ## v4.28.5 … v4.27.2 (2026-09-28)
 
