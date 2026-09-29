@@ -2,13 +2,14 @@
 
 _Generated from release tags._
 
-## v4.28.16 … v4.28.6 (2026-09-29)
+## v4.28.18 … v4.28.6 (2026-09-29)
 
 ### Fixes
 - fix(cycle): report boundary preflight refusal reason
 - fix(live): adopt released slot task branches
 - fix(ownership): stop the owner heartbeat once its claim is settled
 - fix(notify-user): run devops forwards on tmux and Baton carriers
+- fix(ci): treat mid-download expiry as missing
 
 ### Docs
 - docs(copilot): fix lock ownership sentence
@@ -20,6 +21,7 @@ _Generated from release tags._
 - test(cycle): exercise superseded owner merge guard
 - test: model delivery reservation API in agent helper fixture
 - test(bg-run): capture multiline tmux helper argv
+- test(release): skip unsupported symlink staging
 
 ## v4.28.5 … v4.27.2 (2026-09-28)
 
