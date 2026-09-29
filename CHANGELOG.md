@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.28.22 … v4.28.6 (2026-09-29)
+## v4.28.23 … v4.28.6 (2026-09-29)
 
 ### Fixes
 - fix(cycle): report boundary preflight refusal reason
@@ -16,6 +16,7 @@ _Generated from release tags._
 
 ### Docs
 - docs(copilot): fix lock ownership sentence
+- docs(ownership): align merge owner-record guidance
 
 ### Other Changes
 - ci(full): derive CI Full per-suite timeouts from budgets
