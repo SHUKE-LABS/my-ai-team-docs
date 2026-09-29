@@ -382,6 +382,13 @@ no new config, reusing Claude's auth wiring.
 
 ### opencode workers
 
+OpenCode workers require **OpenCode v2 or newer**
+(`curl -fsSL https://opencode.ai/v2/install | bash`); v1 is not supported, and
+`mat doctor` and the launch both refuse a v1 binary with that pointer. mat starts
+the TUI with `--auto --standalone` (a private server that exits with the pane)
+and selects the model and effort through the role config as
+`<provider>/<model>#<effort>` from `default_model` and `default_effort`.
+
 OpenCode workers are interactive-only. Register one with an API-key variable and
 the nested prompt path OpenCode reads as its role instructions:
 

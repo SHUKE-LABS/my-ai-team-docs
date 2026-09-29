@@ -2,7 +2,10 @@
 
 _Generated from release tags._
 
-## v4.28.26 … v4.28.6 (2026-09-29)
+## v4.29.0 … v4.28.6 (2026-09-29)
+
+### Features
+- feat(opencode): adapt kind=opencode launch to OpenCode v2
 
 ### Fixes
 - fix(cycle): report boundary preflight refusal reason
