@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.28.20 … v4.28.6 (2026-09-29)
+## v4.28.21 … v4.28.6 (2026-09-29)
 
 ### Fixes
 - fix(cycle): report boundary preflight refusal reason
@@ -12,6 +12,7 @@ _Generated from release tags._
 - fix(ci): treat mid-download expiry as missing
 - fix(ci): recalibrate budget drift weights
 - fix(test): align ownership health probe and reclaim gate
+- fix(ci): retry docs projection publish operations
 
 ### Docs
 - docs(copilot): fix lock ownership sentence
