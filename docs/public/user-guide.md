@@ -1755,10 +1755,11 @@ neither setting is present, nothing changes.
   `~/.profile` nor an interactive `~/.bashrc`. It decides how the message reaches
   the oncall agent.
 - **The forward never blocks or fails the send.** Telegram delivery comes first
-  and does not depend on the forward. The ssh runs in the background with a
-  15-second limit. A failure or timeout adds a `devops_forward status=fail` line
-  to the notification log. The message and `notify-user`'s exit status stay
-  unchanged.
+  and does not depend on the forward. The ssh runs detached from the calling
+  agent with a 15-second limit, so it finishes even after the agent's tool call
+  ends. A failure, a timeout, or a forward mat cannot start adds a
+  `devops_forward status=fail` line to the notification log. The message and
+  `notify-user`'s exit status stay unchanged.
 - **Set `MAT_DEVOPS_SELF=1` on the receiving host.** Agents there then never
   forward to themselves, even when a copied configuration also sets the host.
 
