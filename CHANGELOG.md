@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.29.0 … v4.28.6 (2026-09-29)
+## v4.29.1 … v4.28.6 (2026-09-29)
 
 ### Features
 - feat(opencode): adapt kind=opencode launch to OpenCode v2
@@ -16,6 +16,7 @@ _Generated from release tags._
 - fix(ci): recalibrate budget drift weights
 - fix(test): align ownership health probe and reclaim gate
 - fix(ci): retry docs projection publish operations
+- fix(pi): digest the full resolved provider shape in settings identity
 
 ### Docs
 - docs(copilot): fix lock ownership sentence
