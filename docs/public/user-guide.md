@@ -340,7 +340,10 @@ For gateway and endpoint-backed entries that set `default_model`, mat writes num
 `maxTokens` from `max_output_tokens`, defaulting to `64000`, and writes numeric
 `contextWindow` from `context_window_size` when configured. As a session grows,
 pi can clamp each request's output allowance to fit the remaining context.
-The selected endpoint must support the configured output cap. These limits are
+The selected endpoint must support the configured output cap. On a `responses`
+wire, mat also writes `compat.supportsMaxOutputTokens: false` unless the entry
+declares `max_output_tokens`, so pi sends no `max_output_tokens` and the upstream
+default governs; some gateway-pool upstreams reject that parameter outright. These limits are
 written only on a model entry: an endpoint without `default_model` keeps its
 baseUrl-only provider block, and shared-login or auth-only routes do not gain one.
 
@@ -382,12 +385,13 @@ no new config, reusing Claude's auth wiring.
 
 ### opencode workers
 
-OpenCode workers require **OpenCode v2 or newer**
-(`curl -fsSL https://opencode.ai/v2/install | bash`); v1 is not supported, and
-`mat doctor` and the launch both refuse a v1 binary with that pointer. mat starts
-the TUI with `--auto --standalone` (a private server that exits with the pane)
-and selects the model and effort through the role config as
-`<provider>/<model>#<effort>` from `default_model` and `default_effort`.
+OpenCode workers support both OpenCode v1 and v2. mat detects the installed
+major version at each launch (an unrecognised version is treated as v2) and
+`mat doctor` reports it. On v2 mat starts the TUI with `--auto --standalone`
+(a private server that exits with the pane) and selects the model and effort
+through the role config as `<provider>/<model>#<effort>` from `default_model`
+and `default_effort`. On v1 mat starts it with `--auto --agent build --model
+<model>` and applies the effort through `agent.build.reasoningEffort`.
 
 OpenCode workers are interactive-only. Register one with an API-key variable and
 the nested prompt path OpenCode reads as its role instructions:
