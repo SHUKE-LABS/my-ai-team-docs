@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.33.1 … v4.32.3 (2026-10-01)
+## v4.33.2 … v4.32.3 (2026-10-01)
 
 ### Features
 - feat(adhoc): deliver queued inbox messages as one batched resume prompt
@@ -14,6 +14,7 @@ _Generated from release tags._
 
 ### Other Changes
 - test(adhoc): use provably dead pid fixtures
+- test(duo): honor the bg-run wake root in callback fixtures
 
 ## v4.32.2 … v4.30.1 (2026-09-30)
 
