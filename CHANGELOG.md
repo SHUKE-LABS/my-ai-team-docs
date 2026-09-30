@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.32.0 … v4.30.1 (2026-09-30)
+## v4.32.1 … v4.30.1 (2026-09-30)
 
 ### Features
 - feat(agents): balance residual risk against mitigation cost
@@ -14,6 +14,7 @@ _Generated from release tags._
 
 ### Other Changes
 - ci(windows): chunk core coverage with calibrated guard-only timeouts
+- test(adhoc): stamp boot_uuid in local-driver state fixtures
 
 ## v4.30.0 … v4.28.6 (2026-09-29)
 
