@@ -2,7 +2,10 @@
 
 _Generated from release tags._
 
-## v4.32.4 … v4.32.3 (2026-10-01)
+## v4.33.0 … v4.32.3 (2026-10-01)
+
+### Features
+- feat(adhoc): deliver queued inbox messages as one batched resume prompt
 
 ### Fixes
 - fix(baton): audit explicit duo queue abandonment
