@@ -215,6 +215,15 @@ The operator surface is `mat baton <verb> <session>` (interactive umbrella:
   command exits non-zero, says which task host it left running, and keeps that
   session's state, mailbox, and worktree so the task is not stranded. Re-run it
   once the task settles.
+  Teardown finalizes only messages with recorded completion proof; an envelope
+  in `done/` alone does not prove completion. If queued or claimed work remains,
+  the default command refuses and retains the queue. Use
+  `mat baton teardown <session> --abandon-queue` only when you intend to
+  irreversibly discard that work. It lists each affected message and its
+  envelope paths, warns that
+  the messages will not be replayed, and records abandonment separately from
+  successful completion. The durable audit remains available after teardown,
+  and the command prints its location.
 
 ## 7. Known boundaries
 

@@ -2,6 +2,14 @@
 
 _Generated from release tags._
 
+## v4.32.3 (2026-10-01)
+
+### Fixes
+- fix(baton): audit explicit duo queue abandonment
+
+### Other Changes
+- test(adhoc): use provably dead pid fixtures
+
 ## v4.32.2 … v4.30.1 (2026-09-30)
 
 ### Features
