@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.32.1 … v4.30.1 (2026-09-30)
+## v4.32.2 … v4.30.1 (2026-09-30)
 
 ### Features
 - feat(agents): balance residual risk against mitigation cost
@@ -11,6 +11,7 @@ _Generated from release tags._
 ### Fixes
 - fix(adhoc): state that mat issue blocked releases the claim
 - fix(ci): bind shard in Windows classification
+- fix(baton): continue current conversation for operator messages
 
 ### Other Changes
 - ci(windows): chunk core coverage with calibrated guard-only timeouts

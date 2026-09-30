@@ -180,10 +180,14 @@ The operator surface is `mat baton <verb> <session>` (interactive umbrella:
 `mat baton manage`):
 
 - **Steer a running cycle** — `mat baton send <session> dev "<instruction>"`.
-  Use `--inbox` only for a wedged role when normal routing cannot deliver.
+  Steering continues that role's current conversation; no task selector is
+  needed. Queued steering resolves the conversation when the role handles it,
+  after any turn already running. Use `--inbox` only for a wedged role when
+  normal routing cannot deliver.
 - **Reply from Telegram** — reply directly to a Baton-origin message such as
   `[baton:<session>:dev] ...`; the relay routes the reply to that role. A
   literal TUI command such as `/clear` is refused because Baton has no pane.
+  Telegram replies continue the addressed role's current conversation too.
 - **Pause without losing work** — `mat baton pause <session>` stops the session
   taking new work. The turn already running finishes; nothing further starts,
   and every queued message stays queued. `mat baton resume <session>` puts it
@@ -214,6 +218,9 @@ The operator surface is `mat baton <verb> <session>` (interactive umbrella:
 
 ## 7. Known boundaries
 
+- If a provider cannot resume a conversation for a recognized reason, mat
+  retries without that session. Other failures are reported instead of silently
+  starting a new conversation.
 - **Windows residue**: serve sessions replaced by `restart` linger in
   `baton service status` as `liveness: "unresolved"` (fail-closed — baton
   will neither clear nor signal what it cannot prove dead). Harmless; gone
