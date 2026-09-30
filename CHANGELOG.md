@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v4.30.1 (2026-09-30)
+## v4.30.2 … v4.30.1 (2026-09-30)
 
 ### Fixes
 - fix(adhoc): state that mat issue blocked releases the claim
+- fix(ci): bind shard in Windows classification
 
 ## v4.30.0 … v4.28.6 (2026-09-29)
 
