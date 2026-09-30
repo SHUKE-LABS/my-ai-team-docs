@@ -2,7 +2,10 @@
 
 _Generated from release tags._
 
-## v4.30.2 … v4.30.1 (2026-09-30)
+## v4.31.0 … v4.30.1 (2026-09-30)
+
+### Features
+- feat(agents): balance residual risk against mitigation cost
 
 ### Fixes
 - fix(adhoc): state that mat issue blocked releases the claim
