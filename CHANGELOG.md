@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v4.31.1 … v4.30.1 (2026-09-30)
+## v4.32.0 … v4.30.1 (2026-09-30)
 
 ### Features
 - feat(agents): balance residual risk against mitigation cost
+- feat(test): publish state-backed agentHint recovery commands for local suite retries
 
 ### Fixes
 - fix(adhoc): state that mat issue blocked releases the claim
