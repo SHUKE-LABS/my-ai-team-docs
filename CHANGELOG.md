@@ -2,7 +2,10 @@
 
 _Generated from release tags._
 
-## v4.34.4 … v4.34.3 (2026-10-02)
+## v4.34.5 … v4.34.3 (2026-10-02)
+
+### Fixes
+- fix(test): key read-redirect lint comment filter on source, not path
 
 ### Refactors
 - refactor(prompts): clarify delivery and review workflows
