@@ -2,7 +2,10 @@
 
 _Generated from release tags._
 
-## v4.34.3 (2026-10-02)
+## v4.34.4 … v4.34.3 (2026-10-02)
+
+### Refactors
+- refactor(prompts): clarify delivery and review workflows
 
 ### Other Changes
 - test(ci): make tracker-watch lock regression platform-aware
