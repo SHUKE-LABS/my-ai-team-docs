@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.34.1 … v4.32.3 (2026-10-01)
+## v4.34.2 … v4.32.3 (2026-10-01)
 
 ### Features
 - feat(adhoc): deliver queued inbox messages as one batched resume prompt
@@ -14,6 +14,7 @@ _Generated from release tags._
 - fix: ignore stale CI Full watcher runs
 - fix(bg-run): run expiry maintenance in a detached, bounded worker
 - fix(ci): batch no-explore tracker-watch alerts into one notify
+- fix(adhoc): let renewal own the poll handoff write
 
 ### Other Changes
 - test(adhoc): use provably dead pid fixtures
