@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.33.2 … v4.32.3 (2026-10-01)
+## v4.33.3 … v4.32.3 (2026-10-01)
 
 ### Features
 - feat(adhoc): deliver queued inbox messages as one batched resume prompt
@@ -11,6 +11,7 @@ _Generated from release tags._
 - fix(baton): audit explicit duo queue abandonment
 - fix(test): stop console reads before fixture cleanup
 - fix: ignore stale CI Full watcher runs
+- fix(bg-run): run expiry maintenance in a detached, bounded worker
 
 ### Other Changes
 - test(adhoc): use provably dead pid fixtures

@@ -1905,6 +1905,13 @@ only at the lease boundary. The full bytes always stay on the local host — onl
 the paths and the state fields above ever travel in a wake, result, or relay
 payload.
 
+**Expiry cleanup.** Removing expired records and files is best-effort
+maintenance that runs in the background. Each submission starts at most one
+cleanup worker and goes straight on to admit its own task; the submission never
+waits for cleanup to finish. The worker skips any record another process is
+using and leaves it for a later submission's worker. A worker runs for at most
+about two minutes before it is stopped.
+
 **Session teardown.** When a session ends while one of its baton tasks is still
 running, `bg-run` finalizes that task from the teardown itself rather than
 leaving it orphaned: it stops the task and commits the durable result (and its
