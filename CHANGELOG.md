@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v4.33.3 … v4.32.3 (2026-10-01)
+## v4.34.0 … v4.32.3 (2026-10-01)
 
 ### Features
 - feat(adhoc): deliver queued inbox messages as one batched resume prompt
+- feat(gh-gateway): managed gh and HTTPS Git credential gateway for POSIX drivers
 
 ### Fixes
 - fix(baton): audit explicit duo queue abandonment

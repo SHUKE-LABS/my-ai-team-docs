@@ -128,6 +128,9 @@ set up. On a host with no reachable gui/login session the relay-agent check is a
 list and the `ok` / `warn` / `FAIL` vocabulary, see
 [`mat doctor`](user-guide.md#mat-doctor) in the user guide.
 
+The `gh gateway` line confirms `gh` and HTTPS Git resolve your GitHub account
+through mat's credential gateway; if it warns, run `install-gh-gateway`.
+
 ### The one file mat manages
 
 On every claude-kind launch, mat empties your personal `~/.claude/CLAUDE.md`.
