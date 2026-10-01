@@ -14,5 +14,18 @@ allowBuilds:
 # `pnpm audit --audit-level=high` and therefore blocks the whole publication
 # lane. The override lifts that transitive copy to the version the direct
 # dependency already resolves.
+#
+# GHSA-mcm9-63f2-9j32 / GHSA-j22f-vq7h-c4qm / GHSA-x5rw-q4pp-hg5g (devalue) and
+# the undici WebSocket/TLS/origin-isolation advisories: the lockfile resolved
+# vulnerable `devalue@5.9.2`, `undici@7.29.0` and `undici@8.10.1` transitively
+# and `pnpm audit --audit-level=high` failed, blocking the publication lane.
+# astro's `^5.8.1` and unifont's `^8.0.0` ranges already allow the patched
+# floors, but miniflare pins `undici: 7.29.0` exactly, so the 7.x copy can only
+# be lifted by an override. Pin each override to the patched floor so the
+# resolution stays as close to the vulnerable graph as the fix allows, and keep
+# it scoped to its major line so the 7.x and 8.x consumers stay on their own API.
 overrides:
   sharp: ^0.35.4
+  devalue: 5.9.3
+  "undici@>=7 <8": 7.29.1
+  "undici@>=8 <9": 8.10.2
