@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.34.3 (2026-10-02)
+
+### Other Changes
+- test(ci): make tracker-watch lock regression platform-aware
+
 ## v4.34.2 … v4.32.3 (2026-10-01)
 
 ### Features
