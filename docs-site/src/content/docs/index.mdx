@@ -1,18 +1,18 @@
 ---
 title: my-ai-team documentation
-description: Public documentation for my-ai-team — a tmux-based framework for running structured AI-agent sessions against a GitHub repo.
+description: Turn a backlog of GitHub issues into reviewed and merged pull requests while you set the direction and take the decisions.
 template: splash
 hero:
-  tagline: A tmux-based framework for running structured AI-agent sessions against a GitHub repo. It turns your issue backlog into an async delivery pipeline.
+  tagline: Turn a backlog of GitHub issues into reviewed and merged pull requests — you set the direction and take the decisions.
   actions:
-    - text: Product overview
-      link: /reference/overview/
-      icon: right-arrow
-    - text: Quickstart (agent-assisted)
+    - text: Buy Now
+      link: 'https://shukelabs.lemonsqueezy.com/checkout/buy/bf6b12fb-ac4f-4d08-a22c-977c191b1361?checkout%5Bdiscount_code%5D=50OFF'
+      icon: external
+      attrs:
+        target: _blank
+        rel: noopener noreferrer
+    - text: Quickstart
       link: /reference/quickstart-agent-assisted/
-      variant: minimal
-    - text: Quickstart (Linux)
-      link: /reference/quickstart-linux/
       variant: minimal
     - text: FAQ
       link: /reference/faq/
@@ -27,18 +27,31 @@ import versionInfo from '../../version.json';
   Historical release changes are documented on the <a href="/reference/changelog/">Changelog</a> page.
 </p>
 
+## How it works
+
 <CardGrid>
-  <Card title="Get started" icon="rocket">
-    Install and run your first session — [agent-assisted quickstart](/reference/quickstart-agent-assisted/), [Linux quickstart](/reference/quickstart-linux/), or [macOS quickstart](/reference/quickstart-macos/).
+  <Card title="1. Label an issue ready" icon="approve-check">
+    Tag a GitHub issue as `ready` in your backlog. That is the whole handoff.
   </Card>
-  <Card title="Understand the modes" icon="puzzle">
-    The [user guide](/reference/user-guide/#modes) explains explore, caucus, audit, live, adhoc, duo, and team.
+  <Card title="2. An agent claims it and opens a pull request" icon="pencil">
+    An agent picks the issue up, implements the change, and opens a pull request for you to see.
   </Card>
-  <Card title="Go deep" icon="open-book">
-    The [user guide](/reference/user-guide/) is the full first-run walkthrough and configuration reference.
+  <Card title="3. Review and merge happen without you" icon="rocket">
+    A separate reviewer checks the work and merges it. Decisions that need you reach you, optionally over Telegram.
   </Card>
-  <Card title="Questions" icon="question">
-    The [FAQ](/reference/faq/) covers licensing, cost, platforms, backends, and privacy.
+</CardGrid>
+
+## Who it is for
+
+<CardGrid>
+  <Card title="Solo maintainers with a long backlog" icon="list-format">
+    Agents claim your `ready` issues, implement them, and merge the results while you set the direction.
+  </Card>
+  <Card title="Small teams that want async delivery" icon="laptop">
+    Drive and intervene remotely over Telegram instead of watching an interactive terminal.
+  </Card>
+  <Card title="Anyone already paying for a backend CLI" icon="setting">
+    my-ai-team runs on top of the CLI you already pay for — it does not replace it, and you keep using your own account.
   </Card>
 </CardGrid>
 
