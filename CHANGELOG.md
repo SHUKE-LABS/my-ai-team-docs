@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.35.10 … v4.34.23 (2026-10-03)
+## v4.35.11 … v4.34.23 (2026-10-03)
 
 ### Features
 - feat(ci): add auth launch diagnostic workflow
@@ -19,6 +19,7 @@ _Generated from release tags._
 
 ### Refactors
 - refactor(baton): unify idle recovery ladder
+- refactor(prompts): centralize idle recovery rule
 
 ### Other Changes
 - test(github-auth): respect gateway platform predicate
