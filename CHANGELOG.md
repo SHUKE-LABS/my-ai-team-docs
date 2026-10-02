@@ -2,13 +2,14 @@
 
 _Generated from release tags._
 
-## v4.35.0 … v4.34.23 (2026-10-03)
+## v4.35.1 … v4.34.23 (2026-10-03)
 
 ### Features
 - feat(ci): add auth launch diagnostic workflow
 
 ### Fixes
 - fix(test): initialize MESSAGE_DIR in supervisor cleanup fixture
+- fix(ci): root windows coverage records outside PR history
 
 ## v4.34.22 … v4.34.3 (2026-10-02)
 
