@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.35.5 … v4.34.23 (2026-10-03)
+## v4.35.6 … v4.34.23 (2026-10-03)
 
 ### Features
 - feat(ci): add auth launch diagnostic workflow
@@ -13,6 +13,7 @@ _Generated from release tags._
 - fix(headless): record current-role task trail replacement
 - fix(merge): handle delayed issue closing references
 - fix(ticket-fresh): ignore superseded closed PRs
+- fix(baton): preserve recovery artifacts during teardown
 
 ### Other Changes
 - test(github-auth): respect gateway platform predicate
