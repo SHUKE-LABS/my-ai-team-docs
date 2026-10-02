@@ -204,7 +204,9 @@ The operator surface is `mat baton <verb> <session>` (interactive umbrella:
   - Caucus sessions do not support either verb — a caucus is one finite
     deliberation, not a continuously armed session.
 - **Rescue a role** — `mat baton restart <session>` re-arms both serves from
-  the saved session state.
+  the saved session state when its recorded worktree still exists as a
+  directory. If it is missing or no longer a directory, restart names the path
+  and asks you to relaunch the duo session; it does not recreate the worktree.
 - **Stop or reap** — `mat baton stop <session>` (halts serves, keeps state)
   preserves state; `mat baton teardown <session>` stops the services and removes
   the session state, durable queue, mailbox, and launch-created worktree after
