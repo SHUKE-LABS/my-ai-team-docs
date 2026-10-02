@@ -2,10 +2,49 @@
 
 _Generated from release tags._
 
-## v4.30.1 (2026-09-30)
+## v4.34.5 … v4.34.3 (2026-10-02)
+
+### Fixes
+- fix(test): key read-redirect lint comment filter on source, not path
+
+### Refactors
+- refactor(prompts): clarify delivery and review workflows
+
+### Other Changes
+- test(ci): make tracker-watch lock regression platform-aware
+
+## v4.34.2 … v4.32.3 (2026-10-01)
+
+### Features
+- feat(adhoc): deliver queued inbox messages as one batched resume prompt
+- feat(gh-gateway): managed gh and HTTPS Git credential gateway for POSIX drivers
+
+### Fixes
+- fix(baton): audit explicit duo queue abandonment
+- fix(test): stop console reads before fixture cleanup
+- fix: ignore stale CI Full watcher runs
+- fix(bg-run): run expiry maintenance in a detached, bounded worker
+- fix(ci): batch no-explore tracker-watch alerts into one notify
+- fix(adhoc): let renewal own the poll handoff write
+
+### Other Changes
+- test(adhoc): use provably dead pid fixtures
+- test(duo): honor the bg-run wake root in callback fixtures
+
+## v4.32.2 … v4.30.1 (2026-09-30)
+
+### Features
+- feat(agents): balance residual risk against mitigation cost
+- feat(test): publish state-backed agentHint recovery commands for local suite retries
 
 ### Fixes
 - fix(adhoc): state that mat issue blocked releases the claim
+- fix(ci): bind shard in Windows classification
+- fix(baton): continue current conversation for operator messages
+
+### Other Changes
+- ci(windows): chunk core coverage with calibrated guard-only timeouts
+- test(adhoc): stamp boot_uuid in local-driver state fixtures
 
 ## v4.30.0 … v4.28.6 (2026-09-29)
 
