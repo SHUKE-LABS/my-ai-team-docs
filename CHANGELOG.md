@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.34.21 … v4.34.3 (2026-10-02)
+## v4.34.22 … v4.34.3 (2026-10-02)
 
 ### Fixes
 - fix(test): key read-redirect lint comment filter on source, not path
@@ -15,6 +15,7 @@ _Generated from release tags._
 - fix(ci): ignore stale CI Full failures
 - fix(baton): recover pair-idle in never-paused sessions
 - fix(docs-projection): fetch shared history before refresh
+- fix(baton): refuse restart with missing worktree
 
 ### Refactors
 - refactor(prompts): clarify delivery and review workflows
