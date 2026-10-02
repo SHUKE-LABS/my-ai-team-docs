@@ -795,7 +795,8 @@ defaults. Unless noted, Git resolves them from local to global configuration.
 | `mat.auditPollMinutes` | `MAT_AUDIT_POLL_MINUTES` | Audit broad-sweep interval, in minutes | 300 |
 | `mat.personalPromptOverride` | — | Enable user-global prompt overrides (see [Prompt overrides](#prompt-overrides)) | off |
 | `mat.personalSkillsOverride` | — | Let a personal skill override a product skill of the same name | off |
-| `mat.stallWatchdog` | `MAT_STALL_WATCHDOG` | Nudge/escalate a stalled delivery turn | on |
+| `mat.pairIdleCheck` | `MAT_PAIR_IDLE_CHECK` | Enable Baton unified idle recovery; false/0 disables it | on |
+| `mat.stallWatchdog` | `MAT_STALL_WATCHDOG` | Enable Baton unified idle recovery and tmux stalled-turn alerts; false/0 disables them | on |
 | `mat.devopsHost` | `MAT_DEVOPS_HOST` | ssh host that also receives every `notify-user --action` message (see [Forwarding action messages](#forwarding-action-messages)) | — |
 
 Worktree selection has its own precedence: `MAT_ENABLE_WORKTREE` first (the
