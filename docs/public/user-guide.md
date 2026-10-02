@@ -1975,6 +1975,27 @@ from before this scheme (no identity fields) always deliver, and a task whose
 record is missing or unreadable delivers too — rejection requires a live record
 that positively names a replacement.
 
+A milestone that reaches Baton after its task has already ended does not create
+another wake; the completion event carries the task's final outcome. A wake for
+an issue cycle that has closed is also withheld, while any queued handoff for a
+current cycle remains eligible for delivery.
+
+**Cycle close and delivery journal.** Publishing a closed issue-cycle record
+also stops committed tmux and Baton tasks whose recorded workflow session and
+issue key both match that cycle. The close record is written first, so a late
+callback cannot wake the closed turn. The task publishing the boundary is
+spared so it can finish; a nested task has its own identity and is stopped with
+the other matching tasks. Tasks without an issue key and headless fallback
+tasks keep their existing lifetime rules.
+
+Before a tmux wake is sent, `bg-run` checks that the pane still belongs to the
+session that launched the task. It leaves the wake file in place and skips the
+send if the pane has moved, disappeared, or cannot be resolved. Cycle reaps,
+stale and superseded suppression, and wake-delivery failures are recorded in
+`${BG_RUN_DEDUPE_DIR}/bg-run.log` (default `/tmp/bg-run.log`). The private log
+contains no command output, is limited to 1 MiB, and keeps one rotated file at
+`bg-run.log.1`.
+
 `bg-run` is available on tmux and baton sessions, which have a wake channel. On a
 headless local turn it is unavailable — use `nohup <command> >validation.log 2>&1
 & disown` from a foreground call and confirm from the log instead.
