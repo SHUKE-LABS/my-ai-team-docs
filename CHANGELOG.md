@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.35.1 … v4.34.23 (2026-10-03)
+## v4.35.2 … v4.34.23 (2026-10-03)
 
 ### Features
 - feat(ci): add auth launch diagnostic workflow
@@ -10,6 +10,9 @@ _Generated from release tags._
 ### Fixes
 - fix(test): initialize MESSAGE_DIR in supervisor cleanup fixture
 - fix(ci): root windows coverage records outside PR history
+
+### Other Changes
+- test(github-auth): respect gateway platform predicate
 
 ## v4.34.22 … v4.34.3 (2026-10-02)
 
