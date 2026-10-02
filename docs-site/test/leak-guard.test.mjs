@@ -19,6 +19,7 @@ import {
   checkPresence,
   checkBuyCta,
   scanForUnencodedCheckout,
+  checkRedirectStubs,
 } from '../scripts/leak-guard.mjs';
 import { CHECKOUT_URL } from '../src/purchase.mjs';
 import {
@@ -29,6 +30,7 @@ import {
   internalDocNames,
   internalPathPrefixes,
   publicDocEntry,
+  referenceRedirects,
 } from '../content-manifest.mjs';
 
 const PRESERVED = new Set(['index.mdx', '.gitignore']);
@@ -196,6 +198,26 @@ test('scanForUnencodedCheckout flags a raw-bracket checkout query anywhere in di
       { path: 'index.html', text: 'plain store link https://shukelabs.lemonsqueezy.com stays unflagged' },
     ]).length,
     0,
+  );
+});
+
+test('checkRedirectStubs requires a stub for every former route and the right target', () => {
+  const redirects = referenceRedirects();
+  const stub = (from, to) => ({
+    path: `${from.replace(/^\/|\/$/g, '')}/index.html`,
+    text: `<meta http-equiv="refresh" content="0;url=${to}">`,
+  });
+  // Every route in the map, materialized as a correctly-pointed stub.
+  const stubs = Object.entries(redirects).map(([from, to]) => stub(from, to));
+  assert.equal(checkRedirectStubs(stubs, redirects).length, 0);
+  // A dropped stub and a mispointed stub are both failures.
+  assert.ok(
+    checkRedirectStubs(stubs.slice(1), redirects).some((v) => v.includes('missing redirect stub')),
+  );
+  assert.ok(
+    checkRedirectStubs([stub('/faq/', '/reference/wrong/')], { '/faq/': '/reference/faq/' }).some(
+      (v) => v.includes('does not point at'),
+    ),
   );
 });
 

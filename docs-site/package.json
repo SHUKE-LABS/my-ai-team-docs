@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "packageManager": "pnpm@11.11.0",
-  "description": "Public documentation site for my-ai-team (Astro + Starlight). Content is synced at build time from the approved public subset of the repo docs; see README.md.",
+  "description": "my-ai-team documentation site (Astro + Starlight), owned and maintained in this repository. The reference section is generated at build time from the approved public subset into /reference/; see README.md.",
   "scripts": {
     "prebuild": "node scripts/sync-content.mjs",
     "build": "astro build",
