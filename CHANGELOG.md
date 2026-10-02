@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.34.20 … v4.34.3 (2026-10-02)
+## v4.34.21 … v4.34.3 (2026-10-02)
 
 ### Fixes
 - fix(test): key read-redirect lint comment filter on source, not path
@@ -27,6 +27,7 @@ _Generated from release tags._
 - test(release): fail closed when the runtime-doc reference scan dies or finds nothing
 - test(lock): run killed-subshell recovery case without setsid on Windows
 - test(commandcode): make the missing-binary preflight case host-independent
+- ci(windows-smoke): add guard-only four-suite floor
 
 ## v4.34.2 … v4.32.3 (2026-10-01)
 
