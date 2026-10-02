@@ -414,20 +414,29 @@ function walkFiles(dir) {
   return out;
 }
 
+// Output path of the static redirect stub Astro emits for a former top-level
+// route `/faq/` -> `faq/index.html`.
+export function redirectStubPath(from) {
+  return `${from.replace(/^\/|\/$/g, '')}/index.html`;
+}
+
 // Rendered content pages: .html not under pagefind/ or _astro/, excluding the
 // Astro-generated redirect stubs (the former /<slug>/ routes that point at
 // /reference/<slug>/). A redirect stub carries no site chrome, so the per-page
 // presence / CTA / prose checks do not apply to it; Guard B still scans its
 // path and text like every other output file.
-const REDIRECT_STUB_RE = /<meta http-equiv="refresh"/i;
-
-function contentPages(files) {
+//
+// A stub is identified by its EXACT output path (the one checkRedirectStubs()
+// verifies), never by its content: matching on a refresh meta tag would let any
+// real page that happens to contain one opt out of the prose guards silently.
+export function contentPages(files, redirects = referenceRedirects()) {
+  const stubPaths = new Set(Object.keys(redirects).map(redirectStubPath));
   return files.filter(
     (f) =>
       f.path.endsWith('.html') &&
       !f.path.startsWith('pagefind/') &&
       !f.path.startsWith('_astro/') &&
-      !(f.text !== undefined && REDIRECT_STUB_RE.test(f.text)),
+      !stubPaths.has(f.path),
   );
 }
 
@@ -439,7 +448,7 @@ export function checkRedirectStubs(files, redirects) {
   const violations = [];
   const byPath = new Map(files.map((f) => [f.path, f]));
   for (const [from, to] of Object.entries(redirects)) {
-    const rel = `${from.replace(/^\/|\/$/g, '')}/index.html`;
+    const rel = redirectStubPath(from);
     const file = byPath.get(rel);
     if (!file || file.text === undefined) {
       violations.push(`missing redirect stub for ${from} (expected ${rel})`);
@@ -790,6 +799,21 @@ function selfTest() {
     ).some((v) => v.includes('does not point at')),
     'checkRedirectStubs flags a mispointed stub',
   );
+  assert(
+    contentPages([{ path: 'notes/index.html', text: '' }], redirects).length === 1,
+    'contentPages keeps a real page outside the stub paths',
+  );
+  assert(
+    contentPages(
+      [{ path: 'notes/index.html', text: '<meta http-equiv="refresh" content="0;url=/">' }],
+      redirects,
+    ).length === 1,
+    'contentPages keeps a real page that merely contains a refresh meta tag',
+  );
+  assert(
+    contentPages([{ path: 'faq/index.html', text: '' }], redirects).length === 0,
+    'contentPages excludes the exact redirect stub path',
+  );
 
   if (failures) {
     console.error(`leak-guard self-test: ${failures} failure(s)`);
@@ -846,7 +870,8 @@ function main() {
     violations.push(`dist/ not found — run the build before the leak guard (${DIST_DIR})`);
   } else {
     const files = walkFiles(DIST_DIR);
-    const pages = contentPages(files);
+    const redirects = referenceRedirects();
+    const pages = contentPages(files, redirects);
     const version = readVersion();
     violations.push(...scanTree(files, PROPRIETARY_MARKERS, bannedSegments()));
     violations.push(...scanForUnrewrittenMdLinks(pages));
@@ -856,7 +881,7 @@ function main() {
     violations.push(...checkVersionShape(version));
     violations.push(...checkPresence(pages, version, LICENSE_NEEDLE));
     violations.push(...checkBuyCta(pages));
-    violations.push(...checkRedirectStubs(files, referenceRedirects()));
+    violations.push(...checkRedirectStubs(files, redirects));
     violations.push(...scanForUnencodedCheckout(files));
   }
 

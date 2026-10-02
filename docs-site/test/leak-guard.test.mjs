@@ -20,6 +20,7 @@ import {
   checkBuyCta,
   scanForUnencodedCheckout,
   checkRedirectStubs,
+  contentPages,
 } from '../scripts/leak-guard.mjs';
 import { CHECKOUT_URL } from '../src/purchase.mjs';
 import {
@@ -219,6 +220,25 @@ test('checkRedirectStubs requires a stub for every former route and the right ta
       (v) => v.includes('does not point at'),
     ),
   );
+});
+
+test('contentPages excludes redirect stubs by path, never by their content', () => {
+  const redirects = referenceRedirects();
+  const stub = {
+    path: 'faq/index.html',
+    text: '<meta http-equiv="refresh" content="0;url=/reference/faq/">',
+  };
+  // The exact stub path drops out of the content-page checks...
+  assert.deepEqual(contentPages([stub], redirects), []);
+  // ...but a real page that merely contains a refresh meta tag stays in them:
+  // a page must not be able to opt out of the prose guards by its content.
+  const realPage = {
+    path: 'reference/faq/index.html',
+    text: '<meta http-equiv="refresh" content="0;url=/">prose',
+  };
+  assert.deepEqual(contentPages([realPage], redirects), [realPage]);
+  assert.deepEqual(contentPages([{ path: '_astro/x.html', text: '' }], redirects), []);
+  assert.deepEqual(contentPages([{ path: 'pagefind/y.html', text: '' }], redirects), []);
 });
 
 test('checkPublicDir flags an excluded or unpublished customer-facing doc', () => {
