@@ -2,16 +2,30 @@
 
 _Generated from release tags._
 
-## v4.34.5 … v4.34.3 (2026-10-02)
+## v4.34.19 … v4.34.3 (2026-10-02)
 
 ### Fixes
 - fix(test): key read-redirect lint comment filter on source, not path
+- fix(gh-gateway): filter shim path during fresh bind
+- fix(baton): preserve Duo bg-run workflow provenance
+- fix(test): route the arb fixture's bare flock through lock.sh
+- fix(baton): raise duo serve batch cap from 3 to 100
+- fix(bg-run): reap tasks when workflow cycles close
+- fix(ticket-fresh): retain gh read diagnostics
+- fix(ci): ignore stale CI Full failures
+- fix(baton): recover pair-idle in never-paused sessions
+- fix(docs-projection): fetch shared history before refresh
 
 ### Refactors
 - refactor(prompts): clarify delivery and review workflows
+- refactor(prompts): replace anti-phantom with peer communication
+- refactor(recovery): share idle-recovery message source
 
 ### Other Changes
 - test(ci): make tracker-watch lock regression platform-aware
+- test(merge-gate): strip CR before whitespace fold in skill contract assertion
+- test(release): fail closed when the runtime-doc reference scan dies or finds nothing
+- test(lock): run killed-subshell recovery case without setsid on Windows
 
 ## v4.34.2 … v4.32.3 (2026-10-01)
 
