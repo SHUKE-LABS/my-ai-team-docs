@@ -95,10 +95,10 @@ resident poller are ready.
 
 Its lifecycle follows the operator actions: pause/resume transitions are
 recorded, stop records a stopped session, and teardown records `stopping` before
-cleanup and `terminal` after the temporary state has been removed. A terminal
-record is retained for inspection but is not runnable. If cleanup cannot be
-verified, the record stays non-terminal and the session files are retained so
-the task host can be repaired safely.
+cleanup. Teardown stages the temporary state while it publishes `terminal`.
+If terminal publication or final staged-file removal fails, teardown restores
+the remaining session files and returns an error; an existing recovery record
+stays non-runnable at `stopping`.
 
 ### Durable queue and replay behavior
 
