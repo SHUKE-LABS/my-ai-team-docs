@@ -78,9 +78,16 @@ const REFERENCE_GEN_DIR = path.join(GEN_DIR, REFERENCE_DIR);
 const VERSION_FILE = path.join(SITE_ROOT, 'src', 'version.json');
 
 // Entries allowed at the TOP level of the generated source tree: the
-// hand-authored landing page, the directory's own .gitignore, and the generated
-// reference/ section. Every generated page lives under reference/.
-const PRESERVED_GENERATED = new Set(['index.mdx', '.gitignore', REFERENCE_DIR]);
+// hand-authored evaluator pages plus the directory's own .gitignore, and the
+// generated reference/ section. Every generated page lives under reference/.
+const PRESERVED_GENERATED = new Set([
+  'index.mdx',
+  'how-it-works.md',
+  'modes.md',
+  'compare.md',
+  '.gitignore',
+  REFERENCE_DIR,
+]);
 const LICENSE_NEEDLE = 'creativecommons.org/licenses/by/4.0';
 const TEXT_EXT = new Set([
   '.html', '.htm', '.js', '.mjs', '.cjs', '.json', '.css', '.xml', '.svg', '.txt', '.map', '.md',
@@ -514,18 +521,21 @@ function selfTest() {
     'checkGeneratedTree accepts the approved reference pages',
   );
   assert(
-    checkGeneratedTree(['index.mdx', '.gitignore', REFERENCE_DIR], [], PRESERVED_GENERATED)
+    checkGeneratedTree([...PRESERVED_GENERATED], [], PRESERVED_GENERATED)
       .length === 0,
     'checkGeneratedTree accepts the preserved top-level entries + reference/',
   );
   assert(
-    checkGeneratedTree(['index.mdx', '.gitignore'], [], PRESERVED_GENERATED)
-      .some((v) => v.includes(REFERENCE_DIR) && v.includes('missing')),
+    checkGeneratedTree(
+      [...PRESERVED_GENERATED].filter((name) => name !== REFERENCE_DIR),
+      [],
+      PRESERVED_GENERATED,
+    ).some((v) => v.includes(REFERENCE_DIR) && v.includes('missing')),
     'checkGeneratedTree flags a missing reference/ directory at the top level',
   );
   assert(
     checkGeneratedTree(
-      ['index.mdx', '.gitignore', REFERENCE_DIR, 'faq.md'],
+      [...PRESERVED_GENERATED, 'faq.md'],
       [],
       PRESERVED_GENERATED,
     ).some((v) => v.includes('faq.md')),

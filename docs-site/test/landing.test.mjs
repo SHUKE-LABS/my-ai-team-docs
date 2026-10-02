@@ -75,10 +75,10 @@ test('the first hero action is the checkout URL from src/purchase.mjs', () => {
   assert.equal(ACTIONS[0].link, CHECKOUT_URL);
 });
 
-test('the secondary hero actions point at the quickstart and FAQ routes', () => {
+test('the secondary hero actions point at the quickstart and How it works routes', () => {
   const byText = new Map(ACTIONS.map((action) => [action.text, action.link]));
   assert.equal(byText.get('Quickstart'), '/reference/quickstart-agent-assisted/');
-  assert.equal(byText.get('FAQ'), '/reference/faq/');
+  assert.equal(byText.get('How it works'), '/how-it-works/');
 });
 
 // The unit phase runs before the Astro build in CI, so it cannot read dist/.
@@ -86,10 +86,12 @@ test('the secondary hero actions point at the quickstart and FAQ routes', () => 
 // asserts against, and every approved slug becomes
 // dist/reference/<slug>/index.html — so mapping each internal link to an
 // approved slug is the build-time guarantee that the route file exists. The
+// hand-authored evaluator routes map to their own source page the same way. The
 // post-build `test -f dist/<path>/index.html` check is recorded in
 // .orbi/test.log as the rendered-path evidence.
-test('every internal link on the landing page resolves to an approved reference route', () => {
+test('every internal link on the landing page resolves to a built route', () => {
   const slugs = new Set(approvedPageSlugs());
+  const evaluator = new Set(['how-it-works', 'modes', 'compare']);
   const links = [
     ...[...MDX.matchAll(/\]\((\/[^)\s]+)\)/g)].map((m) => m[1]),
     ...[...MDX.matchAll(/href="(\/[^"]+)"/g)].map((m) => m[1]),
@@ -99,13 +101,24 @@ test('every internal link on the landing page resolves to an approved reference 
   for (const link of links) {
     const route = normalizeRoute(link);
     const match = route.match(/^\/reference\/([^/]+)$/);
-    assert.ok(match, `internal link ${link} must point under /reference/<slug>/`);
-    assert.ok(slugs.has(match[1]), `internal link ${link} points at an unbuilt route`);
+    if (match) {
+      assert.ok(slugs.has(match[1]), `internal link ${link} points at an unbuilt reference route`);
+      continue;
+    }
+    const evaluatorSlug = route.replace(/^\//, '');
+    assert.ok(
+      evaluator.has(evaluatorSlug),
+      `internal link ${link} is neither a reference route nor an evaluator page`,
+    );
+    assert.ok(
+      fs.existsSync(path.join(HERE, '..', 'src', 'content', 'docs', `${evaluatorSlug}.md`)),
+      `internal link ${link} points at a missing evaluator page`,
+    );
   }
 });
 
-test('the landing page does not link to the unfinished evaluator pages', () => {
-  for (const forbidden of ['/how-it-works/', '/modes/', '/compare/']) {
-    assert.ok(!MDX.includes(forbidden), `landing page must not link to ${forbidden} yet`);
+test('the landing page links the evaluator pages', () => {
+  for (const route of ['/how-it-works/', '/modes/', '/compare/']) {
+    assert.ok(MDX.includes(route), `landing page must link ${route}`);
   }
 });
