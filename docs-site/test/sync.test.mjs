@@ -19,15 +19,21 @@ import {
   PROJECTED_VERSION_FILE,
   buildOverviewPage,
   OVERVIEW_WORD_LIMIT,
-  PRESERVED_GENERATED,
+  pageFrontmatter,
 } from '../scripts/sync-content.mjs';
-import { README_CUT_AT } from '../content-manifest.mjs';
+import {
+  README_CUT_AT,
+  REFERENCE_DIR,
+  approvedPageSlugs,
+  referenceRedirects,
+  referenceOrder,
+} from '../content-manifest.mjs';
 
-test('link to an approved doc becomes a site route', () => {
-  assert.equal(transformProse('see [the FAQ](faq.md)'), 'see [the FAQ](/faq/)');
+test('link to an approved doc becomes a /reference/ site route', () => {
+  assert.equal(transformProse('see [the FAQ](faq.md)'), 'see [the FAQ](/reference/faq/)');
   assert.equal(
     transformProse('see [config](../docs/public/user-guide.md#install)'),
-    'see [config](/user-guide/#install)',
+    'see [config](/reference/user-guide/#install)',
   );
 });
 
@@ -71,7 +77,7 @@ test('a link whose label contains a code span still has its href rewritten/strip
   );
   assert.equal(
     neutralizeLinks('see [`docs/public/faq.md`](faq.md) for details'),
-    'see [`docs/public/faq.md`](/faq/) for details',
+    'see [`docs/public/faq.md`](/reference/faq/) for details',
   );
 });
 
@@ -85,7 +91,7 @@ test('a literal link example fully inside a code span is left untouched', () => 
 test('a link whose label wraps across a soft line break still has its href rewritten/stripped', () => {
   assert.equal(
     neutralizeLinks('see the [OpenCode\nbackend](user-guide.md#x) for details'),
-    'see the [OpenCode\nbackend](/user-guide/#x) for details',
+    'see the [OpenCode\nbackend](/reference/user-guide/#x) for details',
   );
   assert.equal(
     neutralizeLinks('see the [baton\nsession manager](baton-session-manager.md#x) for details'),
@@ -114,20 +120,68 @@ test('stripLeadingH1 removes only the first top-level heading', () => {
   assert.equal(stripLeadingH1('intro\n# Title'), 'intro\n# Title');
 });
 
-test('cleanGeneratedTree removes stale pages but preserves the landing page', () => {
+test('cleanGeneratedTree cleans only reference/ and preserves hand-authored pages', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'gen-'));
   fs.writeFileSync(path.join(dir, 'index.mdx'), 'landing');
   fs.writeFileSync(path.join(dir, '.gitignore'), '*');
-  fs.writeFileSync(path.join(dir, 'faq.md'), 'stale');
-  fs.mkdirSync(path.join(dir, 'rfcs'));
-  fs.writeFileSync(path.join(dir, 'rfcs', 'leak.md'), 'stale nested');
+  fs.writeFileSync(path.join(dir, 'notes.md'), 'hand-authored');
+  fs.mkdirSync(path.join(dir, REFERENCE_DIR));
+  fs.writeFileSync(path.join(dir, REFERENCE_DIR, 'faq.md'), 'stale');
+  fs.mkdirSync(path.join(dir, 'evaluator'));
+  fs.writeFileSync(path.join(dir, 'evaluator', 'index.md'), 'hand-authored group');
 
   cleanGeneratedTree(dir);
 
-  const left = fs.readdirSync(dir).sort();
-  assert.deepEqual(left, ['.gitignore', 'index.mdx']);
-  for (const name of left) assert.ok(PRESERVED_GENERATED.has(name));
+  // Only the generated reference subtree is removed; every hand-authored page
+  // outside it (and the landing page/.gitignore) survives.
+  assert.deepEqual(fs.readdirSync(dir).sort(), ['.gitignore', 'evaluator', 'index.mdx', 'notes.md']);
+  assert.equal(fs.readFileSync(path.join(dir, 'notes.md'), 'utf8'), 'hand-authored');
+  assert.ok(fs.existsSync(path.join(dir, 'evaluator', 'index.md')));
+  assert.ok(!fs.existsSync(path.join(dir, REFERENCE_DIR)));
   fs.rmSync(dir, { recursive: true, force: true });
+});
+
+test('reference page frontmatter carries the ordered sidebar position', () => {
+  assert.equal(referenceOrder('overview'), 1);
+  assert.equal(referenceOrder('changelog'), 11);
+  assert.equal(referenceOrder('brand-new'), undefined);
+  assert.match(pageFrontmatter('overview', 'Product overview'), /sidebar:\n  order: 1\n/);
+  assert.match(pageFrontmatter('changelog', 'Changelog'), /sidebar:\n  order: 11\n/);
+  // A newly added public page gets no order and still renders after the ordered
+  // entries — the acceptance path for a docs/public/ addition with no config edit.
+  const newPage = pageFrontmatter('brand-new', 'Brand new');
+  assert.doesNotMatch(newPage, /sidebar:/);
+  assert.match(newPage, /title: "Brand new"/);
+});
+
+test('referenceRedirects covers every current route derived from approvedPageSlugs()', () => {
+  const redirects = referenceRedirects();
+  const slugs = approvedPageSlugs();
+  assert.deepEqual(
+    Object.keys(redirects).sort(),
+    slugs.map((slug) => `/${slug}/`).sort(),
+  );
+  for (const slug of slugs) {
+    assert.equal(redirects[`/${slug}/`], `/reference/${slug}/`);
+  }
+  // The former top-level routes the release tarball and root README link must
+  // all be covered by the map.
+  for (const slug of [
+    'overview',
+    'user-guide',
+    'faq',
+    'examples',
+    'versioning',
+    'changelog',
+    'quickstart-agent-assisted',
+    'quickstart-linux',
+    'quickstart-macos',
+    'quickstart-wsl2',
+    'quickstart-baton-duo',
+  ]) {
+    assert.ok(slugs.includes(slug), slug);
+    assert.equal(redirects[`/${slug}/`], `/reference/${slug}/`);
+  }
 });
 
 test('writeVersion emits the resolved version as JSON', () => {

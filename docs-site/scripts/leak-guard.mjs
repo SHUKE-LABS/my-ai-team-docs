@@ -5,12 +5,12 @@
 //
 //   Guard A (source): the approved sources exist and are disjoint from the
 //     excluded set, AND the generated src/content/docs/ tree contains exactly
-//     the approved generated pages plus the preserved hand-authored files —
-//     so an ignored/stale generated file under an excluded prefix cannot slip
-//     into the site source undetected. It also asserts that docs/public/ holds
-//     only published pages and that every internal doc under docs/ is named in
-//     the exclusion set (which is what Guard D's forbidden-name list derives
-//     from).
+//     the approved generated pages (under reference/) plus the preserved
+//     hand-authored files at the top level — so an ignored/stale generated file
+//     under an excluded prefix cannot slip into the site source undetected. It
+//     also asserts that docs/public/ holds only published pages and that every
+//     internal doc under docs/ is named in the exclusion set (which is what
+//     Guard D's forbidden-name list derives from).
 //
 //   Guard B (output): a recursive scan of dist/ — no output path/filename may
 //     belong to an excluded doc route or directory (checked for every file,
@@ -58,9 +58,11 @@ import {
   EXCLUDED_PATHS,
   PROPRIETARY_MARKERS,
   PUBLIC_DOCS_DIR,
+  REFERENCE_DIR,
   excludedSlugs,
   excludedDirs,
   approvedPageSlugs,
+  referenceRedirects,
   internalDocNames,
   internalPathPrefixes,
 } from '../content-manifest.mjs';
@@ -72,9 +74,20 @@ const SITE_ROOT = path.resolve(HERE, '..');
 const REPO_ROOT = path.resolve(SITE_ROOT, '..');
 const DIST_DIR = path.join(SITE_ROOT, 'dist');
 const GEN_DIR = path.join(SITE_ROOT, 'src', 'content', 'docs');
+const REFERENCE_GEN_DIR = path.join(GEN_DIR, REFERENCE_DIR);
 const VERSION_FILE = path.join(SITE_ROOT, 'src', 'version.json');
 
-const PRESERVED_GENERATED = new Set(['index.mdx', '.gitignore']);
+// Entries allowed at the TOP level of the generated source tree: the
+// hand-authored evaluator pages plus the directory's own .gitignore, and the
+// generated reference/ section. Every generated page lives under reference/.
+const PRESERVED_GENERATED = new Set([
+  'index.mdx',
+  'how-it-works.md',
+  'modes.md',
+  'compare.md',
+  '.gitignore',
+  REFERENCE_DIR,
+]);
 const LICENSE_NEEDLE = 'creativecommons.org/licenses/by/4.0';
 const TEXT_EXT = new Set([
   '.html', '.htm', '.js', '.mjs', '.cjs', '.json', '.css', '.xml', '.svg', '.txt', '.map', '.md',
@@ -171,9 +184,10 @@ export function markdownPathsUnder(root, dir) {
   return found;
 }
 
-// Guard A, part 2: the generated source tree must be EXACTLY the approved pages
-// plus the preserved hand-authored files — no more (leak), no less (a dropped
-// page passing silently).
+// Guard A, part 2: the given source tree must be EXACTLY the required entries —
+// no more (leak), no less (a dropped page passing silently). It is applied twice:
+// to the top level (preserved hand-authored files + the reference/ directory)
+// and to reference/ itself (exactly the approved generated pages).
 export function checkGeneratedTree(entryNames, approvedSlugs, preserved) {
   const approvedFiles = approvedSlugs.map((s) => `${s}.md`);
   const required = [...preserved, ...approvedFiles];
@@ -407,14 +421,52 @@ function walkFiles(dir) {
   return out;
 }
 
-// Rendered content pages: .html not under pagefind/ or _astro/.
-function contentPages(files) {
+// Output path of the static redirect stub Astro emits for a former top-level
+// route `/faq/` -> `faq/index.html`.
+export function redirectStubPath(from) {
+  return `${from.replace(/^\/|\/$/g, '')}/index.html`;
+}
+
+// Rendered content pages: .html not under pagefind/ or _astro/, excluding the
+// Astro-generated redirect stubs (the former /<slug>/ routes that point at
+// /reference/<slug>/). A redirect stub carries no site chrome, so the per-page
+// presence / CTA / prose checks do not apply to it; Guard B still scans its
+// path and text like every other output file.
+//
+// A stub is identified by its EXACT output path (the one checkRedirectStubs()
+// verifies), never by its content: matching on a refresh meta tag would let any
+// real page that happens to contain one opt out of the prose guards silently.
+export function contentPages(files, redirects = referenceRedirects()) {
+  const stubPaths = new Set(Object.keys(redirects).map(redirectStubPath));
   return files.filter(
     (f) =>
       f.path.endsWith('.html') &&
       !f.path.startsWith('pagefind/') &&
-      !f.path.startsWith('_astro/'),
+      !f.path.startsWith('_astro/') &&
+      !stubPaths.has(f.path),
   );
+}
+
+// Redirects: every former top-level route must exist in the output as a stub
+// that points at its /reference/<slug>/ home. Astro emits one static HTML stub
+// per `redirects` entry; a missing or mispointed stub would send an old link (a
+// release tarball or the root README) to a 404 instead of the moved page.
+export function checkRedirectStubs(files, redirects) {
+  const violations = [];
+  const byPath = new Map(files.map((f) => [f.path, f]));
+  for (const [from, to] of Object.entries(redirects)) {
+    const rel = redirectStubPath(from);
+    const file = byPath.get(rel);
+    if (!file || file.text === undefined) {
+      violations.push(`missing redirect stub for ${from} (expected ${rel})`);
+      continue;
+    }
+    const m = file.text.match(/http-equiv="refresh"[^>]*content="[^"]*url=([^"]+)"/i);
+    if (!m || !m[1].startsWith(to)) {
+      violations.push(`redirect stub ${rel} does not point at ${to}`);
+    }
+  }
+  return violations;
 }
 
 function readVersion() {
@@ -453,21 +505,41 @@ function selfTest() {
     'checkManifest accepts a clean manifest',
   );
 
-  // Guard A part 2.
+  // Guard A part 2: the reference/ tree is exactly the approved pages.
   assert(
-    checkGeneratedTree(['faq.md', 'ci.md', 'index.mdx', '.gitignore'], ['faq'], PRESERVED_GENERATED)
+    checkGeneratedTree(['faq.md', 'ci.md'], ['faq'], new Set())
       .some((v) => v.includes('ci.md')),
-    'checkGeneratedTree flags a stale/excluded generated file',
+    'checkGeneratedTree flags a stale/excluded generated reference file',
   );
   assert(
-    checkGeneratedTree(['index.mdx', '.gitignore'], ['faq'], PRESERVED_GENERATED)
+    checkGeneratedTree([], ['faq'], new Set())
       .some((v) => v.includes('faq.md') && v.includes('missing')),
-    'checkGeneratedTree flags a missing approved page (exact-set equality)',
+    'checkGeneratedTree flags a missing approved reference page (exact-set equality)',
   );
   assert(
-    checkGeneratedTree(['faq.md', 'index.mdx', '.gitignore'], ['faq'], PRESERVED_GENERATED)
+    checkGeneratedTree(['faq.md'], ['faq'], new Set()).length === 0,
+    'checkGeneratedTree accepts the approved reference pages',
+  );
+  assert(
+    checkGeneratedTree([...PRESERVED_GENERATED], [], PRESERVED_GENERATED)
       .length === 0,
-    'checkGeneratedTree accepts approved pages + preserved files',
+    'checkGeneratedTree accepts the preserved top-level entries + reference/',
+  );
+  assert(
+    checkGeneratedTree(
+      [...PRESERVED_GENERATED].filter((name) => name !== REFERENCE_DIR),
+      [],
+      PRESERVED_GENERATED,
+    ).some((v) => v.includes(REFERENCE_DIR) && v.includes('missing')),
+    'checkGeneratedTree flags a missing reference/ directory at the top level',
+  );
+  assert(
+    checkGeneratedTree(
+      [...PRESERVED_GENERATED, 'faq.md'],
+      [],
+      PRESERVED_GENERATED,
+    ).some((v) => v.includes('faq.md')),
+    'checkGeneratedTree flags a stale generated page left at the top level',
   );
 
   // Guard B: excluded route (top-level and nested), excluded dir, non-HTML marker.
@@ -717,6 +789,42 @@ function selfTest() {
     'scanForUnencodedCheckout accepts the encoded checkout link and the plain store link',
   );
 
+  // Redirect stubs.
+  const redirects = { '/faq/': '/reference/faq/' };
+  assert(
+    checkRedirectStubs(
+      [{ path: 'faq/index.html', text: '<meta http-equiv="refresh" content="0;url=/reference/faq/">' }],
+      redirects,
+    ).length === 0,
+    'checkRedirectStubs accepts a stub pointing at its target',
+  );
+  assert(
+    checkRedirectStubs([], redirects).some((v) => v.includes('missing redirect stub')),
+    'checkRedirectStubs flags a missing stub',
+  );
+  assert(
+    checkRedirectStubs(
+      [{ path: 'faq/index.html', text: '<meta http-equiv="refresh" content="0;url=/reference/wrong/">' }],
+      redirects,
+    ).some((v) => v.includes('does not point at')),
+    'checkRedirectStubs flags a mispointed stub',
+  );
+  assert(
+    contentPages([{ path: 'notes/index.html', text: '' }], redirects).length === 1,
+    'contentPages keeps a real page outside the stub paths',
+  );
+  assert(
+    contentPages(
+      [{ path: 'notes/index.html', text: '<meta http-equiv="refresh" content="0;url=/">' }],
+      redirects,
+    ).length === 1,
+    'contentPages keeps a real page that merely contains a refresh meta tag',
+  );
+  assert(
+    contentPages([{ path: 'faq/index.html', text: '' }], redirects).length === 0,
+    'contentPages excludes the exact redirect stub path',
+  );
+
   if (failures) {
     console.error(`leak-guard self-test: ${failures} failure(s)`);
     process.exit(1);
@@ -738,9 +846,18 @@ function main() {
   if (!fs.existsSync(GEN_DIR)) {
     violations.push(`generated source tree missing (${GEN_DIR}) — run sync-content before the leak guard`);
   } else {
-    violations.push(
-      ...checkGeneratedTree(fs.readdirSync(GEN_DIR), approvedPageSlugs(), PRESERVED_GENERATED),
-    );
+    // Top level: exactly the preserved hand-authored files + the reference/ dir.
+    violations.push(...checkGeneratedTree(fs.readdirSync(GEN_DIR), [], PRESERVED_GENERATED));
+    // reference/: exactly the approved generated pages.
+    if (!fs.existsSync(REFERENCE_GEN_DIR)) {
+      violations.push(
+        `generated reference directory missing (${REFERENCE_GEN_DIR}) — run sync-content before the leak guard`,
+      );
+    } else {
+      violations.push(
+        ...checkGeneratedTree(fs.readdirSync(REFERENCE_GEN_DIR), approvedPageSlugs(), new Set()),
+      );
+    }
   }
   const publicDir = path.join(REPO_ROOT, PUBLIC_DOCS_DIR);
   if (!fs.existsSync(publicDir)) {
@@ -763,7 +880,8 @@ function main() {
     violations.push(`dist/ not found — run the build before the leak guard (${DIST_DIR})`);
   } else {
     const files = walkFiles(DIST_DIR);
-    const pages = contentPages(files);
+    const redirects = referenceRedirects();
+    const pages = contentPages(files, redirects);
     const version = readVersion();
     violations.push(...scanTree(files, PROPRIETARY_MARKERS, bannedSegments()));
     violations.push(...scanForUnrewrittenMdLinks(pages));
@@ -773,6 +891,7 @@ function main() {
     violations.push(...checkVersionShape(version));
     violations.push(...checkPresence(pages, version, LICENSE_NEEDLE));
     violations.push(...checkBuyCta(pages));
+    violations.push(...checkRedirectStubs(files, redirects));
     violations.push(...scanForUnencodedCheckout(files));
   }
 
