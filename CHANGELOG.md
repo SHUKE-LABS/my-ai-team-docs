@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.35.8 … v4.34.23 (2026-10-03)
+## v4.35.9 … v4.34.23 (2026-10-03)
 
 ### Features
 - feat(ci): add auth launch diagnostic workflow
@@ -15,6 +15,7 @@ _Generated from release tags._
 - fix(ticket-fresh): ignore superseded closed PRs
 - fix(baton): preserve recovery artifacts during teardown
 - fix(ci): derive real-host suite deadlines from budgets
+- fix(test): track MAT_TEST environment controls accurately
 
 ### Other Changes
 - test(github-auth): respect gateway platform predicate
