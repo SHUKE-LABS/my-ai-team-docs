@@ -1,7 +1,11 @@
 # Reference pages are generated at build time by scripts/sync-content.mjs into
 # reference/ from the approved public subset (see ../../../content-manifest.mjs).
-# Only the hand-authored landing page is tracked here; reference/ is regenerated.
-# Any other hand-authored page under this directory must be un-ignored below.
+# Only the hand-authored evaluator pages are tracked here; reference/ is
+# regenerated. Any other hand-authored page under this directory must be
+# un-ignored below.
 *
 !.gitignore
 !index.mdx
+!how-it-works.md
+!modes.md
+!compare.md
