@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.34.23 (2026-10-03)
+
+### Fixes
+- fix(test): initialize MESSAGE_DIR in supervisor cleanup fixture
+
 ## v4.34.22 … v4.34.3 (2026-10-02)
 
 ### Fixes
