@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.35.9 … v4.34.23 (2026-10-03)
+## v4.35.10 … v4.34.23 (2026-10-03)
 
 ### Features
 - feat(ci): add auth launch diagnostic workflow
@@ -16,6 +16,9 @@ _Generated from release tags._
 - fix(baton): preserve recovery artifacts during teardown
 - fix(ci): derive real-host suite deadlines from budgets
 - fix(test): track MAT_TEST environment controls accurately
+
+### Refactors
+- refactor(baton): unify idle recovery ladder
 
 ### Other Changes
 - test(github-auth): respect gateway platform predicate
