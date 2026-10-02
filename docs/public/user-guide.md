@@ -810,6 +810,17 @@ globally for the machine (`git config --global …`). The two override toggles
 (`personalPromptOverride`, `personalSkillsOverride`) are git-config only — no env
 var — so a stale environment value can never flip them.
 
+### GitHub credentials on Linux and macOS
+
+`install.sh` installs a small gateway that sits in front of `gh` and your
+HTTPS `github.com` Git credential helper. Agents, Baton workers and background
+tasks all reach GitHub through it, and it reads the selected account's
+credential fresh on every command, so a rotated token applies to the next
+command with no restart. If the credential is missing, empty or unreadable the
+command is refused rather than run unauthenticated. `mat doctor` shows a
+`gh gateway` line; if it warns or fails, run `install-gh-gateway` again (for
+example after upgrading `gh`). Native Windows is not covered.
+
 ### Refreshable GitHub App credentials for Baton
 
 Baton normally uses the GitHub account available to `gh`. For a GitHub App
@@ -1904,6 +1915,13 @@ are retained together while the publish is still retryable and removed together
 only at the lease boundary. The full bytes always stay on the local host — only
 the paths and the state fields above ever travel in a wake, result, or relay
 payload.
+
+**Expiry cleanup.** Removing expired records and files is best-effort
+maintenance that runs in the background. Each submission starts at most one
+cleanup worker and goes straight on to admit its own task; the submission never
+waits for cleanup to finish. The worker skips any record another process is
+using and leaves it for a later submission's worker. A worker runs for at most
+about two minutes before it is stopped.
 
 **Session teardown.** When a session ends while one of its baton tasks is still
 running, `bg-run` finalizes that task from the teardown itself rather than

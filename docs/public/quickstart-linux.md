@@ -52,6 +52,8 @@ hard item is missing; repair those with your package manager, then rerun the
 check. To also verify a specific backend CLI (for example `codex`), add
 `--backend codex`.
 
+After install, `mat doctor` also checks the `gh` credential gateway; if it warns, run `install-gh-gateway`.
+
 `mat doctor` remains the post-install diagnostic — the preflight covers only
 what must be true before `mat` exists.
 
