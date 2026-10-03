@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.36.0 … v4.34.23 (2026-10-03)
+## v4.36.1 … v4.34.23 (2026-10-03)
 
 ### Features
 - feat(ci): add auth launch diagnostic workflow
@@ -29,6 +29,7 @@ _Generated from release tags._
 - test: recalibrate bg-run callback timing budget
 - test(headless): isolate inherited baton endpoint env
 - test(console): gate Windows-sensitive concurrency tests
+- test(console): isolate server suite from other Node files
 
 ## v4.34.22 … v4.34.3 (2026-10-02)
 
