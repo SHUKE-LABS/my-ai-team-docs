@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.36.4 … v4.34.23 (2026-10-03)
+## v4.36.5 … v4.34.23 (2026-10-03)
 
 ### Features
 - feat(ci): add auth launch diagnostic workflow
@@ -19,6 +19,7 @@ _Generated from release tags._
 - fix(test): track MAT_TEST environment controls accurately
 - fix(recovery): display owed send time in UTC
 - fix(ci): mark active Windows extended test cases
+- fix(test): allow Windows lane listing preflight
 
 ### Refactors
 - refactor(baton): unify idle recovery ladder
