@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v4.36.9 (2026-10-04)
+## v4.36.10 … v4.36.9 (2026-10-04)
 
 ### Fixes
 - fix(console): launch Rewind scripts through Git Bash on Windows
+- fix(bg-run): decode wrapper reference tokens
 
 ## v4.36.8 … v4.34.23 (2026-10-03)
 
