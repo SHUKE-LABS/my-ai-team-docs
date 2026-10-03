@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.36.2 … v4.34.23 (2026-10-03)
+## v4.36.3 … v4.34.23 (2026-10-03)
 
 ### Features
 - feat(ci): add auth launch diagnostic workflow
@@ -18,6 +18,7 @@ _Generated from release tags._
 - fix(ci): derive real-host suite deadlines from budgets
 - fix(test): track MAT_TEST environment controls accurately
 - fix(recovery): display owed send time in UTC
+- fix(ci): mark active Windows extended test cases
 
 ### Refactors
 - refactor(baton): unify idle recovery ladder
