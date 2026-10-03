@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v4.35.14 … v4.34.23 (2026-10-03)
+## v4.36.2 … v4.34.23 (2026-10-03)
 
 ### Features
 - feat(ci): add auth launch diagnostic workflow
+- feat: route Windows Git Bash credentials through gateway
 
 ### Fixes
 - fix(test): initialize MESSAGE_DIR in supervisor cleanup fixture
@@ -27,6 +28,9 @@ _Generated from release tags._
 - test(github-auth): respect gateway platform predicate
 - test: recalibrate bg-run callback timing budget
 - test(headless): isolate inherited baton endpoint env
+- test(console): gate Windows-sensitive concurrency tests
+- test(console): isolate server suite from other Node files
+- baton: recover task host before duo restart
 
 ## v4.34.22 … v4.34.3 (2026-10-02)
 

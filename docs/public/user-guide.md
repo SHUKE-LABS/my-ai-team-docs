@@ -811,16 +811,17 @@ globally for the machine (`git config --global …`). The two override toggles
 (`personalPromptOverride`, `personalSkillsOverride`) are git-config only — no env
 var — so a stale environment value can never flip them.
 
-### GitHub credentials on Linux and macOS
+### GitHub credentials on Linux, macOS and Windows Git Bash
 
-`install.sh` installs a small gateway that sits in front of `gh` and your
-HTTPS `github.com` Git credential helper. Agents, Baton workers and background
-tasks all reach GitHub through it, and it reads the selected account's
-credential fresh on every command, so a rotated token applies to the next
-command with no restart. If the credential is missing, empty or unreadable the
-command is refused rather than run unauthenticated. `mat doctor` shows a
-`gh gateway` line; if it warns or fails, run `install-gh-gateway` again (for
-example after upgrading `gh`). Native Windows is not covered.
+`install.sh` installs a small gateway in front of `gh` and the HTTPS Git
+credential helper for `github.com`. Agents, Baton workers and background tasks
+all reach GitHub through it, and it reads the selected account's credential
+fresh on every command, so a rotated token applies to the next command with no
+restart. If the credential is missing, empty or unreadable, the command is
+refused rather than run unauthenticated. On Windows, use Git Bash; setup also
+supports GitHub CLI's native `gh.exe` and Git's Windows credential-helper paths.
+`mat doctor` shows a `gh gateway` line. If it warns or fails, run
+`install-gh-gateway` again (for example after upgrading `gh`).
 
 ### Refreshable GitHub App credentials for Baton
 
