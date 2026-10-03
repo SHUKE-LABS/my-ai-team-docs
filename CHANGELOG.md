@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.36.7 … v4.34.23 (2026-10-03)
+## v4.36.8 … v4.34.23 (2026-10-03)
 
 ### Features
 - feat(ci): add auth launch diagnostic workflow
@@ -36,6 +36,7 @@ _Generated from release tags._
 - test(baton): compare inbox claim paths portably
 - test: target tmux gate helper in pane cases
 - test(console): escape fake baton control paths in JSON
+- test(console): move readonly logs outside fixture
 
 ## v4.34.22 … v4.34.3 (2026-10-02)
 
