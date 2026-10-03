@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.35.12 … v4.34.23 (2026-10-03)
+## v4.35.13 … v4.34.23 (2026-10-03)
 
 ### Features
 - feat(ci): add auth launch diagnostic workflow
@@ -25,6 +25,7 @@ _Generated from release tags._
 ### Other Changes
 - test(github-auth): respect gateway platform predicate
 - test: recalibrate bg-run callback timing budget
+- test(headless): isolate inherited baton endpoint env
 
 ## v4.34.22 … v4.34.3 (2026-10-02)
 
