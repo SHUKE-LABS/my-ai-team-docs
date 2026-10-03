@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.36.9 (2026-10-04)
+
+### Fixes
+- fix(console): launch Rewind scripts through Git Bash on Windows
+
 ## v4.36.8 … v4.34.23 (2026-10-03)
 
 ### Features
