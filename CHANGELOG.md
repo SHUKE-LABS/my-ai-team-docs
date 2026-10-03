@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.36.13 … v4.36.9 (2026-10-04)
+## v4.36.14 … v4.36.9 (2026-10-04)
 
 ### Fixes
 - fix(console): launch Rewind scripts through Git Bash on Windows
@@ -12,6 +12,7 @@ _Generated from release tags._
 - test(console): avoid Windows Bash parse regression
 - test(console): configure lifecycle writer timeout per platform
 - ci(windows-smoke): verify immutable PR targets
+- test(windows): cover local adhoc task sessions
 
 ## v4.36.8 … v4.34.23 (2026-10-03)
 
