@@ -1975,7 +1975,11 @@ that would have announced them is skipped. Redelivering the same event stays
 idempotent — one turn per task/event, however many times it arrives. Records
 from before this scheme (no identity fields) always deliver, and a task whose
 record is missing or unreadable delivers too — rejection requires a live record
-that positively names a replacement.
+that positively names a replacement. When available, a background task keeps
+the invoking Duo role's issue association even when it runs from a worktree
+whose branch has no issue number.
+A late result is delivered while that issue cycle is still current, regardless
+of its age.
 
 A milestone that reaches Baton after its task has already ended does not create
 another wake; the completion event carries the task's final outcome. A wake for
