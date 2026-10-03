@@ -8,6 +8,12 @@ allowBuilds:
   workerd: true
   wrangler: false
 
+# npm has no fixed release yet; the matching local patch below is covered by a
+# regression test, so pnpm audit ignores only this advisory until release.
+auditConfig:
+  ignoreGhsas:
+    - GHSA-ch52-4w7c-c8xp
+
 # GHSA-rgj7-g3m4-5g8c / GHSA-g89c-p67h-r497 / GHSA-2jg2-4ch7-h545: libheif
 # vulnerabilities in sharp < 0.35.4. The direct dependency is already patched;
 # wrangler pulls an older copy transitively through miniflare, which fails
@@ -29,3 +35,11 @@ overrides:
   devalue: 5.9.3
   "undici@>=7 <8": 7.29.1
   "undici@>=8 <9": 8.10.2
+
+# CVE-2026-93748 / GHSA-ch52-4w7c-c8xp has no published npm fix yet. Carry the
+# upstream fix from kornelski/http-cache-semantics commit
+# 14a8c2ad51740dc39bf3e8f1a11c845a5003f217 (PR #58) as a local patch;
+# docs-deploy.yml ignores only this advisory while the regression test checks
+# the patched behavior. Remove both once a fixed npm release is available.
+patchedDependencies:
+  http-cache-semantics@4.2.0: patches/http-cache-semantics@4.2.0.patch

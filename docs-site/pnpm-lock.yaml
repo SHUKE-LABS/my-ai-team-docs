@@ -10,6 +10,9 @@ overrides:
   undici@>=7 <8: 7.29.1
   undici@>=8 <9: 8.10.2
 
+patchedDependencies:
+  http-cache-semantics@4.2.0: 1d6462d5a7488f94c0553661b1b61d263afd6a8f92e7bce0d39541672ca34988
+
 importers:
 
   .:
@@ -2781,7 +2784,7 @@ snapshots:
       get-tsconfig: 5.0.0-beta.4
       github-slugger: 2.0.0
       html-escaper: 3.0.3
-      http-cache-semantics: 4.2.0
+      http-cache-semantics: 4.2.0(patch_hash=1d6462d5a7488f94c0553661b1b61d263afd6a8f92e7bce0d39541672ca34988)
       js-yaml: 4.3.2
       jsonc-parser: 3.3.1
       magic-string: 1.2.3
@@ -3199,7 +3202,7 @@ snapshots:
 
   html-whitespace-sensitive-tag-names@3.0.1: {}
 
-  http-cache-semantics@4.2.0: {}
+  http-cache-semantics@4.2.0(patch_hash=1d6462d5a7488f94c0553661b1b61d263afd6a8f92e7bce0d39541672ca34988): {}
 
   i18next@26.4.2: {}
 
