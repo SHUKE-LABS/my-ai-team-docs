@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.36.3 … v4.34.23 (2026-10-03)
+## v4.36.4 … v4.34.23 (2026-10-03)
 
 ### Features
 - feat(ci): add auth launch diagnostic workflow
@@ -32,6 +32,7 @@ _Generated from release tags._
 - test(console): gate Windows-sensitive concurrency tests
 - test(console): isolate server suite from other Node files
 - baton: recover task host before duo restart
+- test(baton): compare inbox claim paths portably
 
 ## v4.34.22 … v4.34.3 (2026-10-02)
 
