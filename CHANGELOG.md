@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v4.35.15 … v4.34.23 (2026-10-03)
+## v4.36.0 … v4.34.23 (2026-10-03)
 
 ### Features
 - feat(ci): add auth launch diagnostic workflow
+- feat: route Windows Git Bash credentials through gateway
 
 ### Fixes
 - fix(test): initialize MESSAGE_DIR in supervisor cleanup fixture
