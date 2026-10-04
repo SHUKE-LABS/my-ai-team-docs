@@ -1247,12 +1247,14 @@ git config --local  mat.enableWorktree false   # this repo
 git config --global mat.enableWorktree false   # every repo on this machine
 ```
 
-Live still starts in the checkout you launched it from. Direct work and tasks
-that repair that checkout stay there and preserve its contents. An ordinary
+Live still starts in the checkout you launched it from, and direct work stays
+there. Every patch task is placed automatically. An
 issue-backed patch task gets its own managed worktree from the latest verified
-default branch, so unrelated or uncommitted checkout state stays out of the
-patch. If the default branch or a safe task worktree cannot be resolved, the
-task stops instead of using the shared checkout. This live patch boundary
+default branch; uncommitted changes in the launch checkout move into it, so the
+launch checkout is left clean. Issue-free patch
+tasks are placed the same way, and a task already running in a linked worktree
+stays there. If the default branch or a safe task worktree cannot be resolved,
+the task stops instead of using the shared checkout. This live patch boundary
 remains in effect when the general worktree setting above is disabled.
 
 With worktrees disabled, the write-capable modes (`adhoc`/`team`/`duo`) share the
