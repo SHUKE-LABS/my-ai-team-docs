@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v4.37.1 … v4.37.0 (2026-10-05)
+## v4.38.0 … v4.37.0 (2026-10-05)
 
 ### Features
 - feat(live): add the managed live worktree parent to the agent workspace
+- feat(live): script patch placement in `mat live-worktree create`
 
 ### Other Changes
 - test(launcher): compare runtime root paths portably on Windows Git Bash
