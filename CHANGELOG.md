@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.36.22 … v4.36.9 (2026-10-04)
+## v4.36.23 … v4.36.9 (2026-10-04)
 
 ### Fixes
 - fix(console): launch Rewind scripts through Git Bash on Windows
@@ -11,6 +11,9 @@ _Generated from release tags._
 - fix: capture Duo issue key for bg-run admission
 - fix(release): ship the customer README as the committed blob on autocrlf hosts
 - fix: stop retiring helpers during session restart
+
+### Refactors
+- refactor(prompts): slim live constitution; share stance and side findings; drop baton no-op prose
 
 ### Other Changes
 - test(console): avoid Windows Bash parse regression
