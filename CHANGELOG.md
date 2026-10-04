@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.36.23 … v4.36.9 (2026-10-04)
+## v4.36.24 … v4.36.9 (2026-10-04)
 
 ### Fixes
 - fix(console): launch Rewind scripts through Git Bash on Windows
@@ -14,6 +14,7 @@ _Generated from release tags._
 
 ### Refactors
 - refactor(prompts): slim live constitution; share stance and side findings; drop baton no-op prose
+- refactor(prompts): trim stale and orphaned shared fragments
 
 ### Other Changes
 - test(console): avoid Windows Bash parse regression
