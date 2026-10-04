@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.37.0 (2026-10-05)
+
+### Features
+- feat(live): add the managed live worktree parent to the agent workspace
+
 ## v4.36.24 … v4.36.9 (2026-10-04)
 
 ### Fixes
