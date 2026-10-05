@@ -2,11 +2,12 @@
 
 _Generated from release tags._
 
-## v4.38.3 … v4.37.0 (2026-10-05)
+## v4.39.0 … v4.37.0 (2026-10-05)
 
 ### Features
 - feat(live): add the managed live worktree parent to the agent workspace
 - feat(live): script patch placement in `mat live-worktree create`
+- feat(pr): add token-rotation-safe mat pr checks-wait
 
 ### Fixes
 - fix(github-auth): accept Enterprise Managed User logins
