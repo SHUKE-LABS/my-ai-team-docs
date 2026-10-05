@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.39.10 … v4.37.0 (2026-10-05)
+## v4.39.11 … v4.37.0 (2026-10-05)
 
 ### Features
 - feat(live): add the managed live worktree parent to the agent workspace
@@ -15,6 +15,7 @@ _Generated from release tags._
 - fix(baton): retry failed gateway preflight before launch
 - fix(bg-run): convert admission record paths for jq
 - fix(baton): recover handoffs across cycle boundaries
+- fix(agent-home): retry an invalid activity verdict, then fail closed as unverifiable
 
 ### Other Changes
 - test(launcher): compare runtime root paths portably on Windows Git Bash
