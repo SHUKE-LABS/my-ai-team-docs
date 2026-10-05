@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v4.39.14 (2026-10-06)
+## v4.39.15 … v4.39.14 (2026-10-06)
 
 ### Other Changes
 - test(adhoc): isolate synthetic renewal PID selection from native process lookup
+- test(windows): exit fixture loops when the suite's top Bash is force-killed
 
 ## v4.39.13 … v4.37.0 (2026-10-05)
 
