@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.39.6 … v4.37.0 (2026-10-05)
+## v4.39.7 … v4.37.0 (2026-10-05)
 
 ### Features
 - feat(live): add the managed live worktree parent to the agent workspace
@@ -13,6 +13,7 @@ _Generated from release tags._
 - fix(github-auth): accept Enterprise Managed User logins
 - fix(baton): reviewer status notes open no reply-owed recovery
 - fix(baton): retry failed gateway preflight before launch
+- fix(bg-run): convert admission record paths for jq
 
 ### Other Changes
 - test(launcher): compare runtime root paths portably on Windows Git Bash
