@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.39.0 … v4.37.0 (2026-10-05)
+## v4.39.1 … v4.37.0 (2026-10-05)
 
 ### Features
 - feat(live): add the managed live worktree parent to the agent workspace
@@ -16,6 +16,7 @@ _Generated from release tags._
 - test(launcher): compare runtime root paths portably on Windows Git Bash
 - chore(prompts): delete orphaned shared fragments and lint against new ones
 - test(console): wait for lifecycle baseline before fixture updates
+- test: diagnose Windows credential-sharing exit 4
 
 ## v4.36.24 … v4.36.9 (2026-10-04)
 
