@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.39.2 … v4.37.0 (2026-10-05)
+## v4.39.3 … v4.37.0 (2026-10-05)
 
 ### Features
 - feat(live): add the managed live worktree parent to the agent workspace
@@ -18,6 +18,7 @@ _Generated from release tags._
 - test(console): wait for lifecycle baseline before fixture updates
 - test: diagnose Windows credential-sharing exit 4
 - test(baton): budget resident-poller waits by wall clock
+- test(adhoc-task-session): retry delayed Windows process queries
 
 ## v4.36.24 … v4.36.9 (2026-10-04)
 
