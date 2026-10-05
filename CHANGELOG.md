@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v4.39.16 … v4.39.14 (2026-10-06)
+## v4.39.17 … v4.39.14 (2026-10-06)
 
 ### Fixes
 - fix(dispatch): match live sessions by canonical slot
+- fix(baton): verify resident poller after merge-release
 
 ### Other Changes
 - test(adhoc): isolate synthetic renewal PID selection from native process lookup

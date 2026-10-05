@@ -2032,6 +2032,8 @@ Watch one repo in the foreground:
 dispatch-repo ~/projects/my-repo owner/my-repo --mode duo --interval 5
 ```
 
+Run this command from your operator shell, outside an active delivery session.
+
 Watch many repos at once by listing them in
 `${XDG_CONFIG_HOME:-~/.config}/mat/dispatch.json` and running `dispatch`:
 
