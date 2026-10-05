@@ -2021,6 +2021,11 @@ For always-on, hands-off delivery, a dispatch daemon can cold-launch or wake a
 delivery session whenever a repo has claimable `ready` issues — no manual `duo` /
 `team` required.
 
+If you start a duo yourself with `mat duo`, the dispatcher recognizes it when
+the repository and backend pair match its configuration, including when the
+duo's managed worktree is outside the checkout. Manually started sessions are
+never reaped by the dispatcher.
+
 Watch one repo in the foreground:
 
 ```bash
