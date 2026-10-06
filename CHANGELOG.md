@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.39.21 … v4.39.14 (2026-10-06)
+## v4.39.22 … v4.39.14 (2026-10-06)
 
 ### Fixes
 - fix(dispatch): match live sessions by canonical slot
@@ -11,6 +11,7 @@ _Generated from release tags._
 - fix(baton): relay mixed-form wake path to native Windows roles
 - fix(adhoc): guard Windows renewal by process generation
 - fix(baton): fail closed when the recovery-scan mat entry is unresolvable
+- fix(cycle): put the relay bin on PATH in POSIX form for boundary notifications
 
 ### Other Changes
 - test(adhoc): isolate synthetic renewal PID selection from native process lookup
