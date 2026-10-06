@@ -2,13 +2,14 @@
 
 _Generated from release tags._
 
-## v4.40.1 … v4.40.0 (2026-10-07)
+## v4.40.2 … v4.40.0 (2026-10-07)
 
 ### Features
 - feat(bg-run): support supervised local adhoc tasks
 
 ### Fixes
 - fix(baton): report a failed worktree branch probe as unresolvable
+- fix(notify-user): keep local devops forwards secure and supervised
 
 ## v4.39.23 … v4.39.14 (2026-10-06)
 

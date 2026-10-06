@@ -1780,12 +1780,12 @@ neither setting is present, nothing changes.
   remote host's `PATH` for non-interactive ssh commands, which read neither
   `~/.profile` nor an interactive `~/.bashrc`. It decides how the message reaches
   the oncall agent.
-- **The forward never blocks or fails the send.** Telegram delivery comes first
-  and does not depend on the forward. The ssh runs detached from the calling
-  agent with a 15-second limit, so it finishes even after the agent's tool call
-  ends. A failure, a timeout, or a forward mat cannot start adds a
-  `devops_forward status=fail` line to the notification log. The message and
-  `notify-user`'s exit status stay unchanged.
+- **The forward does not change the notification result.** Telegram delivery
+  comes first and does not depend on the forward. Once accepted, the forward
+  continues after the agent's tool call ends, with a 15-second SSH limit. If a
+  local session has no live owner to accept it, the notification log records a
+  `carrier-unavailable` failure. Forward failures do not change the Telegram
+  message or `notify-user`'s exit status.
 - **Set `MAT_DEVOPS_SELF=1` on the receiving host.** Agents there then never
   forward to themselves, even when a copied configuration also sets the host.
 
