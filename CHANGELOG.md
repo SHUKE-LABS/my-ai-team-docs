@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.39.22 … v4.39.14 (2026-10-06)
+## v4.39.23 … v4.39.14 (2026-10-06)
 
 ### Fixes
 - fix(dispatch): match live sessions by canonical slot
@@ -16,6 +16,7 @@ _Generated from release tags._
 ### Other Changes
 - test(adhoc): isolate synthetic renewal PID selection from native process lookup
 - test(windows): exit fixture loops when the suite's top Bash is force-killed
+- test(adhoc): wait for the child pid record before signalling the supervisor
 
 ## v4.39.13 … v4.37.0 (2026-10-05)
 
