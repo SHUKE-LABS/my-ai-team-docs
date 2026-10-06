@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.39.20 … v4.39.14 (2026-10-06)
+## v4.39.21 … v4.39.14 (2026-10-06)
 
 ### Fixes
 - fix(dispatch): match live sessions by canonical slot
@@ -10,6 +10,7 @@ _Generated from release tags._
 - fix(gh-gateway): skip PATH dirs that cannot be canonicalized when pinning real gh
 - fix(baton): relay mixed-form wake path to native Windows roles
 - fix(adhoc): guard Windows renewal by process generation
+- fix(baton): fail closed when the recovery-scan mat entry is unresolvable
 
 ### Other Changes
 - test(adhoc): isolate synthetic renewal PID selection from native process lookup
