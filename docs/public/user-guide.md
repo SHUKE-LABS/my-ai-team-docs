@@ -1927,13 +1927,16 @@ waits for cleanup to finish. The worker skips any record another process is
 using and leaves it for a later submission's worker. A worker runs for at most
 about two minutes before it is stopped.
 
-**Session teardown.** When a session ends while one of its baton tasks is still
-running, `bg-run` finalizes that task from the teardown itself rather than
-leaving it orphaned: it stops the task and commits the durable result (and its
-diagnostics) to the same result-file path the task was promised, so a later
-reader finds the outcome where it was expected. Because the originating turn is
-already gone, a teardown-finalized task records only the result — **no**
-completion wake, envelope, or relay is sent. Two outcomes are distinct here:
+**Session teardown.** When a session ends while a Baton task is still running,
+`bg-run` finalizes it from teardown rather than leaving it orphaned: it stops
+the task and commits the durable result (and diagnostics) to the promised result
+path. Because the originating turn is already gone, a teardown-finalized Baton
+task records only the result — **no** completion wake, envelope, or relay is
+sent. A local adhoc supervisor also stops its accepted tasks at teardown and
+commits their results with `status: aborted`; it retains their terminal receipts
+in the session inbox after clearing the rest of its temporary state. A local
+task is not left running after its supervisor exits. Two Baton outcomes are
+distinct here:
 
 - *The result commits, diagnostics may be `unreadable`.* If the diagnostic
   source cannot be read back at teardown, the result still commits **once**, with
@@ -2004,16 +2007,20 @@ stale and superseded suppression, and wake-delivery failures are recorded in
 contains no command output, is limited to 1 MiB, and keeps one rotated file at
 `bg-run.log.1`.
 
-`bg-run` is available on tmux and baton sessions, which have a wake channel. On a
-headless local turn it is unavailable — use `nohup <command> >validation.log 2>&1
-& disown` from a foreground call and confirm from the log instead.
+`bg-run` is available on tmux and Baton sessions, and from a child running in a
+live supervised local adhoc session. Local adhoc tasks are owned by the
+supervisor; milestone and terminal receipts go to the session inbox, and the
+submission returns the durable result-file path. The local provider rejects
+direct and non-adhoc local invocations. For a standalone headless local command,
+use `nohup <command> >validation.log 2>&1 & disown` from a foreground call and
+confirm from the log instead.
 
 To deliberately stop a task before it finishes, run `bg-run --cancel <task-id>`
 (the task id from the original launch or a milestone wake, while the task is
-still running). This delivers a `status: cancelled` completion wake instead of
-waiting for the command to finish or `--max` to elapse; cancelling an unknown
-or already-completed task id fails closed with a diagnostic and changes
-nothing.
+still running). This delivers a `status: cancelled` completion wake (or a local
+inbox receipt) instead of waiting for the command to finish or `--max` to
+elapse; cancelling an unknown or already-completed task id fails closed with a
+diagnostic and changes nothing.
 
 ### Dispatch daemon
 

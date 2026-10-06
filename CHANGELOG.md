@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.40.0 (2026-10-07)
+
+### Features
+- feat(bg-run): support supervised local adhoc tasks
+
 ## v4.39.23 … v4.39.14 (2026-10-06)
 
 ### Fixes
