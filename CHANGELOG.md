@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.41.2 … v4.40.0 (2026-10-07)
+## v4.41.3 … v4.40.0 (2026-10-07)
 
 ### Features
 - feat(bg-run): support supervised local adhoc tasks
@@ -14,6 +14,7 @@ _Generated from release tags._
 - fix: sandbox notifications for nested sessions
 - fix(gh-gateway): honour git's empty-helper reset in verify and install
 - fix(baton): rearm duo pollers after service restart
+- fix: anchor Baton pollers to session repository
 
 ### Other Changes
 - test(windows): exclude PATH fixture setup from teardown timing
