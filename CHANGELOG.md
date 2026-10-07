@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v4.40.4 … v4.40.0 (2026-10-07)
+## v4.41.0 … v4.40.0 (2026-10-07)
 
 ### Features
 - feat(bg-run): support supervised local adhoc tasks
+- feat(statusline): show the open PR number next to the branch
 
 ### Fixes
 - fix(baton): report a failed worktree branch probe as unresolvable
