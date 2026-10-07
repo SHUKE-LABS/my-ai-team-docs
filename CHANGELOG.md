@@ -2,12 +2,14 @@
 
 _Generated from release tags._
 
-## v4.41.7 … v4.41.4 (2026-10-08)
+## v4.41.9 … v4.41.4 (2026-10-08)
 
 ### Fixes
 - fix(bg-run): retain live claim provenance
 - fix(baton): arm idle recovery for pre-cycle claims
 - fix(duo): gate orphan recovery on blockers
+- fix(ci): resolve new Windows tracker from create response
+- fix: discard confirmed stale pre-cycle claim receipts
 
 ### Performance
 - perf(hooks): prefilter PostToolUse[Bash] with if and fast-path no-marker Stop
