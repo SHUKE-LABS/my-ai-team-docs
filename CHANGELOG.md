@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.41.4 (2026-10-08)
+
+### Performance
+- perf(hooks): prefilter PostToolUse[Bash] with if and fast-path no-marker Stop
+
 ## v4.41.3 … v4.40.0 (2026-10-07)
 
 ### Features
