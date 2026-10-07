@@ -1982,9 +1982,14 @@ from before this scheme (no identity fields) always deliver, and a task whose
 record is missing or unreadable delivers too — rejection requires a live record
 that positively names a replacement. When available, a background task keeps
 the invoking Duo role's issue association even when it runs from a worktree
-whose branch has no issue number.
-A late result is delivered while that issue cycle is still current, regardless
-of its age.
+whose branch has no issue number. Duo Baton dev and reviewer tasks resolve that
+association from the first available source: an explicitly assigned issue key,
+the launch branch, the validated active cycle, then the submitting role's
+uniquely verified live issue claim. If the claim cannot be verified as one
+issue, the task stays keyless. A late terminal still wakes the role after ten
+minutes when the issue is confirmed current; without positive current workflow
+evidence, an old notification may be suppressed while its result remains
+available.
 
 A milestone that reaches Baton after its task has already ended does not create
 another wake; the completion event carries the task's final outcome. A wake for
