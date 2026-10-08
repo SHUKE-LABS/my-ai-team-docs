@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.41.15 … v4.41.4 (2026-10-08)
+## v4.41.16 … v4.41.4 (2026-10-08)
 
 ### Fixes
 - fix(bg-run): retain live claim provenance
@@ -21,6 +21,7 @@ _Generated from release tags._
 
 ### Other Changes
 - test(adhoc-local): stop fixture loops and supervisors when the suite is force-killed
+- test(credential-sharing): publish diagnostics for unknown-backend case failures
 
 ## v4.41.3 … v4.40.0 (2026-10-07)
 
