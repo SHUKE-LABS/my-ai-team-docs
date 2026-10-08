@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.41.11 … v4.41.4 (2026-10-08)
+## v4.41.12 … v4.41.4 (2026-10-08)
 
 ### Fixes
 - fix(bg-run): retain live claim provenance
@@ -15,6 +15,9 @@ _Generated from release tags._
 
 ### Performance
 - perf(hooks): prefilter PostToolUse[Bash] with if and fast-path no-marker Stop
+
+### Other Changes
+- test(adhoc-local): stop fixture loops and supervisors when the suite is force-killed
 
 ## v4.41.3 … v4.40.0 (2026-10-07)
 
