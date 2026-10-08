@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.41.14 … v4.41.4 (2026-10-08)
+## v4.41.15 … v4.41.4 (2026-10-08)
 
 ### Fixes
 - fix(bg-run): retain live claim provenance
@@ -13,6 +13,7 @@ _Generated from release tags._
 - fix(adhoc): publish the late-settling native child on Windows
 - fix(hooks): restrict scratch-path denial to Windows
 - fix(explore): report auto-refine outcomes atomically through mat
+- fix(platform): run pnpm jq script shims through node and report jq launch failures
 
 ### Performance
 - perf(hooks): prefilter PostToolUse[Bash] with if and fast-path no-marker Stop

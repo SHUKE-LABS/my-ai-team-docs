@@ -1179,6 +1179,13 @@ mat doctor
 It checks, one report line each:
 
 - `bash` ≥ 4.3, and `tmux` / `git` / `jq` / `curl` on `PATH`.
+- On Windows Git Bash, `jq` may be a native `jq.exe` (preferred) or an npm/pnpm
+  global-bin script shim. mat runs a pnpm shim's JavaScript target through
+  `node` with the arguments untouched; any other script shim runs with Git Bash
+  path conversion on and a warning that path-like `jq` arguments may be
+  rewritten. If `jq` cannot be launched at all (for example a
+  `Cannot find module` error), the backend check reports that with `jq`'s own
+  error and tells you to reinstall `jq`, rather than blaming `backends.json`.
 - `python3` and `PyYAML` (used by the GitHub issue helper), with a platform
   install hint when python3 is present but the `yaml` module is missing.
 - `gh` present **and** authenticated — an unauthenticated `gh` otherwise shows
