@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.41.9 … v4.41.4 (2026-10-08)
+## v4.41.10 … v4.41.4 (2026-10-08)
 
 ### Fixes
 - fix(bg-run): retain live claim provenance
@@ -10,6 +10,7 @@ _Generated from release tags._
 - fix(duo): gate orphan recovery on blockers
 - fix(ci): resolve new Windows tracker from create response
 - fix: discard confirmed stale pre-cycle claim receipts
+- fix(adhoc): publish the late-settling native child on Windows
 
 ### Performance
 - perf(hooks): prefilter PostToolUse[Bash] with if and fast-path no-marker Stop
