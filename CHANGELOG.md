@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.41.13 … v4.41.4 (2026-10-08)
+## v4.41.14 … v4.41.4 (2026-10-08)
 
 ### Fixes
 - fix(bg-run): retain live claim provenance
@@ -16,6 +16,7 @@ _Generated from release tags._
 
 ### Performance
 - perf(hooks): prefilter PostToolUse[Bash] with if and fast-path no-marker Stop
+- perf(config): cache the flattened backends.json across mat processes
 
 ### Other Changes
 - test(adhoc-local): stop fixture loops and supervisors when the suite is force-killed
