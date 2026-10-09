@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.44.5 … v4.41.17 (2026-10-09)
+## v4.44.6 … v4.41.17 (2026-10-09)
 
 ### Features
 - feat(agents): gate delivery-filed tickets to ready or blocked, never refining
@@ -31,6 +31,7 @@ _Generated from release tags._
 - test: scrub inherited worktree switches from the test env
 - test: realign stale soak assertions
 - test(gateway): align baton fixtures with auth gateway state
+- test(ownership): route managed gateway fixture
 
 ## v4.41.16 … v4.41.4 (2026-10-08)
 
