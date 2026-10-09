@@ -1327,8 +1327,10 @@ the session and reused when you rerun the same repo and slot.
 
 `explore` is the open-ended investigation mode: it runs with or without a repo,
 in its own dedicated home, and hands its findings off as tickets rather than
-code. Explore-created tickets start in a `refining` state — re-read for missing
-problem, approach, and acceptance detail before the session stops — and opening a
+code. Each explore pass ends a ticket in one of three states: `ready` once problem,
+approach, and acceptance criteria are concrete; `blocked`, with the open question
+written into the ticket body and one notification to you; or closed as a
+duplicate. A ticket never rests on `refining` after the pass, and opening a
 ticket ends the explore session instead of launching delivery.
 
 Explore and Audit gather concrete source and runtime evidence, test the leading
@@ -1356,8 +1358,9 @@ each turn resumes the previous one — rather than from a living child, so a tur
 boundary is already a context boundary. Manual renewal (`/handover`,
 `/respawn`) is therefore unavailable there: it refuses rather than restarting
 the ticket. A ticket that never reaches an outcome is bounded by a per-ticket
-turn budget; when the budget runs out the hold is released and the ticket is
-left for the next pass. Set the budget with
+turn budget; when the budget runs out the ticket is marked `blocked` with an
+`## Open question` explaining why, you get one notification, and the hold is
+released, so it is not retried automatically. Set the budget with
 `MAT_EXPLORE_AUTO_REFINE_MAX_TURNS`, and the per-turn time limit with
 `MAT_EXPLORE_AUTO_REFINE_TURN_TIMEOUT`. Pick a backend whose CLI supports
 headless turns; one that does not is refused at launch.
