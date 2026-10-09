@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.45.5 … v4.41.17 (2026-10-09)
+## v4.45.6 … v4.41.17 (2026-10-09)
 
 ### Features
 - feat(agents): gate delivery-filed tickets to ready or blocked, never refining
@@ -32,6 +32,7 @@ _Generated from release tags._
 - fix(merge-release): team merge requests its own session boundary
 - fix(codex): pre-ack model migrations and escalate a blocking startup modal
 - fix(issue): clear blocked on ready promotion
+- fix(tmux): retry refused session-close replay submissions
 
 ### Other Changes
 - test(windows): cover adhoc renewal resume
