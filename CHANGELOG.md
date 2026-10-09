@@ -2,11 +2,12 @@
 
 _Generated from release tags._
 
-## v4.43.1 … v4.41.17 (2026-10-09)
+## v4.44.0 … v4.41.17 (2026-10-09)
 
 ### Features
 - feat(agents): gate delivery-filed tickets to ready or blocked, never refining
 - feat: end every refinement pass ready or blocked, never refining
+- feat(tmux): carry detached work on helper server
 
 ### Fixes
 - fix(notify): preserve explicit sandbox on direct restore
