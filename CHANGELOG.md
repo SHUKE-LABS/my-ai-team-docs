@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.44.4 … v4.41.17 (2026-10-09)
+## v4.44.5 … v4.41.17 (2026-10-09)
 
 ### Features
 - feat(agents): gate delivery-filed tickets to ready or blocked, never refining
@@ -22,6 +22,7 @@ _Generated from release tags._
 - fix(gh-gateway): preserve newlines in PATH entries
 - fix(test): finalize Linux suite-owned processes
 - fix(baton): retire a completed abandonment audit at duo relaunch
+- fix(test): allow POSIX adhoc child publication
 
 ### Other Changes
 - test(windows): cover adhoc renewal resume
