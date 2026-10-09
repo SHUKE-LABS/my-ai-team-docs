@@ -62,6 +62,21 @@ baton service status --control ~/.baton/service
 for systemd, launchd, and Windows setup. A manually started service is reused
 by `mat` after its liveness is confirmed.
 
+**Windows start failures.** A Task Scheduler start only *submits* the task;
+success from `schtasks /run` does not mean the service is live. Each launch
+attempt writes its own log, `<control>/mat-baton-<id>.launcher.<unique>.log`,
+holding the launcher's output and any error from starting Git Bash, so a stale
+process holding an older log can never block a start. If the launcher cannot
+create its log or cannot start, it records the endpoint, log path and cause in
+the Windows Application event log (source `WSH`). When a launch reports that
+the service did not become live, check the newest attempt log, then:
+
+```powershell
+Get-WinEvent -FilterHashtable @{LogName='Application';ProviderName='WSH'} -MaxEvents 5
+```
+
+Attempt logs are small and are never deleted automatically.
+
 ## 3. Launch the session
 
 From inside the repo's working tree:
