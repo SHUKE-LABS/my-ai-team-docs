@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.42.0 … v4.41.17 (2026-10-09)
+## v4.42.1 … v4.41.17 (2026-10-09)
 
 ### Features
 - feat(agents): gate delivery-filed tickets to ready or blocked, never refining
@@ -11,6 +11,7 @@ _Generated from release tags._
 - fix(notify): preserve explicit sandbox on direct restore
 - fix(relay-poll): preserve generation-locked launch arguments
 - fix(agents): expose missing tmux panes as ghosts
+- fix(relay): retire poller, watchdog and heartbeat helpers when their target dies
 
 ### Other Changes
 - test(windows): cover adhoc renewal resume
