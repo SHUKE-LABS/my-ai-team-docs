@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.44.8 … v4.41.17 (2026-10-09)
+## v4.44.9 … v4.41.17 (2026-10-09)
 
 ### Features
 - feat(agents): gate delivery-filed tickets to ready or blocked, never refining
@@ -25,6 +25,7 @@ _Generated from release tags._
 - fix(test): allow POSIX adhoc child publication
 - fix(gh-gateway): bound credential helper and skip routing wrappers
 - fix(worktree): enter the repository when a branchless snapshot root is gone
+- fix(ci): map u2604 runner test capacity
 
 ### Other Changes
 - test(windows): cover adhoc renewal resume
