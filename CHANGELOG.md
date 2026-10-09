@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.46.7 … v4.41.17 (2026-10-09)
+## v4.46.8 … v4.41.17 (2026-10-09)
 
 ### Features
 - feat(agents): gate delivery-filed tickets to ready or blocked, never refining
@@ -40,6 +40,7 @@ _Generated from release tags._
 - fix(test): exclude stopped runner pairs from survivors
 - fix(guards): block environment secret disclosure
 - fix: stop exporting GH_REPO into agents and tasks
+- fix(baton): clear stale human waits on replies
 
 ### Other Changes
 - test(windows): cover adhoc renewal resume
