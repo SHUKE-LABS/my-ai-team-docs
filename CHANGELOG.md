@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.42.3 … v4.41.17 (2026-10-09)
+## v4.42.4 … v4.41.17 (2026-10-09)
 
 ### Features
 - feat(agents): gate delivery-filed tickets to ready or blocked, never refining
@@ -17,6 +17,7 @@ _Generated from release tags._
 ### Other Changes
 - test(windows): cover adhoc renewal resume
 - test(cycle): give the restart-lease handoff fixture a Windows adoption timeout and compare helper paths semantically
+- test(dispatch): align notify-policy fixture with persisted sandbox contract
 
 ## v4.41.16 … v4.41.4 (2026-10-08)
 
