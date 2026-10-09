@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.45.2 … v4.41.17 (2026-10-09)
+## v4.45.3 … v4.41.17 (2026-10-09)
 
 ### Features
 - feat(agents): gate delivery-filed tickets to ready or blocked, never refining
@@ -29,6 +29,7 @@ _Generated from release tags._
 - fix(ci): map u2604 runner test capacity
 - fix(bg-run): bind Duo claim reads to session gateway
 - fix(ci): bound Windows tracker history
+- fix(merge-release): team merge requests its own session boundary
 
 ### Other Changes
 - test(windows): cover adhoc renewal resume
