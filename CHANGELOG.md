@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.44.1 … v4.41.17 (2026-10-09)
+## v4.44.2 … v4.41.17 (2026-10-09)
 
 ### Features
 - feat(agents): gate delivery-filed tickets to ready or blocked, never refining
@@ -20,6 +20,7 @@ _Generated from release tags._
 - fix(baton): treat residual serve.stop as disposable control data in duo teardown
 - fix(baton): reserve a fresh launcher log per Windows start and report launch failures to the event log
 - fix(gh-gateway): preserve newlines in PATH entries
+- fix(test): finalize Linux suite-owned processes
 
 ### Other Changes
 - test(windows): cover adhoc renewal resume
