@@ -2,10 +2,12 @@
 
 _Generated from release tags._
 
-## v4.41.17 (2026-10-09)
+## v4.41.19 … v4.41.17 (2026-10-09)
 
 ### Fixes
 - fix(notify): preserve explicit sandbox on direct restore
+- fix(relay-poll): preserve generation-locked launch arguments
+- fix(agents): expose missing tmux panes as ghosts
 
 ### Other Changes
 - test(windows): cover adhoc renewal resume

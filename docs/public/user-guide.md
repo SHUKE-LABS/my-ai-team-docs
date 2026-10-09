@@ -928,6 +928,12 @@ labelled by state:
 
 - **standby** — idle with a poller available, waiting for ready work (shows a
   best-effort idle duration).
+- **ghost** — the supervisor is still running, but its recorded tmux pane is
+  gone. The row names its session, backend, and missing pane, for example
+  `ghost (pane %1497 gone)`. It is excluded from `mat idle` and cannot receive
+  pane-based messages. Listing it does not stop the supervisor or release its
+  ownership protection. Older sessions whose tmux hosting cannot be confirmed
+  retain their local status until restarted.
 - **busy** — the agent is actively running a turn.
 - **interactive** — an `explore` or `live` pane running a manual REPL, with no
   idle/busy claim.
