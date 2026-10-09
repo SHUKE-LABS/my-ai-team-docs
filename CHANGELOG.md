@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.44.6 … v4.41.17 (2026-10-09)
+## v4.44.7 … v4.41.17 (2026-10-09)
 
 ### Features
 - feat(agents): gate delivery-filed tickets to ready or blocked, never refining
@@ -23,6 +23,7 @@ _Generated from release tags._
 - fix(test): finalize Linux suite-owned processes
 - fix(baton): retire a completed abandonment audit at duo relaunch
 - fix(test): allow POSIX adhoc child publication
+- fix(gh-gateway): bound credential helper and skip routing wrappers
 
 ### Other Changes
 - test(windows): cover adhoc renewal resume
