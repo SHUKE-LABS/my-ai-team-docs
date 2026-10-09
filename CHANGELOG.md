@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.46.3 … v4.41.17 (2026-10-09)
+## v4.46.4 … v4.41.17 (2026-10-09)
 
 ### Features
 - feat(agents): gate delivery-filed tickets to ready or blocked, never refining
@@ -47,6 +47,7 @@ _Generated from release tags._
 - test(gateway): align baton fixtures with auth gateway state
 - test(ownership): route managed gateway fixture
 - test(bg-run): pin live claim fixture cwd
+- chore(ci): retire stale workflow and align docs
 
 ## v4.41.16 … v4.41.4 (2026-10-08)
 
