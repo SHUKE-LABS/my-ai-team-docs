@@ -1346,6 +1346,13 @@ opens PRs, or merges. While parked, the pane shows an explicit
 last screen is cleared — and the pane border counts down `↻ mm:ss` to the next
 poll check, so a waiting worker is never mistaken for a dead one.
 
+It skips an issue already associated with an open PR, and also leaves the issue
+alone when that association cannot be verified; a later pass can reconsider it.
+If stale-claim recovery does reclaim a lock, it leaves an issue comment naming
+the reclaimed lock and latest heartbeat. A comment delivery failure does not
+undo the recovery. A live session also receives a diagnostic after repeated
+heartbeat failures, while its claim remains in place for retry.
+
 For a one-shot explore with a faster startup, use `--lean`; see [The `--lean`
 startup profile](#the---lean-startup-profile) for the contract and the
 prerequisite run.
