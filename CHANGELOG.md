@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.46.5 … v4.41.17 (2026-10-09)
+## v4.46.7 … v4.41.17 (2026-10-09)
 
 ### Features
 - feat(agents): gate delivery-filed tickets to ready or blocked, never refining
@@ -38,6 +38,8 @@ _Generated from release tags._
 - fix(bg-run): scale the closed-cycle reap budget with the selected task count
 - fix(test): recover transient runner ownership reads
 - fix(test): exclude stopped runner pairs from survivors
+- fix(guards): block environment secret disclosure
+- fix: stop exporting GH_REPO into agents and tasks
 
 ### Other Changes
 - test(windows): cover adhoc renewal resume
