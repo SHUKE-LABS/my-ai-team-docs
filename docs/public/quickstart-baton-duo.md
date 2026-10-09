@@ -240,7 +240,12 @@ The operator surface is `mat baton <verb> <session>` (interactive umbrella:
   envelope paths, warns that
   the messages will not be replayed, and records abandonment separately from
   successful completion. The durable audit remains available after teardown,
-  and the command prints its location.
+  and the command prints its location. Relaunching the same duo keeps that
+  audit: it moves, unchanged, from `abandonments/` into
+  `abandonments/history/` in the same location, and no longer blocks
+  `mat baton restart`. If the earlier teardown did not finish,
+  the relaunch is refused and names what remains; rerun
+  `mat baton teardown <session> --abandon-queue` first.
 
 ## 7. Known boundaries
 

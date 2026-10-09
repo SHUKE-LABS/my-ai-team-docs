@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.44.2 … v4.41.17 (2026-10-09)
+## v4.44.4 … v4.41.17 (2026-10-09)
 
 ### Features
 - feat(agents): gate delivery-filed tickets to ready or blocked, never refining
@@ -21,6 +21,7 @@ _Generated from release tags._
 - fix(baton): reserve a fresh launcher log per Windows start and report launch failures to the event log
 - fix(gh-gateway): preserve newlines in PATH entries
 - fix(test): finalize Linux suite-owned processes
+- fix(baton): retire a completed abandonment audit at duo relaunch
 
 ### Other Changes
 - test(windows): cover adhoc renewal resume
@@ -28,6 +29,7 @@ _Generated from release tags._
 - test(dispatch): align notify-policy fixture with persisted sandbox contract
 - test: scrub inherited worktree switches from the test env
 - test: realign stale soak assertions
+- test(gateway): align baton fixtures with auth gateway state
 
 ## v4.41.16 … v4.41.4 (2026-10-08)
 
