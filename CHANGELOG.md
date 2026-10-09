@@ -2,6 +2,14 @@
 
 _Generated from release tags._
 
+## v4.41.17 (2026-10-09)
+
+### Fixes
+- fix(notify): preserve explicit sandbox on direct restore
+
+### Other Changes
+- test(windows): cover adhoc renewal resume
+
 ## v4.41.16 … v4.41.4 (2026-10-08)
 
 ### Fixes
