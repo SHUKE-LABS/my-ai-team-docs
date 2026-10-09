@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.42.8 … v4.41.17 (2026-10-09)
+## v4.42.9 … v4.41.17 (2026-10-09)
 
 ### Features
 - feat(agents): gate delivery-filed tickets to ready or blocked, never refining
@@ -22,6 +22,7 @@ _Generated from release tags._
 - test(cycle): give the restart-lease handoff fixture a Windows adoption timeout and compare helper paths semantically
 - test(dispatch): align notify-policy fixture with persisted sandbox contract
 - test: scrub inherited worktree switches from the test env
+- test: realign stale soak assertions
 
 ## v4.41.16 … v4.41.4 (2026-10-08)
 
