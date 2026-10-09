@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.42.7 … v4.41.17 (2026-10-09)
+## v4.42.8 … v4.41.17 (2026-10-09)
 
 ### Features
 - feat(agents): gate delivery-filed tickets to ready or blocked, never refining
@@ -15,6 +15,7 @@ _Generated from release tags._
 - fix: expose duo terminal failures and pause automatic wakes
 - fix(baton): carry gh/node/codex dirs on the Windows service PATH and poll with a reason on fetch failure
 - fix(console): resolve a dead session behind the startup live-only snapshot
+- fix(baton): treat residual serve.stop as disposable control data in duo teardown
 
 ### Other Changes
 - test(windows): cover adhoc renewal resume
