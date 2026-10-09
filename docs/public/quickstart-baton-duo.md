@@ -141,7 +141,7 @@ comment is a failed cycle signal; PR comments are not the durable destination.
 ## 5. Watch it run
 
 ```bash
-mat agents                 # live sessions, kind + status (standby/busy/stranded/pausing/paused/resuming/live)
+mat agents                 # live sessions, kind + status (standby/busy/degraded/stranded/pausing/paused/resuming/live)
 mat baton status           # detailed read-only per-role health; add --json for automation
 mat baton watch            # repaint the same health view every 2 seconds (TTY only)
 mat baton show <session>   # backends, mailbox, worktree, serve sessions + pids
@@ -283,3 +283,29 @@ command. Running that command once the live sessions have ended clears the state
 
 - [Linux quickstart](quickstart-linux.md) / [macOS quickstart](quickstart-macos.md)
   — for the base install this guide assumes.
+
+## Worker failures and automatic wakes
+
+Two consecutive failed worker invocations mark the affected role as degraded.
+`mat baton status <session>` shows its latest diagnostic in `probe_error`; an
+idle live session reports `degraded`, even when its mailbox is `idle-done`.
+A successful invocation clears the failure streak.
+
+Two consecutive errors with the same diagnostic pause automatic wakes to that
+role. A GitHub auth error reporting `credential-unavailable` or `state-invalid`
+pauses them after the first failure. The next automatic health check sends one
+action alert naming the session, role, and error. Different errors remain
+visible and retry on the usual cadence. The pollers keep running while wakes
+are paused; restarting a poller or adding ready work does not clear the pause.
+
+Repair the reported cause, then run `mat baton restart <session>` to replace
+its role services and allow another attempt. A change to the session's recorded
+GitHub auth binding also allows another attempt. A successful manually submitted
+turn clears the failure and alert episode. Explicit operator messages and peer
+handoffs remain available. `mat baton resume <session>` handles an operator
+pause; it does not clear a worker-failure pause.
+
+Unreadable or malformed failure evidence shows unavailable health and defers
+automatic wakes. Status and watch commands only read health; they never notify
+or change it. Operator pause and crash status words retain precedence over
+`degraded`, with the failure diagnostic still visible.

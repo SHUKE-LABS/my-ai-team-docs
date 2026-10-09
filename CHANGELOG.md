@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.42.1 … v4.41.17 (2026-10-09)
+## v4.42.3 … v4.41.17 (2026-10-09)
 
 ### Features
 - feat(agents): gate delivery-filed tickets to ready or blocked, never refining
@@ -12,9 +12,11 @@ _Generated from release tags._
 - fix(relay-poll): preserve generation-locked launch arguments
 - fix(agents): expose missing tmux panes as ghosts
 - fix(relay): retire poller, watchdog and heartbeat helpers when their target dies
+- fix: expose duo terminal failures and pause automatic wakes
 
 ### Other Changes
 - test(windows): cover adhoc renewal resume
+- test(cycle): give the restart-lease handoff fixture a Windows adoption timeout and compare helper paths semantically
 
 ## v4.41.16 … v4.41.4 (2026-10-08)
 
