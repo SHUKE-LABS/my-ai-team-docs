@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.48.2 … v4.46.11 (2026-10-10)
+## v4.48.3 … v4.46.11 (2026-10-10)
 
 ### Features
 - feat(ci): report required verdict latency
@@ -42,6 +42,7 @@ _Generated from release tags._
 - test(auto-refine): isolate real-host GitHub fixtures
 - test(relay-poll): isolate gh gateway and bound persisted-pane pollers
 - test(duo-baton): isolate closed-cycle reaper admissions
+- test(windows): add opt-in real-Claude working-session acceptance command
 
 ## v4.46.10 … v4.41.17 (2026-10-09)
 
