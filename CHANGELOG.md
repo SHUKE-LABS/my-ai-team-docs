@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.47.3 … v4.46.11 (2026-10-10)
+## v4.47.4 … v4.46.11 (2026-10-10)
 
 ### Features
 - feat(ci): report required verdict latency
@@ -11,6 +11,7 @@ _Generated from release tags._
 - fix(test): reap TERM-trapped poll children before the ownership scan
 - fix(codex): hide the rate-limit model nudge in role homes
 - fix(adhoc): arm the renewal completion guard for doc-path handoffs and resolve the native target from the sidecar
+- fix(windows): shared kill-tree engine that rescans MSYS survivors
 
 ### Other Changes
 - test(relay-poll): observe the pid file while the poller is live

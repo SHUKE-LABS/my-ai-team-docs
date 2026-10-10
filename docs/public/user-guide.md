@@ -2050,6 +2050,46 @@ inbox receipt) instead of waiting for the command to finish or `--max` to
 elapse; cancelling an unknown or already-completed task id fails closed with a
 diagnostic and changes nothing.
 
+### win-kill-tree — stop a Windows process tree
+
+On Windows Git Bash and MSYS2, `taskkill /T` follows native parent links, which
+an MSYS fork/exec can break, so a successful `taskkill /T` does not prove a
+Bash-launched tree is gone. `win-kill-tree` stops a tree and then rescans until
+no process it owned is left:
+
+```bash
+win-kill-tree --msys-pid 4242            # MSYS PID, as shown by ps
+win-kill-tree --winpid 13376             # native Windows PID
+win-kill-tree --tag run-abc12345         # every process whose command line contains the string
+win-kill-tree --winpid 13376 --term-grace 3 --deadline 20 --passes 4
+```
+
+A bare number is treated as `--pid`, which is refused when it names both an MSYS
+PID and a different native PID. Options:
+
+- `--expect-generation <id:ticks>` kills only if the target still has that
+  creation identity, so a reused PID is never touched.
+- `--term-grace <seconds>` sends a polite TERM to MSYS processes before the
+  forced kill.
+- `--passes <n>` (default 3) and `--deadline <seconds>` (default 30) bound the
+  work; the command fails rather than loop forever.
+- `--detach-if-contained` lets a caller that is itself inside the target tree
+  start an independent executor instead of killing itself; `--log <file>`
+  receives that executor's output.
+
+Limits: the tree is captured from the target while it is alive, so a process
+that has already detached from a dead root cannot be recovered by PID — use
+`--tag` for that. `--tag` matches a literal, case-sensitive substring of the
+process command line (at least eight non-whitespace characters) and also stops
+the matches' descendants. The command never kills itself or its own ancestors.
+
+Exit status: `0` the tree is gone (or was already absent); `1` the stop was
+refused, the process table was unavailable or incomplete, a live process's
+identity could not be read, or owned processes survived;
+`2` usage error or ambiguous PID; `3` the work was handed to an independent
+executor and has not been confirmed. On Linux and macOS the command is not
+needed — ordinary process groups and signals apply.
+
 ### Dispatch daemon
 
 For always-on, hands-off delivery, a dispatch daemon can cold-launch or wake a
