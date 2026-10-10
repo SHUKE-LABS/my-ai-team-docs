@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.51.1 … v4.46.11 (2026-10-10)
+## v4.51.3 … v4.46.11 (2026-10-10)
 
 ### Features
 - feat(ci): report required verdict latency
@@ -41,6 +41,8 @@ _Generated from release tags._
 - fix: Reviewer APPROVE merges via merge-release; nudge directs un-merged APPROVE to it
 - fix(claim): verify the owner record before reporting a claim
 - fix(backends): pin MAT_GH_AUTH_CONFIG_DIR in HOME-rebinding panes
+- fix(baton): re-bind GitHub auth on restart and replace a stale claim worker
+- fix(baton): kill status-probe tree via shared engine
 
 ### Other Changes
 - test(relay-poll): observe the pid file while the poller is live

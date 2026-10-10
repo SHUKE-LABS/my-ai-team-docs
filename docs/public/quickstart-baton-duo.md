@@ -171,8 +171,11 @@ mat baton logs <session>   # one breadcrumb per operator action
 
 `mat baton watch` is read-only and refreshes the same health view every two
 seconds. It needs a TTY; use `--interval N` for a different positive interval.
-`[!!]` marks a stranded, crashed, stale, or otherwise degraded session.
-`Ctrl-C` exits cleanly. Use `mat baton status <session>` for one session and
+`[!!]` marks a stranded, crashed, stale, or otherwise degraded session, and a
+role whose latest reply was an error. Each role row shows that reply's kind as
+`last_reply`, and for an error the start of its text as `last_error`, so a role
+that fails every turn (for example on revoked GitHub credentials) does not read
+as healthy and idle. `Ctrl-C` exits cleanly. Use `mat baton status <session>` for one session and
 `mat baton show <session>` for its worktree, mailbox, and current transcripts;
 these status commands do not modify the session or query GitHub. A status read
 has a shared 30-second budget for service and role-health probes. If Git Bash
@@ -232,6 +235,10 @@ The operator surface is `mat baton <verb> <session>` (interactive umbrella:
   the saved session state when its recorded worktree still exists as a
   directory. If it is missing or no longer a directory, restart names the path
   and asks you to relaunch the duo session; it does not recreate the worktree.
+  Restart also selects the GitHub account again from your current
+  configuration before it restarts either role, so a changed token variable or
+  owner mapping applies without a relaunch; if no account can be selected, it
+  refuses and leaves the session unchanged.
 - **Stop or reap** — `mat baton stop <session>` (halts serves, keeps state)
   preserves state; `mat baton teardown <session>` stops the services and removes
   the session state, durable queue, mailbox, and launch-created worktree after

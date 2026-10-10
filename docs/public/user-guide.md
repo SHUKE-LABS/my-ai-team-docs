@@ -822,7 +822,10 @@ credential helper for `github.com`. Agents, Baton workers and background tasks
 all reach GitHub through it, and it reads the selected account's credential
 fresh on every command, so a rotated token applies to the next command with no
 restart. If the credential is missing, empty or unreadable, the command is
-refused rather than run unauthenticated. On Windows, use Git Bash; setup also
+refused rather than run unauthenticated. Which account and credential source a
+Baton session uses is chosen at launch; after changing that choice (for example
+removing a token variable or remapping an owner), run
+`mat baton restart <session>` to choose again without relaunching. On Windows, use Git Bash; setup also
 supports GitHub CLI's native `gh.exe` and Git's Windows credential-helper paths.
 Agents whose shell is Windows PowerShell or PowerShell 7 also reach `gh`
 through the gateway, with its normal output and exit status.
