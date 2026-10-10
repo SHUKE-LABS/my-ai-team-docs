@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v4.47.28 … v4.46.11 (2026-10-10)
+## v4.48.0 … v4.46.11 (2026-10-10)
 
 ### Features
 - feat(ci): report required verdict latency
+- feat: flag busy baton roles with a silent transcript in status/watch
 
 ### Fixes
 - fix(test): reap TERM-trapped poll children before the ownership scan
