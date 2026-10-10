@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.50.0 … v4.46.11 (2026-10-10)
+## v4.50.1 … v4.46.11 (2026-10-10)
 
 ### Features
 - feat(ci): report required verdict latency
@@ -46,6 +46,7 @@ _Generated from release tags._
 - test(duo-baton): isolate closed-cycle reaper admissions
 - test(windows): add opt-in real-Claude working-session acceptance command
 - test(duo-baton): trim worker-batch custom-scratch case and recalibrate budget
+- test(gh-gateway): widen foreign-wrapper step bound for Windows spawn cost
 
 ## v4.46.10 … v4.41.17 (2026-10-09)
 
