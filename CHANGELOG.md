@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.50.3 … v4.46.11 (2026-10-10)
+## v4.50.4 … v4.46.11 (2026-10-10)
 
 ### Features
 - feat(ci): report required verdict latency
@@ -38,6 +38,7 @@ _Generated from release tags._
 - fix(baton): recover pre-claim no-output failures
 - fix(baton): use claim time for pre-cycle evidence bound
 - fix: Reviewer APPROVE merges via merge-release; nudge directs un-merged APPROVE to it
+- fix(claim): verify the owner record before reporting a claim
 
 ### Other Changes
 - test(relay-poll): observe the pid file while the poller is live
