@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.47.23 … v4.46.11 (2026-10-10)
+## v4.47.24 … v4.46.11 (2026-10-10)
 
 ### Features
 - feat(ci): report required verdict latency
@@ -28,6 +28,7 @@ _Generated from release tags._
 - fix(agents): page side findings to operator
 - fix: scrub session env from tmux server birth
 - fix(test): isolate host gh gateway discovery
+- fix(test): preserve validation wrapper cleanup
 
 ### Other Changes
 - test(relay-poll): observe the pid file while the poller is live
