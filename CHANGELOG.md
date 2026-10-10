@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.47.7 … v4.46.11 (2026-10-10)
+## v4.47.9 … v4.46.11 (2026-10-10)
 
 ### Features
 - feat(ci): report required verdict latency
@@ -15,9 +15,11 @@ _Generated from release tags._
 - fix(windows): harden baton and relay upgrades
 - fix(idle-recovery): target merge-ready Reviewer and defer on rate-limit menu
 - fix(baton): bound duo reconcile and repair stale claims
+- fix(adhoc): bound the deferred native-child settle; retryable renewal refusal while settling
 
 ### Other Changes
 - test(relay-poll): observe the pid file while the poller is live
+- test(ci): enforce nodeless Baton PATH boundary
 
 ## v4.46.10 … v4.41.17 (2026-10-09)
 
