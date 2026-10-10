@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.47.11 … v4.46.11 (2026-10-10)
+## v4.47.12 … v4.46.11 (2026-10-10)
 
 ### Features
 - feat(ci): report required verdict latency
@@ -17,6 +17,7 @@ _Generated from release tags._
 - fix(baton): bound duo reconcile and repair stale claims
 - fix(adhoc): bound the deferred native-child settle; retryable renewal refusal while settling
 - fix(test): tear down fixture processes before runner finalization
+- fix: clear stale Baton awaiting-human breadcrumbs
 
 ### Other Changes
 - test(relay-poll): observe the pid file while the poller is live
