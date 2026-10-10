@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.50.1 … v4.46.11 (2026-10-10)
+## v4.50.2 … v4.46.11 (2026-10-10)
 
 ### Features
 - feat(ci): report required verdict latency
@@ -47,6 +47,7 @@ _Generated from release tags._
 - test(windows): add opt-in real-Claude working-session acceptance command
 - test(duo-baton): trim worker-batch custom-scratch case and recalibrate budget
 - test(gh-gateway): widen foreign-wrapper step bound for Windows spawn cost
+- ci(windows): dispatch the coverage writer directly and stop waiting on stale coverage
 
 ## v4.46.10 … v4.41.17 (2026-10-09)
 
