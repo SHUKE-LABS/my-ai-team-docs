@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.51.4 … v4.46.11 (2026-10-10)
+## v4.51.5 … v4.46.11 (2026-10-10)
 
 ### Features
 - feat(ci): report required verdict latency
@@ -44,6 +44,7 @@ _Generated from release tags._
 - fix(baton): re-bind GitHub auth on restart and replace a stale claim worker
 - fix(baton): kill status-probe tree via shared engine
 - fix(prompts): restore reviewer merge artifact contract
+- fix(test): record 284/284 timing inventory header
 
 ### Other Changes
 - test(relay-poll): observe the pid file while the poller is live
