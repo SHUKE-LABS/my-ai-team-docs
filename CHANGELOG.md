@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.47.25 … v4.46.11 (2026-10-10)
+## v4.47.26 … v4.46.11 (2026-10-10)
 
 ### Features
 - feat(ci): report required verdict latency
@@ -30,6 +30,7 @@ _Generated from release tags._
 - fix(test): isolate host gh gateway discovery
 - fix(test): preserve validation wrapper cleanup
 - fix: end interruptible sleep on signal in the pre-wait window
+- fix(test): reap real-host fixture sleep helpers
 
 ### Other Changes
 - test(relay-poll): observe the pid file while the poller is live
