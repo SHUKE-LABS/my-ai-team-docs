@@ -820,8 +820,11 @@ fresh on every command, so a rotated token applies to the next command with no
 restart. If the credential is missing, empty or unreadable, the command is
 refused rather than run unauthenticated. On Windows, use Git Bash; setup also
 supports GitHub CLI's native `gh.exe` and Git's Windows credential-helper paths.
-`mat doctor` shows a `gh gateway` line. If it warns or fails, run
-`install-gh-gateway` again (for example after upgrading `gh`).
+Agents whose shell is Windows PowerShell or PowerShell 7 also reach `gh`
+through the gateway, with its normal output and exit status.
+`mat doctor` shows a `gh gateway` line. If it warns or fails (for example after
+upgrading `gh`, or when it reports the PowerShell `gh` forwarder incomplete),
+run `install-gh-gateway` again.
 
 ### Refreshable GitHub App credentials for Baton
 

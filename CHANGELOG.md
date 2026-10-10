@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.47.26 … v4.46.11 (2026-10-10)
+## v4.47.27 … v4.46.11 (2026-10-10)
 
 ### Features
 - feat(ci): report required verdict latency
@@ -31,6 +31,7 @@ _Generated from release tags._
 - fix(test): preserve validation wrapper cleanup
 - fix: end interruptible sleep on signal in the pre-wait window
 - fix(test): reap real-host fixture sleep helpers
+- fix(gh-gateway): install a PowerShell gh forwarder beside the Windows shim
 
 ### Other Changes
 - test(relay-poll): observe the pid file while the poller is live
