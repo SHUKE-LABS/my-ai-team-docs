@@ -2,13 +2,14 @@
 
 _Generated from release tags._
 
-## v4.47.1 … v4.46.11 (2026-10-10)
+## v4.47.2 … v4.46.11 (2026-10-10)
 
 ### Features
 - feat(ci): report required verdict latency
 
 ### Fixes
 - fix(test): reap TERM-trapped poll children before the ownership scan
+- fix(codex): hide the rate-limit model nudge in role homes
 
 ### Other Changes
 - test(relay-poll): observe the pid file while the poller is live
