@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.47.16 … v4.46.11 (2026-10-10)
+## v4.47.17 … v4.46.11 (2026-10-10)
 
 ### Features
 - feat(ci): report required verdict latency
@@ -21,6 +21,7 @@ _Generated from release tags._
 - fix(ownership): respect turn heartbeat refresh throttle
 - fix(baton): preserve duo pollers during restart
 - fix(cycle-park): return a parked worktree to its placeholder before next-work
+- fix(gh-gateway): contain the credential helper's process tree
 
 ### Other Changes
 - test(relay-poll): observe the pid file while the poller is live
