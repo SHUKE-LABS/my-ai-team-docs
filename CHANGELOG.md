@@ -2,13 +2,16 @@
 
 _Generated from release tags._
 
-## v4.47.0 … v4.46.11 (2026-10-10)
+## v4.47.1 … v4.46.11 (2026-10-10)
 
 ### Features
 - feat(ci): report required verdict latency
 
 ### Fixes
 - fix(test): reap TERM-trapped poll children before the ownership scan
+
+### Other Changes
+- test(relay-poll): observe the pid file while the poller is live
 
 ## v4.46.10 … v4.41.17 (2026-10-09)
 
