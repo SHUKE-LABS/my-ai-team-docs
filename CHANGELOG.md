@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.47.19 … v4.46.11 (2026-10-10)
+## v4.47.22 … v4.46.11 (2026-10-10)
 
 ### Features
 - feat(ci): report required verdict latency
@@ -24,6 +24,9 @@ _Generated from release tags._
 - fix(gh-gateway): contain the credential helper's process tree
 - fix(ci): finalize real-host suite budgets
 - fix: bind live merge release to checkout origin
+- fix(test): anchor the hung-status read window at the hung read
+- fix(agents): page side findings to operator
+- fix: scrub session env from tmux server birth
 
 ### Other Changes
 - test(relay-poll): observe the pid file while the poller is live
