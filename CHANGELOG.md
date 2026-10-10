@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.51.0 … v4.46.11 (2026-10-10)
+## v4.51.1 … v4.46.11 (2026-10-10)
 
 ### Features
 - feat(ci): report required verdict latency
@@ -40,6 +40,7 @@ _Generated from release tags._
 - fix(baton): use claim time for pre-cycle evidence bound
 - fix: Reviewer APPROVE merges via merge-release; nudge directs un-merged APPROVE to it
 - fix(claim): verify the owner record before reporting a claim
+- fix(backends): pin MAT_GH_AUTH_CONFIG_DIR in HOME-rebinding panes
 
 ### Other Changes
 - test(relay-poll): observe the pid file while the poller is live

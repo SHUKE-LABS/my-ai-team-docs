@@ -614,6 +614,10 @@ Use these pinned anchors for operator-live paths:
 
 - `GIT_CONFIG_GLOBAL` — the operator's Git global configuration.
 - `GH_CONFIG_DIR` — the operator's GitHub CLI configuration.
+- `MAT_GH_AUTH_CONFIG_DIR` — pins the same directory as `GH_CONFIG_DIR` (or
+  your explicit value), so the `gh` credential gateway can find your GitHub CLI
+  accounts from the worker. mat sets it only when that directory is readable;
+  without one, the worker's `gh` refuses with the usual `gh auth login` remedy.
 - `MAT_HOST_SECRET_FILE` — the operator's host secret file.
 - `MAT_STATE_HOME` — mat's operator state directory.
 - `MAT_WORKTREE_ROOT` — the operator's worktree root.
