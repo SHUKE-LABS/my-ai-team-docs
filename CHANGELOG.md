@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.46.11 (2026-10-10)
+
+### Fixes
+- fix(test): reap TERM-trapped poll children before the ownership scan
+
 ## v4.46.10 … v4.41.17 (2026-10-09)
 
 ### Features
