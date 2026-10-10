@@ -77,6 +77,12 @@ Get-WinEvent -FilterHashtable @{LogName='Application';ProviderName='WSH'} -MaxEv
 
 Attempt logs are small and are never deleted automatically.
 
+During an install or upgrade, Windows Run-key registration is only the
+login-time convenience path. If that registration fails but the direct launch
+succeeds, the install still completes and the relay remains running. The
+install reports failure only when it cannot leave the relay running; an
+already-running relay is preserved when its replacement cannot be proved safe.
+
 ## 3. Launch the session
 
 From inside the repo's working tree:
@@ -168,7 +174,11 @@ seconds. It needs a TTY; use `--interval N` for a different positive interval.
 `[!!]` marks a stranded, crashed, stale, or otherwise degraded session.
 `Ctrl-C` exits cleanly. Use `mat baton status <session>` for one session and
 `mat baton show <session>` for its worktree, mailbox, and current transcripts;
-these status commands do not modify the session or query GitHub.
+these status commands do not modify the session or query GitHub. A status read
+has a shared 30-second budget for service and role-health probes. If Git Bash
+or a native probe stops answering, status still returns a schema-valid row with
+`probe_status: degraded`, a `probe_error`, and `null` for values it could not
+establish.
 
 ### How the two roles talk
 
