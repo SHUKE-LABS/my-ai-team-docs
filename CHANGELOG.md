@@ -2,16 +2,156 @@
 
 _Generated from release tags._
 
-## v4.39.18 … v4.39.14 (2026-10-06)
+## v4.49.0 … v4.46.11 (2026-10-10)
+
+### Features
+- feat(ci): report required verdict latency
+- feat: flag busy baton roles with a silent transcript in status/watch
+- feat(ci): restore real-host nightly owner
+
+### Fixes
+- fix(test): reap TERM-trapped poll children before the ownership scan
+- fix(codex): hide the rate-limit model nudge in role homes
+- fix(adhoc): arm the renewal completion guard for doc-path handoffs and resolve the native target from the sidecar
+- fix(windows): shared kill-tree engine that rescans MSYS survivors
+- fix(windows): harden baton and relay upgrades
+- fix(idle-recovery): target merge-ready Reviewer and defer on rate-limit menu
+- fix(baton): bound duo reconcile and repair stale claims
+- fix(adhoc): bound the deferred native-child settle; retryable renewal refusal while settling
+- fix(test): tear down fixture processes before runner finalization
+- fix: clear stale Baton awaiting-human breadcrumbs
+- fix(ownership): respect turn heartbeat refresh throttle
+- fix(baton): preserve duo pollers during restart
+- fix(cycle-park): return a parked worktree to its placeholder before next-work
+- fix(gh-gateway): contain the credential helper's process tree
+- fix(ci): finalize real-host suite budgets
+- fix: bind live merge release to checkout origin
+- fix(test): anchor the hung-status read window at the hung read
+- fix(agents): page side findings to operator
+- fix: scrub session env from tmux server birth
+- fix(test): isolate host gh gateway discovery
+- fix(test): preserve validation wrapper cleanup
+- fix: end interruptible sleep on signal in the pre-wait window
+- fix(test): reap real-host fixture sleep helpers
+- fix(gh-gateway): install a PowerShell gh forwarder beside the Windows shim
+- fix(baton): recover pre-claim no-output failures
+- fix(baton): use claim time for pre-cycle evidence bound
+
+### Other Changes
+- test(relay-poll): observe the pid file while the poller is live
+- test(ci): enforce nodeless Baton PATH boundary
+- test(auto-refine): isolate real-host GitHub fixtures
+- test(relay-poll): isolate gh gateway and bound persisted-pane pollers
+- test(duo-baton): isolate closed-cycle reaper admissions
+- test(windows): add opt-in real-Claude working-session acceptance command
+- test(duo-baton): trim worker-batch custom-scratch case and recalibrate budget
+
+## v4.46.10 … v4.41.17 (2026-10-09)
+
+### Features
+- feat(agents): gate delivery-filed tickets to ready or blocked, never refining
+- feat: end every refinement pass ready or blocked, never refining
+- feat(tmux): carry detached work on helper server
+- feat(next-work): adopt claimed open relay PRs
+- feat: prioritize blockers for parked pull requests
+
+### Fixes
+- fix(notify): preserve explicit sandbox on direct restore
+- fix(relay-poll): preserve generation-locked launch arguments
+- fix(agents): expose missing tmux panes as ghosts
+- fix(relay): retire poller, watchdog and heartbeat helpers when their target dies
+- fix: expose duo terminal failures and pause automatic wakes
+- fix(baton): carry gh/node/codex dirs on the Windows service PATH and poll with a reason on fetch failure
+- fix(console): resolve a dead session behind the startup live-only snapshot
+- fix(baton): treat residual serve.stop as disposable control data in duo teardown
+- fix(baton): reserve a fresh launcher log per Windows start and report launch failures to the event log
+- fix(gh-gateway): preserve newlines in PATH entries
+- fix(test): finalize Linux suite-owned processes
+- fix(baton): retire a completed abandonment audit at duo relaunch
+- fix(test): allow POSIX adhoc child publication
+- fix(gh-gateway): bound credential helper and skip routing wrappers
+- fix(worktree): enter the repository when a branchless snapshot root is gone
+- fix(ci): map u2604 runner test capacity
+- fix(bg-run): bind Duo claim reads to session gateway
+- fix(ci): bound Windows tracker history
+- fix(merge-release): team merge requests its own session boundary
+- fix(codex): pre-ack model migrations and escalate a blocking startup modal
+- fix(issue): clear blocked on ready promotion
+- fix(tmux): retry refused session-close replay submissions
+- fix(ci): balance required runnable suites
+- fix(bg-run): scale the closed-cycle reap budget with the selected task count
+- fix(test): recover transient runner ownership reads
+- fix(test): exclude stopped runner pairs from survivors
+- fix(guards): block environment secret disclosure
+- fix: stop exporting GH_REPO into agents and tasks
+- fix(baton): clear stale human waits on replies
+- fix(test): isolate proc field reads
+- fix(ownership): surface heartbeat and stale-lock recovery
+
+### Other Changes
+- test(windows): cover adhoc renewal resume
+- test(cycle): give the restart-lease handoff fixture a Windows adoption timeout and compare helper paths semantically
+- test(dispatch): align notify-policy fixture with persisted sandbox contract
+- test: scrub inherited worktree switches from the test env
+- test: realign stale soak assertions
+- test(gateway): align baton fixtures with auth gateway state
+- test(ownership): route managed gateway fixture
+- test(bg-run): pin live claim fixture cwd
+- chore(ci): retire stale workflow and align docs
+
+## v4.41.16 … v4.41.4 (2026-10-08)
+
+### Fixes
+- fix(bg-run): retain live claim provenance
+- fix(baton): arm idle recovery for pre-cycle claims
+- fix(duo): gate orphan recovery on blockers
+- fix(ci): resolve new Windows tracker from create response
+- fix: discard confirmed stale pre-cycle claim receipts
+- fix(adhoc): publish the late-settling native child on Windows
+- fix(hooks): restrict scratch-path denial to Windows
+- fix(explore): report auto-refine outcomes atomically through mat
+- fix(platform): run pnpm jq script shims through node and report jq launch failures
+
+### Performance
+- perf(hooks): prefilter PostToolUse[Bash] with if and fast-path no-marker Stop
+- perf(config): cache the flattened backends.json across mat processes
+
+### Other Changes
+- test(adhoc-local): stop fixture loops and supervisors when the suite is force-killed
+- test(credential-sharing): publish diagnostics for unknown-backend case failures
+
+## v4.41.3 … v4.40.0 (2026-10-07)
+
+### Features
+- feat(bg-run): support supervised local adhoc tasks
+- feat(statusline): show the open PR number next to the branch
+
+### Fixes
+- fix(baton): report a failed worktree branch probe as unresolvable
+- fix(notify-user): keep local devops forwards secure and supervised
+- fix: sandbox notifications for nested sessions
+- fix(gh-gateway): honour git's empty-helper reset in verify and install
+- fix(baton): rearm duo pollers after service restart
+- fix: anchor Baton pollers to session repository
+
+### Other Changes
+- test(windows): exclude PATH fixture setup from teardown timing
+
+## v4.39.23 … v4.39.14 (2026-10-06)
 
 ### Fixes
 - fix(dispatch): match live sessions by canonical slot
 - fix(baton): verify resident poller after merge-release
 - fix(gh-gateway): skip PATH dirs that cannot be canonicalized when pinning real gh
+- fix(baton): relay mixed-form wake path to native Windows roles
+- fix(adhoc): guard Windows renewal by process generation
+- fix(baton): fail closed when the recovery-scan mat entry is unresolvable
+- fix(cycle): put the relay bin on PATH in POSIX form for boundary notifications
 
 ### Other Changes
 - test(adhoc): isolate synthetic renewal PID selection from native process lookup
 - test(windows): exit fixture loops when the suite's top Bash is force-killed
+- test(adhoc): wait for the child pid record before signalling the supervisor
 
 ## v4.39.13 … v4.37.0 (2026-10-05)
 
