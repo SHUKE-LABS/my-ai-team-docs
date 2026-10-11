@@ -2086,6 +2086,8 @@ PID and a different native PID. Options:
 - `--detach-if-contained` lets a caller that is itself inside the target tree
   start an independent executor instead of killing itself; `--log <file>`
   receives that executor's output.
+- `--detach` always hands the kill to an independent executor, without first
+  checking whether the caller is inside the target tree.
 
 Limits: the tree is captured from the target while it is alive, so a process
 that has already detached from a dead root cannot be recovered by PID — use
