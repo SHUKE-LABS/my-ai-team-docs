@@ -2,13 +2,14 @@
 
 _Generated from release tags._
 
-## v4.53.2 … v4.53.0 (2026-10-12)
+## v4.53.3 … v4.53.0 (2026-10-12)
 
 ### Features
 - feat(upgrade): restart stale baton services when safe
 
 ### Fixes
 - fix: recover ownerless delivery reservations
+- fix(copilot): disable native ask tool for relay roles
 
 ### Other Changes
 - ci(windows): recalibrate smoke guard for mat-install-systemd-regression.sh
