@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.52.6 … v4.51.6 (2026-10-11)
+## v4.52.7 … v4.51.6 (2026-10-11)
 
 ### Features
 - feat(baton): gate merge release on fresh base
@@ -14,6 +14,7 @@ _Generated from release tags._
 - fix(codex): bound a headless turn that lingers after its terminal record
 - fix(baton): forward signals to active turns
 - fix(baton): bound worker Codex signal fallback
+- fix(ci): recalibrate Windows guard for github-auth-state-regression.sh
 
 ### Performance
 - perf(windows): use native generation provider for renewal
