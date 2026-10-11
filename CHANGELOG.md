@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v4.53.4 … v4.53.0 (2026-10-12)
+## v4.54.0 … v4.53.0 (2026-10-12)
 
 ### Features
 - feat(upgrade): restart stale baton services when safe
+- feat: sanctioned non-closing delivery for issues that stay open
 
 ### Fixes
 - fix: recover ownerless delivery reservations
