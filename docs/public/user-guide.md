@@ -1254,6 +1254,14 @@ printed scratch root and `mat scratch-file` for relay files. This keeps Bash,
 native tools, and agent file tools on one path. The runtime scratch commands and
 relay transport are the same on every platform.
 
+A relayed handoff must be a readable, non-empty file: `send-relay` checks the
+path before delivery and refuses — with a non-zero exit, nothing delivered —
+when the file is missing, unreadable, or empty. Write the file first, then send
+its path. The atomic writer form `mat scratch-file <name> --` prints the path
+only after the bytes are written, so it can never hand off a path without
+content behind it; the reservation form `mat scratch-file <name>` prints a path
+and creates nothing, so sending a reserved-but-unwritten path is refused.
+
 To send a handoff directly to a pane, `send-relay %<pane-id> <handoff-file>`
 also works outside a tmux client, such as from an SSH shell. Role-word targets
 such as `reviewer` still require a tmux client.

@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.52.9 … v4.51.6 (2026-10-11)
+## v4.52.10 … v4.51.6 (2026-10-11)
 
 ### Features
 - feat(baton): gate merge release on fresh base
@@ -16,6 +16,7 @@ _Generated from release tags._
 - fix(baton): bound worker Codex signal fallback
 - fix(ci): recalibrate Windows guard for github-auth-state-regression.sh
 - fix(renewal): cut native termination latency on slow Windows hosts
+- fix: refuse missing or empty scratch-root relay handoffs
 
 ### Performance
 - perf(windows): use native generation provider for renewal
