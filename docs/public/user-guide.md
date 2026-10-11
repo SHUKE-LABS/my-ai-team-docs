@@ -2361,7 +2361,7 @@ This keeps the server alive without a resident session; run
 ## Upgrading
 
 ```bash
-mat upgrade [--list|--to <version>|--check|--force|--when-idle|--when-idle-unbounded|--override-locked]
+mat upgrade [--list|--to <version>|--check|--force|--when-idle|--when-idle-unbounded|--override-locked|--no-service-restart]
 mat upgrade --check       # report installed vs. offered version; change nothing
 mat upgrade               # fetch and install the latest release for your license
 mat upgrade --force       # reinstall even when already current
@@ -2374,9 +2374,21 @@ host). It validates the license, fetches a signed release tarball, and installs
 it in place over `~/.local/share/my-ai-team/`; your configuration and agent homes
 are untouched. Plain `mat` and every mode invocation never touch the network.
 
-Running agents keep the runtime they launched with, so upgrade between cycles. On
-systemd and OpenRC hosts also restart the Telegram relay service so the daemon
-runs the code you just deployed.
+Running agents keep the runtime they launched with, so upgrade between cycles.
+After a successful upgrade,
+stale managed Baton host services are refreshed and restarted when the host is
+quiet. The turn check is strict: only an empty `mat agents --json` array or
+rows whose status is exactly `standby` are idle; an unavailable or malformed
+status is busy. Windows verifies that live role session IDs and pollers survive
+the node restart. systemd and launchd restart automatically only for an
+empty service, because their process-group semantics cannot prove preservation
+of live role processes. A busy or unverifiable service is left running and the
+output gives its exact manual restart command. This gate is host-global: an
+open `explore`, `live`, or caucus session is also busy even when the stale
+service itself has no role turn. Use `--when-idle` to wait for quiet before
+that decision, or `--no-service-restart` to always leave stale services for
+manual action. On systemd and OpenRC hosts also restart the Telegram relay
+service so the daemon runs the code you just deployed.
 
 To roll back, pick a version from `mat upgrade --list` and install it with
 `mat upgrade --to <version>`; it uses the same verified in-place path, and how

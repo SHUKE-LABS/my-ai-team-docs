@@ -294,9 +294,11 @@ launch the session again.
 
 ### `bg-run` says `task_host_session` is not live on control
 
-A Baton service restart (e.g. after a Windows service update) mints new
-session ids, so a recorded `task_host_session` can go stale even though the
-process behind it is still running. `bg-run` retries once automatically: it
+An operator-initiated Baton service restart can mint new session ids, so a
+recorded `task_host_session` can go stale even though the process behind it is
+still running. The normal Windows `mat upgrade` refresh is narrower: it restarts
+the host node only and verifies that live role session ids and pollers remain
+unchanged. `bg-run` retries once automatically: it
 looks for exactly one currently live session whose inbox matches this
 session's own task-host mailbox and, if found, updates the state file and
 proceeds — no operator action needed. If it finds zero or more than one

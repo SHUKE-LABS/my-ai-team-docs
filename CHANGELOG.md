@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.53.0 (2026-10-12)
+
+### Features
+- feat(upgrade): restart stale baton services when safe
+
 ## v4.52.12 … v4.51.6 (2026-10-11)
 
 ### Features
