@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.52.11 … v4.51.6 (2026-10-11)
+## v4.52.12 … v4.51.6 (2026-10-11)
 
 ### Features
 - feat(baton): gate merge release on fresh base
@@ -25,6 +25,7 @@ _Generated from release tags._
 ### Other Changes
 - test: align review hygiene approval assertions
 - test: isolate missing baton doctor fixture
+- test: model merge-release freshness API responses
 
 ## v4.51.5 … v4.46.11 (2026-10-10)
 
