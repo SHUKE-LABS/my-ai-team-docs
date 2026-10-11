@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.54.4 … v4.53.0 (2026-10-12)
+## v4.54.5 … v4.53.0 (2026-10-12)
 
 ### Features
 - feat(upgrade): restart stale baton services when safe
@@ -14,6 +14,7 @@ _Generated from release tags._
 - fix(pr): stop checks-wait after required failure
 - fix(duo): guard verdicts against superseded heads
 - fix(prompts): leave duo renders maintenance headroom
+- fix(pr): stop checks-wait once required checks are green and only windows-coverage is pending
 
 ### Performance
 - perf(adhoc): shorten the Windows native renewal publish path
