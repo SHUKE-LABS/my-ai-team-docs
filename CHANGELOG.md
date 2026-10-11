@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.52.2 … v4.51.6 (2026-10-11)
+## v4.52.3 … v4.51.6 (2026-10-11)
 
 ### Features
 - feat(baton): gate merge release on fresh base
@@ -11,6 +11,9 @@ _Generated from release tags._
 - fix(test): install flock-holder reaping traps before ready marker
 - fix: preserve auto-refine repository routing
 - fix: refuse umbrella/ci-tracker as a park target; advisory-only red never parks
+
+### Performance
+- perf(windows): use native generation provider for renewal
 
 ### Other Changes
 - test: align review hygiene approval assertions
