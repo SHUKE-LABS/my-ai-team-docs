@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.54.2 … v4.53.0 (2026-10-12)
+## v4.54.3 … v4.53.0 (2026-10-12)
 
 ### Features
 - feat(upgrade): restart stale baton services when safe
@@ -13,6 +13,7 @@ _Generated from release tags._
 - fix(copilot): disable native ask tool for relay roles
 - fix(pr): stop checks-wait after required failure
 - fix(duo): guard verdicts against superseded heads
+- fix(prompts): leave duo renders maintenance headroom
 
 ### Performance
 - perf(adhoc): shorten the Windows native renewal publish path
