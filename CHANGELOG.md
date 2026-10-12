@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.57.0 … v4.53.0 (2026-10-12)
+## v4.57.1 … v4.53.0 (2026-10-12)
 
 ### Features
 - feat(upgrade): restart stale baton services when safe
@@ -25,6 +25,7 @@ _Generated from release tags._
 - fix(duo): recover consumed silent turns
 - fix(baton): gate idle recovery on bg-run progress
 - fix(test): bound baton park worker waits
+- fix(ci): recalibrate four Windows smoke guards (,)
 
 ### Performance
 - perf(adhoc): shorten the Windows native renewal publish path
