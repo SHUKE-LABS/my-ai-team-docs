@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.56.1 … v4.53.0 (2026-10-12)
+## v4.56.2 … v4.53.0 (2026-10-12)
 
 ### Features
 - feat(upgrade): restart stale baton services when safe
@@ -28,6 +28,7 @@ _Generated from release tags._
 ### Performance
 - perf(adhoc): shorten the Windows native renewal publish path
 - perf(gh-gateway): drop per-call forks on the hot path
+- perf(duo): index envelope ids once per queue recovery call
 
 ### Other Changes
 - ci(windows): recalibrate smoke guard for mat-install-systemd-regression.sh
