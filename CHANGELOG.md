@@ -2,7 +2,10 @@
 
 _Generated from release tags._
 
-## v4.57.4 … v4.57.2 (2026-10-13)
+## v4.58.0 … v4.57.2 (2026-10-13)
+
+### Features
+- feat(baton): carry repo-root advance and auto-backfill on the task host
 
 ### Fixes
 - fix(baton): open outcome-health jq operands as mixed paths on Windows
