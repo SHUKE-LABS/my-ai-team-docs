@@ -2,12 +2,13 @@
 
 _Generated from release tags._
 
-## v4.55.7 … v4.53.0 (2026-10-12)
+## v4.56.0 … v4.53.0 (2026-10-12)
 
 ### Features
 - feat(upgrade): restart stale baton services when safe
 - feat: sanctioned non-closing delivery for issues that stay open
 - feat(explore): auto-refine supervisor self-re-execs at its idle boundary
+- feat(test): add MAT_TEST_EXCLUDE deny-list
 
 ### Fixes
 - fix: recover ownerless delivery reservations
