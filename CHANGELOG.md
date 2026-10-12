@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.55.4 … v4.53.0 (2026-10-12)
+## v4.55.5 … v4.53.0 (2026-10-12)
 
 ### Features
 - feat(upgrade): restart stale baton services when safe
@@ -20,6 +20,7 @@ _Generated from release tags._
 - fix(baton): fence closed-cycle bg-run callbacks
 - fix(adhoc): raise the renewal new-child milestone bar to 60 s
 - fix(duo): strip queue root in glob form during queue recovery
+- fix(duo): recover consumed silent turns
 
 ### Performance
 - perf(adhoc): shorten the Windows native renewal publish path
