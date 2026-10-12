@@ -2,10 +2,13 @@
 
 _Generated from release tags._
 
-## v4.57.2 (2026-10-13)
+## v4.57.3 … v4.57.2 (2026-10-13)
 
 ### Fixes
 - fix(baton): open outcome-health jq operands as mixed paths on Windows
+
+### Other Changes
+- test: model issue-body and PR-linkage reads in formatter fixtures
 
 ## v4.57.1 … v4.53.0 (2026-10-12)
 
