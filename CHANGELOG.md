@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.55.0 … v4.53.0 (2026-10-12)
+## v4.55.1 … v4.53.0 (2026-10-12)
 
 ### Features
 - feat(upgrade): restart stale baton services when safe
@@ -24,6 +24,7 @@ _Generated from release tags._
 
 ### Other Changes
 - ci(windows): recalibrate smoke guard for mat-install-systemd-regression.sh
+- test: fix serial lane fixtures
 
 ## v4.52.12 … v4.51.6 (2026-10-11)
 
