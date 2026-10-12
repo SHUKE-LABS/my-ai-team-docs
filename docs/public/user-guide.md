@@ -2110,6 +2110,28 @@ identity could not be read, or owned processes survived;
 executor and has not been confirmed. On Linux and macOS the command is not
 needed — ordinary process groups and signals apply.
 
+#### Blocked cleanup commands
+
+On backends with a shell-command hook, agent sessions refuse the cleanup forms
+that this section warns about, before the command runs, and point at
+`win-kill-tree`:
+
+- `taskkill` with `/T` (or `//T`), in any option order.
+- Image-name kills: `taskkill /IM` or `/FI "IMAGENAME eq <name>"`,
+  `Stop-Process -Name <name>`, `pkill <name>`, and a `Where-Object Name -eq`
+  selection piped to `Stop-Process`. These kill every process with that name,
+  including a CI watchdog's `sleep` on a shared host.
+
+Matching ignores case and accepts a path-qualified executable name. PID-targeted
+commands such as `taskkill //PID 1234 //F` and `Stop-Process -Id 1234` stay
+allowed, as do `win-kill-tree` itself and text that only mentions these commands
+(quoted prose, comments, heredoc bodies). Use `win-kill-tree <pid>` for a known
+process, or start your own processes with a unique string in their command line
+and stop them with `win-kill-tree --tag <your-unique-tag>`. There is no override
+variable. The `opencode` and `freebuff` backends expose no hook surface, so
+this guard does not cover them; a command typed directly in your own shell is
+never filtered.
+
 ### Dispatch daemon
 
 For always-on, hands-off delivery, a dispatch daemon can cold-launch or wake a

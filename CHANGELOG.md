@@ -2,14 +2,16 @@
 
 _Generated from release tags._
 
-## v4.58.0 … v4.57.2 (2026-10-13)
+## v4.59.0 … v4.57.2 (2026-10-13)
 
 ### Features
 - feat(baton): carry repo-root advance and auto-backfill on the task host
+- feat(hooks): block taskkill /T and image-name kills, point to win-kill-tree
 
 ### Fixes
 - fix(baton): open outcome-health jq operands as mixed paths on Windows
 - fix(duo): page on poller recovery only for a confirmed-gone relay-poll task
+- fix(duo): park idle cycles with open blockers
 
 ### Other Changes
 - test: model issue-body and PR-linkage reads in formatter fixtures
