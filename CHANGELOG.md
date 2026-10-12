@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v4.57.3 … v4.57.2 (2026-10-13)
+## v4.57.4 … v4.57.2 (2026-10-13)
 
 ### Fixes
 - fix(baton): open outcome-health jq operands as mixed paths on Windows
+- fix(duo): page on poller recovery only for a confirmed-gone relay-poll task
 
 ### Other Changes
 - test: model issue-body and PR-linkage reads in formatter fixtures
