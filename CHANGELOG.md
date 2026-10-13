@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.65.0 … v4.61.0 (2026-10-14)
+## v4.66.0 … v4.61.0 (2026-10-14)
 
 ### Features
 - feat(baton): read duo health from outcome summary
@@ -10,6 +10,7 @@ _Generated from release tags._
 - feat(prompts): tell Windows PowerShell roles to hand off via bare send-relay-and-comment
 - feat(baton): deliver duo routed sends with native baton mat send
 - feat(local): replace detached setsid workers with a private supervisor carrier
+- feat(windows): start baton and tg-relay at boot via S4U tasks
 
 ### Fixes
 - fix(test): use wall-clock deadlines for duo awaits
