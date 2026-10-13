@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.62.4 … v4.61.0 (2026-10-14)
+## v4.62.5 … v4.61.0 (2026-10-14)
 
 ### Features
 - feat(baton): read duo health from outcome summary
@@ -12,6 +12,7 @@ _Generated from release tags._
 - fix(test): use wall-clock deadlines for duo awaits
 - fix(idle-recovery): fail closed on blocker lookup errors
 - fix(gh-gateway): keep credential get output off disk
+- fix(ci): compare Windows smoke coverage with smoke baseline
 
 ### Performance
 - perf(windows): cut fork tax on relay hot paths
