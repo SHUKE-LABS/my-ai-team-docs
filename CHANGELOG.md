@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.59.2 … v4.57.2 (2026-10-13)
+## v4.59.3 … v4.57.2 (2026-10-13)
 
 ### Features
 - feat(baton): carry repo-root advance and auto-backfill on the task host
@@ -14,6 +14,7 @@ _Generated from release tags._
 - fix(duo): park idle cycles with open blockers
 - fix(agents): keep small findings in the current PR
 - fix(baton): stabilize recovery and audit fixtures
+- fix(ci): recalibrate Windows guard for adhoc-task-session-renewal_test.sh
 
 ### Other Changes
 - test: model issue-body and PR-linkage reads in formatter fixtures
