@@ -2,10 +2,13 @@
 
 _Generated from release tags._
 
-## v4.61.0 (2026-10-14)
+## v4.61.1 … v4.61.0 (2026-10-14)
 
 ### Features
 - feat(baton): read duo health from outcome summary
+
+### Fixes
+- fix(test): use wall-clock deadlines for duo awaits
 
 ## v4.60.1 … v4.57.2 (2026-10-13)
 
