@@ -2,11 +2,12 @@
 
 _Generated from release tags._
 
-## v4.59.4 … v4.57.2 (2026-10-13)
+## v4.60.0 … v4.57.2 (2026-10-13)
 
 ### Features
 - feat(baton): carry repo-root advance and auto-backfill on the task host
 - feat(hooks): block taskkill /T and image-name kills, point to win-kill-tree
+- feat(next-work): resume a held claim without the full selection pass
 
 ### Fixes
 - fix(baton): open outcome-health jq operands as mixed paths on Windows
