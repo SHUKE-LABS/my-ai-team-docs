@@ -2,12 +2,14 @@
 
 _Generated from release tags._
 
-## v4.63.1 … v4.61.0 (2026-10-14)
+## v4.65.0 … v4.61.0 (2026-10-14)
 
 ### Features
 - feat(baton): read duo health from outcome summary
 - feat(ci): route Windows PRs through smoke baseline
 - feat(prompts): tell Windows PowerShell roles to hand off via bare send-relay-and-comment
+- feat(baton): deliver duo routed sends with native baton mat send
+- feat(local): replace detached setsid workers with a private supervisor carrier
 
 ### Fixes
 - fix(test): use wall-clock deadlines for duo awaits
