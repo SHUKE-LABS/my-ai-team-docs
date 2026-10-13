@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.60.0 … v4.57.2 (2026-10-13)
+## v4.60.1 … v4.57.2 (2026-10-13)
 
 ### Features
 - feat(baton): carry repo-root advance and auto-backfill on the task host
@@ -17,6 +17,9 @@ _Generated from release tags._
 - fix(baton): stabilize recovery and audit fixtures
 - fix(ci): recalibrate Windows guard for adhoc-task-session-renewal_test.sh
 - fix(test): release wrapper-scan retry children on scan events
+
+### Docs
+- docs(ci): update smoke guard sum comment to 2190 s
 
 ### Other Changes
 - test: model issue-body and PR-linkage reads in formatter fixtures
