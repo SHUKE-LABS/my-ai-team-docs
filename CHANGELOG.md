@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.62.1 … v4.61.0 (2026-10-14)
+## v4.62.2 … v4.61.0 (2026-10-14)
 
 ### Features
 - feat(baton): read duo health from outcome summary
@@ -16,6 +16,9 @@ _Generated from release tags._
 
 ### Docs
 - docs(ci): record Windows working-session smoke qualification
+
+### Other Changes
+- test(duo-baton-worker): extend contention fixture hold window
 
 ## v4.60.1 … v4.57.2 (2026-10-13)
 
