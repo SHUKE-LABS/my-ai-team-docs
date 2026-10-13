@@ -8,8 +8,8 @@ and operator steering without a tmux server.
 
 - **baton ≥ 0.2.0** (the `service` control plane). **0.3.0** adds Windows
   service/task ownership — use 0.3.0+ on Windows. **Duo sessions additionally
-  require a baton ≥ 0.16.0, which carries batch mode through the service path
-  (`--agent-input` available on `baton service start`)**: the
+  require a baton ≥ 0.19.0, which carries batch mode and the per-role outcome
+  summary through the service path (`--agent-input` and `service outcome`)**: the
   launch verifies the client and any live service before provisioning a
   mailbox and refuses with the required version otherwise. Verify: `baton
   service

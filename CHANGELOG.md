@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.61.0 (2026-10-14)
+
+### Features
+- feat(baton): read duo health from outcome summary
+
 ## v4.60.1 … v4.57.2 (2026-10-13)
 
 ### Features
