@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v4.61.2 … v4.61.0 (2026-10-14)
+## v4.62.0 … v4.61.0 (2026-10-14)
 
 ### Features
 - feat(baton): read duo health from outcome summary
+- feat(ci): route Windows PRs through smoke baseline
 
 ### Fixes
 - fix(test): use wall-clock deadlines for duo awaits
