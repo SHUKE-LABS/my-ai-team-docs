@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.63.0 … v4.61.0 (2026-10-14)
+## v4.63.1 … v4.61.0 (2026-10-14)
 
 ### Features
 - feat(baton): read duo health from outcome summary
@@ -15,6 +15,7 @@ _Generated from release tags._
 - fix(gh-gateway): keep credential get output off disk
 - fix(ci): compare Windows smoke coverage with smoke baseline
 - fix(baton): relaunch dead duos on service startup
+- fix(claude): preserve launch-case trust key
 
 ### Performance
 - perf(windows): cut fork tax on relay hot paths
