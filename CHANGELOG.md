@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v4.66.24 … v4.66.21 (2026-10-15)
+## v4.66.25 … v4.66.21 (2026-10-15)
 
 ### Fixes
 - fix(baton): write bg-run result before the terminal wake; retire settled bgtask rows
+- fix(test): make six Windows-only regression cases pass
 
 ### Refactors
 - refactor(baton): split oversized relay modules
