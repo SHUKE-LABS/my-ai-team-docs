@@ -2402,10 +2402,15 @@ stale managed Baton host services are refreshed and restarted when the host is
 quiet. The turn check is strict: only an empty `mat agents --json` array or
 rows whose status is exactly `standby` are idle; an unavailable or malformed
 status is busy. Windows verifies that live role session IDs and pollers survive
-the node restart. systemd and launchd restart automatically only for an
-empty service, because their process-group semantics cannot prove preservation
-of live role processes. A busy or unverifiable service is left running and the
-output gives its exact manual restart command. This gate is host-global: an
+the node restart, and never rewrites a running service's launcher in place: the
+refreshed launcher is staged beside it while the service runs and replaces it
+only after the node reports itself stopped, immediately before the restart. A
+busy or unverifiable service is left running and the
+output gives its exact manual restart command — on Windows that command is
+`MAT_BATON_CONTROL_DIR='<control-dir>' mat baton service restart`, which stops
+the service, publishes the staged launcher and starts it again. If the service
+does not report itself stopped, it is left running on its current launcher and
+its sessions are untouched. This gate is host-global: an
 open `explore`, `live`, or caucus session is also busy even when the stale
 service itself has no role turn. Use `--when-idle` to wait for quiet before
 that decision, or `--no-service-restart` to always leave stale services for
