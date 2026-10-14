@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.66.14 … v4.61.0 (2026-10-14)
+## v4.66.15 … v4.61.0 (2026-10-14)
 
 ### Features
 - feat(baton): read duo health from outcome summary
@@ -29,6 +29,7 @@ _Generated from release tags._
 - fix(test): reap Windows suite descendants and always use the pinned native jq
 - fix(bg-run): extend long-task milestone heartbeats
 - fix(idle-recovery): guard busy target before silent retry
+- fix(baton): prove Windows stale-claim backend absence via turn-gate anchor
 
 ### Performance
 - perf(windows): cut fork tax on relay hot paths
