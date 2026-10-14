@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.66.21 (2026-10-15)
+
+### Other Changes
+- test: align Windows S4U fixture task identity
+
 ## v4.66.20 … v4.61.0 (2026-10-14)
 
 ### Features
