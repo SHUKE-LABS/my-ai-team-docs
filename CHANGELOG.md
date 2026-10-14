@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.66.28 … v4.66.21 (2026-10-15)
+## v4.66.29 … v4.66.21 (2026-10-15)
 
 ### Fixes
 - fix(baton): write bg-run result before the terminal wake; retire settled bgtask rows
@@ -10,6 +10,7 @@ _Generated from release tags._
 - fix(baton): accept serve outcome evidence in duo teardown
 - fix(baton): revive dead pollers, re-provision dead task hosts, unfence the own task host
 - fix(adhoc): size the renewal completion guard above the acceptance bar
+- fix(baton): open queue-audit envelopes through mixed paths on Windows
 
 ### Refactors
 - refactor(baton): split oversized relay modules
