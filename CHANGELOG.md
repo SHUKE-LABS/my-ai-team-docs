@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.66.6 … v4.61.0 (2026-10-14)
+## v4.66.7 … v4.61.0 (2026-10-14)
 
 ### Features
 - feat(baton): read duo health from outcome summary
@@ -23,6 +23,7 @@ _Generated from release tags._
 - fix(ownership): preserve live owners during stale reaping
 - fix(baton): publish Windows launcher refreshes only after a positive stop
 - fix(gh-gateway): accept positional repository targets
+- fix(ownership): classify missing tmux probe as unknown
 
 ### Performance
 - perf(windows): cut fork tax on relay hot paths
