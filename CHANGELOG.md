@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.66.2 … v4.61.0 (2026-10-14)
+## v4.66.3 … v4.61.0 (2026-10-14)
 
 ### Features
 - feat(baton): read duo health from outcome summary
@@ -20,6 +20,7 @@ _Generated from release tags._
 - fix(baton): relaunch dead duos on service startup
 - fix(claude): preserve launch-case trust key
 - fix(baton): clear cycle identity at the closed-cycle boundary and degrade stale closed keys to keyless relay
+- fix(ownership): preserve live owners during stale reaping
 
 ### Performance
 - perf(windows): cut fork tax on relay hot paths
