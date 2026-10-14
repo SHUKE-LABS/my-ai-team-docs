@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.66.10 … v4.61.0 (2026-10-14)
+## v4.66.11 … v4.61.0 (2026-10-14)
 
 ### Features
 - feat(baton): read duo health from outcome summary
@@ -25,6 +25,7 @@ _Generated from release tags._
 - fix(gh-gateway): accept positional repository targets
 - fix(ownership): classify missing tmux probe as unknown
 - fix: keep merge boundary after already-merged PR
+- fix(baton): restore headless relay root and gateway preflight
 
 ### Performance
 - perf(windows): cut fork tax on relay hot paths
