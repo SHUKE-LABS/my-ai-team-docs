@@ -2,7 +2,10 @@
 
 _Generated from release tags._
 
-## v4.66.22 … v4.66.21 (2026-10-15)
+## v4.66.23 … v4.66.21 (2026-10-15)
+
+### Fixes
+- fix(baton): write bg-run result before the terminal wake; retire settled bgtask rows
 
 ### Refactors
 - refactor(baton): split oversized relay modules
