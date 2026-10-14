@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.66.8 … v4.61.0 (2026-10-14)
+## v4.66.9 … v4.61.0 (2026-10-14)
 
 ### Features
 - feat(baton): read duo health from outcome summary
@@ -36,6 +36,7 @@ _Generated from release tags._
 - test(duo-baton-worker): extend contention fixture hold window
 - test(duo): isolate recovery fixture from startup relaunch
 - test: repair ci renewal and baton fixtures
+- test: provision local carrier for poll marker renewal
 
 ## v4.60.1 … v4.57.2 (2026-10-13)
 
