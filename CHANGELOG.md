@@ -2,7 +2,10 @@
 
 _Generated from release tags._
 
-## v4.66.21 (2026-10-15)
+## v4.66.22 … v4.66.21 (2026-10-15)
+
+### Refactors
+- refactor(baton): split oversized relay modules
 
 ### Other Changes
 - test: align Windows S4U fixture task identity
