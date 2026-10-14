@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.66.1 … v4.61.0 (2026-10-14)
+## v4.66.2 … v4.61.0 (2026-10-14)
 
 ### Features
 - feat(baton): read duo health from outcome summary
@@ -19,6 +19,7 @@ _Generated from release tags._
 - fix(ci): compare Windows smoke coverage with smoke baseline
 - fix(baton): relaunch dead duos on service startup
 - fix(claude): preserve launch-case trust key
+- fix(baton): clear cycle identity at the closed-cycle boundary and degrade stale closed keys to keyless relay
 
 ### Performance
 - perf(windows): cut fork tax on relay hot paths
