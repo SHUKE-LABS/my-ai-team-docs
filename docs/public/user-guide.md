@@ -1929,6 +1929,14 @@ result-file path, and the persisted result JSON (task id, status, exit code,
 elapsed time, and stdout/stderr tails) can be read when the completion wake
 arrives.
 
+After the explicit milestones, `bg-run` adds an informational heartbeat every
+15 minutes until the task ends or reaches `--max` (up to a bounded number of
+heartbeats). Running milestone wakes identify themselves as heartbeats and say
+that no action is required; act only on the completion wake or a failure
+diagnostic. If an unusually long task exceeds the heartbeat bound, its normal
+completion and timeout behavior still apply, but fresh heartbeat evidence is
+no longer guaranteed.
+
 **Failure diagnostics.** Wakes and results stay compact — they carry only a
 short tail of each stream. When a task ends in any non-success terminal state
 (`failed`, `timeout`, `cancelled`, or `aborted`), `bg-run` additionally
