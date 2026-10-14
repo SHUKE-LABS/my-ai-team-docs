@@ -8,8 +8,8 @@ and operator steering without a tmux server.
 
 - **baton ≥ 0.2.0** (the `service` control plane). **0.3.0** adds Windows
   service/task ownership — use 0.3.0+ on Windows. **Duo sessions additionally
-  require a baton ≥ 0.16.0, which carries batch mode through the service path
-  (`--agent-input` available on `baton service start`)**: the
+  require a baton ≥ 0.19.0, which carries batch mode and the per-role outcome
+  summary through the service path (`--agent-input` and `service outcome`)**: the
   launch verifies the client and any live service before provisioning a
   mailbox and refuses with the required version otherwise. Verify: `baton
   service
@@ -61,6 +61,27 @@ baton service status --control ~/.baton/service
 [baton's service docs](https://github.com/shukebeta/baton/blob/main/docs/service.md)
 for systemd, launchd, and Windows setup. A manually started service is reused
 by `mat` after its liveness is confirmed.
+
+**Windows start failures.** A Task Scheduler start only *submits* the task;
+success from `schtasks /run` does not mean the service is live. Each launch
+attempt writes its own log, `<control>/mat-baton-<id>.launcher.<unique>.log`,
+holding the launcher's output and any error from starting Git Bash, so a stale
+process holding an older log can never block a start. If the launcher cannot
+create its log or cannot start, it records the endpoint, log path and cause in
+the Windows Application event log (source `WSH`). When a launch reports that
+the service did not become live, check the newest attempt log, then:
+
+```powershell
+Get-WinEvent -FilterHashtable @{LogName='Application';ProviderName='WSH'} -MaxEvents 5
+```
+
+Attempt logs are small and are never deleted automatically.
+
+During an install or upgrade, Windows Run-key registration is only the
+login-time convenience path. If that registration fails but the direct launch
+succeeds, the install still completes and the relay remains running. The
+install reports failure only when it cannot leave the relay running; an
+already-running relay is preserved when its replacement cannot be proved safe.
 
 ## 3. Launch the session
 
@@ -141,7 +162,7 @@ comment is a failed cycle signal; PR comments are not the durable destination.
 ## 5. Watch it run
 
 ```bash
-mat agents                 # live sessions, kind + status (standby/busy/stranded/pausing/paused/resuming/live)
+mat agents                 # live sessions, kind + status (standby/busy/degraded/stranded/pausing/paused/resuming/live)
 mat baton status           # detailed read-only per-role health; add --json for automation
 mat baton watch            # repaint the same health view every 2 seconds (TTY only)
 mat baton show <session>   # backends, mailbox, worktree, serve sessions + pids
@@ -150,10 +171,17 @@ mat baton logs <session>   # one breadcrumb per operator action
 
 `mat baton watch` is read-only and refreshes the same health view every two
 seconds. It needs a TTY; use `--interval N` for a different positive interval.
-`[!!]` marks a stranded, crashed, stale, or otherwise degraded session.
-`Ctrl-C` exits cleanly. Use `mat baton status <session>` for one session and
+`[!!]` marks a stranded, crashed, stale, or otherwise degraded session, and a
+role whose latest reply was an error. Each role row shows that reply's kind as
+`last_reply`, and for an error the start of its text as `last_error`, so a role
+that fails every turn (for example on revoked GitHub credentials) does not read
+as healthy and idle. `Ctrl-C` exits cleanly. Use `mat baton status <session>` for one session and
 `mat baton show <session>` for its worktree, mailbox, and current transcripts;
-these status commands do not modify the session or query GitHub.
+these status commands do not modify the session or query GitHub. A status read
+has a shared 30-second budget for service and role-health probes. If Git Bash
+or a native probe stops answering, status still returns a schema-valid row with
+`probe_status: degraded`, a `probe_error`, and `null` for values it could not
+establish.
 
 ### How the two roles talk
 
@@ -207,6 +235,10 @@ The operator surface is `mat baton <verb> <session>` (interactive umbrella:
   the saved session state when its recorded worktree still exists as a
   directory. If it is missing or no longer a directory, restart names the path
   and asks you to relaunch the duo session; it does not recreate the worktree.
+  Restart also selects the GitHub account again from your current
+  configuration before it restarts either role, so a changed token variable or
+  owner mapping applies without a relaunch; if no account can be selected, it
+  refuses and leaves the session unchanged.
 - **Stop or reap** — `mat baton stop <session>` (halts serves, keeps state)
   preserves state; `mat baton teardown <session>` stops the services and removes
   the session state, durable queue, mailbox, and launch-created worktree after
@@ -225,7 +257,12 @@ The operator surface is `mat baton <verb> <session>` (interactive umbrella:
   envelope paths, warns that
   the messages will not be replayed, and records abandonment separately from
   successful completion. The durable audit remains available after teardown,
-  and the command prints its location.
+  and the command prints its location. Relaunching the same duo keeps that
+  audit: it moves, unchanged, from `abandonments/` into
+  `abandonments/history/` in the same location, and no longer blocks
+  `mat baton restart`. If the earlier teardown did not finish,
+  the relaunch is refused and names what remains; rerun
+  `mat baton teardown <session> --abandon-queue` first.
 
 ## 7. Known boundaries
 
@@ -257,9 +294,11 @@ launch the session again.
 
 ### `bg-run` says `task_host_session` is not live on control
 
-A Baton service restart (e.g. after a Windows service update) mints new
-session ids, so a recorded `task_host_session` can go stale even though the
-process behind it is still running. `bg-run` retries once automatically: it
+An operator-initiated Baton service restart can mint new session ids, so a
+recorded `task_host_session` can go stale even though the process behind it is
+still running. The normal Windows `mat upgrade` refresh is narrower: it restarts
+the host node only and verifies that live role session ids and pollers remain
+unchanged. `bg-run` retries once automatically: it
 looks for exactly one currently live session whose inbox matches this
 session's own task-host mailbox and, if found, updates the state file and
 proceeds — no operator action needed. If it finds zero or more than one
@@ -283,3 +322,29 @@ command. Running that command once the live sessions have ended clears the state
 
 - [Linux quickstart](quickstart-linux.md) / [macOS quickstart](quickstart-macos.md)
   — for the base install this guide assumes.
+
+## Worker failures and automatic wakes
+
+Two consecutive failed worker invocations mark the affected role as degraded.
+`mat baton status <session>` shows its latest diagnostic in `probe_error`; an
+idle live session reports `degraded`, even when its mailbox is `idle-done`.
+A successful invocation clears the failure streak.
+
+Two consecutive errors with the same diagnostic pause automatic wakes to that
+role. A GitHub auth error reporting `credential-unavailable` or `state-invalid`
+pauses them after the first failure. The next automatic health check sends one
+action alert naming the session, role, and error. Different errors remain
+visible and retry on the usual cadence. The pollers keep running while wakes
+are paused; restarting a poller or adding ready work does not clear the pause.
+
+Repair the reported cause, then run `mat baton restart <session>` to replace
+its role services and allow another attempt. A change to the session's recorded
+GitHub auth binding also allows another attempt. A successful manually submitted
+turn clears the failure and alert episode. Explicit operator messages and peer
+handoffs remain available. `mat baton resume <session>` handles an operator
+pause; it does not clear a worker-failure pause.
+
+Unreadable or malformed failure evidence shows unavailable health and defers
+automatic wakes. Status and watch commands only read health; they never notify
+or change it. Operator pause and crash status words retain precedence over
+`degraded`, with the failure diagnostic still visible.

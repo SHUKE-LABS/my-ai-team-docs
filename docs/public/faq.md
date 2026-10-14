@@ -40,7 +40,11 @@ its symlinks resolved to file copies, so Windows Git Bash needs no elevation or
 Developer Mode; a tarball built before that change is refused there fail-closed
 rather than installed with paths missing. The `tg-relay` Telegram relay installs
 automatically as a logon-triggered HKCU Run key entry on Windows Git Bash —
-no manual restart required after reboot.
+no manual restart required after reboot. Run `install.sh` from an administrator
+shell to start the relay and the session manager at boot instead, before anyone
+logs on. In that mode they, and the agents they host, run with full
+administrator rights, so manage them from an administrator shell; `mat doctor`
+shows which mode is active.
 
 ## Which backends and models does it use? Do I bring my own tokens?
 

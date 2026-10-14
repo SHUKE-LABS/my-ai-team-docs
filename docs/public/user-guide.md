@@ -614,6 +614,10 @@ Use these pinned anchors for operator-live paths:
 
 - `GIT_CONFIG_GLOBAL` — the operator's Git global configuration.
 - `GH_CONFIG_DIR` — the operator's GitHub CLI configuration.
+- `MAT_GH_AUTH_CONFIG_DIR` — pins the same directory as `GH_CONFIG_DIR` (or
+  your explicit value), so the `gh` credential gateway can find your GitHub CLI
+  accounts from the worker. mat sets it only when that directory is readable;
+  without one, the worker's `gh` refuses with the usual `gh auth login` remedy.
 - `MAT_HOST_SECRET_FILE` — the operator's host secret file.
 - `MAT_STATE_HOME` — mat's operator state directory.
 - `MAT_WORKTREE_ROOT` — the operator's worktree root.
@@ -818,10 +822,16 @@ credential helper for `github.com`. Agents, Baton workers and background tasks
 all reach GitHub through it, and it reads the selected account's credential
 fresh on every command, so a rotated token applies to the next command with no
 restart. If the credential is missing, empty or unreadable, the command is
-refused rather than run unauthenticated. On Windows, use Git Bash; setup also
+refused rather than run unauthenticated. Which account and credential source a
+Baton session uses is chosen at launch; after changing that choice (for example
+removing a token variable or remapping an owner), run
+`mat baton restart <session>` to choose again without relaunching. On Windows, use Git Bash; setup also
 supports GitHub CLI's native `gh.exe` and Git's Windows credential-helper paths.
-`mat doctor` shows a `gh gateway` line. If it warns or fails, run
-`install-gh-gateway` again (for example after upgrading `gh`).
+Agents whose shell is Windows PowerShell or PowerShell 7 also reach `gh`
+through the gateway, with its normal output and exit status.
+`mat doctor` shows a `gh gateway` line. If it warns or fails (for example after
+upgrading `gh`, or when it reports the PowerShell `gh` forwarder incomplete),
+run `install-gh-gateway` again.
 
 ### Refreshable GitHub App credentials for Baton
 
@@ -928,6 +938,12 @@ labelled by state:
 
 - **standby** — idle with a poller available, waiting for ready work (shows a
   best-effort idle duration).
+- **ghost** — the supervisor is still running, but its recorded tmux pane is
+  gone. The row names its session, backend, and missing pane, for example
+  `ghost (pane %1497 gone)`. It is excluded from `mat idle` and cannot receive
+  pane-based messages. Listing it does not stop the supervisor or release its
+  ownership protection. Older sessions whose tmux hosting cannot be confirmed
+  retain their local status until restarted.
 - **busy** — the agent is actively running a turn.
 - **interactive** — an `explore` or `live` pane running a manual REPL, with no
   idle/busy claim.
@@ -1179,6 +1195,13 @@ mat doctor
 It checks, one report line each:
 
 - `bash` ≥ 4.3, and `tmux` / `git` / `jq` / `curl` on `PATH`.
+- On Windows Git Bash, `jq` may be a native `jq.exe` (preferred) or an npm/pnpm
+  global-bin script shim. mat runs a pnpm shim's JavaScript target through
+  `node` with the arguments untouched; any other script shim runs with Git Bash
+  path conversion on and a warning that path-like `jq` arguments may be
+  rewritten. If `jq` cannot be launched at all (for example a
+  `Cannot find module` error), the backend check reports that with `jq`'s own
+  error and tells you to reinstall `jq`, rather than blaming `backends.json`.
 - `python3` and `PyYAML` (used by the GitHub issue helper), with a platform
   install hint when python3 is present but the `yaml` module is missing.
 - `gh` present **and** authenticated — an unauthenticated `gh` otherwise shows
@@ -1230,6 +1253,14 @@ Windows Git Bash/MSYS2 and unknown hosts use the conservative rule: use the
 printed scratch root and `mat scratch-file` for relay files. This keeps Bash,
 native tools, and agent file tools on one path. The runtime scratch commands and
 relay transport are the same on every platform.
+
+A relayed handoff must be a readable, non-empty file: `send-relay` checks the
+path before delivery and refuses — with a non-zero exit, nothing delivered —
+when the file is missing, unreadable, or empty. Write the file first, then send
+its path. The atomic writer form `mat scratch-file <name> --` prints the path
+only after the bytes are written, so it can never hand off a path without
+content behind it; the reservation form `mat scratch-file <name>` prints a path
+and creates nothing, so sending a reserved-but-unwritten path is refused.
 
 To send a handoff directly to a pane, `send-relay %<pane-id> <handoff-file>`
 also works outside a tmux client, such as from an SSH shell. Role-word targets
@@ -1314,8 +1345,10 @@ the session and reused when you rerun the same repo and slot.
 
 `explore` is the open-ended investigation mode: it runs with or without a repo,
 in its own dedicated home, and hands its findings off as tickets rather than
-code. Explore-created tickets start in a `refining` state — re-read for missing
-problem, approach, and acceptance detail before the session stops — and opening a
+code. Each explore pass ends a ticket in one of three states: `ready` once problem,
+approach, and acceptance criteria are concrete; `blocked`, with the open question
+written into the ticket body and one notification to you; or closed as a
+duplicate. A ticket never rests on `refining` after the pass, and opening a
 ticket ends the explore session instead of launching delivery.
 
 Explore and Audit gather concrete source and runtime evidence, test the leading
@@ -1331,6 +1364,13 @@ opens PRs, or merges. While parked, the pane shows an explicit
 last screen is cleared — and the pane border counts down `↻ mm:ss` to the next
 poll check, so a waiting worker is never mistaken for a dead one.
 
+It skips an issue already associated with an open PR, and also leaves the issue
+alone when that association cannot be verified; a later pass can reconsider it.
+If stale-claim recovery does reclaim a lock, it leaves an issue comment naming
+the reclaimed lock and latest heartbeat. A comment delivery failure does not
+undo the recovery. A live session also receives a diagnostic after repeated
+heartbeat failures, while its claim remains in place for retry.
+
 For a one-shot explore with a faster startup, use `--lean`; see [The `--lean`
 startup profile](#the---lean-startup-profile) for the contract and the
 prerequisite run.
@@ -1343,8 +1383,9 @@ each turn resumes the previous one — rather than from a living child, so a tur
 boundary is already a context boundary. Manual renewal (`/handover`,
 `/respawn`) is therefore unavailable there: it refuses rather than restarting
 the ticket. A ticket that never reaches an outcome is bounded by a per-ticket
-turn budget; when the budget runs out the hold is released and the ticket is
-left for the next pass. Set the budget with
+turn budget; when the budget runs out the ticket is marked `blocked` with an
+`## Open question` explaining why, you get one notification, and the hold is
+released, so it is not retried automatically. Set the budget with
 `MAT_EXPLORE_AUTO_REFINE_MAX_TURNS`, and the per-turn time limit with
 `MAT_EXPLORE_AUTO_REFINE_TURN_TIMEOUT`. Pick a backend whose CLI supports
 headless turns; one that does not is refused at launch.
@@ -1780,12 +1821,12 @@ neither setting is present, nothing changes.
   remote host's `PATH` for non-interactive ssh commands, which read neither
   `~/.profile` nor an interactive `~/.bashrc`. It decides how the message reaches
   the oncall agent.
-- **The forward never blocks or fails the send.** Telegram delivery comes first
-  and does not depend on the forward. The ssh runs detached from the calling
-  agent with a 15-second limit, so it finishes even after the agent's tool call
-  ends. A failure, a timeout, or a forward mat cannot start adds a
-  `devops_forward status=fail` line to the notification log. The message and
-  `notify-user`'s exit status stay unchanged.
+- **The forward does not change the notification result.** Telegram delivery
+  comes first and does not depend on the forward. Once accepted, the forward
+  continues after the agent's tool call ends, with a 15-second SSH limit. If a
+  local session has no live owner to accept it, the notification log records a
+  `carrier-unavailable` failure. Forward failures do not change the Telegram
+  message or `notify-user`'s exit status.
 - **Set `MAT_DEVOPS_SELF=1` on the receiving host.** Agents there then never
   forward to themselves, even when a copied configuration also sets the host.
 
@@ -1888,6 +1929,14 @@ result-file path, and the persisted result JSON (task id, status, exit code,
 elapsed time, and stdout/stderr tails) can be read when the completion wake
 arrives.
 
+After the explicit milestones, `bg-run` adds an informational heartbeat every
+15 minutes until the task ends or reaches `--max` (up to a bounded number of
+heartbeats). Running milestone wakes identify themselves as heartbeats and say
+that no action is required; act only on the completion wake or a failure
+diagnostic. If an unusually long task exceeds the heartbeat bound, its normal
+completion and timeout behavior still apply, but fresh heartbeat evidence is
+no longer guaranteed.
+
 **Failure diagnostics.** Wakes and results stay compact — they carry only a
 short tail of each stream. When a task ends in any non-success terminal state
 (`failed`, `timeout`, `cancelled`, or `aborted`), `bg-run` additionally
@@ -1927,13 +1976,16 @@ waits for cleanup to finish. The worker skips any record another process is
 using and leaves it for a later submission's worker. A worker runs for at most
 about two minutes before it is stopped.
 
-**Session teardown.** When a session ends while one of its baton tasks is still
-running, `bg-run` finalizes that task from the teardown itself rather than
-leaving it orphaned: it stops the task and commits the durable result (and its
-diagnostics) to the same result-file path the task was promised, so a later
-reader finds the outcome where it was expected. Because the originating turn is
-already gone, a teardown-finalized task records only the result — **no**
-completion wake, envelope, or relay is sent. Two outcomes are distinct here:
+**Session teardown.** When a session ends while a Baton task is still running,
+`bg-run` finalizes it from teardown rather than leaving it orphaned: it stops
+the task and commits the durable result (and diagnostics) to the promised result
+path. Because the originating turn is already gone, a teardown-finalized Baton
+task records only the result — **no** completion wake, envelope, or relay is
+sent. A local adhoc supervisor also stops its accepted tasks at teardown and
+commits their results with `status: aborted`; it retains their terminal receipts
+in the session inbox after clearing the rest of its temporary state. A local
+task is not left running after its supervisor exits. Two Baton outcomes are
+distinct here:
 
 - *The result commits, diagnostics may be `unreadable`.* If the diagnostic
   source cannot be read back at teardown, the result still commits **once**, with
@@ -1979,9 +2031,14 @@ from before this scheme (no identity fields) always deliver, and a task whose
 record is missing or unreadable delivers too — rejection requires a live record
 that positively names a replacement. When available, a background task keeps
 the invoking Duo role's issue association even when it runs from a worktree
-whose branch has no issue number.
-A late result is delivered while that issue cycle is still current, regardless
-of its age.
+whose branch has no issue number. Duo Baton dev and reviewer tasks resolve that
+association from the first available source: an explicitly assigned issue key,
+the launch branch, the validated active cycle, then the submitting role's
+uniquely verified live issue claim. If the claim cannot be verified as one
+issue, the task stays keyless. A late terminal still wakes the role after ten
+minutes when the issue is confirmed current; without positive current workflow
+evidence, an old notification may be suppressed while its result remains
+available.
 
 A milestone that reaches Baton after its task has already ended does not create
 another wake; the completion event carries the task's final outcome. A wake for
@@ -2004,16 +2061,84 @@ stale and superseded suppression, and wake-delivery failures are recorded in
 contains no command output, is limited to 1 MiB, and keeps one rotated file at
 `bg-run.log.1`.
 
-`bg-run` is available on tmux and baton sessions, which have a wake channel. On a
-headless local turn it is unavailable — use `nohup <command> >validation.log 2>&1
-& disown` from a foreground call and confirm from the log instead.
+`bg-run` is available on tmux and Baton sessions, and from a child running in a
+live supervised local adhoc session. Local adhoc tasks are owned by the
+supervisor; milestone and terminal receipts go to the session inbox, and the
+submission returns the durable result-file path. The local provider rejects
+direct and non-adhoc local invocations. For a standalone headless local command,
+use `nohup <command> >validation.log 2>&1 & disown` from a foreground call and
+confirm from the log instead.
 
 To deliberately stop a task before it finishes, run `bg-run --cancel <task-id>`
 (the task id from the original launch or a milestone wake, while the task is
-still running). This delivers a `status: cancelled` completion wake instead of
-waiting for the command to finish or `--max` to elapse; cancelling an unknown
-or already-completed task id fails closed with a diagnostic and changes
-nothing.
+still running). This delivers a `status: cancelled` completion wake (or a local
+inbox receipt) instead of waiting for the command to finish or `--max` to
+elapse; cancelling an unknown or already-completed task id fails closed with a
+diagnostic and changes nothing.
+
+### win-kill-tree — stop a Windows process tree
+
+On Windows Git Bash and MSYS2, `taskkill /T` follows native parent links, which
+an MSYS fork/exec can break, so a successful `taskkill /T` does not prove a
+Bash-launched tree is gone. `win-kill-tree` stops a tree and then rescans until
+no process it owned is left:
+
+```bash
+win-kill-tree --msys-pid 4242            # MSYS PID, as shown by ps
+win-kill-tree --winpid 13376             # native Windows PID
+win-kill-tree --tag run-abc12345         # every process whose command line contains the string
+win-kill-tree --winpid 13376 --term-grace 3 --deadline 20 --passes 4
+```
+
+A bare number is treated as `--pid`, which is refused when it names both an MSYS
+PID and a different native PID. Options:
+
+- `--expect-generation <id:ticks>` kills only if the target still has that
+  creation identity, so a reused PID is never touched.
+- `--term-grace <seconds>` sends a polite TERM to MSYS processes before the
+  forced kill.
+- `--passes <n>` (default 3) and `--deadline <seconds>` (default 30) bound the
+  work; the command fails rather than loop forever.
+- `--detach-if-contained` lets a caller that is itself inside the target tree
+  start an independent executor instead of killing itself; `--log <file>`
+  receives that executor's output.
+- `--detach` always hands the kill to an independent executor, without first
+  checking whether the caller is inside the target tree.
+
+Limits: the tree is captured from the target while it is alive, so a process
+that has already detached from a dead root cannot be recovered by PID — use
+`--tag` for that. `--tag` matches a literal, case-sensitive substring of the
+process command line (at least eight non-whitespace characters) and also stops
+the matches' descendants. The command never kills itself or its own ancestors.
+
+Exit status: `0` the tree is gone (or was already absent); `1` the stop was
+refused, the process table was unavailable or incomplete, a live process's
+identity could not be read, or owned processes survived;
+`2` usage error or ambiguous PID; `3` the work was handed to an independent
+executor and has not been confirmed. On Linux and macOS the command is not
+needed — ordinary process groups and signals apply.
+
+#### Blocked cleanup commands
+
+On backends with a shell-command hook, agent sessions refuse the cleanup forms
+that this section warns about, before the command runs, and point at
+`win-kill-tree`:
+
+- `taskkill` with `/T` (or `//T`), in any option order.
+- Image-name kills: `taskkill /IM` or `/FI "IMAGENAME eq <name>"`,
+  `Stop-Process -Name <name>`, `pkill <name>`, and a `Where-Object Name -eq`
+  selection piped to `Stop-Process`. These kill every process with that name,
+  including a CI watchdog's `sleep` on a shared host.
+
+Matching ignores case and accepts a path-qualified executable name. PID-targeted
+commands such as `taskkill //PID 1234 //F` and `Stop-Process -Id 1234` stay
+allowed, as do `win-kill-tree` itself and text that only mentions these commands
+(quoted prose, comments, heredoc bodies). Use `win-kill-tree <pid>` for a known
+process, or start your own processes with a unique string in their command line
+and stop them with `win-kill-tree --tag <your-unique-tag>`. There is no override
+variable. The `opencode` and `freebuff` backends expose no hook surface, so
+this guard does not cover them; a command typed directly in your own shell is
+never filtered.
 
 ### Dispatch daemon
 
@@ -2266,7 +2391,7 @@ This keeps the server alive without a resident session; run
 ## Upgrading
 
 ```bash
-mat upgrade [--list|--to <version>|--check|--force|--when-idle|--when-idle-unbounded|--override-locked]
+mat upgrade [--list|--to <version>|--check|--force|--when-idle|--when-idle-unbounded|--override-locked|--no-service-restart]
 mat upgrade --check       # report installed vs. offered version; change nothing
 mat upgrade               # fetch and install the latest release for your license
 mat upgrade --force       # reinstall even when already current
@@ -2279,9 +2404,26 @@ host). It validates the license, fetches a signed release tarball, and installs
 it in place over `~/.local/share/my-ai-team/`; your configuration and agent homes
 are untouched. Plain `mat` and every mode invocation never touch the network.
 
-Running agents keep the runtime they launched with, so upgrade between cycles. On
-systemd and OpenRC hosts also restart the Telegram relay service so the daemon
-runs the code you just deployed.
+Running agents keep the runtime they launched with, so upgrade between cycles.
+After a successful upgrade,
+stale managed Baton host services are refreshed and restarted when the host is
+quiet. The turn check is strict: only an empty `mat agents --json` array or
+rows whose status is exactly `standby` are idle; an unavailable or malformed
+status is busy. Windows verifies that live role session IDs and pollers survive
+the node restart, and never rewrites a running service's launcher in place: the
+refreshed launcher is staged beside it while the service runs and replaces it
+only after the node reports itself stopped, immediately before the restart. A
+busy or unverifiable service is left running and the
+output gives its exact manual restart command — on Windows that command is
+`MAT_BATON_CONTROL_DIR='<control-dir>' mat baton service restart`, which stops
+the service, publishes the staged launcher and starts it again. If the service
+does not report itself stopped, it is left running on its current launcher and
+its sessions are untouched. This gate is host-global: an
+open `explore`, `live`, or caucus session is also busy even when the stale
+service itself has no role turn. Use `--when-idle` to wait for quiet before
+that decision, or `--no-service-restart` to always leave stale services for
+manual action. On systemd and OpenRC hosts also restart the Telegram relay
+service so the daemon runs the code you just deployed.
 
 To roll back, pick a version from `mat upgrade --list` and install it with
 `mat upgrade --to <version>`; it uses the same verified in-place path, and how
