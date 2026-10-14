@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.66.19 … v4.61.0 (2026-10-14)
+## v4.66.20 … v4.61.0 (2026-10-14)
 
 ### Features
 - feat(baton): read duo health from outcome summary
@@ -33,6 +33,7 @@ _Generated from release tags._
 - fix(docs-projection): handle public API rate limits
 - fix(baton): guard nested recovery scans
 - fix: require CI aggregate for required-green wait
+- fix(baton): retire closed-cycle recovery requests
 
 ### Performance
 - perf(windows): cut fork tax on relay hot paths
