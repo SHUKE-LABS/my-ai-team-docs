@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.66.34 … v4.66.21 (2026-10-15)
+## v4.66.35 … v4.66.21 (2026-10-15)
 
 ### Fixes
 - fix(baton): write bg-run result before the terminal wake; retire settled bgtask rows
@@ -16,6 +16,7 @@ _Generated from release tags._
 - fix(install): converge busy Windows installs and upgrades without an operator
 - fix(test): preserve resolved coreutils in baton PATH fixture
 - fix(test): keep recorded task host listed in duo recovery intruder step
+- fix(test): delay bounded wait watchdog kill
 
 ### Refactors
 - refactor(baton): split oversized relay modules
