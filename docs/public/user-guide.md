@@ -2420,15 +2420,18 @@ After a successful upgrade,
 stale managed Baton host services are refreshed and restarted when the host is
 quiet. The turn check is strict: only an empty `mat agents --json` array or
 rows whose status is exactly `standby` are idle; an unavailable or malformed
-status is busy. Windows verifies that live role session IDs and pollers survive
-the node restart, and never rewrites a running service's launcher in place: the
+status is busy. Windows verifies that every running duo's role sessions and
+pollers come back after the node restart, waiting up to two minutes
+(`MAT_INSTALL_POLLER_VERIFY_WAIT_SECONDS`) for them; other Baton sessions are
+listed in the output but do not fail the upgrade. Windows never rewrites a
+running service's launcher in place: the
 refreshed launcher is staged beside it while the service runs and replaces it
 only after the node reports itself stopped, immediately before the restart. A
 service left stale because the host is busy is not abandoned on Windows: the
 installer arms a deferred converge job for it. The job re-checks the host
 periodically for up
 to two hours (`MAT_INSTALL_DEFERRED_RESTART_WAIT_SECONDS`), restarts the
-service at the first quiet moment, verifies its session IDs and pollers, and
+service at the first quiet moment, verifies its duo sessions and pollers, and
 sends you one notification per failed attempt. If the wait bound passes with
 the host still busy, the job restarts the Windows node service anyway, keeping
 session IDs intact. Outside Windows a busy service is left running and the
