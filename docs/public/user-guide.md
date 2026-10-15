@@ -2001,7 +2001,14 @@ distinct here:
 `bg-run` admits at most one in-flight task per (caller, command) pair: a second
 submission of the same command returns the existing task rather than launching a
 duplicate. A milestone or completion wake is evidence of an existing task — do
-not resubmit the same command on a wake. Use `--retry` for a deliberate rerun.
+not resubmit the same command on a wake. The duplicate status line keeps the
+machine-readable `task_id=... result=... deduplicated=true` prefix and adds
+`age=<seconds>s state=<state>`. `age` is the age of the matched admission
+record; for a cleared tombstone it starts when that tombstone was written, not
+when the original submission began. `state=active` means the classifier still
+has a live owner (including a live Baton task); `uncommitted_fresh` identifies
+the short reservation grace window before provider liveness is probed.
+Use `--retry` for a deliberate rerun.
 
 **Retries, attempt identity, and stale wakes.** `--retry` replaces the running
 task behind the same admission slot. Every admission record carries three
@@ -2413,16 +2420,25 @@ status is busy. Windows verifies that live role session IDs and pollers survive
 the node restart, and never rewrites a running service's launcher in place: the
 refreshed launcher is staged beside it while the service runs and replaces it
 only after the node reports itself stopped, immediately before the restart. A
-busy or unverifiable service is left running and the
-output gives its exact manual restart command — on Windows that command is
-`MAT_BATON_CONTROL_DIR='<control-dir>' mat baton service restart`, which stops
-the service, publishes the staged launcher and starts it again. If the service
+service left stale because the host is busy is not abandoned on Windows: the
+installer arms a deferred converge job for it. The job re-checks the host
+periodically for up
+to two hours (`MAT_INSTALL_DEFERRED_RESTART_WAIT_SECONDS`), restarts the
+service at the first quiet moment, verifies its session IDs and pollers, and
+sends you one notification per failed attempt. If the wait bound passes with
+the host still busy, the job restarts the Windows node service anyway, keeping
+session IDs intact. Outside Windows a busy service is left running and the
+output gives its exact manual restart command. (The same restart is also
+available by hand on Windows:
+`MAT_BATON_CONTROL_DIR='<control-dir>' mat baton service restart` stops
+the service, publishes the staged launcher and starts it again.) If the service
 does not report itself stopped, it is left running on its current launcher and
 its sessions are untouched. This gate is host-global: an
 open `explore`, `live`, or caucus session is also busy even when the stale
 service itself has no role turn. Use `--when-idle` to wait for quiet before
-that decision, or `--no-service-restart` to always leave stale services for
-manual action. On systemd and OpenRC hosts also restart the Telegram relay
+that decision. `--no-service-restart` skips only the Baton service restarts —
+the Telegram relay is still recovered by the same deferred job. On systemd and
+OpenRC hosts also restart the Telegram relay
 service so the daemon runs the code you just deployed.
 
 To roll back, pick a version from `mat upgrade --list` and install it with
@@ -2439,10 +2455,16 @@ Before migrating a license to another machine, release this host's slot with
 
 On Windows, an in-place upgrade can hit files a running session still holds open.
 `mat upgrade --when-idle` waits for running sessions to go quiet first (up to
-five minutes; `--when-idle-unbounded` removes the ceiling). When sessions are
+five minutes; `--when-idle-unbounded` removes the ceiling). Before deciding,
+the installer probes the agent status with a bounded timeout (one minute by
+default, `MAT_INSTALL_IDLE_PROBE_TIMEOUT_SECONDS`); a probe that does not
+answer in time counts as busy, so a loaded host is never interrupted. When
+sessions are
 busy, the installer leaves the resident relay running and upgrades files in
-place; it ensures the relay is running with the installed files when the install
-finishes. When sessions are idle, the installer briefly stops the relay and
+place. If the running relay could not be replaced with the installed files
+before the install finishes, the same deferred converge job retries the
+replacement (three attempts) and notifies you if it still could not. When
+sessions are idle, the installer briefly stops the relay and
 attempts an atomic directory swap. If the relay starts again during that
 attempt, the installer waits briefly and retries; it falls back to the in-place
 upgrade only if the swap still cannot complete. The relay is briefly unavailable
