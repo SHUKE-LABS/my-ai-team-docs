@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v4.66.48 (2026-10-16)
+## v4.66.49 … v4.66.48 (2026-10-16)
 
 ### Fixes
 - fix(test): isolate three Windows core-lane cases from host state
+- fix(test): reap timeout-wrapped suites when a case-profile run is cancelled
 
 ## v4.66.47 … v4.66.21 (2026-10-15)
 
