@@ -348,3 +348,11 @@ Unreadable or malformed failure evidence shows unavailable health and defers
 automatic wakes. Status and watch commands only read health; they never notify
 or change it. Operator pause and crash status words retain precedence over
 `degraded`, with the failure diagnostic still visible.
+
+Idle recovery also respects that safety boundary. It never wakes a role whose
+automatic wakes are paused, and it does not spend a resend on unavailable or
+unverified health. Instead, the recovery window is recorded and one action
+alert is sent after three consecutive idle windows if the gate remains. A
+recovery resend that was already delivered still proceeds to the next safe
+resend or escalation after a terminal/no-output turn, so an open stall does not
+go quiet.
