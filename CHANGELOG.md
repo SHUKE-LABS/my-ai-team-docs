@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.66.55 … v4.66.48 (2026-10-16)
+## v4.66.56 … v4.66.48 (2026-10-16)
 
 ### Fixes
 - fix(test): isolate three Windows core-lane cases from host state
@@ -12,6 +12,7 @@ _Generated from release tags._
 - fix(baton): recover terminal idle stalls safely
 - fix(local): keep an acked renewal KILL recoverable after a transient supervisor failure
 - fix(leg): default LEG_TIMEOUT_SECS to turn scale
+- fix(ci): close recovered tracker issues on green waves
 
 ### Other Changes
 - test: cover prompt and origin-only PR residue
