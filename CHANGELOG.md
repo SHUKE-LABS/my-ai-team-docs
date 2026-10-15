@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.66.41 … v4.66.21 (2026-10-15)
+## v4.66.42 … v4.66.21 (2026-10-15)
 
 ### Fixes
 - fix(baton): write bg-run result before the terminal wake; retire settled bgtask rows
@@ -32,6 +32,7 @@ _Generated from release tags._
 - test: align Windows S4U fixture task identity
 - test(baton): raise nested recovery scan timeout
 - ci: replace required lane evidence on rerun
+- test(baton-service): fix five Windows-load flaky cases
 
 ## v4.66.20 … v4.61.0 (2026-10-14)
 
