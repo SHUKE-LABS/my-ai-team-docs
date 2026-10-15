@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.66.36 … v4.66.21 (2026-10-15)
+## v4.66.37 … v4.66.21 (2026-10-15)
 
 ### Fixes
 - fix(baton): write bg-run result before the terminal wake; retire settled bgtask rows
@@ -21,6 +21,9 @@ _Generated from release tags._
 
 ### Refactors
 - refactor(baton): split oversized relay modules
+
+### Docs
+- docs(ci): document real-host pending dispatch behavior
 
 ### Other Changes
 - test: align Windows S4U fixture task identity
