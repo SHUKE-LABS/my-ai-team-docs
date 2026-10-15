@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.66.54 … v4.66.48 (2026-10-16)
+## v4.66.55 … v4.66.48 (2026-10-16)
 
 ### Fixes
 - fix(test): isolate three Windows core-lane cases from host state
@@ -11,6 +11,7 @@ _Generated from release tags._
 - fix(prompts): cost means money; priority/scheduling never blocks side findings
 - fix(baton): recover terminal idle stalls safely
 - fix(local): keep an acked renewal KILL recoverable after a transient supervisor failure
+- fix(leg): default LEG_TIMEOUT_SECS to turn scale
 
 ### Other Changes
 - test: cover prompt and origin-only PR residue
