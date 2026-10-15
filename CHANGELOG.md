@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.66.30 … v4.66.21 (2026-10-15)
+## v4.66.31 … v4.66.21 (2026-10-15)
 
 ### Fixes
 - fix(baton): write bg-run result before the terminal wake; retire settled bgtask rows
@@ -12,6 +12,7 @@ _Generated from release tags._
 - fix(adhoc): size the renewal completion guard above the acceptance bar
 - fix(baton): open queue-audit envelopes through mixed paths on Windows
 - fix(baton): stop the Windows node by exact PID on host-service restart
+- fix(bg-run): reconcile baton tombstones safely
 
 ### Refactors
 - refactor(baton): split oversized relay modules
