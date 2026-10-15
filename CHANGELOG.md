@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.66.35 … v4.66.21 (2026-10-15)
+## v4.66.36 … v4.66.21 (2026-10-15)
 
 ### Fixes
 - fix(baton): write bg-run result before the terminal wake; retire settled bgtask rows
@@ -17,6 +17,7 @@ _Generated from release tags._
 - fix(test): preserve resolved coreutils in baton PATH fixture
 - fix(test): keep recorded task host listed in duo recovery intruder step
 - fix(test): delay bounded wait watchdog kill
+- fix(backends): hand leg headless turns their role prompt
 
 ### Refactors
 - refactor(baton): split oversized relay modules
