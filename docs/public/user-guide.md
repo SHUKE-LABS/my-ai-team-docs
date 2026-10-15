@@ -590,6 +590,10 @@ leg is passed such a token as a bearer token, but every turn fails with a
 `rate_limit_error`. Other Anthropic credential variables in your shell do not
 reach leg.
 
+Every leg turn carries the role's instructions (the entry's `prompt_file` in
+the role home) as its system prompt. A turn whose role instructions are missing
+or empty fails before leg starts.
+
 Each role keeps its own leg session store under its role home, so roles never
 share a conversation. A task's later turns continue its session; if leg reports
 that session is gone, mat starts that turn in a new session once.
