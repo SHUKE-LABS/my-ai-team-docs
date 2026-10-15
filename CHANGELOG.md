@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.66.38 … v4.66.21 (2026-10-15)
+## v4.66.39 … v4.66.21 (2026-10-15)
 
 ### Fixes
 - fix(baton): write bg-run result before the terminal wake; retire settled bgtask rows
@@ -19,6 +19,7 @@ _Generated from release tags._
 - fix(test): delay bounded wait watchdog kill
 - fix(backends): hand leg headless turns their role prompt
 - fix(baton): never fence a live duo on an unknown read or a stale ref
+- fix(agents): list a legacy state once when its tmux agent is live
 
 ### Refactors
 - refactor(baton): split oversized relay modules
