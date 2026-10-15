@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.66.45 … v4.66.21 (2026-10-15)
+## v4.66.46 … v4.66.21 (2026-10-15)
 
 ### Fixes
 - fix(baton): write bg-run result before the terminal wake; retire settled bgtask rows
@@ -24,6 +24,7 @@ _Generated from release tags._
 - fix(install): prove duo sessions, not raw Baton ids, after a Windows restart
 - fix(test): fence test suites off the live Baton service
 - fix(notify): skip system action breadcrumbs
+- fix: adopt origin-only assigned PR recovery
 
 ### Refactors
 - refactor(baton): split oversized relay modules
