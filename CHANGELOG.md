@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.66.43 … v4.66.21 (2026-10-15)
+## v4.66.44 … v4.66.21 (2026-10-15)
 
 ### Fixes
 - fix(baton): write bg-run result before the terminal wake; retire settled bgtask rows
@@ -22,6 +22,7 @@ _Generated from release tags._
 - fix(agents): list a legacy state once when its tmux agent is live
 - fix(agents): route empirical blockers and trackerless CI red to ready tickets
 - fix(install): prove duo sessions, not raw Baton ids, after a Windows restart
+- fix(test): fence test suites off the live Baton service
 
 ### Refactors
 - refactor(baton): split oversized relay modules
