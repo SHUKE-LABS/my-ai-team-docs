@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.67.4 (2026-10-17)
+
+### Fixes
+- fix(leg): pass context_window_size as LEG_CONTEXT_WINDOW_TOKENS
+
 ## v4.67.3 … v4.66.48 (2026-10-16)
 
 ### Features
