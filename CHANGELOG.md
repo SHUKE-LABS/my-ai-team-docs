@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.67.2 … v4.66.48 (2026-10-16)
+## v4.67.3 … v4.66.48 (2026-10-16)
 
 ### Features
 - feat(audit): share progress in ledger
@@ -16,6 +16,7 @@ _Generated from release tags._
 - fix(local): keep an acked renewal KILL recoverable after a transient supervisor failure
 - fix(leg): default LEG_TIMEOUT_SECS to turn scale
 - fix(ci): close recovered tracker issues on green waves
+- fix(ci): share one Windows tracker per lane despite search-index lag
 
 ### Other Changes
 - test: cover prompt and origin-only PR residue
