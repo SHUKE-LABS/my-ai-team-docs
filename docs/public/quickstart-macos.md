@@ -243,7 +243,7 @@ launchctl kickstart -k gui/$(id -u)/com.my-ai-team.tg-relay
 launchctl bootout gui/$(id -u)/com.my-ai-team.tg-relay
 ```
 
-Within a few seconds the bot messages you `[tg-relay] active on <host>`. If it
+Within a few seconds the bot messages you `active` under a `<host> · tg-relay` header. If it
 doesn't, tail the log:
 
 ```bash

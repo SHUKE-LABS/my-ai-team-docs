@@ -191,7 +191,7 @@ On an OpenRC host, use the user-service command instead:
 rc-service --user tg-relay status   # expect: status: started
 ```
 
-Within a few seconds the bot messages you `[tg-relay] active on <host>`. The
+Within a few seconds the bot messages you `active` under a `<host> · tg-relay` header. The
 systemd install also enables linger automatically so the relay survives logout;
 OpenRC keeps the user service enabled in the user's default runlevel. If the
 service is not started, re-run `mat doctor` for the platform-specific fix. A

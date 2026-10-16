@@ -1669,7 +1669,7 @@ back to the exact agent that spoke.
 ### Enabling it
 
 Follow your platform quickstart's Telegram step — it takes you from nothing to
-`[tg-relay] active on <host>` arriving in Telegram. On Linux, the relay user
+an `active` message under a `<host> · tg-relay` header arriving in Telegram. On Linux, the relay user
 service is installed and started for you at install time: systemd is preferred,
 with OpenRC user services used when no systemd user manager is reachable. The
 reference below applies once the relay is running.
@@ -1707,11 +1707,40 @@ action: ensure exactly one relay owns the token.
 
 ### Replying from Telegram
 
-Every agent message is prefixed with its originating pane id and suffixed with a
-single `(role - nick - project - host)` identity group, e.g.
-`#5 hello (audit - cch - myproj - xps)`. To talk back to that exact agent, **reply** to
-its message in Telegram — the relay routes your reply straight to that pane,
-regardless of which project was last active.
+Every message starts with one header line saying where it came from, and the
+message itself follows on the next line:
+
+```
+<host> · <project> · <role>/<backend> · <address>[ (<reachability>)]
+<message>
+```
+
+For example:
+
+```
+xps · myproj · audit/cch · #5
+hello
+```
+
+Fields are always in this order, and a field that is unknown is left out
+together with its ` · ` separator. The address says how to reach the sender:
+
+| Sender | Address | Reachability |
+|---|---|---|
+| An agent in a tmux pane | `#<pane-number>` | — (reply to it) |
+| A background task | `#<session> @<role>` (or `#<session>`) | `(no reply)` |
+| A Baton or `local` worker you can answer | `<driver>:<session>:<role>` | `(reply only)` |
+| Any other session with no pane | `<driver>:<session>:<role>` | `(view only)` |
+| A session start notice | `#<session>` | — |
+| The relay itself | none (`<host> · tg-relay`) | — |
+
+`(reply only)` means you answer by replying to that message; there is no prefix
+you can type to reach that worker. `(no reply)` and `(view only)` messages
+cannot be answered by reply.
+
+To talk back to an agent in a pane, **reply** to its message in Telegram — the
+relay routes your reply straight to that pane, regardless of which project was
+last active.
 
 After a successful reply, plain unprefixed follow-ups stay on that same pane. If
 that pane has exited, the relay refuses the follow-up with recovery guidance
@@ -1733,7 +1762,8 @@ named` versus `cannot confirm session` with the cause.
 A team session announces its panes when it starts:
 
 ```
-session #myproj_team_ccw started — dev %5, planner %6, reviewer %7
+xps · myproj · session · #myproj_team_ccw
+started — dev #5, planner #6, reviewer #7
 ```
 
 Reply to that start message to hand the team its first task (it lands on the
@@ -1749,14 +1779,19 @@ reply comes back as a message, per follow-up, not into a pane you cannot see —
 until you type into the pane directly or say you are back at the console.
 
 Some messages come from a **background task** rather than a pane — a long merge
-or test run an agent submitted to run on its own. Those carry an explicit origin
+or test run an agent submitted to run on its own. Those carry the session
 instead of a pane number, e.g.
-`[tmux:myproj_duo_ccw_cch:reviewer] merge completed (reviewer - cch - myproj - xps)`.
+
+```
+xps · myproj · reviewer/cch · #myproj_duo_ccw_cch @reviewer (no reply)
+merge completed
+```
+
 The identity is the submitting agent's own, and the project is the checkout the
 task ran in — never whichever pane happened to be focused at the time. A
-background task has no pane to answer on, so these messages are one-way:
-replying to one is refused, and you re-target with `#<session>` or
-`#<pane-number>` to reach the agent itself.
+background task has no pane to answer on, so replying to one is refused. To
+reach the agent itself, send a new message starting with the address as
+printed (`#myproj_duo_ccw_cch @reviewer ...`), or with `#<pane-number>`.
 
 If you reply to a message the relay can't place — a control message, a
 background task's message, or one that has scrolled out of the index — it says
@@ -1766,10 +1801,15 @@ prefix rather than guessing.
 #### Replying to a session with no pane
 
 A session started with `mat.driver = local` has no tmux pane, so its messages
-carry an explicit origin instead of a pane number, e.g.
-`[local:myproj_cch_adhoc:adhoc] needs review (adhoc - cch - myproj - xps)`.
+carry a `local:<session>:<role>` address instead of a pane number, e.g.
+
+```
+xps · myproj · adhoc/cch · local:myproj_cch_adhoc:adhoc (reply only)
+needs review
+```
+
 Whether you can reply depends on whether that mode has anywhere to receive an
-answer:
+answer, and the header says which: `(reply only)` or `(view only)`.
 
 - **`adhoc` and `audit`** accept replies. Your reply becomes the input to that
   session's next agent turn, on that exact session and role — never on whichever
@@ -1807,8 +1847,8 @@ a usage error rather than being sent as text.
 
 Most `notify-user` traffic is FYI — a PR opened, a cycle finished, a queue
 idling. A few messages need *you*: a decision to make, a blocker to unblock, a
-review only you can perform. Those carry a leading **`❗ACTION:`** marker, so you
-can scan a stream of notifications and see at a glance which ones are waiting on
+review only you can perform. Those carry a leading **`❗ACTION:`** marker at the
+start of the header line, so you can scan a stream of notifications and see at a glance which ones are waiting on
 you. Reply to a marked message the same way you reply to any other — the marker
 is a signal to you, not a change in routing.
 
@@ -1824,9 +1864,14 @@ git config --global mat.devopsHost <ssh-alias>   # or export MAT_DEVOPS_HOST
 
 `MAT_DEVOPS_HOST` overrides the git setting. After every `notify-user --action`
 send, mat runs `ssh <ssh-alias> oncall-inbox` and passes the message on standard
-input, exactly as it went to Telegram plus a final newline: the `❗ACTION:` marker, the pane prefix,
-and the identity suffix. Plain `notify-user` messages are not forwarded. When
-neither setting is present, nothing changes.
+input, exactly as it went to Telegram plus a final newline: the `❗ACTION:` marker
+and header line, then the message on the following lines. Plain `notify-user`
+messages are not forwarded. When neither setting is present, nothing changes.
+
+> **Format change.** Earlier releases sent a single line with a pane prefix
+> and a trailing `(role - backend - project - host)` group. An `oncall-inbox`
+> script that parsed that shape must now read the first line as the header and
+> the rest as the message.
 
 - **`oncall-inbox` is yours to provide.** mat does not ship it. It must be on the
   remote host's `PATH` for non-interactive ssh commands, which read neither

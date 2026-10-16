@@ -2,7 +2,10 @@
 
 _Generated from release tags._
 
-## v4.67.4 (2026-10-17)
+## v4.68.0 … v4.67.4 (2026-10-17)
+
+### Features
+- feat(notify): unify Telegram message metadata into one leading header line
 
 ### Fixes
 - fix(leg): pass context_window_size as LEG_CONTEXT_WINDOW_TOKENS
