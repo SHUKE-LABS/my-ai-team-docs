@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.67.1 … v4.66.48 (2026-10-16)
+## v4.67.2 … v4.66.48 (2026-10-16)
 
 ### Features
 - feat(audit): share progress in ledger
@@ -20,6 +20,7 @@ _Generated from release tags._
 ### Other Changes
 - test: cover prompt and origin-only PR residue
 - chore(ci): retire release-backfill-manifests and the Windows real-acceptance wrapper
+- ci: pin every upload-artifact to retention-days: 3
 
 ## v4.66.47 … v4.66.21 (2026-10-15)
 
