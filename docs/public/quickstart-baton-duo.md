@@ -212,8 +212,9 @@ The operator surface is `mat baton <verb> <session>` (interactive umbrella:
   needed. Queued steering resolves the conversation when the role handles it,
   after any turn already running. Use `--inbox` only for a wedged role when
   normal routing cannot deliver.
-- **Reply from Telegram** — reply directly to a Baton-origin message such as
-  `[baton:<session>:dev] ...`; the relay routes the reply to that role. A
+- **Reply from Telegram** — reply directly to a Baton-origin message, whose
+  header ends `baton:<session>:dev (reply only)`; the relay routes the reply to
+  that role. A
   literal TUI command such as `/clear` is refused because Baton has no pane.
   Telegram replies continue the addressed role's current conversation too.
 - **Pause without losing work** — `mat baton pause <session>` stops the session
