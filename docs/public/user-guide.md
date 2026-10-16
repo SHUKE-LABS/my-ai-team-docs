@@ -150,7 +150,7 @@ backend object:
 | `tier` | Optional. `strong` or `weak`. A `weak` backend is refused for `explore` and `audit` (those roles produce the tickets everyone else works from) but stays usable as a Developer under a strong reviewer. Defaults to `strong`. |
 | `default_model` | Optional. Model applied at launch, passed through verbatim. Omit it to launch with the backend's default. |
 | `default_effort` | Optional. Reasoning-effort level applied at launch. Omit it or set it to an empty string and effort falls back to `high`. On Claude, change it in-session with `/effort`. |
-| `context_window_size` | Optional. Effective context window for auto-compaction: an integer (`250000`) or a `k`/`m` shorthand (`350k`, `1m`). Omit it and mat sets nothing. |
+| `context_window_size` | Optional. Effective context window for auto-compaction: an integer (`250000`) or a `k`/`m` shorthand (`350k`, `1m`). Omit it and mat sets nothing, except on `leg`, which then defaults to `200000` (see [leg workers](#leg-workers)). |
 | `max_output_tokens` | Optional for `kind: "pi"`. Positive integer or `k`/`K` shorthand (base 1000), such as `96000` or `96k`. Defaults to `64000` for pi model entries; an invalid value stops pi from launching. |
 
 The auth and base-url variables name environment variables; mat reads their
@@ -597,6 +597,13 @@ or empty fails before leg starts.
 Each role keeps its own leg session store under its role home, so roles never
 share a conversation. A task's later turns continue its session; if leg reports
 that session is gone, mat starts that turn in a new session once.
+
+The backend's `context_window_size` sets leg's compaction budget
+(`LEG_CONTEXT_WINDOW_TOKENS`, required by leg 0.34.1 and later): omit the field
+and mat exports `200000`, the standard Claude window. mat sets the budget
+without clamping requests to the model's real limit — on a 1M-window model a
+value this small only compacts earlier — and a value you export as
+`LEG_CONTEXT_WINDOW_TOKENS` yourself wins over both the field and the default.
 
 Restricted modes (`explore`, `audit`, `review`, `duo-review`, `live`) get a
 write guard through leg's pre-tool hook. It refuses tracked-file writes and
