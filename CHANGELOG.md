@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.70.0 … v4.67.4 (2026-10-17)
+## v4.70.1 … v4.67.4 (2026-10-17)
 
 ### Features
 - feat(notify): unify Telegram message metadata into one leading header line
@@ -11,6 +11,7 @@ _Generated from release tags._
 
 ### Fixes
 - fix(leg): pass context_window_size as LEG_CONTEXT_WINDOW_TOKENS
+- fix(merge-release): fence interrupted pwsh callers, announce update-branch, close idle recovery on fresh cycle fence
 
 ### Other Changes
 - test: make leg-suite path assertions space- and spelling-tolerant
