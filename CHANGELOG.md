@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.70.2 (2026-10-18)
+
+### Fixes
+- fix(notify): preserve framework action identity
+
 ## v4.70.1 … v4.67.4 (2026-10-17)
 
 ### Features
