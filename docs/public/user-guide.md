@@ -1739,6 +1739,13 @@ together with its ` · ` separator. The address says how to reach the sender:
 | Any other session with no pane | `<driver>:<session>:<role>` | `(view only)` |
 | A session start notice | `#<session>` | — |
 | The relay itself | none (`<host> · tg-relay`) | — |
+| A framework action | `<driver>:<session>:<component>` (or `<component>`) | `(view only)` |
+
+Framework `--action` pages bind their session and component explicitly, so an
+operator can identify the daemon, supervisor, or poller that raised the page
+even when it was launched from another pane. If no session, role, or pane can
+be resolved, the page remains deliverable but labels its role `unknown-origin`
+instead of silently appearing as a host-only action.
 
 `(no reply)` and `(view only)` messages cannot be answered by reply. A reachable
 Baton or `local` worker prints a typed `#<session> @<role>` address, so you can
