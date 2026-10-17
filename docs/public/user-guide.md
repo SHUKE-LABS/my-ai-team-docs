@@ -1729,14 +1729,14 @@ together with its ` · ` separator. The address says how to reach the sender:
 |---|---|---|
 | An agent in a tmux pane | `#<pane-number>` | — (reply to it) |
 | A background task | `#<session> @<role>` (or `#<session>`) | `(no reply)` |
-| A Baton or `local` worker you can answer | `<driver>:<session>:<role>` | `(reply only)` |
+| A Baton or `local` worker you can answer | `#<session> @<role>` | — |
 | Any other session with no pane | `<driver>:<session>:<role>` | `(view only)` |
 | A session start notice | `#<session>` | — |
 | The relay itself | none (`<host> · tg-relay`) | — |
 
-`(reply only)` means you answer by replying to that message; there is no prefix
-you can type to reach that worker. `(no reply)` and `(view only)` messages
-cannot be answered by reply.
+`(no reply)` and `(view only)` messages cannot be answered by reply. A reachable
+Baton or `local` worker prints a typed `#<session> @<role>` address, so you can
+send that address at the start of a new message as well as reply to the message.
 
 To talk back to an agent in a pane, **reply** to its message in Telegram — the
 relay routes your reply straight to that pane, regardless of which project was
@@ -1746,6 +1746,17 @@ After a successful reply, plain unprefixed follow-ups stay on that same pane. If
 that pane has exited, the relay refuses the follow-up with recovery guidance
 rather than sending it somewhere else. Re-target with `#<session>` or
 `#<pane-number>`, or reply to a live agent message.
+
+You can target a session directly with `#<session> @<role> message`. This works
+for tmux panes, Baton workers, and replyable `local` workers. `@dev`,
+`@planner`, and `@reviewer` address their matching roles; `@adhoc`, `@audit`,
+and `@explore` address the corresponding single-role local workers, while
+`@proposer` and `@challenger` address caucus roles. A duo/team Baton target
+without `@<role>` defaults to its developer (`dev`) role; a single-role Baton
+or local target may omit it when exactly one role resolves. Caucus targets and
+ambiguous local targets must name the role explicitly. An incompatible role or
+dead headless session is refused by session and role rather than falling back
+to tmux.
 
 For a session running under tmux, a refusal tells you what tmux actually
 confirmed. (Baton and `local` driver sessions are checked without tmux and keep
@@ -1800,16 +1811,17 @@ prefix rather than guessing.
 
 #### Replying to a session with no pane
 
-A session started with `mat.driver = local` has no tmux pane, so its messages
-carry a `local:<session>:<role>` address instead of a pane number, e.g.
+A session started with `mat.driver = local` has no tmux pane. A replyable local
+message carries a typed address instead of a pane number, e.g.
 
 ```
-xps · myproj · adhoc/cch · local:myproj_cch_adhoc:adhoc (reply only)
+xps · myproj · adhoc/cch · #myproj_cch_adhoc @adhoc
 needs review
 ```
 
 Whether you can reply depends on whether that mode has anywhere to receive an
-answer, and the header says which: `(reply only)` or `(view only)`.
+answer. A mode without a reply inbox keeps its diagnostic
+`local:<session>:<role> (view only)` address.
 
 - **`adhoc` and `audit`** accept replies. Your reply becomes the input to that
   session's next agent turn, on that exact session and role — never on whichever
