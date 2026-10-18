@@ -787,8 +787,16 @@ With the namespace enabled, the URL is derived at every launch — there is no
 extra field to set and `backends.json` is never rewritten. The nickname is routing identity only: the
 gateway uses it to keep each worker on its own pool member, while
 `gateway_selector` still selects the pool and is still the only credential.
-Claude, Copilot, Codex, and pi gateway launches all use the derived URL; the
-quota endpoint does not.
+Claude, Copilot, Codex, and pi gateway launches all use the derived URL.
+
+The statusline's quota endpoint follows it on the backends that have one: with
+the namespace active, a Claude, Codex, or pi launch adds `&worker=<nick>` to
+the quota URL it exports, so the quota that statusline reports is that worker's
+instead of the whole pool its `gateway_selector` shares. With the namespace off
+— and with a nickname the namespace leaves out — the quota URL carries no
+`worker` parameter. `mat quota`, run from your shell, always reports the pool.
+A Copilot gateway launch exports no quota endpoint at all, so there is nothing
+to qualify there.
 
 A nickname that is not a safe single URL segment — anything outside letters,
 digits, `.`, `_`, `~`, and `-`, a leading `.`, or longer than 64 characters —
