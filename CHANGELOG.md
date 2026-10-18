@@ -2,7 +2,10 @@
 
 _Generated from release tags._
 
-## v4.70.3 … v4.70.2 (2026-10-18)
+## v4.71.0 … v4.70.2 (2026-10-18)
+
+### Features
+- feat: guard Linux process cleanup ownership
 
 ### Fixes
 - fix(notify): preserve framework action identity

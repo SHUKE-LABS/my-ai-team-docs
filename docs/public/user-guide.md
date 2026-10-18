@@ -2212,11 +2212,24 @@ On backends with a shell-command hook, agent sessions refuse the cleanup forms
 that this section warns about, before the command runs, and point at
 `win-kill-tree`:
 
+On Linux, literal `kill`, `pkill`, `killall`, and `fuser -k` commands are first
+checked against session ownership. A target in the session's cgroup subtree is
+allowed, including a reparented process that remains in that cgroup. If the
+session has no dedicated cgroup, only descendants of the session process tree
+are allowed. A foreign target is refused with its pid, command line, and owning
+systemd unit; a pattern that matches both owned and foreign processes is
+refused, while a pattern with no matches is allowed. This ownership check does
+not evaluate shell variables or command substitutions to obtain operands, and
+non-Linux hosts keep their existing cleanup behavior.
+
 - `taskkill` with `/T` (or `//T`), in any option order.
-- Image-name kills: `taskkill /IM` or `/FI "IMAGENAME eq <name>"`,
+- Outside the Linux ownership check (and for unresolvable Linux operands),
+  image-name kills: `taskkill /IM` or `/FI "IMAGENAME eq <name>"`,
   `Stop-Process -Name <name>`, `pkill <name>`, and a `Where-Object Name -eq`
   selection piped to `Stop-Process`. These kill every process with that name,
   including a CI watchdog's `sleep` on a shared host.
+- Linux `fuser -k` forms whose namespace, variable, or other operands cannot
+  be resolved by the ownership check remain refused as broad process cleanup.
 
 Matching ignores case and accepts a path-qualified executable name. PID-targeted
 commands such as `taskkill //PID 1234 //F` and `Stop-Process -Id 1234` stay
