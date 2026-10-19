@@ -2,10 +2,13 @@
 
 _Generated from release tags._
 
-## v4.72.2 … v4.72.0 (2026-10-19)
+## v4.72.3 … v4.72.0 (2026-10-19)
 
 ### Features
 - feat(gateway): scope the statusline quota URL to the worker's namespace
+
+### Fixes
+- fix(claim): take over expired foreign leases
 
 ### Other Changes
 - test: follow dispatch framework action seam in escalation guard
