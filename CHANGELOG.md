@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.72.8 (2026-10-20)
+
+### Fixes
+- fix(claim): restore ready when an expired-lease takeover rolls back
+
 ## v4.72.7 … v4.72.0 (2026-10-19)
 
 ### Features
