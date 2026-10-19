@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.72.3 … v4.72.0 (2026-10-19)
+## v4.72.4 … v4.72.0 (2026-10-19)
 
 ### Features
 - feat(gateway): scope the statusline quota URL to the worker's namespace
@@ -13,6 +13,7 @@ _Generated from release tags._
 ### Other Changes
 - test: follow dispatch framework action seam in escalation guard
 - test: stop harness shellcheck from following runtime sources
+- test(install-upgrade): pin the elevation probe to the shared Windows mock
 
 ## v4.71.0 … v4.70.2 (2026-10-18)
 
