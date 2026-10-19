@@ -2,12 +2,13 @@
 
 _Generated from release tags._
 
-## v4.72.11 … v4.72.8 (2026-10-20)
+## v4.72.12 … v4.72.8 (2026-10-20)
 
 ### Fixes
 - fix(claim): restore ready when an expired-lease takeover rolls back
 - fix(kill-tree): reap fallback watchdog sleeps
 - fix(dispatch): fail closed on issue poll outage
+- fix(dispatch): fail closed on Windows Run-key registration
 
 ### Other Changes
 - test(reaper): widen the guard-abort budget and time its phases
