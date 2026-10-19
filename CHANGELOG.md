@@ -2,10 +2,14 @@
 
 _Generated from release tags._
 
-## v4.72.0 (2026-10-19)
+## v4.72.2 … v4.72.0 (2026-10-19)
 
 ### Features
 - feat(gateway): scope the statusline quota URL to the worker's namespace
+
+### Other Changes
+- test: follow dispatch framework action seam in escalation guard
+- test: stop harness shellcheck from following runtime sources
 
 ## v4.71.0 … v4.70.2 (2026-10-18)
 
