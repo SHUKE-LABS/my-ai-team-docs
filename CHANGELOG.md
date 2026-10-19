@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.72.6 … v4.72.0 (2026-10-19)
+## v4.72.7 … v4.72.0 (2026-10-19)
 
 ### Features
 - feat(gateway): scope the statusline quota URL to the worker's namespace
@@ -11,6 +11,7 @@ _Generated from release tags._
 - fix(claim): take over expired foreign leases
 - fix(baton): stop duo on unknown recovery backend
 - fix(duo): resolve mat entry for unknown backend stop
+- fix(security): upgrade Wrangler deployment toolchain
 
 ### Other Changes
 - test: follow dispatch framework action seam in escalation guard
