@@ -2,10 +2,14 @@
 
 _Generated from release tags._
 
-## v4.72.8 (2026-10-20)
+## v4.72.10 … v4.72.8 (2026-10-20)
 
 ### Fixes
 - fix(claim): restore ready when an expired-lease takeover rolls back
+- fix(kill-tree): reap fallback watchdog sleeps
+
+### Other Changes
+- test(reaper): widen the guard-abort budget and time its phases
 
 ## v4.72.7 … v4.72.0 (2026-10-19)
 
