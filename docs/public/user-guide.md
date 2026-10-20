@@ -32,6 +32,12 @@ The installer:
 On the first interactive Linux or macOS install, it opens the platform
 quickstart. Upgrades, reinstalls, and non-interactive installs skip it.
 
+The installer keeps its output short: one line saying the installation
+started, one line naming the installed version, and — when a managed service
+still needs a restart before the new code takes effect — one short block with
+the exact command to run. Run `./install.sh --verbose` to see the full trace
+of the same installation instead.
+
 Set `AVAILABLE_AGENTS=claude,codex` before running `./install.sh` to provision
 only selected backends. When `AVAILABLE_AGENTS` is unset, the installer scans for
 existing backend config directories and provisions the ones it finds.
@@ -2500,18 +2506,28 @@ This keeps the server alive without a resident session; run
 ## Upgrading
 
 ```bash
-mat upgrade [--list|--to <version>|--check|--force|--when-idle|--when-idle-unbounded|--override-locked|--no-service-restart]
+mat upgrade [--list|--to <version>|--check|--force|--when-idle|--when-idle-unbounded|--override-locked|--no-service-restart|--verbose]
 mat upgrade --check       # report installed vs. offered version; change nothing
 mat upgrade               # fetch and install the latest release for your license
 mat upgrade --force       # reinstall even when already current
 mat upgrade --list        # list the versions still available to your license
 mat upgrade --to <ver>    # install that exact version instead of the latest
+mat upgrade --verbose     # show the full installation trace
 ```
 
 `mat upgrade` needs an activated machine (`mat activate <LICENSE_KEY>`, once per
 host). It validates the license, fetches a signed release tarball, and installs
 it in place over `~/.local/share/my-ai-team/`; your configuration and agent homes
 are untouched. Plain `mat` and every mode invocation never touch the network.
+
+An upgrade prints very little by default: one line saying the installation
+started, and one line naming the version you moved to. If a managed service
+still has to be restarted before the new code takes effect, that is the only
+other thing you see — one short block with the exact command to run. A service
+the installer could not restart right now, because the host was busy, is
+reported as deferred: it is applied automatically at the next quiet moment, and
+nothing is asked of you. `mat upgrade --verbose` shows the full trace of the
+same installation, stage by stage, with the paths it used.
 
 Running agents keep the runtime they launched with, so upgrade between cycles.
 After a successful upgrade,

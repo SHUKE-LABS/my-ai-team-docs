@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.73.0 (2026-10-21)
+
+### Features
+- feat: reduce default installer output
+
 ## v4.72.13 … v4.72.8 (2026-10-20)
 
 ### Fixes
