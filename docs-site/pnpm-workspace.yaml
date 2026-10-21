@@ -35,12 +35,20 @@ auditConfig:
 # (source-map-js event-loop DoS): `pnpm audit --audit-level=high` failed on
 # sharp@0.35.4 and source-map-js@1.2.1, blocking the publication lane since
 # 2026-10-14. Raise sharp to the patched floor and pin source-map-js to it.
+#
+# GHSA-587h-7wmj-h5pm (vite: launch-editor `fs.existsSync()` bypass on
+# Windows): the lockfile resolved vulnerable `vite@8.2.2` (`>=8.2.0 <=8.2.3`)
+# transitively through astro, and `pnpm audit --audit-level=high` failed,
+# blocking the publication lane. astro's `^8.0.13` range already allows the
+# patched `>=8.2.4` floor; pin the override to that floor so the frozen
+# lockfile stops resolving into the vulnerable window on future refreshes.
 overrides:
   sharp: ^0.35.5
   source-map-js: 1.2.2
   devalue: 5.9.3
   "undici@>=7 <8": 7.29.1
   "undici@>=8 <9": 8.10.2
+  vite: 8.2.4
 
 # CVE-2026-93748 / GHSA-ch52-4w7c-c8xp has no published npm fix yet. Carry the
 # upstream fix from kornelski/http-cache-semantics commit
