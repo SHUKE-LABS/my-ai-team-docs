@@ -2,10 +2,13 @@
 
 _Generated from release tags._
 
-## v4.74.5 (2026-10-22)
+## v4.74.6 … v4.74.5 (2026-10-22)
 
 ### Fixes
 - fix(ci-windows): arbitrate scheduled red tracker writes
+
+### Other Changes
+- test(windows): model the deferred converge readiness handshake in the busy-upgrade fixtures
 
 ## v4.74.4 … v4.73.0 (2026-10-21)
 
