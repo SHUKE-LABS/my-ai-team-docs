@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.74.7 … v4.74.5 (2026-10-22)
+## v4.74.8 … v4.74.5 (2026-10-22)
 
 ### Fixes
 - fix(ci-windows): arbitrate scheduled red tracker writes
@@ -10,6 +10,7 @@ _Generated from release tags._
 
 ### Other Changes
 - test(windows): model the deferred converge readiness handshake in the busy-upgrade fixtures
+- test(baton): synchronize the late-pid failed-arm case on the worker's failure
 
 ## v4.74.4 … v4.73.0 (2026-10-21)
 
