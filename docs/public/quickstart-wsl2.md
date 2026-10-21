@@ -25,6 +25,11 @@ a package manager cannot install. Repair what it flags, rerun it until it
 passes, then continue with the Linux quickstart's install step. `mat doctor`
 remains the post-install diagnostic.
 
+The [Linux quickstart's `apt` prerequisites](quickstart-linux.md#1-prerequisites-apt)
+apply inside WSL2 unchanged — minimal distributions also ship without the
+Python runtime the issue helper needs — so install them before the first
+`mat doctor` run.
+
 ### Keep everything inside the WSL2 filesystem
 
 Clone your repos and install mat under your Linux home (`~/…`), not under a

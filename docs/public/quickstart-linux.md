@@ -16,7 +16,7 @@ Install the runtime dependencies:
 
 ```bash
 sudo apt update
-sudo apt install -y git bash tmux jq curl tar gzip diffutils
+sudo apt install -y git bash tmux jq curl tar gzip diffutils python3 python3-yaml
 ```
 
 These tools cover installation and the end-to-end path. `mat doctor`
@@ -31,6 +31,14 @@ These tools cover installation and the end-to-end path. `mat doctor`
 | `tmux` | the whole framework runs in tmux panes | `install.sh` warns if missing; `mat doctor` |
 | `git` | repo operations (reported by the install preflight, not enforced) | runtime; `mat doctor` |
 | `bash` ≥ 4.3 | the interpreter (namerefs, `mapfile`); Ubuntu/Debian ship a new enough bash | runtime; `mat doctor` |
+| `python3` + `python3-yaml` | the GitHub issue helper parses YAML issue specs | the install preflight warns; `mat doctor` FAILs when PyYAML is missing |
+
+`python3` and `python3-yaml` are not optional extras. The GitHub issue helper
+parses its YAML specs through PyYAML, and `mat doctor` FAILs when the module is
+missing — so install them in this step, before the `mat doctor` in
+[step 2](#verify-the-install-with-mat-doctor) and the final re-run in
+[step 5](#5-first-session--verify-the-telegram-round-trip), so the report can
+end in `All checks passed.`
 
 ### Pre-install dependency check
 
@@ -102,7 +110,8 @@ mat doctor
 ```
 
 One read-only pass that names every unmet prerequisite at once — the tools from
-step 1, `gh` authentication, `~/.local/bin` on `PATH` with the linked commands
+step 1 (including the `python3` + PyYAML runtime the issue helper needs),
+`gh` authentication, `~/.local/bin` on `PATH` with the linked commands
 resolving to this install, the resolved backend token, Telegram credentials, and
 the relay unit. It exits non-zero if anything FAILs, and each FAIL line carries
 the fix to run. It changes nothing and prints no secret value.
@@ -226,8 +235,9 @@ A new tmux session opens with the agent. Now verify the loop end-to-end:
 3. Confirm the agent's reply comes back to you on Telegram.
 
 A completed round-trip means install, activation, and the relay are all live.
-Re-run `mat doctor` now: with the backend token, Telegram credentials, and relay
-unit all in place, it should report `All checks passed.`
+Re-run `mat doctor` now: with the PyYAML runtime from step 1, the backend token,
+Telegram credentials, and relay unit all in place, it should report
+`All checks passed.`
 
 ## 5a. Optional: keep the tmux server alive with no sessions
 
