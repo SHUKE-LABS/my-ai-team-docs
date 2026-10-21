@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.74.2 … v4.73.0 (2026-10-21)
+## v4.74.3 … v4.73.0 (2026-10-21)
 
 ### Features
 - feat: reduce default installer output
@@ -17,6 +17,7 @@ _Generated from release tags._
 - fix(tg-relay): preserve multiline message bodies
 - fix(baton): preserve ceiling on refused end-cycle
 - fix(ci-windows): one tracker per lane across a watchdog pass
+- fix(ci-windows): arbitrate lane tracker writes with a state ref
 
 ## v4.72.13 … v4.72.8 (2026-10-20)
 
