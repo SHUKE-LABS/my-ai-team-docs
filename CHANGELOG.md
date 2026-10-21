@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v4.73.6 … v4.73.0 (2026-10-21)
+## v4.74.0 … v4.73.0 (2026-10-21)
 
 ### Features
 - feat: reduce default installer output
+- feat(baton): scope the team delivery ceiling to issue boundaries
 
 ### Fixes
 - fix(baton): park a branch the remote default already holds
