@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.73.5 … v4.73.0 (2026-10-21)
+## v4.73.6 … v4.73.0 (2026-10-21)
 
 ### Features
 - feat: reduce default installer output
@@ -13,6 +13,7 @@ _Generated from release tags._
 - fix(install): report a deferred converge job that never armed
 - fix(next-work): preserve caller pane through bg-run gate
 - fix(install): gate deferred convergence on worker readiness
+- fix(tg-relay): preserve multiline message bodies
 
 ## v4.72.13 … v4.72.8 (2026-10-20)
 

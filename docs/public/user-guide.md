@@ -1785,6 +1785,10 @@ ambiguous local targets must name the role explicitly. An incompatible role or
 dead headless session is refused by session and role rather than falling back
 to tmux.
 
+The leading `#<session>` and `@<role>` tokens are consumed only from the start
+of the message. After their separator whitespace is removed, everything else,
+including later line breaks and indentation, is delivered unchanged.
+
 For a session running under tmux, a refusal tells you what tmux actually
 confirmed. (Baton and `local` driver sessions are checked without tmux and keep
 their own refusal wording.) "No session named …", "has exited", or "not running" means tmux answered and
