@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.74.5 (2026-10-22)
+
+### Fixes
+- fix(ci-windows): arbitrate scheduled red tracker writes
+
 ## v4.74.4 … v4.73.0 (2026-10-21)
 
 ### Features
