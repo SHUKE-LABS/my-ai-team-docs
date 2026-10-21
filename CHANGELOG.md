@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.74.1 … v4.73.0 (2026-10-21)
+## v4.74.2 … v4.73.0 (2026-10-21)
 
 ### Features
 - feat: reduce default installer output
@@ -16,6 +16,7 @@ _Generated from release tags._
 - fix(install): gate deferred convergence on worker readiness
 - fix(tg-relay): preserve multiline message bodies
 - fix(baton): preserve ceiling on refused end-cycle
+- fix(ci-windows): one tracker per lane across a watchdog pass
 
 ## v4.72.13 … v4.72.8 (2026-10-20)
 
