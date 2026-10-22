@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.75.1 (2026-10-23)
+
+### Other Changes
+- test(workflow): pin UTF-8 Python output in the workflow-regression harness
+
 ## v4.75.0 … v4.74.5 (2026-10-22)
 
 ### Features
