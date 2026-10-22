@@ -2,7 +2,10 @@
 
 _Generated from release tags._
 
-## v4.74.8 … v4.74.5 (2026-10-22)
+## v4.75.0 … v4.74.5 (2026-10-22)
+
+### Features
+- feat(review): cite pre-existing AC test failures instead of escalating
 
 ### Fixes
 - fix(ci-windows): arbitrate scheduled red tracker writes
