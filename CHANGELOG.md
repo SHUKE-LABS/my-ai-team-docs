@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.75.23 … v4.75.12 (2026-10-24)
+## v4.75.24 … v4.75.12 (2026-10-24)
 
 ### Fixes
 - fix(audit): guard ledger write-back
@@ -14,6 +14,7 @@ _Generated from release tags._
 - fix(prompts): route stale ACs to Planner
 - fix(ci): retry transient watchdog API reads
 - fix(ci): tolerate completed Windows cancellation races
+- fix(ci): stage file-size helper for recovery heads
 
 ### Performance
 - perf(dispatch): reuse per-tick observations
