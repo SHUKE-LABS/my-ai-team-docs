@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.75.27 … v4.75.12 (2026-10-24)
+## v4.75.28 … v4.75.12 (2026-10-24)
 
 ### Fixes
 - fix(audit): guard ledger write-back
@@ -17,6 +17,7 @@ _Generated from release tags._
 - fix(ci): stage file-size helper for recovery heads
 - fix(baton): recheck POSIX converge freshness at wait bound
 - fix(install): show unresolved Git Bash diagnostic
+- fix(prompts): tidy reviewer AC routing wording
 
 ### Performance
 - perf(dispatch): reuse per-tick observations
