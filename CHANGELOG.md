@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v4.75.13 … v4.75.12 (2026-10-24)
+## v4.75.14 … v4.75.12 (2026-10-24)
 
 ### Fixes
 - fix(audit): guard ledger write-back
+- fix(baton): clarify team idle recovery routing
 
 ### Docs
 - docs: describe Windows Git Bash relay autostart
