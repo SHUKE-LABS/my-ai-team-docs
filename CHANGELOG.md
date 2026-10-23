@@ -2,13 +2,14 @@
 
 _Generated from release tags._
 
-## v4.75.16 … v4.75.12 (2026-10-24)
+## v4.75.17 … v4.75.12 (2026-10-24)
 
 ### Fixes
 - fix(audit): guard ledger write-back
 - fix(baton): clarify team idle recovery routing
 - fix: refuse an APPROVE review relay from a team/duo Reviewer
 - fix(test): isolate real-host fixture teardown
+- fix(test): fail a suite whose report says it failed
 
 ### Docs
 - docs: describe Windows Git Bash relay autostart
