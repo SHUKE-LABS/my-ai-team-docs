@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.75.21 … v4.75.12 (2026-10-24)
+## v4.75.22 … v4.75.12 (2026-10-24)
 
 ### Fixes
 - fix(audit): guard ledger write-back
@@ -12,6 +12,7 @@ _Generated from release tags._
 - fix(test): fail a suite whose report says it failed
 - fix: keep live session state fresh
 - fix(prompts): route stale ACs to Planner
+- fix(ci): retry transient watchdog API reads
 
 ### Performance
 - perf(dispatch): reuse per-tick observations
