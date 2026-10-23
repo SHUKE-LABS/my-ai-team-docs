@@ -2558,15 +2558,16 @@ listed in the output but do not fail the upgrade. Windows never rewrites a
 running service's launcher in place: the
 refreshed launcher is staged beside it while the service runs and replaces it
 only after the node reports itself stopped, immediately before the restart. A
-service left stale because the host is busy is not abandoned on Windows: the
-installer arms a deferred converge job for it. The job re-checks the host
-periodically for up
-to two hours (`MAT_INSTALL_DEFERRED_RESTART_WAIT_SECONDS`), restarts the
-service at the first quiet moment, verifies its duo sessions and pollers, and
-sends you one notification per failed attempt. If the wait bound passes with
-the host still busy, the job restarts the Windows node service anyway, keeping
-session IDs intact. Outside Windows a busy service is left running and the
-output gives its exact manual restart command. (The same restart is also
+service left stale because the host is busy is not abandoned: the installer
+arms a deferred converge job for it. The job re-checks the host periodically
+for up to two hours (`MAT_INSTALL_DEFERRED_RESTART_WAIT_SECONDS`), and a
+systemd or launchd service is restarted only at a strictly idle tick with no
+live role sessions. If the POSIX wait bound passes while turns remain busy, the
+job leaves that service running and sends you one notification with its exact
+manual restart command. Windows verifies its duo sessions and pollers at the
+quiet restart and, if the wait bound passes with the host still busy, restarts
+the Windows node service anyway while keeping session IDs intact. (The same
+restart is also
 available by hand on Windows:
 `MAT_BATON_CONTROL_DIR='<control-dir>' mat baton service restart` stops
 the service, publishes the staged launcher and starts it again.) If the service
