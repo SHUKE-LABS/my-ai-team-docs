@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.75.8 … v4.75.1 (2026-10-23)
+## v4.75.9 … v4.75.1 (2026-10-23)
 
 ### Fixes
 - fix(baton): extend idle recovery to team sessions
@@ -17,6 +17,7 @@ _Generated from release tags._
 
 ### Other Changes
 - test(workflow): pin UTF-8 Python output in the workflow-regression harness
+- ci: route focused prompt ledger guard
 
 ## v4.75.0 … v4.74.5 (2026-10-22)
 
