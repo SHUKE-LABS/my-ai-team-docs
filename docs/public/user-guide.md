@@ -81,8 +81,14 @@ inside that repo while global values apply everywhere else.
 ### One-command setup: `mat setup`
 
 `mat setup --backend <kind> --make-default` writes the canonical registry
-entry for one supported backend family and makes it your default — the
+entry for one setup-capable backend family and makes it your default — the
 first-run path used by the [agent-assisted quickstart](quickstart-agent-assisted.md).
+
+The setup-capable kinds are `claude`, `codex`, `copilot`, `pi`, `opencode`,
+`freebuff`, `grok`, and `commandcode`. The registered `agy` and `leg` families
+are manual-registration backends; add their entries to `backends.json` by hand
+instead of passing them to `mat setup`.
+
 It is non-interactive and safe to rerun:
 
 - The entry is inserted, or reconciled in place if a backend with that
@@ -98,8 +104,9 @@ It is non-interactive and safe to rerun:
   `/login`, `freebuff login`, the Grok Build TUI, `cmd login`).
 - `--make-default` sets `git config --global mat.defaultBackend <kind>` after
   the registry write succeeds.
-- Fail-closed: an unsupported kind or a malformed existing `backends.json`
-  exits non-zero with a diagnostic and changes nothing.
+- Fail-closed: an unsupported or manual-registration kind, or a malformed
+  existing `backends.json`, exits non-zero with a diagnostic and changes
+  nothing.
 
 After setup, run `mat doctor` for the short list of steps only you can do
 (backend login/token, GitHub auth, license activation, Telegram credentials).
@@ -167,6 +174,11 @@ A malformed backend object (a missing required field, an unsupported `kind`, an
 invalid value) is warned about and skipped; the rest of the file still loads.
 Invalid JSON, or a missing `backends` array, falls back to the built-in Claude
 backend with a warning rather than aborting.
+
+The registry accepts all ten backend families listed above. `agy` and `leg` are
+manual-registration backends: `mat setup` creates entries for the eight
+canonical setup kinds only, so either of these two entries must be added by
+hand.
 
 `MAT_USER_NAME` is rendered into prompt files anywhere `{{MAT_USER_NAME}}`
 appears; when unset it falls back to `the user`.
@@ -624,7 +636,8 @@ unrestricted roles keep their normal behavior.
 
 This release is headless/Baton-only. The tmux and local pane drivers are not
 adapted to leg, so choose a pane-backed backend for interactive drivers.
-`mat setup` does not write leg entries; add one to `backends.json` by hand.
+`mat setup` does not write agy or leg entries; add either to `backends.json` by
+hand.
 
 ### HOME-mapped worker paths
 
