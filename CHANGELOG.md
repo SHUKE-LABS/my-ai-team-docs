@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.75.26 … v4.75.12 (2026-10-24)
+## v4.75.27 … v4.75.12 (2026-10-24)
 
 ### Fixes
 - fix(audit): guard ledger write-back
@@ -26,6 +26,7 @@ _Generated from release tags._
 
 ### Other Changes
 - test(duo): make real-host recovery case deterministic
+- test(relay): pin tmux driver in scratch guard test
 
 ## v4.75.11 … v4.75.1 (2026-10-23)
 
