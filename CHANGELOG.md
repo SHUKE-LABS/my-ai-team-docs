@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.75.12 (2026-10-24)
+
+### Docs
+- docs: describe Windows Git Bash relay autostart
+
 ## v4.75.11 … v4.75.1 (2026-10-23)
 
 ### Fixes

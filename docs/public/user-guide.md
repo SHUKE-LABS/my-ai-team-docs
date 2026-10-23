@@ -26,8 +26,20 @@ The installer:
 - on systemd hosts, installs and starts the Telegram relay service automatically
   (and restarts it on every later install so the running daemon picks up new
   code). Where no per-user service manager is reachable — some SSH and container
-  hosts, and Windows Git Bash — it prints a note and skips the step; a failed
-  service step never fails the install.
+  hosts — it reports the skipped step and carries on; a failed service step
+  never fails the install.
+- on Windows Git Bash, registers the relay for autostart instead of through a
+  service manager. A normal install writes a `mat-tg-relay` value into the
+  per-user HKCU Run key, so the relay starts at logon. An install run from an
+  elevated shell registers an S4U `mat-tg-relay` scheduled task instead, which
+  starts at boot before anyone logs on, and falls back to the Run key when that
+  boot task cannot be registered. Only one of the two is kept: once the boot
+  task is in place the Run value is removed. If Windows Script Host is
+  unavailable, or the Git Bash `bash.exe` the launcher needs cannot be
+  resolved, the installer reports it and leaves the relay unregistered instead
+  of failing the install. See [Which platforms are
+  supported?](faq.md#which-platforms-are-supported) for what each mode means
+  in practice.
 
 On the first interactive Linux or macOS install, it opens the platform
 quickstart. Upgrades, reinstalls, and non-interactive installs skip it.
