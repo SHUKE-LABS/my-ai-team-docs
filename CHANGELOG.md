@@ -2,11 +2,12 @@
 
 _Generated from release tags._
 
-## v4.75.3 … v4.75.1 (2026-10-23)
+## v4.75.4 … v4.75.1 (2026-10-23)
 
 ### Fixes
 - fix(baton): extend idle recovery to team sessions
 - fix(test): count notification records and bind smoke evidence to the manifest
+- fix(relay): avoid watchdog generation-lock deadlock
 
 ### Other Changes
 - test(workflow): pin UTF-8 Python output in the workflow-regression harness
