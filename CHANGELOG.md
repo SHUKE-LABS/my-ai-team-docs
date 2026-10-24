@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.75.30 … v4.75.12 (2026-10-24)
+## v4.75.31 … v4.75.12 (2026-10-24)
 
 ### Fixes
 - fix(audit): guard ledger write-back
@@ -23,6 +23,7 @@ _Generated from release tags._
 
 ### Performance
 - perf(dispatch): reuse per-tick observations
+- perf(relay-poll): run the tick work in a short-lived child
 
 ### Docs
 - docs: describe Windows Git Bash relay autostart
