@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.75.33 … v4.75.12 (2026-10-24)
+## v4.75.34 … v4.75.12 (2026-10-24)
 
 ### Fixes
 - fix(audit): guard ledger write-back
@@ -22,6 +22,7 @@ _Generated from release tags._
 - fix(ci): recalibrate real-host baton deadline
 - fix(ci): fail closed on malformed runner PATH
 - fix(review): handle busy peers at post-merge gate
+- fix(test): carry every tracker-library source in the Windows reconcile fixture
 
 ### Performance
 - perf(dispatch): reuse per-tick observations
