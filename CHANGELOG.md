@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.75.31 … v4.75.12 (2026-10-24)
+## v4.75.32 … v4.75.12 (2026-10-24)
 
 ### Fixes
 - fix(audit): guard ledger write-back
@@ -20,6 +20,7 @@ _Generated from release tags._
 - fix(prompts): tidy reviewer AC routing wording
 - fix(ci): pin locale for comm comparisons
 - fix(ci): recalibrate real-host baton deadline
+- fix(ci): fail closed on malformed runner PATH
 
 ### Performance
 - perf(dispatch): reuse per-tick observations
