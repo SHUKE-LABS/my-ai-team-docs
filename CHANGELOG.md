@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.75.29 … v4.75.12 (2026-10-24)
+## v4.75.30 … v4.75.12 (2026-10-24)
 
 ### Fixes
 - fix(audit): guard ledger write-back
@@ -19,6 +19,7 @@ _Generated from release tags._
 - fix(install): show unresolved Git Bash diagnostic
 - fix(prompts): tidy reviewer AC routing wording
 - fix(ci): pin locale for comm comparisons
+- fix(ci): recalibrate real-host baton deadline
 
 ### Performance
 - perf(dispatch): reuse per-tick observations
