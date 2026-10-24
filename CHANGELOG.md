@@ -2,7 +2,12 @@
 
 _Generated from release tags._
 
-## v4.75.27 … v4.75.12 (2026-10-24)
+## v4.75.35 (2026-10-25)
+
+### Fixes
+- fix(test): bound the poller liveness-sweep extraction and route its suite
+
+## v4.75.34 … v4.75.12 (2026-10-24)
 
 ### Fixes
 - fix(audit): guard ledger write-back
@@ -17,9 +22,16 @@ _Generated from release tags._
 - fix(ci): stage file-size helper for recovery heads
 - fix(baton): recheck POSIX converge freshness at wait bound
 - fix(install): show unresolved Git Bash diagnostic
+- fix(prompts): tidy reviewer AC routing wording
+- fix(ci): pin locale for comm comparisons
+- fix(ci): recalibrate real-host baton deadline
+- fix(ci): fail closed on malformed runner PATH
+- fix(review): handle busy peers at post-merge gate
+- fix(test): carry every tracker-library source in the Windows reconcile fixture
 
 ### Performance
 - perf(dispatch): reuse per-tick observations
+- perf(relay-poll): run the tick work in a short-lived child
 
 ### Docs
 - docs: describe Windows Git Bash relay autostart
