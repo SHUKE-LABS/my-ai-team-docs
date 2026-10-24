@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.75.35 (2026-10-25)
+
+### Fixes
+- fix(test): bound the poller liveness-sweep extraction and route its suite
+
 ## v4.75.34 … v4.75.12 (2026-10-24)
 
 ### Fixes
