@@ -232,10 +232,13 @@ The operator surface is `mat baton <verb> <session>` (interactive umbrella:
     want the work kept, and stop when you want the services down.
   - Caucus sessions do not support either verb — a caucus is one finite
     deliberation, not a continuously armed session.
-- **Rescue a role** — `mat baton restart <session>` re-arms both serves from
-  the saved session state when its recorded worktree still exists as a
-  directory. If it is missing or no longer a directory, restart names the path
-  and asks you to relaunch the duo session; it does not recreate the worktree.
+- **Rescue a role** — `mat baton restart <session>` re-arms the serves and
+  verifies or re-creates the session's task host from saved state when its
+  recorded worktree still exists as a directory. If the worktree is missing or
+  no longer a directory, restart names the path and asks you to relaunch the
+  duo session; it does not recreate the worktree. If the task host cannot be
+  verified or re-created, restart fails closed instead of reporting a healthy
+  session.
   Restart also selects the GitHub account again from your current
   configuration before it restarts either role, so a changed token variable or
   owner mapping applies without a relaunch; if no account can be selected, it

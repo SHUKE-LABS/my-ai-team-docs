@@ -881,7 +881,9 @@ restart. If the credential is missing, empty or unreadable, the command is
 refused rather than run unauthenticated. Which account and credential source a
 Baton session uses is chosen at launch; after changing that choice (for example
 removing a token variable or remapping an owner), run
-`mat baton restart <session>` to choose again without relaunching. On Windows, use Git Bash; setup also
+`mat baton restart <session>` to choose again without relaunching. Restart
+also verifies or re-creates a dead task host before re-arming duo/team serves
+and pollers, and fails closed if that carrier cannot be verified. On Windows, use Git Bash; setup also
 supports GitHub CLI's native `gh.exe` and Git's Windows credential-helper paths.
 Agents whose shell is Windows PowerShell or PowerShell 7 also reach `gh`
 through the gateway, with its normal output and exit status.
