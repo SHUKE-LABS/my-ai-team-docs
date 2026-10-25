@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.76.3 (2026-10-26)
+
+### Fixes
+- fix: recover crashed baton teams
+
 ## v4.76.2 … v4.75.35 (2026-10-25)
 
 ### Features
