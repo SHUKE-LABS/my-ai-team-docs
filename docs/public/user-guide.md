@@ -204,23 +204,22 @@ official-auth-only, direct custom) or keeps the native `auth.json` /
 `config.toml` credentials (legacy native).
 
 - **Gateway-selected.** A non-empty `gateway_selector` field routes the
-  entry through the gateway origin: `MAT_CODEX_GATEWAY` when set and
-  non-empty, with `MAT_ANTHROPIC_GATEWAY` as the fallback — an operator
-  running one gateway for several protocols exports the origin once. The
+  entry through the shared gateway origin `MAT_ANTHROPIC_GATEWAY` — an
+  operator running one gateway for several protocols exports the origin once. The
   selected value becomes the role's `base_url` with only one trailing `/`
   stripped and, when enabled, the [worker namespace](#per-worker-gateway-url)
   inserted: the
   gateway owns URL handling and joins Codex's `/responses` request path onto
   its pool member's base URL, so any origin shape the gateway accepts works,
-  path prefixes included. Only when both
-  variables are unset or empty does the launch fail, with a diagnostic
-  naming both. The role is provisioned with a fixed mat-owned provider
+  path prefixes included. Only when the
+  variable is unset or empty does the launch fail, with a diagnostic naming
+  it. The role is provisioned with a fixed mat-owned provider
   identity `mat-codex-gateway` and the selector value carried as
   `MAT_CODEX_API_KEY`. The declared `auth_var`, `base_url`, `base_url_var`,
   `model_provider`, `wire_api`, and `model_catalog_json` are deliberately
   ignored on this route — set them only as comments documenting the
   upstream subscription. `MAT_GATEWAY_QUOTA_URL` is scrubbed on every Codex
-  route; the gateway route re-establishes it from the fallback origin so
+  route; the gateway route re-establishes it from the shared origin so
   the statusline queries the right pool's quota.
   Team/duo launches also scrub any inherited `OPENAI_API_KEY`,
   `OPENAI_BASE_URL`, and `CODEX_ACCESS_TOKEN` from the pane environment at
@@ -237,7 +236,7 @@ official-auth-only, direct custom) or keeps the native `auth.json` /
   ```
 
   ```text
-  export MAT_CODEX_GATEWAY=http://gateway.local:8080
+  export MAT_ANTHROPIC_GATEWAY=http://gateway.local:8080
   ```
 
 - **Official auth-only.** A non-empty `auth_var` with no endpoint and no
@@ -324,8 +323,7 @@ pi backends have three credential modes:
   companion gateway (see [Light Anthropic gateway](#light-anthropic-gateway))
   with no vendor key on the worker. The selector is the only credential: mat
   exports it as `MAT_PI_API_KEY` and writes a role-local `models.json`
-  provider block whose `baseUrl` is `MAT_PI_GATEWAY` or, when
-  that is unset, `MAT_ANTHROPIC_GATEWAY`, with the
+  provider block whose `baseUrl` is `MAT_ANTHROPIC_GATEWAY`, with the
   [worker namespace](#per-worker-gateway-url) inserted when enabled. `auth_var`, `base_url`,
   `base_url_var`, and `model_provider` are ignored. `wire_api` is optional and
   defaults to `anthropic` on this route. `default_model` is required. The
@@ -758,16 +756,14 @@ appends `/v1/messages` itself).
 With the gateway unset, every backend behaves exactly as it does without this
 feature.
 
-`MAT_ANTHROPIC_GATEWAY` serves Claude and Copilot backends directly, and is
-also the fallback origin for Codex and pi backends on the gateway route (see
-the Codex backends and pi workers sections above): a Codex
-`gateway_selector` entry uses `MAT_CODEX_GATEWAY` when it is set and
-`MAT_ANTHROPIC_GATEWAY` otherwise, and a pi `gateway_selector` entry uses
-`MAT_PI_GATEWAY` the same way. The variables carry a gateway origin, not a
+`MAT_ANTHROPIC_GATEWAY` is the single gateway origin for Claude, Copilot,
+Codex, and pi backends (see the Codex backends and pi workers sections above).
+The value carries a gateway origin, not a
 wire path — each client appends its own protocol path (`/v1/messages` for
 Claude Code, `/responses` for Codex, the path of its `wire_api` protocol for
 pi) and the gateway joins that inbound path onto the selected pool
 member's base URL, so one gateway origin serves every protocol at once.
+The retired `MAT_CODEX_GATEWAY` and `MAT_PI_GATEWAY` names are no longer read.
 
 A `claude setup-token` credential cannot read usage directly: its OAuth token
 carries inference scope only, and Anthropic's usage API requires `user:profile`.
@@ -803,7 +799,7 @@ gateway origin and any path it has:
 
 ```text
 MAT_GATEWAY_WORKER_NAMESPACE=1
-MAT_CODEX_GATEWAY=http://127.0.0.1:8080/v1, nickname agent-a
+MAT_ANTHROPIC_GATEWAY=http://127.0.0.1:8080/v1, nickname agent-a
   -> http://127.0.0.1:8080/_aqg/w/agent-a/v1
 ```
 

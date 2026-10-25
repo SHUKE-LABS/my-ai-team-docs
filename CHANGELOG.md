@@ -2,7 +2,10 @@
 
 _Generated from release tags._
 
-## v4.75.39 … v4.75.35 (2026-10-25)
+## v4.76.0 … v4.75.35 (2026-10-25)
+
+### Features
+- feat: use one gateway origin for codex and pi
 
 ### Fixes
 - fix(test): bound the poller liveness-sweep extraction and route its suite
