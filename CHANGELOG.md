@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.76.1 … v4.75.35 (2026-10-25)
+## v4.76.2 … v4.75.35 (2026-10-25)
 
 ### Features
 - feat: use one gateway origin for codex and pi
@@ -14,6 +14,7 @@ _Generated from release tags._
 - fix: recover team task host on baton restart
 - fix: preflight baton service capabilities
 - fix(baton): recover team claims before new-cycle
+- fix(team): fence closed cycle deliveries
 
 ## v4.75.34 … v4.75.12 (2026-10-24)
 
