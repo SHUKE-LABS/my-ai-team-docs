@@ -62,6 +62,20 @@ baton service status --control ~/.baton/service
 for systemd, launchd, and Windows setup. A manually started service is reused
 by `mat` after its liveness is confirmed.
 
+**Environment refresh.** A host service keeps the environment it received at
+startup. When `mat` registers or refreshes the endpoint, it privately saves
+`MAT_ANTHROPIC_GATEWAY`, `MAT_GATEWAY_WORKER_NAMESPACE`, and the directories of
+the configured backend CLIs when those values are available. A later launch
+from a shell where one is absent preserves the earlier saved value; restart the
+host service after changing it. The saved files are private to the endpoint
+and mode `0600`.
+
+Before `duo` or `team` creates a worktree, mailbox, or session state, it checks
+the live service's advertised CLI and shared gateway capabilities. An existing
+service from an older installation may therefore refuse once with a precise
+restart command. Run that command, then retry the launch; the refusal prevents
+roles from starting with a stale service environment.
+
 **Windows start failures.** A Task Scheduler start only *submits* the task;
 success from `schtasks /run` does not mean the service is live. Each launch
 attempt writes its own log, `<control>/mat-baton-<id>.launcher.<unique>.log`,

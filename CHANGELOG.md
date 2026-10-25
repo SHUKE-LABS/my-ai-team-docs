@@ -2,13 +2,14 @@
 
 _Generated from release tags._
 
-## v4.75.38 … v4.75.35 (2026-10-25)
+## v4.75.39 … v4.75.35 (2026-10-25)
 
 ### Fixes
 - fix(test): bound the poller liveness-sweep extraction and route its suite
 - fix(prompts): arm the CI watch on idle recovery instead of re-checking once
 - fix(prompts): park external upstream waits
 - fix: recover team task host on baton restart
+- fix: preflight baton service capabilities
 
 ## v4.75.34 … v4.75.12 (2026-10-24)
 
