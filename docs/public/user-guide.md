@@ -1996,6 +1996,12 @@ The per-role personality hook (`shared/personality-<role>.md`, or
 the user-global tier even when the toggle is off, because the built-in
 personality files are empty hooks with nothing to drift from.
 
+**One home per project bundle.** A project-local override — a project role
+prompt, a project `shared/` fragment, or a project `shared/personality-<role>.md`
+— gives that project its own role home under `~/.mat-agent-home/`, so a launch on
+one project cannot overwrite the rendered prompt of another. The user-global tier
+keeps the shared home: it applies to every project at once.
+
 ### Operator extension points
 
 To add shared house rules without replacing a role prompt, create a fragment in

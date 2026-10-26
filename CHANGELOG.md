@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v4.77.2 (2026-10-27)
+## v4.77.3 … v4.77.2 (2026-10-27)
 
 ### Fixes
 - fix(prompts): amend live cycle scope changes
+- fix(prompt): give project-local personality and profile-name their own home
 
 ## v4.77.1 … v4.76.3 (2026-10-26)
 
