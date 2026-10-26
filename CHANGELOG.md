@@ -2,7 +2,10 @@
 
 _Generated from release tags._
 
-## v4.77.3 … v4.77.2 (2026-10-27)
+## v4.78.0 … v4.77.2 (2026-10-27)
+
+### Features
+- feat(claude): retain explore and live transcripts beyond the 30-day default
 
 ### Fixes
 - fix(prompts): amend live cycle scope changes
