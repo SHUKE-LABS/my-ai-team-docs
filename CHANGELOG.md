@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.79.0 … v4.77.2 (2026-10-27)
+## v4.79.1 … v4.77.2 (2026-10-27)
 
 ### Features
 - feat(claude): retain explore and live transcripts beyond the 30-day default
@@ -11,6 +11,7 @@ _Generated from release tags._
 ### Fixes
 - fix(prompts): amend live cycle scope changes
 - fix(prompt): give project-local personality and profile-name their own home
+- fix(duo): recover Copilot relay composer residue
 
 ## v4.77.1 … v4.76.3 (2026-10-26)
 
