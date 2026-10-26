@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.77.2 (2026-10-27)
+
+### Fixes
+- fix(prompts): amend live cycle scope changes
+
 ## v4.77.1 … v4.76.3 (2026-10-26)
 
 ### Features
