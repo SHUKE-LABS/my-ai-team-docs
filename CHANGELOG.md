@@ -2,7 +2,10 @@
 
 _Generated from release tags._
 
-## v4.76.6 … v4.76.3 (2026-10-26)
+## v4.77.0 … v4.76.3 (2026-10-26)
+
+### Features
+- feat: keep live session state fresh
 
 ### Fixes
 - fix: recover crashed baton teams

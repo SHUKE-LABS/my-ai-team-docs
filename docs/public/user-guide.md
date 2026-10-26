@@ -1712,10 +1712,14 @@ back to the exact agent that spoke.
 ### Enabling it
 
 Follow your platform quickstart's Telegram step — it takes you from nothing to
-an `active` message under a `<host> · tg-relay` header arriving in Telegram. On Linux, the relay user
-service is installed and started for you at install time: systemd is preferred,
-with OpenRC user services used when no systemd user manager is reachable. The
-reference below applies once the relay is running.
+an `active` message under a `<host> · tg-relay` header arriving in Telegram. On
+Linux, the relay user service is installed and started for you at install time:
+systemd is preferred, with OpenRC user services used when no systemd user
+manager is reachable. On a reachable systemd host, install also enables the
+independent hourly `mat-session-keepalive.timer`; macOS installs the equivalent
+`com.my-ai-team.session-keepalive` LaunchAgent. That keepalive refreshes only
+existing state for live sessions, so age-based `/tmp` cleanup can still reclaim
+dead sessions. The reference below applies once the relay is running.
 
 `mat doctor` reports whether your Telegram credentials are present and whether
 the relay service is loaded and active.
