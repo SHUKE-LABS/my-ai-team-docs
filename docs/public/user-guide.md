@@ -1320,6 +1320,20 @@ To send a handoff directly to a pane, `send-relay %<pane-id> <handoff-file>`
 also works outside a tmux client, such as from an SSH shell. Role-word targets
 such as `reviewer` still require a tmux client.
 
+### Claude session directories
+
+Claude keeps Bash's working directory only inside the session's configured
+directories. If a Bash call reports `Shell cwd was reset to <path>`, add the
+needed existing directory from that Claude pane with:
+
+```bash
+send-relay "$TMUX_PANE" "/add-dir <existing directory>"
+```
+
+The command is the one allowed self-send for Claude directory setup; it takes
+effect immediately, including mid-turn. The path must exist and be a
+directory. Other self-targeted messages and TUI commands remain refused.
+
 ### Worktree isolation
 
 By default every worktree-creating mode — `adhoc`, `team`, `duo`, `audit`,
