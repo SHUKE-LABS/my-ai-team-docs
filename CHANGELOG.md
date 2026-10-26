@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.77.0 … v4.76.3 (2026-10-26)
+## v4.77.1 … v4.76.3 (2026-10-26)
 
 ### Features
 - feat: keep live session state fresh
@@ -12,6 +12,7 @@ _Generated from release tags._
 - fix: stamp launched version in every supervisor
 - fix(relay): refresh tmux skew marker after supervisor reexec
 - fix(review): bound AC-uncovered finding churn
+- fix(test): align the daemon PATH and baton launch assertions with
 
 ## v4.76.2 … v4.75.35 (2026-10-25)
 
