@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.79.3 (2026-10-28)
+
+### Fixes
+- fix: resolve one mutation target before every write
+
 ## v4.79.2 … v4.77.2 (2026-10-27)
 
 ### Features
