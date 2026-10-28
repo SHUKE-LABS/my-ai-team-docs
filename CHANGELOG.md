@@ -2,12 +2,13 @@
 
 _Generated from release tags._
 
-## v4.80.4 … v4.80.2 (2026-10-29)
+## v4.80.5 … v4.80.2 (2026-10-29)
 
 ### Fixes
 - fix(bg-run): refuse retry of live tasks
 - fix: roll back the loser's delivery state on a claim race
 - fix(baton): reset team ceiling after commit progress
+- fix(bg-run): charge the closed-cycle reap for its admission-record scan
 
 ## v4.80.1 … v4.79.3 (2026-10-28)
 
