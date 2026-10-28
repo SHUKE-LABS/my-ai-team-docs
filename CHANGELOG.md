@@ -2,7 +2,10 @@
 
 _Generated from release tags._
 
-## v4.79.5 … v4.79.3 (2026-10-28)
+## v4.80.0 … v4.79.3 (2026-10-28)
+
+### Features
+- feat(pr): wake on upstream review
 
 ### Fixes
 - fix: resolve one mutation target before every write
