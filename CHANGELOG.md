@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.80.2 (2026-10-29)
+
+### Fixes
+- fix(bg-run): refuse retry of live tasks
+
 ## v4.80.1 … v4.79.3 (2026-10-28)
 
 ### Features

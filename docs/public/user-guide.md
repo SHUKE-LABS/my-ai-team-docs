@@ -2150,18 +2150,23 @@ duplicate. A milestone or completion wake is evidence of an existing task — do
 not resubmit the same command on a wake. A post-terminal duplicate within the
 dedupe lease returns the existing task and prints a stderr notice naming its task
 id and terminal status; it starts nothing. Use `--retry` to start a new task
-deliberately. For a post-terminal re-arm, use it only after the prior task has
-delivered a final wake or its terminal result is available. The duplicate status line
-keeps the machine-readable `task_id=... result=... deduplicated=true` prefix and adds
-`age=<seconds>s state=<state>`. `age` is the age of the matched admission
-record; for a cleared tombstone it starts when that tombstone was written, not
-when the original submission began. `state=active` means the classifier still
-has a live owner (including a live Baton task); `uncommitted_fresh` identifies
-the short reservation grace window before provider liveness is probed.
-Use `--retry` for a deliberate rerun.
+deliberately after the prior task has delivered a final wake and its provider
+cleanup has completed. A terminal result can be written just before that
+cleanup finishes; if you just received the final wake, wait a few seconds
+before retrying. If the prior task is still live, `--retry` refuses with a
+stderr notice naming its `task_id`; wait for its terminal wake. For a genuinely
+hung task, run `bg-run --cancel <task_id>` and retry only after cancellation
+completes. The duplicate status line keeps the machine-readable
+`task_id=... result=... deduplicated=true` prefix and adds `age=<seconds>s
+state=<state>`. `age` is the age of the matched admission record; for a cleared
+tombstone it starts when that tombstone was written, not when the original
+submission began. `state=active` means the classifier still has a live owner
+(including a live Baton task); `uncommitted_fresh` identifies the short
+reservation grace window before provider liveness is probed.
 
-**Retries, attempt identity, and stale wakes.** `--retry` replaces the running
-task behind the same admission slot. Every admission record carries three
+**Retries, attempt identity, and stale wakes.** `--retry` admits a new attempt
+behind the same admission slot only after the prior task is terminal; it never
+implicitly replaces a running task. Every admission record carries three
 identity fields — a `lineage` (derived from the caller and command, so a changed
 command or a different caller is always an independent lineage whose wakes can
 never supersede or be superseded by another lineage's), a generation `epoch`
