@@ -2,7 +2,10 @@
 
 _Generated from release tags._
 
-## v4.80.5 … v4.80.2 (2026-10-29)
+## v4.81.0 … v4.80.2 (2026-10-29)
+
+### Features
+- feat: enforce Live ticket self-critique
 
 ### Fixes
 - fix(bg-run): refuse retry of live tasks

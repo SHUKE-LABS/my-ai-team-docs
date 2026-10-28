@@ -1553,7 +1553,9 @@ problem, investigation, and proposed solution; this is not an approval gate.
 
 Live's one queue-like carve-out is issue *capture*: when it spots an incidental,
 out-of-scope concern, it may open a `gh issue` to record it rather than dropping
-it or scope-creeping. Capture only — live never implements the ticket it files.
+it or scope-creeping. Before applying a lifecycle state, Live reviews each
+captured ticket for completeness, scope, and size. Capture only — live never
+implements the ticket it files.
 
 Use `live --domain <name> claude`, `live --domain <name> codex`, or
 `live --domain <name> commandcode` to attach a configured domain toolbox home
