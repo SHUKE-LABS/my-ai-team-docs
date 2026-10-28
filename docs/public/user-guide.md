@@ -2147,8 +2147,12 @@ distinct here:
 `bg-run` admits at most one in-flight task per (caller, command) pair: a second
 submission of the same command returns the existing task rather than launching a
 duplicate. A milestone or completion wake is evidence of an existing task — do
-not resubmit the same command on a wake. The duplicate status line keeps the
-machine-readable `task_id=... result=... deduplicated=true` prefix and adds
+not resubmit the same command on a wake. A post-terminal duplicate within the
+dedupe lease returns the existing task and prints a stderr notice naming its task
+id and terminal status; it starts nothing. Use `--retry` to start a new task
+deliberately. For a post-terminal re-arm, use it only after the prior task has
+delivered a final wake or its terminal result is available. The duplicate status line
+keeps the machine-readable `task_id=... result=... deduplicated=true` prefix and adds
 `age=<seconds>s state=<state>`. `age` is the age of the matched admission
 record; for a cleared tombstone it starts when that tombstone was written, not
 when the original submission began. `state=active` means the classifier still

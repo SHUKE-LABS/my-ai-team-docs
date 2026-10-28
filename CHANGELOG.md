@@ -2,11 +2,12 @@
 
 _Generated from release tags._
 
-## v4.79.4 … v4.79.3 (2026-10-28)
+## v4.79.5 … v4.79.3 (2026-10-28)
 
 ### Fixes
 - fix: resolve one mutation target before every write
 - fix: guard delivery label mutations
+- fix(bg-run): explain post-terminal dedupe retries
 
 ## v4.79.2 … v4.77.2 (2026-10-27)
 
