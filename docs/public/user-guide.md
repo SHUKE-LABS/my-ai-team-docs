@@ -2151,19 +2151,21 @@ submission of the same command returns the existing task rather than launching a
 duplicate. A milestone or completion wake is evidence of an existing task — do
 not resubmit the same command on a wake. A post-terminal duplicate within the
 dedupe lease returns the existing task and prints a stderr notice naming its task
-id and terminal status; it starts nothing. Use `--retry` to start a new task
-deliberately after the prior task has delivered a final wake and its provider
-cleanup has completed. A terminal result can be written just before that
-cleanup finishes; if you just received the final wake, wait a few seconds
-before retrying. If the prior task is still live, `--retry` refuses with a
-stderr notice naming its `task_id`; wait for its terminal wake. For a genuinely
-hung task, run `bg-run --cancel <task_id>` and retry only after cancellation
-completes. The duplicate status line keeps the machine-readable
-`task_id=... result=... deduplicated=true` prefix and adds `age=<seconds>s
-state=<state>`. `age` is the age of the matched admission record; for a cleared
-tombstone it starts when that tombstone was written, not when the original
-submission began. `state=active` means the classifier still has a live owner
-(including a live Baton task); `uncommitted_fresh` identifies the short
+id and terminal status; it starts nothing. A duplicate hit on a task that has
+already finished re-delivers that task's final wake to the calling pane for the
+whole dedupe lease, so the outcome reaches you however old the retained result is.
+Use `--retry` to start a new task deliberately after the prior task has delivered
+a final wake and its provider cleanup has completed. A terminal result can be
+written just before that cleanup finishes; if you just received the final wake,
+wait a few seconds before retrying. If the prior task is still live, `--retry`
+refuses with a stderr notice naming its `task_id`; wait for its terminal wake.
+For a genuinely hung task, run `bg-run --cancel <task_id>` and retry only after
+cancellation completes. The duplicate status line keeps the machine-readable
+`task_id=... result=... deduplicated=true` prefix and adds
+`age=<seconds>s state=<state>`. `age` is the age of the matched admission record;
+for a cleared tombstone it starts when that tombstone was written, not when the
+original submission began. `state=active` means the classifier still has a live
+owner (including a live Baton task); `uncommitted_fresh` identifies the short
 reservation grace window before provider liveness is probed.
 
 **Retries, attempt identity, and stale wakes.** `--retry` admits a new attempt
@@ -2189,7 +2191,9 @@ delivered after any delay. What age can do is quiet the *notification* when
 nothing else is known: if the cycle a task was launched under has provably
 finished, or a very old completion arrives with no evidence that its workflow is
 still running, the result and wake are still written and kept — only the turn
-that would have announced them is skipped. Redelivering the same event stays
+that would have announced them is skipped. A duplicate submission that asks for
+a finished task again is not one of those: it re-delivers the final wake for the
+whole dedupe lease. Redelivering the same event stays
 idempotent — one turn per task/event, however many times it arrives. Records
 from before this scheme (no identity fields) always deliver, and a task whose
 record is missing or unreadable delivers too — rejection requires a live record

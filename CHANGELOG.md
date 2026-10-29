@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.81.1 (2026-10-30)
+
+### Fixes
+- fix(bg-run): re-deliver the final wake on a dedupe hit inside the lease
+
 ## v4.81.0 … v4.80.2 (2026-10-29)
 
 ### Features
