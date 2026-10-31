@@ -62,6 +62,34 @@ baton service status --control ~/.baton/service
 for systemd, launchd, and Windows setup. A manually started service is reused
 by `mat` after its liveness is confirmed.
 
+### Independent crash recovery
+
+The host service also runs an independent recovery check on a bounded cadence;
+the relay poller is not the only watcher. If a desired-running Baton Team loses
+its role services and poller together, the host service retains ownership while
+it verifies and repairs the services, then re-arms the poller. During an
+all-role crash the retained poller does not deliver work or issue wakes. A
+paused, stopping, ambiguous, or otherwise unverified session is left alone, and
+an operator alert is emitted if recovery cannot restore the session.
+
+This backstop also repairs a failed resident poller for a healthy session. It
+is part of the host service on Linux, macOS, and Windows, and is refreshed when
+the host service definition is updated without taking down a live session.
+
+**Environment refresh.** A host service keeps the environment it received at
+startup. When `mat` registers or refreshes the endpoint, it privately saves
+`MAT_ANTHROPIC_GATEWAY`, `MAT_GATEWAY_WORKER_NAMESPACE`, and the directories of
+the configured backend CLIs when those values are available. A later launch
+from a shell where one is absent preserves the earlier saved value; restart the
+host service after changing it. The saved files are private to the endpoint
+and mode `0600`.
+
+Before `duo` or `team` creates a worktree, mailbox, or session state, it checks
+the live service's advertised CLI and shared gateway capabilities. An existing
+service from an older installation may therefore refuse once with a precise
+restart command. Run that command, then retry the launch; the refusal prevents
+roles from starting with a stale service environment.
+
 **Windows start failures.** A Task Scheduler start only *submits* the task;
 success from `schtasks /run` does not mean the service is live. Each launch
 attempt writes its own log, `<control>/mat-baton-<id>.launcher.<unique>.log`,
@@ -151,8 +179,9 @@ Within and between cycles, `mat` claims the issue, runs the plan and review
 gate, implements the change, opens and merges the PR, closes the issue, and
 picks up the next ready issue under your `gh` account. The resident poller
 wakes the Dev between cycles; `mat baton stop` or `mat baton teardown` cancels
-it. A failed poller leaves an `exit:` reason in its log and makes
-`mat baton status` report the idle session as `stranded`.
+it. The independent host-service check can re-arm a failed poller or repair a
+crashed session; if it cannot, `mat baton status` reports the session as
+`crashed` and the normal operator channel receives an alert.
 
 Every merged cycle also leaves two fixed comments on the GitHub issue: an
 issue-side structured review verdict naming the PR before merge, and an issue-side
@@ -182,6 +211,12 @@ has a shared 30-second budget for service and role-health probes. If Git Bash
 or a native probe stops answering, status still returns a schema-valid row with
 `probe_status: degraded`, a `probe_error`, and `null` for values it could not
 establish.
+
+For a crashed Team, text status includes how long the crash has lasted. The
+JSON form adds `crash_duration_seconds`, measured from the first confirmed
+crash in the current recovery episode; it is `null` when the session is not
+crashed or the episode cannot be verified. Reading status is safe and
+read-only: it does not trigger recovery or send an alert.
 
 ### How the two roles talk
 
@@ -232,10 +267,13 @@ The operator surface is `mat baton <verb> <session>` (interactive umbrella:
     want the work kept, and stop when you want the services down.
   - Caucus sessions do not support either verb — a caucus is one finite
     deliberation, not a continuously armed session.
-- **Rescue a role** — `mat baton restart <session>` re-arms both serves from
-  the saved session state when its recorded worktree still exists as a
-  directory. If it is missing or no longer a directory, restart names the path
-  and asks you to relaunch the duo session; it does not recreate the worktree.
+- **Rescue a role** — `mat baton restart <session>` re-arms the serves and
+  verifies or re-creates the session's task host from saved state when its
+  recorded worktree still exists as a directory. If the worktree is missing or
+  no longer a directory, restart names the path and asks you to relaunch the
+  duo session; it does not recreate the worktree. If the task host cannot be
+  verified or re-created, restart fails closed instead of reporting a healthy
+  session.
   Restart also selects the GitHub account again from your current
   configuration before it restarts either role, so a changed token variable or
   owner mapping applies without a relaunch; if no account can be selected, it

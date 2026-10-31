@@ -204,23 +204,22 @@ official-auth-only, direct custom) or keeps the native `auth.json` /
 `config.toml` credentials (legacy native).
 
 - **Gateway-selected.** A non-empty `gateway_selector` field routes the
-  entry through the gateway origin: `MAT_CODEX_GATEWAY` when set and
-  non-empty, with `MAT_ANTHROPIC_GATEWAY` as the fallback — an operator
-  running one gateway for several protocols exports the origin once. The
+  entry through the shared gateway origin `MAT_ANTHROPIC_GATEWAY` — an
+  operator running one gateway for several protocols exports the origin once. The
   selected value becomes the role's `base_url` with only one trailing `/`
   stripped and, when enabled, the [worker namespace](#per-worker-gateway-url)
   inserted: the
   gateway owns URL handling and joins Codex's `/responses` request path onto
   its pool member's base URL, so any origin shape the gateway accepts works,
-  path prefixes included. Only when both
-  variables are unset or empty does the launch fail, with a diagnostic
-  naming both. The role is provisioned with a fixed mat-owned provider
+  path prefixes included. Only when the
+  variable is unset or empty does the launch fail, with a diagnostic naming
+  it. The role is provisioned with a fixed mat-owned provider
   identity `mat-codex-gateway` and the selector value carried as
   `MAT_CODEX_API_KEY`. The declared `auth_var`, `base_url`, `base_url_var`,
   `model_provider`, `wire_api`, and `model_catalog_json` are deliberately
   ignored on this route — set them only as comments documenting the
   upstream subscription. `MAT_GATEWAY_QUOTA_URL` is scrubbed on every Codex
-  route; the gateway route re-establishes it from the fallback origin so
+  route; the gateway route re-establishes it from the shared origin so
   the statusline queries the right pool's quota.
   Team/duo launches also scrub any inherited `OPENAI_API_KEY`,
   `OPENAI_BASE_URL`, and `CODEX_ACCESS_TOKEN` from the pane environment at
@@ -237,7 +236,7 @@ official-auth-only, direct custom) or keeps the native `auth.json` /
   ```
 
   ```text
-  export MAT_CODEX_GATEWAY=http://gateway.local:8080
+  export MAT_ANTHROPIC_GATEWAY=http://gateway.local:8080
   ```
 
 - **Official auth-only.** A non-empty `auth_var` with no endpoint and no
@@ -324,8 +323,7 @@ pi backends have three credential modes:
   companion gateway (see [Light Anthropic gateway](#light-anthropic-gateway))
   with no vendor key on the worker. The selector is the only credential: mat
   exports it as `MAT_PI_API_KEY` and writes a role-local `models.json`
-  provider block whose `baseUrl` is `MAT_PI_GATEWAY` or, when
-  that is unset, `MAT_ANTHROPIC_GATEWAY`, with the
+  provider block whose `baseUrl` is `MAT_ANTHROPIC_GATEWAY`, with the
   [worker namespace](#per-worker-gateway-url) inserted when enabled. `auth_var`, `base_url`,
   `base_url_var`, and `model_provider` are ignored. `wire_api` is optional and
   defaults to `anthropic` on this route. `default_model` is required. The
@@ -758,16 +756,14 @@ appends `/v1/messages` itself).
 With the gateway unset, every backend behaves exactly as it does without this
 feature.
 
-`MAT_ANTHROPIC_GATEWAY` serves Claude and Copilot backends directly, and is
-also the fallback origin for Codex and pi backends on the gateway route (see
-the Codex backends and pi workers sections above): a Codex
-`gateway_selector` entry uses `MAT_CODEX_GATEWAY` when it is set and
-`MAT_ANTHROPIC_GATEWAY` otherwise, and a pi `gateway_selector` entry uses
-`MAT_PI_GATEWAY` the same way. The variables carry a gateway origin, not a
+`MAT_ANTHROPIC_GATEWAY` is the single gateway origin for Claude, Copilot,
+Codex, and pi backends (see the Codex backends and pi workers sections above).
+The value carries a gateway origin, not a
 wire path — each client appends its own protocol path (`/v1/messages` for
 Claude Code, `/responses` for Codex, the path of its `wire_api` protocol for
 pi) and the gateway joins that inbound path onto the selected pool
 member's base URL, so one gateway origin serves every protocol at once.
+The retired `MAT_CODEX_GATEWAY` and `MAT_PI_GATEWAY` names are no longer read.
 
 A `claude setup-token` credential cannot read usage directly: its OAuth token
 carries inference scope only, and Anthropic's usage API requires `user:profile`.
@@ -803,7 +799,7 @@ gateway origin and any path it has:
 
 ```text
 MAT_GATEWAY_WORKER_NAMESPACE=1
-MAT_CODEX_GATEWAY=http://127.0.0.1:8080/v1, nickname agent-a
+MAT_ANTHROPIC_GATEWAY=http://127.0.0.1:8080/v1, nickname agent-a
   -> http://127.0.0.1:8080/_aqg/w/agent-a/v1
 ```
 
@@ -881,7 +877,9 @@ restart. If the credential is missing, empty or unreadable, the command is
 refused rather than run unauthenticated. Which account and credential source a
 Baton session uses is chosen at launch; after changing that choice (for example
 removing a token variable or remapping an owner), run
-`mat baton restart <session>` to choose again without relaunching. On Windows, use Git Bash; setup also
+`mat baton restart <session>` to choose again without relaunching. Restart
+also verifies or re-creates a dead task host before re-arming duo/team serves
+and pollers, and fails closed if that carrier cannot be verified. On Windows, use Git Bash; setup also
 supports GitHub CLI's native `gh.exe` and Git's Windows credential-helper paths.
 Agents whose shell is Windows PowerShell or PowerShell 7 also reach `gh`
 through the gateway, with its normal output and exit status.
@@ -1322,6 +1320,20 @@ To send a handoff directly to a pane, `send-relay %<pane-id> <handoff-file>`
 also works outside a tmux client, such as from an SSH shell. Role-word targets
 such as `reviewer` still require a tmux client.
 
+### Claude session directories
+
+Claude keeps Bash's working directory only inside the session's configured
+directories. If a Bash call reports `Shell cwd was reset to <path>`, add the
+needed existing directory from that Claude pane with:
+
+```bash
+send-relay "$TMUX_PANE" "/add-dir <existing directory>"
+```
+
+The command is the one allowed self-send for Claude directory setup; it takes
+effect immediately, including mid-turn. The path must exist and be a
+directory. Other self-targeted messages and TUI commands remain refused.
+
 ### Worktree isolation
 
 By default every worktree-creating mode — `adhoc`, `team`, `duo`, `audit`,
@@ -1541,7 +1553,9 @@ problem, investigation, and proposed solution; this is not an approval gate.
 
 Live's one queue-like carve-out is issue *capture*: when it spots an incidental,
 out-of-scope concern, it may open a `gh issue` to record it rather than dropping
-it or scope-creeping. Capture only — live never implements the ticket it files.
+it or scope-creeping. Before applying a lifecycle state, Live reviews each
+captured ticket for completeness, scope, and size. Capture only — live never
+implements the ticket it files.
 
 Use `live --domain <name> claude`, `live --domain <name> codex`, or
 `live --domain <name> commandcode` to attach a configured domain toolbox home
@@ -1714,10 +1728,14 @@ back to the exact agent that spoke.
 ### Enabling it
 
 Follow your platform quickstart's Telegram step — it takes you from nothing to
-an `active` message under a `<host> · tg-relay` header arriving in Telegram. On Linux, the relay user
-service is installed and started for you at install time: systemd is preferred,
-with OpenRC user services used when no systemd user manager is reachable. The
-reference below applies once the relay is running.
+an `active` message under a `<host> · tg-relay` header arriving in Telegram. On
+Linux, the relay user service is installed and started for you at install time:
+systemd is preferred, with OpenRC user services used when no systemd user
+manager is reachable. On a reachable systemd host, install also enables the
+independent hourly `mat-session-keepalive.timer`; macOS installs the equivalent
+`com.my-ai-team.session-keepalive` LaunchAgent. That keepalive refreshes only
+existing state for live sessions, so age-based `/tmp` cleanup can still reclaim
+dead sessions. The reference below applies once the relay is running.
 
 `mat doctor` reports whether your Telegram credentials are present and whether
 the relay service is loaded and active.
@@ -1994,6 +2012,12 @@ The per-role personality hook (`shared/personality-<role>.md`, or
 the user-global tier even when the toggle is off, because the built-in
 personality files are empty hooks with nothing to drift from.
 
+**One home per project bundle.** A project-local override — a project role
+prompt, a project `shared/` fragment, or a project `shared/personality-<role>.md`
+— gives that project its own role home under `~/.mat-agent-home/`, so a launch on
+one project cannot overwrite the rendered prompt of another. The user-global tier
+keeps the shared home: it applies to every project at once.
+
 ### Operator extension points
 
 To add shared house rules without replacing a role prompt, create a fragment in
@@ -2125,17 +2149,28 @@ distinct here:
 `bg-run` admits at most one in-flight task per (caller, command) pair: a second
 submission of the same command returns the existing task rather than launching a
 duplicate. A milestone or completion wake is evidence of an existing task — do
-not resubmit the same command on a wake. The duplicate status line keeps the
-machine-readable `task_id=... result=... deduplicated=true` prefix and adds
-`age=<seconds>s state=<state>`. `age` is the age of the matched admission
-record; for a cleared tombstone it starts when that tombstone was written, not
-when the original submission began. `state=active` means the classifier still
-has a live owner (including a live Baton task); `uncommitted_fresh` identifies
-the short reservation grace window before provider liveness is probed.
-Use `--retry` for a deliberate rerun.
+not resubmit the same command on a wake. A post-terminal duplicate within the
+dedupe lease returns the existing task and prints a stderr notice naming its task
+id and terminal status; it starts nothing. A duplicate hit on a task that has
+already finished re-delivers that task's final wake to the calling pane for the
+whole dedupe lease, so the outcome reaches you however old the retained result is.
+Use `--retry` to start a new task deliberately after the prior task has delivered
+a final wake and its provider cleanup has completed. A terminal result can be
+written just before that cleanup finishes; if you just received the final wake,
+wait a few seconds before retrying. If the prior task is still live, `--retry`
+refuses with a stderr notice naming its `task_id`; wait for its terminal wake.
+For a genuinely hung task, run `bg-run --cancel <task_id>` and retry only after
+cancellation completes. The duplicate status line keeps the machine-readable
+`task_id=... result=... deduplicated=true` prefix and adds
+`age=<seconds>s state=<state>`. `age` is the age of the matched admission record;
+for a cleared tombstone it starts when that tombstone was written, not when the
+original submission began. `state=active` means the classifier still has a live
+owner (including a live Baton task); `uncommitted_fresh` identifies the short
+reservation grace window before provider liveness is probed.
 
-**Retries, attempt identity, and stale wakes.** `--retry` replaces the running
-task behind the same admission slot. Every admission record carries three
+**Retries, attempt identity, and stale wakes.** `--retry` admits a new attempt
+behind the same admission slot only after the prior task is terminal; it never
+implicitly replaces a running task. Every admission record carries three
 identity fields — a `lineage` (derived from the caller and command, so a changed
 command or a different caller is always an independent lineage whose wakes can
 never supersede or be superseded by another lineage's), a generation `epoch`
@@ -2156,7 +2191,9 @@ delivered after any delay. What age can do is quiet the *notification* when
 nothing else is known: if the cycle a task was launched under has provably
 finished, or a very old completion arrives with no evidence that its workflow is
 still running, the result and wake are still written and kept — only the turn
-that would have announced them is skipped. Redelivering the same event stays
+that would have announced them is skipped. A duplicate submission that asks for
+a finished task again is not one of those: it re-delivers the final wake for the
+whole dedupe lease. Redelivering the same event stays
 idempotent — one turn per task/event, however many times it arrives. Records
 from before this scheme (no identity fields) always deliver, and a task whose
 record is missing or unreadable delivers too — rejection requires a live record
@@ -2193,11 +2230,13 @@ contains no command output, is limited to 1 MiB, and keeps one rotated file at
 `bg-run.log.1`.
 
 `bg-run` is available on tmux and Baton sessions, and from a child running in a
-live supervised local adhoc session. Local adhoc tasks are owned by the
-supervisor; milestone and terminal receipts go to the session inbox, and the
-submission returns the durable result-file path. The local provider rejects
-direct and non-adhoc local invocations. For a standalone headless local command,
-use `nohup <command> >validation.log 2>&1 & disown` from a foreground call and
+supervised local session — adhoc, live, or dev. The local supervisor owns the
+task; milestone and terminal receipts go to the session inbox for an adhoc
+session and to the owner-scoped receipt directory the submission prints for a
+live or dev session, and the submission returns the durable result-file path.
+The local provider rejects direct local invocations and invocations with no
+supervised owner. For a local command with no supervised owner, use
+`nohup <command> >validation.log 2>&1 & disown` from a foreground call and
 confirm from the log instead.
 
 To deliberately stop a task before it finishes, run `bg-run --cancel <task-id>`
@@ -2205,7 +2244,10 @@ To deliberately stop a task before it finishes, run `bg-run --cancel <task-id>`
 still running). This delivers a `status: cancelled` completion wake (or a local
 inbox receipt) instead of waiting for the command to finish or `--max` to
 elapse; cancelling an unknown or already-completed task id fails closed with a
-diagnostic and changes nothing.
+diagnostic and changes nothing. On the local driver, only the session that owns
+the task can cancel it: a cancel from another role that shares the session name
+fails closed and leaves the running command, its result and its receipt
+untouched.
 
 ### win-kill-tree — stop a Windows process tree
 

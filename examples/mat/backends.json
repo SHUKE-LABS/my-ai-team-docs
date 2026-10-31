@@ -78,7 +78,7 @@
       "default_effort": "high"
     },
     {
-      "_comment": "Example: Codex via the gateway route. gateway_selector is authoritative — auth_var / base_url / model_provider / wire_api / model_catalog_json are ignored on this entry. mat writes the fixed provider identity `mat-codex-gateway` into a real role-local config.toml and exports MAT_CODEX_API_KEY=<gateway_selector>. The origin is MAT_CODEX_GATEWAY (e.g. `export MAT_CODEX_GATEWAY=http://gateway.local:8080`), falling back to MAT_ANTHROPIC_GATEWAY; with both unset or empty the launch fails before Codex starts.",
+      "_comment": "Example: Codex via the gateway route. gateway_selector is authoritative — auth_var / base_url / model_provider / wire_api / model_catalog_json are ignored on this entry. mat writes the fixed provider identity `mat-codex-gateway` into a real role-local config.toml and exports MAT_CODEX_API_KEY=<gateway_selector>. The origin is MAT_ANTHROPIC_GATEWAY (e.g. `export MAT_ANTHROPIC_GATEWAY=http://gateway.local:8080`); with it unset or empty the launch fails before Codex starts.",
       "nickname": "codex-gateway",
       "config_dir": "codex-gateway",
       "prompt_file": "AGENTS.md",
@@ -155,7 +155,7 @@
       "default_effort": "high"
     },
     {
-      "_comment": "Example: pi via the gateway route. gateway_selector is authoritative — auth_var / base_url / base_url_var / model_provider are ignored on this entry. mat writes a real role-local models.json (baseUrl = MAT_PI_GATEWAY, falling back to MAT_ANTHROPIC_GATEWAY) and exports MAT_PI_API_KEY=<gateway_selector>. default_model is required: a bare model id (recommended) renders provider `mat` and launches as `--model mat/<model-id>`; a `<prefix>/<model-id>` renders provider `<prefix>`. wire_api is optional here and defaults to anthropic; set openai, responses, or google for a non-Anthropic pool member.",
+      "_comment": "Example: pi via the gateway route. gateway_selector is authoritative — auth_var / base_url / base_url_var / model_provider are ignored on this entry. mat writes a real role-local models.json (baseUrl = MAT_ANTHROPIC_GATEWAY) and exports MAT_PI_API_KEY=<gateway_selector>. default_model is required: a bare model id (recommended) renders provider `mat` and launches as `--model mat/<model-id>`; a `<prefix>/<model-id>` renders provider `<prefix>`. wire_api is optional here and defaults to anthropic; set openai, responses, or google for a non-Anthropic pool member.",
       "nickname": "pi-gateway",
       "config_dir": "pi-gateway",
       "gateway_selector": "chn",

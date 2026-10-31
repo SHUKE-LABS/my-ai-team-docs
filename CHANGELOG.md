@@ -2,7 +2,77 @@
 
 _Generated from release tags._
 
-## v4.75.27 … v4.75.12 (2026-10-24)
+## v4.82.0 (2026-11-01)
+
+### Features
+- feat(bg-run): own supervised local live and dev tasks
+
+## v4.81.1 (2026-10-30)
+
+### Fixes
+- fix(bg-run): re-deliver the final wake on a dedupe hit inside the lease
+
+## v4.81.0 … v4.80.2 (2026-10-29)
+
+### Features
+- feat: enforce Live ticket self-critique
+
+### Fixes
+- fix(bg-run): refuse retry of live tasks
+- fix: roll back the loser's delivery state on a claim race
+- fix(baton): reset team ceiling after commit progress
+- fix(bg-run): charge the closed-cycle reap for its admission-record scan
+
+## v4.80.1 … v4.79.3 (2026-10-28)
+
+### Features
+- feat(pr): wake on upstream review
+
+### Fixes
+- fix: resolve one mutation target before every write
+- fix: guard delivery label mutations
+- fix(bg-run): explain post-terminal dedupe retries
+- fix(merge): handle unmergeable upstream delivery PRs
+
+## v4.79.2 … v4.77.2 (2026-10-27)
+
+### Features
+- feat(claude): retain explore and live transcripts beyond the 30-day default
+- feat(claude): persist cwd resets with add-dir
+
+### Fixes
+- fix(prompts): amend live cycle scope changes
+- fix(prompt): give project-local personality and profile-name their own home
+- fix(duo): recover Copilot relay composer residue
+- fix(agent-home): isolate checkout skill links
+
+## v4.77.1 … v4.76.3 (2026-10-26)
+
+### Features
+- feat: keep live session state fresh
+
+### Fixes
+- fix: recover crashed baton teams
+- fix: stamp launched version in every supervisor
+- fix(relay): refresh tmux skew marker after supervisor reexec
+- fix(review): bound AC-uncovered finding churn
+- fix(test): align the daemon PATH and baton launch assertions with
+
+## v4.76.2 … v4.75.35 (2026-10-25)
+
+### Features
+- feat: use one gateway origin for codex and pi
+
+### Fixes
+- fix(test): bound the poller liveness-sweep extraction and route its suite
+- fix(prompts): arm the CI watch on idle recovery instead of re-checking once
+- fix(prompts): park external upstream waits
+- fix: recover team task host on baton restart
+- fix: preflight baton service capabilities
+- fix(baton): recover team claims before new-cycle
+- fix(team): fence closed cycle deliveries
+
+## v4.75.34 … v4.75.12 (2026-10-24)
 
 ### Fixes
 - fix(audit): guard ledger write-back
@@ -17,9 +87,16 @@ _Generated from release tags._
 - fix(ci): stage file-size helper for recovery heads
 - fix(baton): recheck POSIX converge freshness at wait bound
 - fix(install): show unresolved Git Bash diagnostic
+- fix(prompts): tidy reviewer AC routing wording
+- fix(ci): pin locale for comm comparisons
+- fix(ci): recalibrate real-host baton deadline
+- fix(ci): fail closed on malformed runner PATH
+- fix(review): handle busy peers at post-merge gate
+- fix(test): carry every tracker-library source in the Windows reconcile fixture
 
 ### Performance
 - perf(dispatch): reuse per-tick observations
+- perf(relay-poll): run the tick work in a short-lived child
 
 ### Docs
 - docs: describe Windows Git Bash relay autostart
