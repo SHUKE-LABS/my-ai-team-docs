@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.82.0 (2026-11-01)
+
+### Features
+- feat(bg-run): own supervised local live and dev tasks
+
 ## v4.81.1 (2026-10-30)
 
 ### Fixes

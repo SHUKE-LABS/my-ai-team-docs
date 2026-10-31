@@ -2230,11 +2230,13 @@ contains no command output, is limited to 1 MiB, and keeps one rotated file at
 `bg-run.log.1`.
 
 `bg-run` is available on tmux and Baton sessions, and from a child running in a
-live supervised local adhoc session. Local adhoc tasks are owned by the
-supervisor; milestone and terminal receipts go to the session inbox, and the
-submission returns the durable result-file path. The local provider rejects
-direct and non-adhoc local invocations. For a standalone headless local command,
-use `nohup <command> >validation.log 2>&1 & disown` from a foreground call and
+supervised local session — adhoc, live, or dev. The local supervisor owns the
+task; milestone and terminal receipts go to the session inbox for an adhoc
+session and to the owner-scoped receipt directory the submission prints for a
+live or dev session, and the submission returns the durable result-file path.
+The local provider rejects direct local invocations and invocations with no
+supervised owner. For a local command with no supervised owner, use
+`nohup <command> >validation.log 2>&1 & disown` from a foreground call and
 confirm from the log instead.
 
 To deliberately stop a task before it finishes, run `bg-run --cancel <task-id>`
@@ -2242,7 +2244,10 @@ To deliberately stop a task before it finishes, run `bg-run --cancel <task-id>`
 still running). This delivers a `status: cancelled` completion wake (or a local
 inbox receipt) instead of waiting for the command to finish or `--max` to
 elapse; cancelling an unknown or already-completed task id fails closed with a
-diagnostic and changes nothing.
+diagnostic and changes nothing. On the local driver, only the session that owns
+the task can cancel it: a cancel from another role that shares the session name
+fails closed and leaves the running command, its result and its receipt
+untouched.
 
 ### win-kill-tree — stop a Windows process tree
 
