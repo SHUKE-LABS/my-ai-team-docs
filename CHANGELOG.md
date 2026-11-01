@@ -2,11 +2,14 @@
 
 _Generated from release tags._
 
-## v4.83.2 … v4.83.1 (2026-11-02)
+## v4.83.3 … v4.83.1 (2026-11-02)
 
 ### Fixes
 - fix(review): treat a live-cycle branch as a benign post-merge gate failure
 - fix(notify): surface sandboxed delivery claims
+
+### Other Changes
+- test(ci): align relay poll keepalive timestamps
 
 ## v4.83.0 … v4.82.0 (2026-11-01)
 
