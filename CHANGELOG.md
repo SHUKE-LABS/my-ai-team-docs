@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.83.1 (2026-11-02)
+
+### Fixes
+- fix(review): treat a live-cycle branch as a benign post-merge gate failure
+
 ## v4.83.0 … v4.82.0 (2026-11-01)
 
 ### Features
