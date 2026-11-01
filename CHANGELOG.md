@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v4.82.6 … v4.82.0 (2026-11-01)
+## v4.83.0 … v4.82.0 (2026-11-01)
 
 ### Features
 - feat(bg-run): own supervised local live and dev tasks
+- feat(hooks): guard process-pattern self-matches
 
 ### Fixes
 - fix(live): supersede the earlier report when the reflection acts
