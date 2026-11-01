@@ -1798,6 +1798,11 @@ together with its ` · ` separator. The address says how to reach the sender:
 | The relay itself | none (`<host> · tg-relay`) | — |
 | A framework action | `<driver>:<session>:<component>` (or `<component>`) | `(view only)` |
 
+If a live tmux session backgrounds its agent, its notifications keep the
+original pane address, and replies keep routing to that pane, while the pane
+is still live. If that pane can no longer be confirmed, the notification uses
+the normal pane-less fallback instead.
+
 Framework `--action` pages bind their session and component explicitly, so an
 operator can identify the daemon, supervisor, or poller that raised the page
 even when it was launched from another pane. If no session, role, or pane can
