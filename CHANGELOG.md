@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.82.5 … v4.82.0 (2026-11-01)
+## v4.82.6 … v4.82.0 (2026-11-01)
 
 ### Features
 - feat(bg-run): own supervised local live and dev tasks
@@ -15,6 +15,7 @@ _Generated from release tags._
 ### Other Changes
 - test(codex-config): fix three Windows Git Bash cases
 - test: reap direct signal stubs during case cleanup
+- test: update telegram runtime mutation mocks
 
 ## v4.81.1 (2026-10-30)
 
