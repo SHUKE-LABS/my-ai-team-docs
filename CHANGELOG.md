@@ -2,10 +2,13 @@
 
 _Generated from release tags._
 
-## v4.82.1 … v4.82.0 (2026-11-01)
+## v4.82.2 … v4.82.0 (2026-11-01)
 
 ### Features
 - feat(bg-run): own supervised local live and dev tasks
+
+### Fixes
+- fix(live): supersede the earlier report when the reflection acts
 
 ### Other Changes
 - test(codex-config): fix three Windows Git Bash cases
