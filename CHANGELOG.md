@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v4.84.0 (2026-11-03)
+## v4.85.0 … v4.84.0 (2026-11-03)
 
 ### Features
 - feat(pair-view): add the loopback diff viewer
+- feat(learned): append-only TIL archive for what the operator learns across repos
 
 ## v4.83.7 … v4.83.1 (2026-11-02)
 

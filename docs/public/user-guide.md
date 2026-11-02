@@ -1424,6 +1424,64 @@ that already has a live one. Remove an inactive, clean worktree explicitly with
 `mat remove-worktree <path>`; this also accepts a preserved live issue-patch
 worktree. It refuses dirty worktrees and any path still used by a live pane.
 
+### The learned archive
+
+What you learn while reviewing code in one repo usually holds in the next. The
+learned archive is a private, append-only store for those notes — separate
+from your session logs, and never published anywhere.
+
+```bash
+learned-archive <body-file> --topic <slug> [--supersedes <entry-id>]
+learned-archive --root
+```
+
+The first form writes one entry and prints its path. The body file holds the
+note itself; the topic is a short slug that becomes the entry's folder. Both
+are reduced to safe filename characters automatically, so a topic like
+`ef core/migrations` lands in `ef_core_migrations`. The archive is a local Git
+repository created on first use, so the very first call works with no network
+and no setup.
+
+Entries are never edited in place. When something you learn corrects or deepens
+an earlier entry, write a new one and name the entry it replaces:
+
+```bash
+learned-archive new-note.md --topic efcore --supersedes til-2026-11-03-101500-mysess.md
+```
+
+The older entry stays exactly as written. Readers see it as *superseded* rather
+than *active*, and the newer entry carries the forward reference.
+
+To read the archive back, point the `lb` reader at it:
+
+```bash
+LB_DIR="$(learned-archive --root)" lb find migrations
+```
+
+`lb` prints one tab-separated line per entry: its path, its status (`active` or
+`superseded`), its date, the entry it supersedes, and a short excerpt.
+
+By default the archive lives under your framework state directory, at
+`~/.local/state/my-ai-team/learned`. Set `MAT_LEARNED_ARCHIVE_DIR` to keep it
+somewhere else.
+
+#### Keeping a private copy on a remote
+
+The archive is an ordinary Git repository, so you can keep a private copy
+yourself. Write your first entry to create the archive, then point it at a
+remote you control — a private repository on your own host, or a path on
+another machine:
+
+```bash
+root="$(learned-archive --root)"
+git -C "$root" remote add origin <your-private-remote-url>
+```
+
+From then on every new entry is committed locally and then pushed to that
+remote. If the remote is unreachable, the failure is reported on stderr and the
+local commit is kept — a network problem never loses a note, and the command
+still succeeds.
+
 ## Modes
 
 Choose a mode that matches the work:
