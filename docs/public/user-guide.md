@@ -1284,6 +1284,40 @@ mat pair-view close
 The viewer is deliberately local and unauthenticated, so do not expose its port
 beyond your own machine.
 
+### Pair review
+
+`pair-review` is a built-in skill for reviewing a change with the agent, one
+review unit at a time. Ask for a pair review — "pair review this pull
+request", "walk me through this diff" — and the agent:
+
+- picks the change set you mean (a pull request, a committed range, today's
+  default-branch commits, or your working tree and index), writes it as a
+  unified diff, and opens it in the [diff viewer](#diff-viewer);
+- slices it into review units and tells you the plan — how many hunks, in how
+  many units, starting where — before the first round;
+- then takes one unit per round: it points the viewer at the lines, explains
+  what the change does and what looks risky about it, and stops for your take.
+
+The review runs as a conversation: you answer, the agent agrees or argues with
+evidence and records the agreed explanation, and the next unit starts. A later
+session on the same change picks up where the last one stopped, so an
+interrupted review is not lost. That progress lives outside the repository
+under review, never in the tree itself.
+
+The diff viewer is a reading aid, not a requirement: when it cannot be opened
+or focused, the agent says so once and points at the file and line in its
+message instead, and the review carries on unchanged.
+
+Findings are yours to decide. The agent drafts a comment and shows its exact
+text; nothing is posted until you confirm that text. In a repo you deliver, a
+fix the review settles becomes an issue in the usual shape — problem,
+approach, acceptance criteria — never a silent edit to the code under review.
+
+The agent also checks what it already knows about the technologies the change
+touches before it explains them, and at the end offers the facts the review
+settled as notes for the [learned archive](#the-learned-archive), writing only
+the ones you pick.
+
 ### `mat backlog` — delivery queue view
 
 `mat backlog` prints a read-only snapshot of open issues by lifecycle, followed
