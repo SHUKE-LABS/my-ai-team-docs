@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.84.0 (2026-11-03)
+
+### Features
+- feat(pair-view): add the loopback diff viewer
+
 ## v4.83.7 … v4.83.1 (2026-11-02)
 
 ### Fixes

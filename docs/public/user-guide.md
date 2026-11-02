@@ -1222,6 +1222,68 @@ which keeps writing the operator event trail. The one exception is the Rewind
 link's own start-it-for-me step, which is not a session mutation at all.
 Because it is unauthenticated, do not expose the port beyond your own machine.
 
+### Diff viewer
+
+`mat pair-view` renders a unified diff in a browser window so you can read a
+change the way a reviewer does. You produce the diff yourself — from `git diff`,
+a pull request, or any tool that writes a unified diff — and hand the file to
+the viewer:
+
+```bash
+git diff > /tmp/change.diff
+mat pair-view open /tmp/change.diff
+```
+
+The command prints the URL of the viewer and asks your browser to open it. The
+viewer runs on your machine only: it binds the loopback interface, serves only
+its own assets, and needs no npm, no Node, and no network access. It does need
+`python3` on your `PATH`; without it the command prints a one-line reason and
+exits non-zero without starting anything.
+
+The page shows one section per file with old-side and new-side line numbers,
+added and deleted lines coloured apart, local syntax highlighting, a file list
+to jump between files, and a **Wrap** toggle that wraps long lines while the
+line numbers stay in their column.
+
+An optional title is shown as plain text at the top of the page:
+
+```bash
+mat pair-view open /tmp/change.diff --title "Review: relay runtime"
+```
+
+The title is taken literally — it is escaped, never interpreted as markup — and
+every later `open` replaces it. An `open` without `--title` clears it, so the
+title always describes the diff currently on screen.
+
+To point at the lines under discussion, focus them. The page updates in place,
+without a reload:
+
+```bash
+mat pair-view focus src/app.py:42          # one new-side line
+mat pair-view focus src/app.py:42-57       # a range of new-side lines
+mat pair-view focus src/app.py:12,18,25    # several new-side lines
+mat pair-view focus src/app.py:12:old      # an old-side (deleted) line
+```
+
+The path is a file in the loaded diff, and the spec is `N`, `N-M`, or a comma
+list of those, with an optional `:old` suffix that addresses the old side
+instead of the new side. The first target is scrolled to the centre of the
+window and every target is highlighted; a later focus clears the previous
+highlight. A target that names a file or a line the loaded diff does not
+contain is refused with a one-line reason — a range or a list is refused
+whole, never narrowed to the lines that happen to exist — and the current
+highlight stays where it was.
+
+Each session keeps one viewer. A second `open` replaces the diff and title in
+the page that is already open, through the same server. To stop it:
+
+```bash
+mat pair-view close
+```
+
+The viewer is deliberately local and unauthenticated, so do not expose its port
+beyond your own machine.
+
 ### `mat backlog` — delivery queue view
 
 `mat backlog` prints a read-only snapshot of open issues by lifecycle, followed
