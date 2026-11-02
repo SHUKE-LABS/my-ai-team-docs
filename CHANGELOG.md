@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.83.6 … v4.83.1 (2026-11-02)
+## v4.83.7 … v4.83.1 (2026-11-02)
 
 ### Fixes
 - fix(review): treat a live-cycle branch as a benign post-merge gate failure
@@ -13,6 +13,7 @@ _Generated from release tags._
 - test(ci): align relay poll keepalive timestamps
 - test(ci): align merge-release boundary fixture
 - test(ci): gate bg-run retries on terminal state
+- test(session): make keepalive atime checks relatime-safe
 
 ## v4.83.0 … v4.82.0 (2026-11-01)
 
