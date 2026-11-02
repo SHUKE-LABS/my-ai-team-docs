@@ -1234,11 +1234,42 @@ git diff > /tmp/change.diff
 mat pair-view open /tmp/change.diff
 ```
 
-The command prints the URL of the viewer and asks your browser to open it. The
+The command prints the URL of the viewer and opens it in a browser. The
 viewer runs on your machine only: it binds the loopback interface, serves only
 its own assets, and needs no npm, no Node, and no network access. It does need
 `python3` on your `PATH`; without it the command prints a one-line reason and
 exits non-zero without starting anything.
+
+The window is placed for you. On a Linux X11 desktop or on Windows, `open`
+puts one browser window in the top half of the primary screen and moves the
+terminal you typed the command into the bottom half, so the diff and the
+command line are on screen at the same time. The browser window belongs to the
+session: it runs with its own profile, and a later `open` focuses and repositions
+that same window instead of opening another one. On every other platform —
+macOS included — the URL opens in your default browser.
+
+Placement needs a Chromium-family browser — Chrome, Chromium, or Edge — and a
+way to move native windows:
+
+| Platform | Needs |
+| --- | --- |
+| Linux X11 | `wmctrl` and `xdotool` on `PATH` |
+| Windows | PowerShell |
+
+Placement is best effort and never fails the command. When a prerequisite is
+missing, the session has no X11 display to place against — a Wayland session
+without XWayland, for instance — or the window manager refuses the move,
+`open` prints one line naming what was missing on the error stream and hands
+the URL to your default browser instead:
+
+```console
+$ mat pair-view open /tmp/change.diff
+http://127.0.0.1:53187/
+mat pair-view: placement refused: wmctrl is required to place the window
+```
+
+The URL is always printed, and the command always succeeds: the viewer is up
+either way.
 
 The page shows one section per file with old-side and new-side line numbers,
 added and deleted lines coloured apart, local syntax highlighting, a file list
