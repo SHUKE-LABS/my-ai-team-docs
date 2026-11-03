@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.87.4 … v4.84.0 (2026-11-03)
+## v4.87.5 … v4.84.0 (2026-11-03)
 
 ### Features
 - feat(pair-view): add the loopback diff viewer
@@ -14,6 +14,7 @@ _Generated from release tags._
 - fix(agents): name the no-PR reviewed head and allow a corrected rerun
 - fix(install): commit the refresh stage before the refresh child runs
 - fix(agents): stop rendered prompts naming shared fragments they never include
+- fix(agents): end the APPROVE turn only after the merge-release wrapper returns
 
 ### Performance
 - perf(windows): make the tg-relay ownership scan fork-free
