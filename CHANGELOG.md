@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.88.0 (2026-11-04)
+
+### Features
+- feat(baton): route merge-ready recovery to the Reviewer
+
 ## v4.87.5 … v4.84.0 (2026-11-03)
 
 ### Features
