@@ -2,13 +2,14 @@
 
 _Generated from release tags._
 
-## v4.88.1 … v4.88.0 (2026-11-04)
+## v4.88.2 … v4.88.0 (2026-11-04)
 
 ### Features
 - feat(baton): route merge-ready recovery to the Reviewer
 
 ### Fixes
 - fix(agents): make the Planner idempotent to a duplicate next-work wake
+- fix(agents): trim unpinned Planner prose to clear the render ceiling
 
 ## v4.87.5 … v4.84.0 (2026-11-03)
 
