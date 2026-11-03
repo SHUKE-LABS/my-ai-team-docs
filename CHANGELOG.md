@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.87.1 … v4.84.0 (2026-11-03)
+## v4.87.2 … v4.84.0 (2026-11-03)
 
 ### Features
 - feat(pair-view): add the loopback diff viewer
@@ -12,6 +12,9 @@ _Generated from release tags._
 
 ### Fixes
 - fix(agents): name the no-PR reviewed head and allow a corrected rerun
+
+### Performance
+- perf(windows): make the tg-relay ownership scan fork-free
 
 ## v4.83.7 … v4.83.1 (2026-11-02)
 
