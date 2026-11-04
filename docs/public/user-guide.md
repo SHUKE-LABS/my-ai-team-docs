@@ -1271,6 +1271,9 @@ mat pair-view: placement refused: wmctrl is required to place the window
 The URL is always printed, and the command always succeeds: the viewer is up
 either way.
 
+On Windows Git Bash, that hand-off to your default browser keeps Git Bash's
+path rewriting out of the way, so the switch Windows needs arrives intact.
+
 The page shows one section per file with old-side and new-side line numbers,
 added and deleted lines coloured apart, local syntax highlighting, a file list
 to jump between files, and a **Wrap** toggle that wraps long lines while the
@@ -1407,6 +1410,8 @@ It checks, one report line each:
   for Git Bash and the MSYS2 shell](#windows-one-git-for-git-bash-and-the-msys2-shell);
   and whether `/tmp` resolves to one directory across bash, native tools, and the
   agent's Read/Write tools.
+- On Windows, whether the Windows Script Host is enabled. The Telegram relay
+  autostarts through it, so mat reports a `warn` line when it is disabled.
 
 Three verdicts, one exit rule:
 

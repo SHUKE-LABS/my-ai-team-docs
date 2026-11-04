@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.88.2 … v4.88.0 (2026-11-04)
+## v4.88.3 … v4.88.0 (2026-11-04)
 
 ### Features
 - feat(baton): route merge-ready recovery to the Reviewer
@@ -10,6 +10,7 @@ _Generated from release tags._
 ### Fixes
 - fix(agents): make the Planner idempotent to a duplicate next-work wake
 - fix(agents): trim unpinned Planner prose to clear the render ceiling
+- fix: guard the Windows /c and /v switches from MSYS path conversion
 
 ## v4.87.5 … v4.84.0 (2026-11-03)
 
