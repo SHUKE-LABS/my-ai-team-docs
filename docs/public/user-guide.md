@@ -1448,6 +1448,11 @@ only after the bytes are written, so it can never hand off a path without
 content behind it; the reservation form `mat scratch-file <name>` prints a path
 and creates nothing, so sending a reserved-but-unwritten path is refused.
 
+A handoff written with `mat scratch-file` inside a session is durable: it
+survives logoff, reboot and the end of the session that created it, and is
+kept for 7 days. A file written straight into a temporary directory is not —
+that directory is removed with the session.
+
 To send a handoff directly to a pane, `send-relay %<pane-id> <handoff-file>`
 also works outside a tmux client, such as from an SSH shell. Role-word targets
 such as `reviewer` still require a tmux client.

@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.89.0 (2026-11-05)
+
+### Features
+- feat: keep mat scratch-file handoffs in a durable per-session root
+
 ## v4.88.3 … v4.88.0 (2026-11-04)
 
 ### Features
