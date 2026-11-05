@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v4.89.2 … v4.89.0 (2026-11-05)
+## v4.90.0 … v4.89.0 (2026-11-05)
 
 ### Features
 - feat: keep mat scratch-file handoffs in a durable per-session root
+- feat(hooks): block agent find over a filesystem or drive root
 
 ### Fixes
 - fix(baton): verify the recovery launch token by path identity
