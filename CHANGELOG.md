@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.91.0 (2026-11-06)
+
+### Features
+- feat(bg-run): deliver the caller environment through a one-shot file
+
 ## v4.90.0 … v4.89.0 (2026-11-05)
 
 ### Features
