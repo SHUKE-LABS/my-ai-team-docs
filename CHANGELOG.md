@@ -2,10 +2,13 @@
 
 _Generated from release tags._
 
-## v4.89.0 (2026-11-05)
+## v4.89.1 … v4.89.0 (2026-11-05)
 
 ### Features
 - feat: keep mat scratch-file handoffs in a durable per-session root
+
+### Fixes
+- fix(baton): verify the recovery launch token by path identity
 
 ## v4.88.3 … v4.88.0 (2026-11-04)
 
