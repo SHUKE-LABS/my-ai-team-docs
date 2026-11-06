@@ -2117,6 +2117,29 @@ is refused by session and role rather than routed elsewhere, and you re-target
 with `#<session>` or reply to a live agent message. Nothing is delivered on a
 guess.
 
+### Photos and unsupported messages
+
+You can send an agent a photo. The relay downloads it to
+`/tmp/tg-<update-id>.<ext>`, and the agent receives the photo's caption followed
+by a final line naming that file:
+
+```
+look at the error dialog
+Image: /tmp/tg-812345.jpg
+```
+
+The caption routes exactly like a text message: `#<session>`, `@<role>`, and
+replies work the same way. A photo without a caption goes to the current
+(sticky) target and carries only the `Image:` line. An album arrives as one
+message per photo; only the first carries the caption, and each later photo is
+delivered on its own with just its `Image:` line.
+
+Every other non-text message — voice, documents, stickers, video, and so on —
+is refused with a reply such as `voice messages are not supported — not
+delivered.` A photo that cannot be downloaded, including one over Telegram's
+20 MB bot download limit, is refused with an `image download failed` reply.
+Nothing is delivered for a refused message.
+
 ### notify-user flags
 
 Agents notify you with `notify-user`:
