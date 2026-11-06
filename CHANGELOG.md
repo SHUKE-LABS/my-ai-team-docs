@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.93.0 (2026-11-07)
+
+### Features
+- feat(agents): add optional Reuse plan field and plan-gate duplicate-helper check
+
 ## v4.92.0 … v4.91.0 (2026-11-06)
 
 ### Features
