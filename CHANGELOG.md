@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.95.0 … v4.93.0 (2026-11-07)
+## v4.95.1 … v4.93.0 (2026-11-07)
 
 ### Features
 - feat(agents): add optional Reuse plan field and plan-gate duplicate-helper check
@@ -14,6 +14,9 @@ _Generated from release tags._
 
 ### Docs
 - docs(agents): route post-merge-only ACs through non-closing delivery
+
+### Other Changes
+- test(bg-run): assert caller env through the one-shot env file
 
 ## v4.92.0 … v4.91.0 (2026-11-06)
 
