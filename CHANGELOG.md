@@ -2,11 +2,14 @@
 
 _Generated from release tags._
 
-## v4.94.0 … v4.93.0 (2026-11-07)
+## v4.94.1 … v4.93.0 (2026-11-07)
 
 ### Features
 - feat(agents): add optional Reuse plan field and plan-gate duplicate-helper check
 - feat(issue): accept a cross-repo blocker in mat issue block/unblock
+
+### Fixes
+- fix(next-work): defer the unverified ACTION while the own reservation can self-repair
 
 ### Docs
 - docs(agents): route post-merge-only ACs through non-closing delivery
