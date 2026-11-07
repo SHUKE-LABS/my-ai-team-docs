@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v4.95.1 … v4.93.0 (2026-11-07)
+## v4.95.2 … v4.93.0 (2026-11-07)
 
 ### Features
 - feat(agents): add optional Reuse plan field and plan-gate duplicate-helper check
@@ -11,6 +11,7 @@ _Generated from release tags._
 
 ### Fixes
 - fix(next-work): defer the unverified ACTION while the own reservation can self-repair
+- fix(ci): do not re-report a planned slot settled by a green recovery
 
 ### Docs
 - docs(agents): route post-merge-only ACs through non-closing delivery
