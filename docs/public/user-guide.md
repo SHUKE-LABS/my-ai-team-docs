@@ -204,23 +204,22 @@ official-auth-only, direct custom) or keeps the native `auth.json` /
 `config.toml` credentials (legacy native).
 
 - **Gateway-selected.** A non-empty `gateway_selector` field routes the
-  entry through the gateway origin: `MAT_CODEX_GATEWAY` when set and
-  non-empty, with `MAT_ANTHROPIC_GATEWAY` as the fallback — an operator
-  running one gateway for several protocols exports the origin once. The
+  entry through the shared gateway origin `MAT_ANTHROPIC_GATEWAY` — an
+  operator running one gateway for several protocols exports the origin once. The
   selected value becomes the role's `base_url` with only one trailing `/`
   stripped and, when enabled, the [worker namespace](#per-worker-gateway-url)
   inserted: the
   gateway owns URL handling and joins Codex's `/responses` request path onto
   its pool member's base URL, so any origin shape the gateway accepts works,
-  path prefixes included. Only when both
-  variables are unset or empty does the launch fail, with a diagnostic
-  naming both. The role is provisioned with a fixed mat-owned provider
+  path prefixes included. Only when the
+  variable is unset or empty does the launch fail, with a diagnostic naming
+  it. The role is provisioned with a fixed mat-owned provider
   identity `mat-codex-gateway` and the selector value carried as
   `MAT_CODEX_API_KEY`. The declared `auth_var`, `base_url`, `base_url_var`,
   `model_provider`, `wire_api`, and `model_catalog_json` are deliberately
   ignored on this route — set them only as comments documenting the
   upstream subscription. `MAT_GATEWAY_QUOTA_URL` is scrubbed on every Codex
-  route; the gateway route re-establishes it from the fallback origin so
+  route; the gateway route re-establishes it from the shared origin so
   the statusline queries the right pool's quota.
   Team/duo launches also scrub any inherited `OPENAI_API_KEY`,
   `OPENAI_BASE_URL`, and `CODEX_ACCESS_TOKEN` from the pane environment at
@@ -237,7 +236,7 @@ official-auth-only, direct custom) or keeps the native `auth.json` /
   ```
 
   ```text
-  export MAT_CODEX_GATEWAY=http://gateway.local:8080
+  export MAT_ANTHROPIC_GATEWAY=http://gateway.local:8080
   ```
 
 - **Official auth-only.** A non-empty `auth_var` with no endpoint and no
@@ -324,8 +323,7 @@ pi backends have three credential modes:
   companion gateway (see [Light Anthropic gateway](#light-anthropic-gateway))
   with no vendor key on the worker. The selector is the only credential: mat
   exports it as `MAT_PI_API_KEY` and writes a role-local `models.json`
-  provider block whose `baseUrl` is `MAT_PI_GATEWAY` or, when
-  that is unset, `MAT_ANTHROPIC_GATEWAY`, with the
+  provider block whose `baseUrl` is `MAT_ANTHROPIC_GATEWAY`, with the
   [worker namespace](#per-worker-gateway-url) inserted when enabled. `auth_var`, `base_url`,
   `base_url_var`, and `model_provider` are ignored. `wire_api` is optional and
   defaults to `anthropic` on this route. `default_model` is required. The
@@ -758,16 +756,14 @@ appends `/v1/messages` itself).
 With the gateway unset, every backend behaves exactly as it does without this
 feature.
 
-`MAT_ANTHROPIC_GATEWAY` serves Claude and Copilot backends directly, and is
-also the fallback origin for Codex and pi backends on the gateway route (see
-the Codex backends and pi workers sections above): a Codex
-`gateway_selector` entry uses `MAT_CODEX_GATEWAY` when it is set and
-`MAT_ANTHROPIC_GATEWAY` otherwise, and a pi `gateway_selector` entry uses
-`MAT_PI_GATEWAY` the same way. The variables carry a gateway origin, not a
+`MAT_ANTHROPIC_GATEWAY` is the single gateway origin for Claude, Copilot,
+Codex, and pi backends (see the Codex backends and pi workers sections above).
+The value carries a gateway origin, not a
 wire path — each client appends its own protocol path (`/v1/messages` for
 Claude Code, `/responses` for Codex, the path of its `wire_api` protocol for
 pi) and the gateway joins that inbound path onto the selected pool
 member's base URL, so one gateway origin serves every protocol at once.
+The retired `MAT_CODEX_GATEWAY` and `MAT_PI_GATEWAY` names are no longer read.
 
 A `claude setup-token` credential cannot read usage directly: its OAuth token
 carries inference scope only, and Anthropic's usage API requires `user:profile`.
@@ -803,7 +799,7 @@ gateway origin and any path it has:
 
 ```text
 MAT_GATEWAY_WORKER_NAMESPACE=1
-MAT_CODEX_GATEWAY=http://127.0.0.1:8080/v1, nickname agent-a
+MAT_ANTHROPIC_GATEWAY=http://127.0.0.1:8080/v1, nickname agent-a
   -> http://127.0.0.1:8080/_aqg/w/agent-a/v1
 ```
 
@@ -881,7 +877,9 @@ restart. If the credential is missing, empty or unreadable, the command is
 refused rather than run unauthenticated. Which account and credential source a
 Baton session uses is chosen at launch; after changing that choice (for example
 removing a token variable or remapping an owner), run
-`mat baton restart <session>` to choose again without relaunching. On Windows, use Git Bash; setup also
+`mat baton restart <session>` to choose again without relaunching. Restart
+also verifies or re-creates a dead task host before re-arming duo/team serves
+and pollers, and fails closed if that carrier cannot be verified. On Windows, use Git Bash; setup also
 supports GitHub CLI's native `gh.exe` and Git's Windows credential-helper paths.
 Agents whose shell is Windows PowerShell or PowerShell 7 also reach `gh`
 through the gateway, with its normal output and exit status.
@@ -1224,6 +1222,136 @@ which keeps writing the operator event trail. The one exception is the Rewind
 link's own start-it-for-me step, which is not a session mutation at all.
 Because it is unauthenticated, do not expose the port beyond your own machine.
 
+### Diff viewer
+
+`mat pair-view` renders a unified diff in a browser window so you can read a
+change the way a reviewer does. You produce the diff yourself — from `git diff`,
+a pull request, or any tool that writes a unified diff — and hand the file to
+the viewer:
+
+```bash
+git diff > /tmp/change.diff
+mat pair-view open /tmp/change.diff
+```
+
+The command prints the URL of the viewer and opens it in a browser. The
+viewer runs on your machine only: it binds the loopback interface, serves only
+its own assets, and needs no npm, no Node, and no network access. It does need
+`python3` on your `PATH`; without it the command prints a one-line reason and
+exits non-zero without starting anything.
+
+The window is placed for you. On a Linux X11 desktop or on Windows, `open`
+puts one browser window in the top half of the primary screen and moves the
+terminal you typed the command into the bottom half, so the diff and the
+command line are on screen at the same time. The browser window belongs to the
+session: it runs with its own profile, and a later `open` focuses and repositions
+that same window instead of opening another one. On every other platform —
+macOS included — the URL opens in your default browser.
+
+Placement needs a Chromium-family browser — Chrome, Chromium, or Edge — and a
+way to move native windows:
+
+| Platform | Needs |
+| --- | --- |
+| Linux X11 | `wmctrl` and `xdotool` on `PATH` |
+| Windows | PowerShell |
+
+Placement is best effort and never fails the command. When a prerequisite is
+missing, the session has no X11 display to place against — a Wayland session
+without XWayland, for instance — or the window manager refuses the move,
+`open` prints one line naming what was missing on the error stream and hands
+the URL to your default browser instead:
+
+```console
+$ mat pair-view open /tmp/change.diff
+http://127.0.0.1:53187/
+mat pair-view: placement refused: wmctrl is required to place the window
+```
+
+The URL is always printed, and the command always succeeds: the viewer is up
+either way.
+
+On Windows Git Bash, that hand-off to your default browser keeps Git Bash's
+path rewriting out of the way, so the switch Windows needs arrives intact.
+
+The page shows one section per file with old-side and new-side line numbers,
+added and deleted lines coloured apart, local syntax highlighting, a file list
+to jump between files, and a **Wrap** toggle that wraps long lines while the
+line numbers stay in their column.
+
+An optional title is shown as plain text at the top of the page:
+
+```bash
+mat pair-view open /tmp/change.diff --title "Review: relay runtime"
+```
+
+The title is taken literally — it is escaped, never interpreted as markup — and
+every later `open` replaces it. An `open` without `--title` clears it, so the
+title always describes the diff currently on screen.
+
+To point at the lines under discussion, focus them. The page updates in place,
+without a reload:
+
+```bash
+mat pair-view focus src/app.py:42          # one new-side line
+mat pair-view focus src/app.py:42-57       # a range of new-side lines
+mat pair-view focus src/app.py:12,18,25    # several new-side lines
+mat pair-view focus src/app.py:12:old      # an old-side (deleted) line
+```
+
+The path is a file in the loaded diff, and the spec is `N`, `N-M`, or a comma
+list of those, with an optional `:old` suffix that addresses the old side
+instead of the new side. The first target is scrolled to the centre of the
+window and every target is highlighted; a later focus clears the previous
+highlight. A target that names a file or a line the loaded diff does not
+contain is refused with a one-line reason — a range or a list is refused
+whole, never narrowed to the lines that happen to exist — and the current
+highlight stays where it was.
+
+Each session keeps one viewer. A second `open` replaces the diff and title in
+the page that is already open, through the same server. To stop it:
+
+```bash
+mat pair-view close
+```
+
+The viewer is deliberately local and unauthenticated, so do not expose its port
+beyond your own machine.
+
+### Pair review
+
+`pair-review` is a built-in skill for reviewing a change with the agent, one
+review unit at a time. Ask for a pair review — "pair review this pull
+request", "walk me through this diff" — and the agent:
+
+- picks the change set you mean (a pull request, a committed range, today's
+  default-branch commits, or your working tree and index), writes it as a
+  unified diff, and opens it in the [diff viewer](#diff-viewer);
+- slices it into review units and tells you the plan — how many hunks, in how
+  many units, starting where — before the first round;
+- then takes one unit per round: it points the viewer at the lines, explains
+  what the change does and what looks risky about it, and stops for your take.
+
+The review runs as a conversation: you answer, the agent agrees or argues with
+evidence and records the agreed explanation, and the next unit starts. A later
+session on the same change picks up where the last one stopped, so an
+interrupted review is not lost. That progress lives outside the repository
+under review, never in the tree itself.
+
+The diff viewer is a reading aid, not a requirement: when it cannot be opened
+or focused, the agent says so once and points at the file and line in its
+message instead, and the review carries on unchanged.
+
+Findings are yours to decide. The agent drafts a comment and shows its exact
+text; nothing is posted until you confirm that text. In a repo you deliver, a
+fix the review settles becomes an issue in the usual shape — problem,
+approach, acceptance criteria — never a silent edit to the code under review.
+
+The agent also checks what it already knows about the technologies the change
+touches before it explains them, and at the end offers the facts the review
+settled as notes for the [learned archive](#the-learned-archive), writing only
+the ones you pick.
+
 ### `mat backlog` — delivery queue view
 
 `mat backlog` prints a read-only snapshot of open issues by lifecycle, followed
@@ -1282,6 +1410,8 @@ It checks, one report line each:
   for Git Bash and the MSYS2 shell](#windows-one-git-for-git-bash-and-the-msys2-shell);
   and whether `/tmp` resolves to one directory across bash, native tools, and the
   agent's Read/Write tools.
+- On Windows, whether the Windows Script Host is enabled. The Telegram relay
+  autostarts through it, so mat reports a `warn` line when it is disabled.
 
 Three verdicts, one exit rule:
 
@@ -1318,9 +1448,28 @@ only after the bytes are written, so it can never hand off a path without
 content behind it; the reservation form `mat scratch-file <name>` prints a path
 and creates nothing, so sending a reserved-but-unwritten path is refused.
 
+A handoff written with `mat scratch-file` inside a session is durable: it
+survives logoff, reboot and the end of the session that created it, and is
+kept for 7 days. A file written straight into a temporary directory is not —
+that directory is removed with the session.
+
 To send a handoff directly to a pane, `send-relay %<pane-id> <handoff-file>`
 also works outside a tmux client, such as from an SSH shell. Role-word targets
 such as `reviewer` still require a tmux client.
+
+### Claude session directories
+
+Claude keeps Bash's working directory only inside the session's configured
+directories. If a Bash call reports `Shell cwd was reset to <path>`, add the
+needed existing directory from that Claude pane with:
+
+```bash
+send-relay "$TMUX_PANE" "/add-dir <existing directory>"
+```
+
+The command is the one allowed self-send for Claude directory setup; it takes
+effect immediately, including mid-turn. The path must exist and be a
+directory. Other self-targeted messages and TUI commands remain refused.
 
 ### Worktree isolation
 
@@ -1349,6 +1498,64 @@ one main checkout, so mat refuses a second write-capable session against a repo
 that already has a live one. Remove an inactive, clean worktree explicitly with
 `mat remove-worktree <path>`; this also accepts a preserved live issue-patch
 worktree. It refuses dirty worktrees and any path still used by a live pane.
+
+### The learned archive
+
+What you learn while reviewing code in one repo usually holds in the next. The
+learned archive is a private, append-only store for those notes — separate
+from your session logs, and never published anywhere.
+
+```bash
+learned-archive <body-file> --topic <slug> [--supersedes <entry-id>]
+learned-archive --root
+```
+
+The first form writes one entry and prints its path. The body file holds the
+note itself; the topic is a short slug that becomes the entry's folder. Both
+are reduced to safe filename characters automatically, so a topic like
+`ef core/migrations` lands in `ef_core_migrations`. The archive is a local Git
+repository created on first use, so the very first call works with no network
+and no setup.
+
+Entries are never edited in place. When something you learn corrects or deepens
+an earlier entry, write a new one and name the entry it replaces:
+
+```bash
+learned-archive new-note.md --topic efcore --supersedes til-2026-11-03-101500-mysess.md
+```
+
+The older entry stays exactly as written. Readers see it as *superseded* rather
+than *active*, and the newer entry carries the forward reference.
+
+To read the archive back, point the `lb` reader at it:
+
+```bash
+LB_DIR="$(learned-archive --root)" lb find migrations
+```
+
+`lb` prints one tab-separated line per entry: its path, its status (`active` or
+`superseded`), its date, the entry it supersedes, and a short excerpt.
+
+By default the archive lives under your framework state directory, at
+`~/.local/state/my-ai-team/learned`. Set `MAT_LEARNED_ARCHIVE_DIR` to keep it
+somewhere else.
+
+#### Keeping a private copy on a remote
+
+The archive is an ordinary Git repository, so you can keep a private copy
+yourself. Write your first entry to create the archive, then point it at a
+remote you control — a private repository on your own host, or a path on
+another machine:
+
+```bash
+root="$(learned-archive --root)"
+git -C "$root" remote add origin <your-private-remote-url>
+```
+
+From then on every new entry is committed locally and then pushed to that
+remote. If the remote is unreachable, the failure is reported on stderr and the
+local commit is kept — a network problem never loses a note, and the command
+still succeeds.
 
 ## Modes
 
@@ -1541,7 +1748,9 @@ problem, investigation, and proposed solution; this is not an approval gate.
 
 Live's one queue-like carve-out is issue *capture*: when it spots an incidental,
 out-of-scope concern, it may open a `gh issue` to record it rather than dropping
-it or scope-creeping. Capture only — live never implements the ticket it files.
+it or scope-creeping. Before applying a lifecycle state, Live reviews each
+captured ticket for completeness, scope, and size. Capture only — live never
+implements the ticket it files.
 
 Use `live --domain <name> claude`, `live --domain <name> codex`, or
 `live --domain <name> commandcode` to attach a configured domain toolbox home
@@ -1714,10 +1923,14 @@ back to the exact agent that spoke.
 ### Enabling it
 
 Follow your platform quickstart's Telegram step — it takes you from nothing to
-an `active` message under a `<host> · tg-relay` header arriving in Telegram. On Linux, the relay user
-service is installed and started for you at install time: systemd is preferred,
-with OpenRC user services used when no systemd user manager is reachable. The
-reference below applies once the relay is running.
+an `active` message under a `<host> · tg-relay` header arriving in Telegram. On
+Linux, the relay user service is installed and started for you at install time:
+systemd is preferred, with OpenRC user services used when no systemd user
+manager is reachable. On a reachable systemd host, install also enables the
+independent hourly `mat-session-keepalive.timer`; macOS installs the equivalent
+`com.my-ai-team.session-keepalive` LaunchAgent. That keepalive refreshes only
+existing state for live sessions, so age-based `/tmp` cleanup can still reclaim
+dead sessions. The reference below applies once the relay is running.
 
 `mat doctor` reports whether your Telegram credentials are present and whether
 the relay service is loaded and active.
@@ -1779,6 +1992,11 @@ together with its ` · ` separator. The address says how to reach the sender:
 | A session start notice | `#<session>` | — |
 | The relay itself | none (`<host> · tg-relay`) | — |
 | A framework action | `<driver>:<session>:<component>` (or `<component>`) | `(view only)` |
+
+If a live tmux session backgrounds its agent, its notifications keep the
+original pane address, and replies keep routing to that pane, while the pane
+is still live. If that pane can no longer be confirmed, the notification uses
+the normal pane-less fallback instead.
 
 Framework `--action` pages bind their session and component explicitly, so an
 operator can identify the daemon, supervisor, or poller that raised the page
@@ -1899,6 +2117,29 @@ is refused by session and role rather than routed elsewhere, and you re-target
 with `#<session>` or reply to a live agent message. Nothing is delivered on a
 guess.
 
+### Photos and unsupported messages
+
+You can send an agent a photo. The relay downloads it to
+`/tmp/tg-<update-id>.<ext>`, and the agent receives the photo's caption followed
+by a final line naming that file:
+
+```
+look at the error dialog
+Image: /tmp/tg-812345.jpg
+```
+
+The caption routes exactly like a text message: `#<session>`, `@<role>`, and
+replies work the same way. A photo without a caption goes to the current
+(sticky) target and carries only the `Image:` line. An album arrives as one
+message per photo; only the first carries the caption, and each later photo is
+delivered on its own with just its `Image:` line.
+
+Every other non-text message — voice, documents, stickers, video, and so on —
+is refused with a reply such as `voice messages are not supported — not
+delivered.` A photo that cannot be downloaded, including one over Telegram's
+20 MB bot download limit, is refused with an `image download failed` reply.
+Nothing is delivered for a refused message.
+
 ### notify-user flags
 
 Agents notify you with `notify-user`:
@@ -1993,6 +2234,12 @@ The per-role personality hook (`shared/personality-<role>.md`, or
 `shared/personality.md` for explore) is the exception: it stays overridable from
 the user-global tier even when the toggle is off, because the built-in
 personality files are empty hooks with nothing to drift from.
+
+**One home per project bundle.** A project-local override — a project role
+prompt, a project `shared/` fragment, or a project `shared/personality-<role>.md`
+— gives that project its own role home under `~/.mat-agent-home/`, so a launch on
+one project cannot overwrite the rendered prompt of another. The user-global tier
+keeps the shared home: it applies to every project at once.
 
 ### Operator extension points
 
@@ -2125,17 +2372,28 @@ distinct here:
 `bg-run` admits at most one in-flight task per (caller, command) pair: a second
 submission of the same command returns the existing task rather than launching a
 duplicate. A milestone or completion wake is evidence of an existing task — do
-not resubmit the same command on a wake. The duplicate status line keeps the
-machine-readable `task_id=... result=... deduplicated=true` prefix and adds
-`age=<seconds>s state=<state>`. `age` is the age of the matched admission
-record; for a cleared tombstone it starts when that tombstone was written, not
-when the original submission began. `state=active` means the classifier still
-has a live owner (including a live Baton task); `uncommitted_fresh` identifies
-the short reservation grace window before provider liveness is probed.
-Use `--retry` for a deliberate rerun.
+not resubmit the same command on a wake. A post-terminal duplicate within the
+dedupe lease returns the existing task and prints a stderr notice naming its task
+id and terminal status; it starts nothing. A duplicate hit on a task that has
+already finished re-delivers that task's final wake to the calling pane for the
+whole dedupe lease, so the outcome reaches you however old the retained result is.
+Use `--retry` to start a new task deliberately after the prior task has delivered
+a final wake and its provider cleanup has completed. A terminal result can be
+written just before that cleanup finishes; if you just received the final wake,
+wait a few seconds before retrying. If the prior task is still live, `--retry`
+refuses with a stderr notice naming its `task_id`; wait for its terminal wake.
+For a genuinely hung task, run `bg-run --cancel <task_id>` and retry only after
+cancellation completes. The duplicate status line keeps the machine-readable
+`task_id=... result=... deduplicated=true` prefix and adds
+`age=<seconds>s state=<state>`. `age` is the age of the matched admission record;
+for a cleared tombstone it starts when that tombstone was written, not when the
+original submission began. `state=active` means the classifier still has a live
+owner (including a live Baton task); `uncommitted_fresh` identifies the short
+reservation grace window before provider liveness is probed.
 
-**Retries, attempt identity, and stale wakes.** `--retry` replaces the running
-task behind the same admission slot. Every admission record carries three
+**Retries, attempt identity, and stale wakes.** `--retry` admits a new attempt
+behind the same admission slot only after the prior task is terminal; it never
+implicitly replaces a running task. Every admission record carries three
 identity fields — a `lineage` (derived from the caller and command, so a changed
 command or a different caller is always an independent lineage whose wakes can
 never supersede or be superseded by another lineage's), a generation `epoch`
@@ -2156,7 +2414,9 @@ delivered after any delay. What age can do is quiet the *notification* when
 nothing else is known: if the cycle a task was launched under has provably
 finished, or a very old completion arrives with no evidence that its workflow is
 still running, the result and wake are still written and kept — only the turn
-that would have announced them is skipped. Redelivering the same event stays
+that would have announced them is skipped. A duplicate submission that asks for
+a finished task again is not one of those: it re-delivers the final wake for the
+whole dedupe lease. Redelivering the same event stays
 idempotent — one turn per task/event, however many times it arrives. Records
 from before this scheme (no identity fields) always deliver, and a task whose
 record is missing or unreadable delivers too — rejection requires a live record
@@ -2193,11 +2453,13 @@ contains no command output, is limited to 1 MiB, and keeps one rotated file at
 `bg-run.log.1`.
 
 `bg-run` is available on tmux and Baton sessions, and from a child running in a
-live supervised local adhoc session. Local adhoc tasks are owned by the
-supervisor; milestone and terminal receipts go to the session inbox, and the
-submission returns the durable result-file path. The local provider rejects
-direct and non-adhoc local invocations. For a standalone headless local command,
-use `nohup <command> >validation.log 2>&1 & disown` from a foreground call and
+supervised local session — adhoc, live, or dev. The local supervisor owns the
+task; milestone and terminal receipts go to the session inbox for an adhoc
+session and to the owner-scoped receipt directory the submission prints for a
+live or dev session, and the submission returns the durable result-file path.
+The local provider rejects direct local invocations and invocations with no
+supervised owner. For a local command with no supervised owner, use
+`nohup <command> >validation.log 2>&1 & disown` from a foreground call and
 confirm from the log instead.
 
 To deliberately stop a task before it finishes, run `bg-run --cancel <task-id>`
@@ -2205,7 +2467,10 @@ To deliberately stop a task before it finishes, run `bg-run --cancel <task-id>`
 still running). This delivers a `status: cancelled` completion wake (or a local
 inbox receipt) instead of waiting for the command to finish or `--max` to
 elapse; cancelling an unknown or already-completed task id fails closed with a
-diagnostic and changes nothing.
+diagnostic and changes nothing. On the local driver, only the session that owns
+the task can cancel it: a cancel from another role that shares the session name
+fails closed and leaves the running command, its result and its receipt
+untouched.
 
 ### win-kill-tree — stop a Windows process tree
 

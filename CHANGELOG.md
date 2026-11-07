@@ -2,7 +2,169 @@
 
 _Generated from release tags._
 
-## v4.75.27 … v4.75.12 (2026-10-24)
+## v4.95.3 (2026-11-08)
+
+### Fixes
+- fix(poll): revive a relay poller whose pid file was lost
+
+## v4.95.2 … v4.93.0 (2026-11-07)
+
+### Features
+- feat(agents): add optional Reuse plan field and plan-gate duplicate-helper check
+- feat(issue): accept a cross-repo blocker in mat issue block/unblock
+- feat(tg-relay): deliver Telegram photos as an Image: path; refuse other non-text messages
+
+### Fixes
+- fix(next-work): defer the unverified ACTION while the own reservation can self-repair
+- fix(ci): do not re-report a planned slot settled by a green recovery
+
+### Docs
+- docs(agents): route post-merge-only ACs through non-closing delivery
+
+### Other Changes
+- test(bg-run): assert caller env through the one-shot env file
+
+## v4.92.0 … v4.91.0 (2026-11-06)
+
+### Features
+- feat(bg-run): deliver the caller environment through a one-shot file
+- feat(review): add duplicate-helper and recent-merge checks to the repo hygiene gate
+
+### Fixes
+- fix(recovery): read merge-ready approvals from the durable session root
+
+## v4.90.0 … v4.89.0 (2026-11-05)
+
+### Features
+- feat: keep mat scratch-file handoffs in a durable per-session root
+- feat(hooks): block agent find over a filesystem or drive root
+
+### Fixes
+- fix(baton): verify the recovery launch token by path identity
+- fix(baton): rebuild a running duo whose session cubby was wiped
+
+## v4.88.3 … v4.88.0 (2026-11-04)
+
+### Features
+- feat(baton): route merge-ready recovery to the Reviewer
+
+### Fixes
+- fix(agents): make the Planner idempotent to a duplicate next-work wake
+- fix(agents): trim unpinned Planner prose to clear the render ceiling
+- fix: guard the Windows /c and /v switches from MSYS path conversion
+
+## v4.87.5 … v4.84.0 (2026-11-03)
+
+### Features
+- feat(pair-view): add the loopback diff viewer
+- feat(learned): append-only TIL archive for what the operator learns across repos
+- feat(skills): add the built-in pair-review skill
+- feat(pair-view): place the diff browser above the terminal
+
+### Fixes
+- fix(agents): name the no-PR reviewed head and allow a corrected rerun
+- fix(install): commit the refresh stage before the refresh child runs
+- fix(agents): stop rendered prompts naming shared fragments they never include
+- fix(agents): end the APPROVE turn only after the merge-release wrapper returns
+
+### Performance
+- perf(windows): make the tg-relay ownership scan fork-free
+
+## v4.83.7 … v4.83.1 (2026-11-02)
+
+### Fixes
+- fix(review): treat a live-cycle branch as a benign post-merge gate failure
+- fix(notify): surface sandboxed delivery claims
+- fix(baton): make the wrapper tail's optional keepalive cleanup nounset-safe
+
+### Other Changes
+- test(ci): align relay poll keepalive timestamps
+- test(ci): align merge-release boundary fixture
+- test(ci): gate bg-run retries on terminal state
+- test(session): make keepalive atime checks relatime-safe
+
+## v4.83.0 … v4.82.0 (2026-11-01)
+
+### Features
+- feat(bg-run): own supervised local live and dev tasks
+- feat(hooks): guard process-pattern self-matches
+
+### Fixes
+- fix(live): supersede the earlier report when the reflection acts
+- fix(baton): nudge planner for team pre-cycle recovery
+- fix(relay): restore live pane identity for backgrounded notify-user
+
+### Other Changes
+- test(codex-config): fix three Windows Git Bash cases
+- test: reap direct signal stubs during case cleanup
+- test: update telegram runtime mutation mocks
+
+## v4.81.1 (2026-10-30)
+
+### Fixes
+- fix(bg-run): re-deliver the final wake on a dedupe hit inside the lease
+
+## v4.81.0 … v4.80.2 (2026-10-29)
+
+### Features
+- feat: enforce Live ticket self-critique
+
+### Fixes
+- fix(bg-run): refuse retry of live tasks
+- fix: roll back the loser's delivery state on a claim race
+- fix(baton): reset team ceiling after commit progress
+- fix(bg-run): charge the closed-cycle reap for its admission-record scan
+
+## v4.80.1 … v4.79.3 (2026-10-28)
+
+### Features
+- feat(pr): wake on upstream review
+
+### Fixes
+- fix: resolve one mutation target before every write
+- fix: guard delivery label mutations
+- fix(bg-run): explain post-terminal dedupe retries
+- fix(merge): handle unmergeable upstream delivery PRs
+
+## v4.79.2 … v4.77.2 (2026-10-27)
+
+### Features
+- feat(claude): retain explore and live transcripts beyond the 30-day default
+- feat(claude): persist cwd resets with add-dir
+
+### Fixes
+- fix(prompts): amend live cycle scope changes
+- fix(prompt): give project-local personality and profile-name their own home
+- fix(duo): recover Copilot relay composer residue
+- fix(agent-home): isolate checkout skill links
+
+## v4.77.1 … v4.76.3 (2026-10-26)
+
+### Features
+- feat: keep live session state fresh
+
+### Fixes
+- fix: recover crashed baton teams
+- fix: stamp launched version in every supervisor
+- fix(relay): refresh tmux skew marker after supervisor reexec
+- fix(review): bound AC-uncovered finding churn
+- fix(test): align the daemon PATH and baton launch assertions with
+
+## v4.76.2 … v4.75.35 (2026-10-25)
+
+### Features
+- feat: use one gateway origin for codex and pi
+
+### Fixes
+- fix(test): bound the poller liveness-sweep extraction and route its suite
+- fix(prompts): arm the CI watch on idle recovery instead of re-checking once
+- fix(prompts): park external upstream waits
+- fix: recover team task host on baton restart
+- fix: preflight baton service capabilities
+- fix(baton): recover team claims before new-cycle
+- fix(team): fence closed cycle deliveries
+
+## v4.75.34 … v4.75.12 (2026-10-24)
 
 ### Fixes
 - fix(audit): guard ledger write-back
@@ -17,9 +179,16 @@ _Generated from release tags._
 - fix(ci): stage file-size helper for recovery heads
 - fix(baton): recheck POSIX converge freshness at wait bound
 - fix(install): show unresolved Git Bash diagnostic
+- fix(prompts): tidy reviewer AC routing wording
+- fix(ci): pin locale for comm comparisons
+- fix(ci): recalibrate real-host baton deadline
+- fix(ci): fail closed on malformed runner PATH
+- fix(review): handle busy peers at post-merge gate
+- fix(test): carry every tracker-library source in the Windows reconcile fixture
 
 ### Performance
 - perf(dispatch): reuse per-tick observations
+- perf(relay-poll): run the tick work in a short-lived child
 
 ### Docs
 - docs: describe Windows Git Bash relay autostart
