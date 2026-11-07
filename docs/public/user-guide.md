@@ -2152,6 +2152,19 @@ The message body is normally positional (`notify-user "msg"`). `--action` / `-a`
 marks a message that needs *you* to act. Every other `--*` token is rejected with
 a usage error rather than being sent as text.
 
+A cron job or plain script that runs outside any agent pane or mat session
+can name itself with `MAT_NOTIFY_ORIGIN`:
+
+```bash
+MAT_NOTIFY_ORIGIN=nightly-backup notify-user "backup finished"
+```
+
+The header then reads `<host> · <repo> · nightly-backup (view only)`, where
+`<repo>` is the checkout the script runs in, if any. The label is display-only:
+you cannot reply to it. An agent pane or mat session always shows its own
+identity, even when `MAT_NOTIFY_ORIGIN` is set. Without the variable, such a
+caller's header shows the host only.
+
 ### The action-required marker
 
 Most `notify-user` traffic is FYI — a PR opened, a cycle finished, a queue

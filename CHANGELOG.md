@@ -2,7 +2,10 @@
 
 _Generated from release tags._
 
-## v4.95.5 … v4.95.3 (2026-11-08)
+## v4.96.0 … v4.95.3 (2026-11-08)
+
+### Features
+- feat(notify-user): label pane-less callers with MAT_NOTIFY_ORIGIN
 
 ### Fixes
 - fix(poll): revive a relay poller whose pid file was lost
