@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.95.3 (2026-11-08)
+
+### Fixes
+- fix(poll): revive a relay poller whose pid file was lost
+
 ## v4.95.2 … v4.93.0 (2026-11-07)
 
 ### Features
