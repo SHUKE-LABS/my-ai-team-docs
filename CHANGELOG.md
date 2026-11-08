@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.96.1 (2026-11-09)
+
+### Fixes
+- fix(baton): retry team no-output peer requests
+
 ## v4.96.0 … v4.95.3 (2026-11-08)
 
 ### Features
