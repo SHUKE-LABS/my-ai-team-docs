@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v4.97.1 (2026-11-10)
+## v4.97.2 … v4.97.1 (2026-11-10)
 
 ### Fixes
 - fix(merge-release): merge behind PRs in check-less repositories
+- fix(bg-run): reap the tmux task tree before reporting --cancel
 
 ## v4.97.0 … v4.96.1 (2026-11-09)
 

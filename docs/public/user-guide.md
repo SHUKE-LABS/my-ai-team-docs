@@ -2480,7 +2480,12 @@ To deliberately stop a task before it finishes, run `bg-run --cancel <task-id>`
 still running). This delivers a `status: cancelled` completion wake (or a local
 inbox receipt) instead of waiting for the command to finish or `--max` to
 elapse; cancelling an unknown or already-completed task id fails closed with a
-diagnostic and changes nothing. On the local driver, only the session that owns
+diagnostic and changes nothing. On the tmux driver, cancellation stops the
+task's whole process tree, including every child the command started, and
+reports `status=cancelled` only after the tree is gone. If bg-run cannot prove
+the tree is gone, `--cancel` exits nonzero with a `cancel_cleanup_unproven`
+diagnostic and publishes no cancelled result or wake; the task stays recorded,
+so you can run `--cancel` again. On the local driver, only the session that owns
 the task can cancel it: a cancel from another role that shares the session name
 fails closed and leaves the running command, its result and its receipt
 untouched.
