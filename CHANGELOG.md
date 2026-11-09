@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.97.1 (2026-11-10)
+
+### Fixes
+- fix(merge-release): merge behind PRs in check-less repositories
+
 ## v4.97.0 … v4.96.1 (2026-11-09)
 
 ### Features
