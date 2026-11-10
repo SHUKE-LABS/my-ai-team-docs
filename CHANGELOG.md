@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v4.97.7 (2026-11-11)
+
+### Fixes
+- fix: refuse readying or freshly claiming an issue whose PR merged
+
 ## v4.97.6 … v4.97.1 (2026-11-10)
 
 ### Fixes

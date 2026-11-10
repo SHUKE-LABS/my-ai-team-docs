@@ -1370,8 +1370,12 @@ mat backlog --repo owner/name # override repo slug
 ```
 
 Each issue lands in one bucket: `umbrella` (a tracker), `delivery` (claimed),
-`refining`, `blocked`, `ready` (claimable now), `backlog`, or `other`. The
-`ready` section is byte-identical to what `mat next-work` picks from.
+`refining`, `blocked`, `ready`, `backlog`, or `other`. The `ready` section
+lists the ready queue in the order `mat next-work` claims from. A `ready` row
+whose pull request is merging or merged, or whose merge state cannot be read,
+stays listed but is marked `!` with a note naming the pull request or the
+unreadable state: `mat next-work` does not claim it. In `--json` output the
+same note appears in the issue's `notes`.
 
 ### `mat doctor`
 
