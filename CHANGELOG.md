@@ -2,13 +2,14 @@
 
 _Generated from release tags._
 
-## v4.97.4 … v4.97.1 (2026-11-10)
+## v4.97.5 … v4.97.1 (2026-11-10)
 
 ### Fixes
 - fix(merge-release): merge behind PRs in check-less repositories
 - fix(bg-run): reap the tmux task tree before reporting --cancel
 - fix(baton): count a recent bg-run submission as progress
 - fix(ci): treat sibling progress as a saturated Windows pool, not offline
+- fix(test): skip the codex live-catalog preflight in the gateway env shim
 
 ## v4.97.0 … v4.96.1 (2026-11-09)
 
