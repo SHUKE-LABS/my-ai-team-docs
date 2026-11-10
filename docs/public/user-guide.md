@@ -1329,13 +1329,18 @@ request", "walk me through this diff" — and the agent:
   unified diff, and opens it in the [diff viewer](#diff-viewer);
 - slices it into review units and tells you the plan — how many hunks, in how
   many units, starting where — before the first round;
-- then takes one unit per round: it points the viewer at the lines, explains
-  what the change does and what looks risky about it, and stops for your take.
+- then takes one unit per round: it opens with the position (`Unit 3/12`),
+  points the viewer at the lines, explains what the change does and what looks
+  risky about it, and stops for your take.
 
 The review runs as a conversation: you answer, the agent agrees or argues with
 evidence and records the agreed explanation, and the next unit starts. A later
-session on the same change picks up where the last one stopped, so an
-interrupted review is not lost. That progress lives outside the repository
+session on the same change picks up where the last one stopped — it reports
+the next unit and the total, and does not re-explain settled units — so an
+interrupted review is not lost. If the agent regroups the plan mid-walk, the
+next round shows the new total and says why it changed. At the end the agent
+reports how many units are done and how many remain, naming the next unit when
+the review is unfinished. That progress lives outside the repository
 under review, never in the tree itself.
 
 The diff viewer is a reading aid, not a requirement: when it cannot be opened
