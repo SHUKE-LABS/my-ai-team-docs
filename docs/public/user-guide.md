@@ -2269,6 +2269,9 @@ To add shared house rules without replacing a role prompt, create a fragment in
 `<project-root>/.my-ai-team/shared/` or
 `${XDG_CONFIG_HOME:-~/.config}/my-ai-team/shared/`. The project tier always
 applies; the user-global tier requires `mat.personalPromptOverride=true`.
+An override fragment may include one more fragment with
+`@include shared/<name>.md`; that fragment resolves through the same tiers, and
+an `@include` inside it fails the render.
 
 - `local-issue-rules.md` reaches the issue-acting roles.
 - `local-devops-rules.md` reaches every standalone role. Its shipped fragment is
