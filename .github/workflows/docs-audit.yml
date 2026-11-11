@@ -1,0 +1,82 @@
+name: Dependency audit
+
+# The publication lane (docs-deploy.yml) runs the high-severity dependency
+# audit only for changes that touch a dependency input, so an advisory in a
+# build-time dependency can no longer freeze publication. This workflow covers
+# the rest: it audits the default branch every day and reports a new advisory
+# as a tracking issue instead of blocking a deployment.
+
+on:
+  schedule:
+    # 05:23 UTC, daily.
+    - cron: '23 5 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: docs-dependency-audit
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22.19.0'
+      - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: docs-site/package.json
+      - name: Install dependencies
+        working-directory: docs-site
+        run: pnpm install --frozen-lockfile
+      - name: Audit dependencies
+        id: audit
+        # A non-zero exit is the finding, not a crash: the report below still
+        # has to run. A failed install never reaches this step, so an install
+        # failure opens no tracking issue.
+        continue-on-error: true
+        working-directory: docs-site
+        run: pnpm audit --audit-level=high --json > audit-report.json
+      - name: Build the tracking issue body
+        if: steps.audit.outcome == 'failure'
+        working-directory: docs-site
+        run: node scripts/audit-report.mjs audit-report.json > audit-issue-body.md
+      - name: Open or update the tracking issue
+        if: steps.audit.outcome == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('node:fs');
+            const title = 'Dependency audit: high-severity advisories';
+            const body = fs.readFileSync('docs-site/audit-issue-body.md', 'utf8');
+            const { owner, repo } = context.repo;
+            const issues = await github.paginate(github.rest.issues.listForRepo, {
+              owner,
+              repo,
+              state: 'open',
+              per_page: 100,
+            });
+            const open = issues.find((issue) => issue.title === title);
+            if (open) {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: open.number,
+                body,
+              });
+              core.info(`Commented on the open tracking issue #${open.number}.`);
+              return;
+            }
+            const { data: created } = await github.rest.issues.create({
+              owner,
+              repo,
+              title,
+              body,
+            });
+            core.info(`Opened the tracking issue #${created.number}.`);
