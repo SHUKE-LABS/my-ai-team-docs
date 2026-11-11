@@ -1277,7 +1277,10 @@ path rewriting out of the way, so the switch Windows needs arrives intact.
 The page shows one section per file with old-side and new-side line numbers,
 added and deleted lines coloured apart, local syntax highlighting, a file list
 to jump between files, and a **Wrap** toggle that wraps long lines while the
-line numbers stay in their column.
+line numbers stay in their column. The header stays pinned at the top while you
+scroll and keeps a fixed height: the title, the focus control, and the **Wrap**
+toggle share one row, and the file list sits below it, capped at about three
+rows and scrolling on its own when a diff touches more files than fit.
 
 An optional title is shown as plain text at the top of the page:
 
@@ -1307,6 +1310,21 @@ highlight. A target that names a file or a line the loaded diff does not
 contain is refused with a one-line reason — a range or a list is refused
 whole, never narrowed to the lines that happen to exist — and the current
 highlight stays where it was.
+
+A focus can carry a label that names what is being discussed:
+
+```bash
+mat pair-view focus --label "Unit 3/12" src/app.py:42-57
+```
+
+The label appears in the header as plain text — escaped, never interpreted as
+markup. While lines are focused, the header shows a control with the label, or
+**Back to focus** when the focus has none; click it to scroll the focused lines
+back to the centre after you have scrolled away. A later focus without
+`--label` clears the label, and a refused focus leaves both the label and the
+highlight unchanged. `--label` takes exactly one value and may be given once;
+an unknown option is refused with a one-line reason before the viewer is
+contacted.
 
 Each session keeps one viewer. A second `open` replaces the diff and title in
 the page that is already open, through the same server. To stop it:

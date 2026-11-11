@@ -2,11 +2,12 @@
 
 _Generated from release tags._
 
-## v4.99.0 (2026-11-12)
+## v5.0.0 … v4.99.0 (2026-11-12)
 
 ### Features
 - feat(live): fall back to a free equivalent nick when the requested nick is busy
 - feat(ci): track failed public documentation publications
+- feat(pair-view): bounded header and labelled back-to-focus control
 
 ## v4.98.1 … v4.97.7 (2026-11-11)
 
