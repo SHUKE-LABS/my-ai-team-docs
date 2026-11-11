@@ -92,7 +92,9 @@ The tarball is `.git`-less with a baked `VERSION`, so `install.sh`
 auto-detects a local-payload install — no flag required. It copies the runtime
 into `~/.local/share/my-ai-team`, links commands into `~/.local/bin`, and (on
 systemd hosts) installs the Telegram relay user service (or the OpenRC user
-service on OpenRC hosts; see step 4). If
+service on OpenRC hosts; see step 4). On a systemd host it also enables the
+hourly `mat-session-keepalive.timer`, which keeps live session state fresh for
+age-based `/tmp` cleanup. If
 `~/.local/bin` is not on your `PATH`, the installer prints the export needed to
 make `mat` discoverable and leaves your shell configuration unchanged.
 
@@ -199,6 +201,19 @@ On an OpenRC host, use the user-service command instead:
 ```bash
 rc-service --user tg-relay status   # expect: status: started
 ```
+
+On a systemd host, the same install registers the separate hourly session-state
+keepalive. It touches only existing state for live sessions; it does not rewrite
+records or create paths, and dead sessions remain eligible for normal cleanup.
+Check it with:
+
+```bash
+systemctl --user status mat-session-keepalive.timer
+```
+
+If the user manager was unreachable during installation, rerun `install.sh`
+when it is available. A `/tmp` tmpfiles exemption is optional; the keepalive is
+the normal protection for live state.
 
 Within a few seconds the bot messages you `active` under a `<host> · tg-relay` header. The
 systemd install also enables linger automatically so the relay survives logout;

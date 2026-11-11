@@ -97,11 +97,13 @@ minimal, human-readable Claude registry with `default_effort` set to `high`.
 Existing or migrated backend configuration is preserved.
 
 Like Linux, `install.sh` brings up the resident relay automatically — on macOS
-it renders the bundled launchd LaunchAgent and `launchctl bootstrap`s it. If the
-install runs with no reachable gui/login session (e.g. over SSH), it skips
-cleanly and the first `adhoc`/`team`/`duo` launch in your gui session self-heals
-it. Either way there is no manual `launchctl` step; step 4 only supplies the
-Telegram credentials.
+it renders the bundled launchd LaunchAgent and `launchctl bootstrap`s it. It
+also registers a separate hourly `com.my-ai-team.session-keepalive` LaunchAgent
+that keeps live session state fresh for age-based `/tmp` cleanup without
+rewriting records or creating paths. If the install runs with no reachable
+gui/login session (e.g. over SSH), both agents are skipped cleanly; rerun the
+installer from a logged-in desktop session. Either way there is no manual
+`launchctl` step; step 4 only supplies the Telegram credentials.
 
 The tarball is self-contained: it carries the runtime, the product skills, and
 the relay service templates, and `install.sh` needs no network access.
@@ -166,8 +168,10 @@ the running agent's tmux pane, so you drive sessions from your phone.
 
 `install.sh` already rendered and `launchctl bootstrap`ed the LaunchAgent
 `~/Library/LaunchAgents/com.my-ai-team.tg-relay.plist` — the Darwin analog of
-the Linux relay service. All that remains is to hand it your Telegram
-credentials; it self-recovers onto them within seconds. (If the
+the Linux relay service. The separate `com.my-ai-team.session-keepalive`
+LaunchAgent is installed alongside it and runs hourly. All that remains is to
+hand the relay your Telegram credentials; it self-recovers onto them within
+seconds. (If the
 install ran with no gui session — e.g. over SSH — the first `adhoc`/`team`/`duo`
 launch in your desktop session materializes and bootstraps it instead.)
 
