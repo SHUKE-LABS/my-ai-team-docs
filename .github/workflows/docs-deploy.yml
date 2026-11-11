@@ -31,10 +31,32 @@ jobs:
       - uses: pnpm/action-setup@v4
         with:
           package_json_file: docs-site/package.json
+      - name: Detect dependency changes
+        id: dependency-changes
+        # The detection must never fail the lane: when it cannot decide, the
+        # audit runs. The step writes exactly one value, and the audit below
+        # runs unless that value is an explicit "run=false".
+        continue-on-error: true
+        env:
+          BASE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+          HEAD_SHA: ${{ github.sha }}
+        run: |
+          detected="$(node docs-site/scripts/audit-changes.mjs --base "$BASE_SHA" --head "$HEAD_SHA" || true)"
+          if [ "$detected" = "run=false" ]; then
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          fi
       - name: Install dependencies
         working-directory: docs-site
         run: pnpm install --frozen-lockfile
       - name: Audit dependencies
+        # The audit runs only for changes to a dependency input; every other
+        # change (a documentation projection, for example) skips it and can no
+        # longer be frozen by a newly published advisory. An undeterminable
+        # change set runs the audit. The daily `Dependency audit` workflow
+        # reports advisories outside this lane.
+        if: steps.dependency-changes.outputs.run != 'false'
         working-directory: docs-site
         run: pnpm audit --audit-level=high
       - name: Unit tests (sync + leak guard contracts)

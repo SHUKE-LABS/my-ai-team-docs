@@ -149,12 +149,31 @@ build.
 
 ## Verification and deployment
 
-`.github/workflows/docs-deploy.yml` is maintained in this repository and has no
-path filters: every pull request and
-every push to `main` runs on `ubuntu-latest` and performs dependency
-installation, the high-severity dependency audit, unit tests, the Astro build,
-the postbuild leak guard, and the leak-guard self-test. Checkout uses full
-history and tags (`fetch-depth: 0`, `fetch-tags: true`).
+`.github/workflows/docs-deploy.yml` is maintained in this repository: every
+pull request and every push to `main` runs on `ubuntu-latest` and performs
+dependency installation, the high-severity dependency audit, unit tests, the
+Astro build, the postbuild leak guard, and the leak-guard self-test. Checkout
+uses full history and tags (`fetch-depth: 0`, `fetch-tags: true`).
+
+The dependency audit runs only for changes that touch a dependency input:
+`docs-site/package.json`, `docs-site/pnpm-lock.yaml`,
+`docs-site/pnpm-workspace.yaml` or `docs-site/patches/**`. Every other change
+— a projected documentation page, for example — skips it, so a newly published
+advisory in a build-time dependency can no longer freeze publication: the
+site ships static build output and those advisories never reach it. The
+decision is made by `docs-site/scripts/audit-changes.mjs`, which prints
+`run=true` or `run=false`. When the change set cannot be determined — a first
+push, a zero `before` SHA, a `workflow_dispatch` run or an unresolvable
+commit — the audit runs.
+
+`.github/workflows/docs-audit.yml` covers what the publication lane no longer
+checks: it audits the default branch daily and on demand
+(`workflow_dispatch`), installs the same frozen dependency tree and runs
+`pnpm audit --audit-level=high --json`. When the audit fails it opens one
+tracking issue, `Dependency audit: high-severity advisories`, that names every
+advisory it found; a later failing run comments on that issue instead of
+opening a second one, and a clean run opens nothing. A failed installation
+fails the workflow without opening an issue.
 
 The deploy job runs only after verification succeeds and only for a push to the
 trusted default branch `main` — a `workflow_dispatch` run therefore verifies
