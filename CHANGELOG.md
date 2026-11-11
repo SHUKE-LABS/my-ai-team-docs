@@ -2,13 +2,14 @@
 
 _Generated from release tags._
 
-## v4.98.0 … v4.97.7 (2026-11-11)
+## v4.98.1 … v4.97.7 (2026-11-11)
 
 ### Features
 - feat(prompt): expand one nested @include level
 
 ### Fixes
 - fix: refuse readying or freshly claiming an issue whose PR merged
+- fix(test): answer the merge guard in auto-refine gh stubs
 
 ## v4.97.6 … v4.97.1 (2026-11-10)
 
