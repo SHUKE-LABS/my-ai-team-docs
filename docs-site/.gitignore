@@ -2,3 +2,5 @@ node_modules/
 dist/
 .astro/
 src/version.json
+audit-report.json
+audit-issue-body.md

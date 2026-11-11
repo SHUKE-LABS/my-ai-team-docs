@@ -42,13 +42,26 @@ auditConfig:
 # blocking the publication lane. astro's `^8.0.13` range already allows the
 # patched `>=8.2.4` floor; pin the override to that floor so the frozen
 # lockfile stops resolving into the vulnerable window on future refreshes.
+#
+# GHSA-xjj6-f33q-929c / GHSA-2m5v-pch6-74hx / GHSA-4w7w-5xrc-9h26 /
+# GHSA-qrxm-fqhp-jwvm (undici) and GHSA-mrhx-c7xc-m3w5 (zod): the frozen
+# lockfile resolved vulnerable `undici@7.29.1`, `undici@8.10.2` and
+# `zod@4.5.4` transitively, so `pnpm audit --audit-level=high` reported 9 high
+# findings and froze the publication lane at v4.75.27. astro's `^4.5.4` range
+# already allows the patched `4.6.6` floor and unifont's `^8.0.0` range already
+# allows `8.12.2`, but miniflare pins `undici: 7.29.0` exactly, so the 7.x copy
+# can only be lifted by an override. Pin each override to the patched floor so
+# the frozen lockfile stops resolving into the vulnerable window, and keep the
+# undici overrides scoped to their major line so the 7.x and 8.x consumers stay
+# on their own API.
 overrides:
   sharp: ^0.35.5
   source-map-js: 1.2.2
   devalue: 5.9.3
-  "undici@>=7 <8": 7.29.1
-  "undici@>=8 <9": 8.10.2
+  "undici@>=7 <8": 7.30.1
+  "undici@>=8 <9": 8.12.2
   vite: 8.2.4
+  zod: 4.6.6
 
 # CVE-2026-93748 / GHSA-ch52-4w7c-c8xp has no published npm fix yet. Carry the
 # upstream fix from kornelski/http-cache-semantics commit
