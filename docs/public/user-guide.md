@@ -1731,9 +1731,21 @@ immediately with no typed topic.
 ### Live mode
 
 `live` starts a hands-on single-agent session and reattaches on later launches:
-rerunning the command reattaches to the existing tmux live session when one is
-usable. A second supervisor is still rejected while a live state owner exists
+rerunning the command reattaches to the worktree's existing tmux live session
+when one is usable. A second supervisor is still rejected while a live state owner exists
 and no usable tmux session is available.
+
+One backend runs at most one live session per repository, across all of its
+worktrees. When the requested backend is busy — live in another worktree, or
+held by a running live supervisor — `live` starts the first free backend from
+`backends.json` whose settings are identical apart from its name and config
+directory, and says so: `mat: live <requested> is busy for <repo>; using
+<chosen>`. A backend without an `auth_var` keeps its credentials in its config
+directory, so it must share that directory too. The chosen backend is the
+session's backend from then on; a later `live` from the same worktree
+reattaches to it. When no equivalent backend is free, `live` refuses as before
+and suggests registering one.
+
 Unlike the delivery modes it has no issue queue, no reviewer, and no relay — it
 is you and one agent working directly.
 
