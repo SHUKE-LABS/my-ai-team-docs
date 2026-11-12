@@ -370,7 +370,7 @@ export function checkPresence(contentPages, version, licenseNeedle) {
 // --- Purchase CTA ---------------------------------------------------------
 
 // Purchase CTA, part 1: every rendered content page must carry the header's
-// checkout link with the exact percent-encoded URL — the CTA lives in the site
+// checkout link with the exact URL — the CTA lives in the site
 // header, so a page without it proves the header override stopped being
 // inherited site-wide (the same mechanism the presence check above uses for the
 // version badge and licence link).
@@ -384,12 +384,10 @@ export function checkBuyCta(contentPages, checkoutNeedle = CHECKOUT_URL) {
   return violations;
 }
 
-// Purchase CTA, part 2: a raw-bracket checkout query (`checkout[...]`) gets
-// truncated by chat clients and linkifiers before the URL reaches LemonSqueezy,
-// which then opens checkout with an empty discount code — only the
-// percent-encoded form (%5B / %5D) may ship, anywhere in the output, in any
-// text asset. The encoded URL itself never matches, and the plain store link
-// (no query) never matches either.
+// Purchase CTA, part 2: raw-bracket query syntax in a checkout URL is invalid
+// in published links. Only encoded query delimiters (%5B / %5D) may ship in a
+// text asset. The current purchase endpoint has no query, but this guard keeps
+// a future checkout URL from reintroducing raw brackets.
 export function scanForUnencodedCheckout(files) {
   const violations = [];
   for (const { path: rel, text } of files) {
@@ -765,28 +763,28 @@ function selfTest() {
   assert(
     checkBuyCta([{ path: 'faq/index.html', text: `<a href="${CHECKOUT_URL}">Buy Now</a>` }])
       .length === 0,
-    'checkBuyCta accepts a page carrying the encoded checkout link',
+    'checkBuyCta accepts a page carrying the current purchase link',
   );
   assert(
     checkBuyCta([{ path: 'faq/index.html', text: 'header without the CTA' }]).length === 1,
     'checkBuyCta flags a page missing the header checkout link',
   );
   assert(
-    checkBuyCta([{ path: 'faq/index.html', text: CHECKOUT_URL.replace('%5B', '[').replace('%5D', ']') }])
+    checkBuyCta([{ path: 'faq/index.html', text: 'https://mat.shukelabs.com/legacy' }])
       .length === 1,
-    'checkBuyCta rejects a raw-bracket form of the checkout link',
+    'checkBuyCta rejects a stale purchase link',
   );
   assert(
     scanForUnencodedCheckout([
-      { path: 'faq/index.html', text: '<a href="https://x/checkout/buy/y?checkout[discount_code]=50OFF">' },
+      { path: 'faq/index.html', text: '<a href="https://mat.shukelabs.com/buy?checkout[session]=abc">' },
     ]).length === 1,
     'scanForUnencodedCheckout flags a raw-bracket checkout query',
   );
   assert(
     scanForUnencodedCheckout([
-      { path: 'faq/index.html', text: `<a href="${CHECKOUT_URL}">Buy Now</a> at https://shukelabs.lemonsqueezy.com` },
+      { path: 'faq/index.html', text: `<a href="${CHECKOUT_URL}">Buy Now</a> at https://mat.shukelabs.com/price` },
     ]).length === 0,
-    'scanForUnencodedCheckout accepts the encoded checkout link and the plain store link',
+    'scanForUnencodedCheckout accepts the current purchase link and price link',
   );
 
   // Redirect stubs.

@@ -166,7 +166,7 @@ test('checkPresence fails closed (does not skip) when version is empty', () => {
   assert.ok(violations.some((v) => v.includes('unverifiable')));
 });
 
-test('checkBuyCta requires the encoded checkout link on every page', () => {
+test('checkBuyCta requires the current purchase link on every page', () => {
   assert.equal(
     checkBuyCta([{ path: 'faq/index.html', text: `href="${CHECKOUT_URL}"` }]).length,
     0,
@@ -175,10 +175,10 @@ test('checkBuyCta requires the encoded checkout link on every page', () => {
     checkBuyCta([{ path: 'faq/index.html', text: 'header without the CTA' }]).length,
     1,
   );
-  // The raw-bracket form of the same URL is not the URL: it does not satisfy the
+  // A stale purchase URL is not the current URL: it does not satisfy the
   // presence check.
   assert.ok(
-    checkBuyCta([{ path: 'faq/index.html', text: CHECKOUT_URL.replace('%5B', '[').replace('%5D', ']') }])[0].includes(
+    checkBuyCta([{ path: 'faq/index.html', text: 'https://mat.shukelabs.com/legacy' }])[0].includes(
       'missing header Buy Now checkout link',
     ),
   );
@@ -189,14 +189,14 @@ test('scanForUnencodedCheckout flags a raw-bracket checkout query anywhere in di
     scanForUnencodedCheckout([
       {
         path: 'faq/index.html',
-        text: 'href="https://shukelabs.lemonsqueezy.com/checkout/buy/x?checkout[discount_code]=50OFF"',
+        text: 'href="https://mat.shukelabs.com/buy?checkout[session]=abc"',
       },
     ]).some((v) => v.includes('raw-bracket')),
   );
   assert.equal(
     scanForUnencodedCheckout([
       { path: 'faq/index.html', text: `<a href="${CHECKOUT_URL}">Buy Now</a>` },
-      { path: 'index.html', text: 'plain store link https://shukelabs.lemonsqueezy.com stays unflagged' },
+      { path: 'index.html', text: 'plain price link https://mat.shukelabs.com/price stays unflagged' },
     ]).length,
     0,
   );

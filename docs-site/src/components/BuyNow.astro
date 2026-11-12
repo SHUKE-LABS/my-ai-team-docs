@@ -1,15 +1,13 @@
 ---
 // Purchase entry point rendered in the site header on every route. The link goes
-// straight to the LemonSqueezy checkout with the first-year discount pre-applied
-// (src/purchase.mjs explains why the brackets must stay percent-encoded), so a
-// reader never has to hunt for the store or type the code at checkout.
+// to the current Personal Copy purchase endpoint defined in src/purchase.mjs.
 import { LinkButton } from '@astrojs/starlight/components';
-import { CHECKOUT_URL, DISCOUNT_CODE } from '../purchase.mjs';
+import { CHECKOUT_URL } from '../purchase.mjs';
 ---
 
 <div class="buy-now print:hidden">
   <p class="offer">
-    First year <strong>50% off</strong> with code <code>{DISCOUNT_CODE}</code>
+    <strong>Personal Copy</strong> — one-time purchase, one machine, lifetime upgrades
   </p>
   <LinkButton href={CHECKOUT_URL} variant="primary" target="_blank" rel="noopener noreferrer">
     Buy Now
@@ -35,19 +33,10 @@ import { CHECKOUT_URL, DISCOUNT_CODE } from '../purchase.mjs';
     color: var(--sl-color-white);
     font-weight: 600;
   }
-  .offer code {
-    font-family: var(--sl-font-mono);
-    font-size: var(--sl-text-xs);
-    padding: 0.1rem 0.3rem;
-    border-radius: 0.25rem;
-    border: 1px solid var(--sl-color-hairline);
-    background: var(--sl-color-gray-6);
-    white-space: nowrap;
-  }
-  /* The single-line header has no room for the offer copy on narrow viewports:
-     collapse it to visually-hidden (screen readers keep it) and rely on the
-     checkout link itself carrying the pre-applied discount. */
-  @media (max-width: 49.99rem) {
+  /* The single-line header has no room for the offer copy below the wide
+     desktop breakpoint: collapse it to visually-hidden (screen readers keep
+     it) while keeping the purchase button available. */
+  @media (max-width: 79.99rem) {
     .offer {
       position: absolute;
       width: 1px;
