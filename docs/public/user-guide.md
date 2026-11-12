@@ -2898,8 +2898,14 @@ only after the node reports itself stopped, immediately before the restart. A
 service left stale because the host is busy is not abandoned: the installer
 arms a deferred converge job for it. The job re-checks the host periodically
 for up to two hours (`MAT_INSTALL_DEFERRED_RESTART_WAIT_SECONDS`), and a
-systemd or launchd service is restarted only at a strictly idle tick with no
-live role sessions. If the POSIX wait bound passes, the job re-checks the
+service is restarted only at a strictly idle tick. On Linux with systemd the
+restart hands off only the Baton supervisor: live role sessions keep running
+under the new daemon, and the upgrade verifies that exactly one new
+supervisor is running, that its version matches the installed `baton
+--version`, that every live session ID is back, and that duo pollers run. If
+the old supervisor cannot be identified with certainty, nothing is stopped and
+you get the exact manual command instead. A launchd service is restarted only
+when it has no live role sessions. If the POSIX wait bound passes, the job re-checks the
 endpoint: it leaves the service running and sends you one notification with
 its exact manual restart command only when the endpoint remains live and
 stale while turns are busy. A service refreshed during the wait, or no longer
@@ -2912,7 +2918,11 @@ available by hand on Windows:
 `MAT_BATON_CONTROL_DIR='<control-dir>' mat baton service restart` stops
 the service, publishes the staged launcher and starts it again.) If the service
 does not report itself stopped, it is left running on its current launcher and
-its sessions are untouched. This gate is host-global: an
+its sessions are untouched. To retire a Baton host service together with its
+role sessions, run `mat baton service disable`: it tears the sessions down
+first and unregisters the service only once nothing is left running. A plain
+`systemctl --user stop` of the Baton unit stops only the supervisor and leaves
+the role sessions running. This gate is host-global: an
 open `explore`, `live`, or caucus session is also busy even when the stale
 service itself has no role turn. Use `--when-idle` to wait for quiet before
 that decision. `--no-service-restart` skips only the Baton service restarts —
