@@ -9,8 +9,10 @@ import { approvedPageSlugs } from '../content-manifest.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const LANDING = path.join(HERE, '..', 'src', 'content', 'docs', 'index.mdx');
+const BUY_NOW = path.join(HERE, '..', 'src', 'components', 'BuyNow.astro');
 
 const MDX = fs.readFileSync(LANDING, 'utf8');
+const BUY_NOW_SOURCE = fs.readFileSync(BUY_NOW, 'utf8');
 
 // Frontmatter cannot import `CHECKOUT_URL`, so the unit test reads the raw
 // source and compares the written literal. This is the contract that keeps the
@@ -73,6 +75,12 @@ test('the first hero action is the checkout URL from src/purchase.mjs', () => {
   assert.ok(ACTIONS.length >= 1, 'the hero must have at least one action');
   assert.equal(ACTIONS[0].text, 'Buy Now');
   assert.equal(ACTIONS[0].link, CHECKOUT_URL);
+});
+
+test('the header CTA describes the Personal Copy purchase', () => {
+  for (const phrase of ['Personal Copy', 'one-time purchase', 'one machine', 'lifetime upgrades']) {
+    assert.ok(BUY_NOW_SOURCE.includes(phrase), `header CTA must include "${phrase}"`);
+  }
 });
 
 test('the secondary hero actions point at the quickstart and How it works routes', () => {
