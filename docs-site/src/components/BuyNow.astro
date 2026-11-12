@@ -33,10 +33,10 @@ import { CHECKOUT_URL } from '../purchase.mjs';
     color: var(--sl-color-white);
     font-weight: 600;
   }
-  /* The single-line header has no room for the offer copy on narrow viewports:
-     collapse it to visually-hidden (screen readers keep it) while keeping the
-     purchase button available. */
-  @media (max-width: 49.99rem) {
+  /* The single-line header has no room for the offer copy below the wide
+     desktop breakpoint: collapse it to visually-hidden (screen readers keep
+     it) while keeping the purchase button available. */
+  @media (max-width: 79.99rem) {
     .offer {
       position: absolute;
       width: 1px;
