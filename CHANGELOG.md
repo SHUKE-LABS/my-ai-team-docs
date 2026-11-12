@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v5.1.0 (2026-11-13)
+
+### Features
+- feat(agents): add the long-term-maintainer principle to Stance
+
 ## v5.0.1 … v4.99.0 (2026-11-12)
 
 ### Features
