@@ -2,11 +2,14 @@
 
 _Generated from release tags._
 
-## v5.2.0 … v5.1.0 (2026-11-13)
+## v5.2.1 … v5.1.0 (2026-11-13)
 
 ### Features
 - feat(agents): add the long-term-maintainer principle to Stance
 - feat(baton): hand off the systemd supervisor across upgrades
+
+### Fixes
+- fix(test): stub flock in the baton sandbox fixture
 
 ## v5.0.1 … v4.99.0 (2026-11-12)
 
