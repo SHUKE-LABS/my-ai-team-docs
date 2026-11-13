@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v5.2.1 … v5.1.0 (2026-11-13)
+## v5.2.2 … v5.1.0 (2026-11-13)
 
 ### Features
 - feat(agents): add the long-term-maintainer principle to Stance
@@ -10,6 +10,9 @@ _Generated from release tags._
 
 ### Fixes
 - fix(test): stub flock in the baton sandbox fixture
+
+### Other Changes
+- test(baton): assert the install-owned handoff-hook diagnostic
 
 ## v5.0.1 … v4.99.0 (2026-11-12)
 
