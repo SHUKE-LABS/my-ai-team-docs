@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v5.2.3 (2026-11-14)
+
+### Fixes
+- fix(ci): run routed serial suites in CI Required
+
 ## v5.2.2 … v5.1.0 (2026-11-13)
 
 ### Features
