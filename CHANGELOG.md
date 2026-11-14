@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v5.2.3 (2026-11-14)
+## v5.2.4 … v5.2.3 (2026-11-14)
 
 ### Fixes
 - fix(ci): run routed serial suites in CI Required
+- fix(agents): retry next-work on every wake inside the bg-run dedupe lease
 
 ## v5.2.2 … v5.1.0 (2026-11-13)
 
