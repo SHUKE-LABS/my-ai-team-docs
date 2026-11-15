@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v5.3.4 (2026-11-16)
+
+### Fixes
+- fix(secret): suspend xtrace/verbose while sourcing the host secret file
+
 ## v5.3.3 … v5.3.0 (2026-11-15)
 
 ### Features
