@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v5.3.4 (2026-11-16)
+## v5.3.5 … v5.3.4 (2026-11-16)
 
 ### Fixes
 - fix(secret): suspend xtrace/verbose while sourcing the host secret file
+- fix(next-work): restore a parked Team branch from its exact origin head
 
 ## v5.3.3 … v5.3.0 (2026-11-15)
 
