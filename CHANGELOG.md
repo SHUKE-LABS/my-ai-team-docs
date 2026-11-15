@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v5.3.2 … v5.3.0 (2026-11-15)
+## v5.3.3 … v5.3.0 (2026-11-15)
 
 ### Features
 - feat(guard): block shell reads that print mat's credential file
@@ -10,6 +10,7 @@ _Generated from release tags._
 ### Fixes
 - fix(test): recalibrate mat-live-local and bg-run-teardown real-host costs
 - fix(ci): size required-test-serial into budget-bounded shards
+- fix(ci): size serial shards against real-host suite times
 
 ## v5.2.4 … v5.2.3 (2026-11-14)
 
