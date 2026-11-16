@@ -652,10 +652,18 @@ write guard through leg's pre-tool hook. It refuses tracked-file writes and
 delivery commands from leg's `bash`, `write`, and `edit` tools; reads and
 unrestricted roles keep their normal behavior.
 
-A `leg-tui` pane opens on a startup screen that you dismiss by hand, and it
-needs a terminal of at least 80x24. The relay drivers do not yet deliver work
-into a `leg-tui` pane, so choose another backend for relay-driven interactive
-roles. Each pane turn has leg's response timeout raised to 600 seconds unless
+A `leg-tui` pane needs a terminal of at least 80x24. A pane launched with a
+startup prompt, such as an auto-start `mat adhoc -n <leg-nick>` or its
+supervised respawn, starts unattended: mat acknowledges leg's first-run notice,
+picks **new** on the session picker so every launch opens a fresh `leg-tui`
+session, and types the startup prompt once the composer is ready. Each of
+those screens gets its key at most once. If the composer does not appear
+within 60 seconds, mat logs one warning and stops without delivering the
+startup prompt or retrying; the pane stays as `leg-tui` shows it, and any
+screen still waiting for a key is yours to answer. A pane launched without a
+startup prompt opens on leg's startup screen for you to dismiss. The relay drivers do not
+yet deliver later work into a `leg-tui` pane, so choose another backend for
+relay-driven interactive roles. Each pane turn has leg's response timeout raised to 600 seconds unless
 you export `LEG_TIMEOUT_SECS` yourself. `mat setup` does not write agy or leg
 entries; add either to `backends.json` by hand.
 
