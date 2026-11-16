@@ -173,7 +173,7 @@ backend object:
 | `base_url_var` | Optional. Name of the environment variable whose value becomes the backend's API endpoint. Omit it for the default endpoint or a native login flow. |
 | `base_url` | Optional literal endpoint for an explicit Codex or pi provider, or a Grok BYOK backend. Use `base_url` or `base_url_var`, not both. |
 | `tier` | Optional. `strong` or `weak`. A `weak` backend is refused for `explore` and `audit` (those roles produce the tickets everyone else works from) but stays usable as a Developer under a strong reviewer. Defaults to `strong`. |
-| `default_model` | Optional. Model applied at launch, passed through verbatim. Omit it to launch with the backend's default. |
+| `default_model` | Optional. Model applied at launch, passed through verbatim. Omit it to launch with the backend's default. A `leg` backend needs a full model id (see [leg workers](#leg-workers)). |
 | `default_effort` | Optional. Reasoning-effort level applied at launch. Omit it or set it to an empty string and effort falls back to `high`. Claude changes it in-session with `/effort`; leg applies it through `LEG_THINKING`. |
 | `context_window_size` | Optional. Effective context window for auto-compaction: an integer (`250000`) or a `k`/`m` shorthand (`350k`, `1m`). Omit it and mat sets nothing, except on `leg`, which then defaults to `200000` (see [leg workers](#leg-workers)). |
 | `max_output_tokens` | Optional for `kind: "pi"`. Positive integer or `k`/`K` shorthand (base 1000), such as `96000` or `96k`. Defaults to `64000` for pi model entries; an invalid value stops pi from launching. |
@@ -583,8 +583,9 @@ interactive drivers.
 
 ### leg workers
 
-leg workers run the leg CLI headless-first: the duo, team, and caucus baton
-relays serve it. Register one with:
+leg workers run the leg CLI: the duo, team, and caucus baton relays run it
+headless, and a pane (for example `mat adhoc -n <leg-nick>`) runs leg's own
+TUI, `leg-tui`, which `leg install` places beside `leg`. Register one with:
 
 ```json
 {
@@ -619,8 +620,14 @@ leg is passed such a token as a bearer token, but every turn fails with a
 reach leg.
 
 Every leg turn carries the role's instructions (the entry's `prompt_file` in
-the role home) as its system prompt. A turn whose role instructions are missing
-or empty fails before leg starts.
+the role home) as its system prompt. A turn or pane whose role instructions are
+missing or empty fails before leg starts.
+
+`default_model` must be a full model id such as `claude-opus-5-5`. leg sends it
+to the provider verbatim, so mat refuses a Claude Code alias (`opus`, `sonnet`,
+`haiku`, `fable`, `default`, `opusplan`) or a bracketed window suffix such as
+`opus[1m]` before leg starts; set the window size in `context_window_size`
+instead. Omit `default_model` to use leg's own default model.
 
 `default_effort` reaches leg through `LEG_THINKING`. Leg accepts `off`,
 `minimal`, `low`, `medium`, `high`, `xhigh`, and `max`; when the field is
@@ -630,7 +637,8 @@ reports it once and leaves `LEG_THINKING` unset so leg uses its own default.
 
 Each role keeps its own leg session store under its role home, so roles never
 share a conversation. A task's later turns continue its session; if leg reports
-that session is gone, mat starts that turn in a new session once.
+that session is gone, mat starts that turn in a new session once. A pane keeps
+its `leg-tui` state, sessions included, in `ui/` under its role home.
 
 The backend's `context_window_size` sets leg's compaction budget
 (`LEG_CONTEXT_WINDOW_TOKENS`, required by leg 0.34.1 and later): omit the field
@@ -644,10 +652,12 @@ write guard through leg's pre-tool hook. It refuses tracked-file writes and
 delivery commands from leg's `bash`, `write`, and `edit` tools; reads and
 unrestricted roles keep their normal behavior.
 
-This release is headless/Baton-only. The tmux and local pane drivers are not
-adapted to leg, so choose a pane-backed backend for interactive drivers.
-`mat setup` does not write agy or leg entries; add either to `backends.json` by
-hand.
+A `leg-tui` pane opens on a startup screen that you dismiss by hand, and it
+needs a terminal of at least 80x24. The relay drivers do not yet deliver work
+into a `leg-tui` pane, so choose another backend for relay-driven interactive
+roles. Each pane turn has leg's response timeout raised to 600 seconds unless
+you export `LEG_TIMEOUT_SECS` yourself. `mat setup` does not write agy or leg
+entries; add either to `backends.json` by hand.
 
 ### HOME-mapped worker paths
 
