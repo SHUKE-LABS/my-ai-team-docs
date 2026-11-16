@@ -640,6 +640,12 @@ share a conversation. A task's later turns continue its session; if leg reports
 that session is gone, mat starts that turn in a new session once. A pane keeps
 its `leg-tui` state, sessions included, in `ui/` under its role home.
 
+A role's skills live in the `skills` directory of its role home. mat points leg's
+`CODEX_HOME` at the role home, headless turns and panes alike, so leg loads
+them from `$CODEX_HOME/skills`; a `CODEX_HOME` you export yourself is replaced.
+leg still scans your own `~/.claude/skills`: a role skill wins over one with
+the same name there, and your other skills stay visible to the role.
+
 The backend's `context_window_size` sets leg's compaction budget
 (`LEG_CONTEXT_WINDOW_TOKENS`, required by leg 0.34.1 and later): omit the field
 and mat exports `200000`, the standard Claude window. mat sets the budget

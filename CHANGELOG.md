@@ -2,11 +2,12 @@
 
 _Generated from release tags._
 
-## v5.7.1 … v5.6.0 (2026-11-17)
+## v5.8.0 … v5.6.0 (2026-11-17)
 
 ### Features
 - feat(leg): start leg-tui panes unattended
 - feat(tmux): deliver relays into leg-tui panes
+- feat(leg): load role skills via CODEX_HOME and use leg's activate_skill phrase
 
 ### Fixes
 - fix(release): post only the first commit's prose in X announcements
