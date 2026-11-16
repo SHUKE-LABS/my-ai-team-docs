@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v5.4.2 … v5.3.4 (2026-11-16)
+## v5.4.3 … v5.3.4 (2026-11-16)
 
 ### Features
 - feat(statusline): show the responding model when it differs from the request
@@ -12,6 +12,7 @@ _Generated from release tags._
 - fix(next-work): restore a parked Team branch from its exact origin head
 - fix(agents): keep bare poll silent to the operator
 - fix(relay): skip ready issues with a merged PR when waking delivery
+- fix(statusline): space the skew arrow and render the marker last
 
 ## v5.3.3 … v5.3.0 (2026-11-15)
 
