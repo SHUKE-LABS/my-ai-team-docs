@@ -2,7 +2,10 @@
 
 _Generated from release tags._
 
-## v5.3.5 … v5.3.4 (2026-11-16)
+## v5.4.0 … v5.3.4 (2026-11-16)
+
+### Features
+- feat(statusline): show the responding model when it differs from the request
 
 ### Fixes
 - fix(secret): suspend xtrace/verbose while sourcing the host secret file
