@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v5.4.0 … v5.3.4 (2026-11-16)
+## v5.4.1 … v5.3.4 (2026-11-16)
 
 ### Features
 - feat(statusline): show the responding model when it differs from the request
@@ -10,6 +10,7 @@ _Generated from release tags._
 ### Fixes
 - fix(secret): suspend xtrace/verbose while sourcing the host secret file
 - fix(next-work): restore a parked Team branch from its exact origin head
+- fix(agents): keep bare poll silent to the operator
 
 ## v5.3.3 … v5.3.0 (2026-11-15)
 
