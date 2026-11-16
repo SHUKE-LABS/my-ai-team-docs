@@ -2,7 +2,7 @@
 
 _Generated from release tags._
 
-## v5.8.0 … v5.6.0 (2026-11-17)
+## v5.8.1 … v5.6.0 (2026-11-17)
 
 ### Features
 - feat(leg): start leg-tui panes unattended
@@ -11,6 +11,7 @@ _Generated from release tags._
 
 ### Fixes
 - fix(release): post only the first commit's prose in X announcements
+- fix(agents): post the plan under an own claim that has none on duplicate wake
 
 ## v5.5.0 … v5.3.4 (2026-11-16)
 
