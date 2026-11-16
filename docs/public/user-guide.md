@@ -661,9 +661,18 @@ those screens gets its key at most once. If the composer does not appear
 within 60 seconds, mat logs one warning and stops without delivering the
 startup prompt or retrying; the pane stays as `leg-tui` shows it, and any
 screen still waiting for a key is yours to answer. A pane launched without a
-startup prompt opens on leg's startup screen for you to dismiss. The relay drivers do not
-yet deliver later work into a `leg-tui` pane, so choose another backend for
-relay-driven interactive roles. Each pane turn has leg's response timeout raised to 600 seconds unless
+startup prompt opens on leg's startup screen for you to dismiss. A pane left on
+either startup screen is reported as blocked on a prompt, never as idle.
+
+Once started, a `leg-tui` pane takes relayed work like any other pane:
+`send-relay <role> <file>` pastes the handoff into the composer and submits it
+once. `mat agents` shows the pane busy while leg's status line reads
+`status: Running` or its composer is disabled for the turn, and standby once
+the turn ends. `send-relay <role> /clear` presses F3 and picks **new** on the
+session picker, so the pane continues in a fresh, empty session; if the picker
+does not open, nothing else is sent and the relay fails. `leg-tui` has no
+command menu, so any other single-word command such as `/compact` is refused
+with an error and nothing is typed into the pane. Each pane turn has leg's response timeout raised to 600 seconds unless
 you export `LEG_TIMEOUT_SECS` yourself. `mat setup` does not write agy or leg
 entries; add either to `backends.json` by hand.
 

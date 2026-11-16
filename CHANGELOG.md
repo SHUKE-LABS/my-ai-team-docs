@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v5.6.0 (2026-11-17)
+## v5.7.0 … v5.6.0 (2026-11-17)
 
 ### Features
 - feat(leg): start leg-tui panes unattended
+- feat(tmux): deliver relays into leg-tui panes
 
 ## v5.5.0 … v5.3.4 (2026-11-16)
 
