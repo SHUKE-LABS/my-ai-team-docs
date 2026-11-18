@@ -1531,6 +1531,15 @@ The command is the one allowed self-send for Claude directory setup; it takes
 effect immediately, including mid-turn. The path must exist and be a
 directory. Other self-targeted messages and TUI commands remain refused.
 
+mat marks the directory trusted in the pane's Claude home before typing the
+command, so Claude does not stop on its "This session hasn't worked here
+before" prompt, and the send then answers only the "Yes, for this session"
+choice. Directories mat passes to Claude at launch with `--add-dir` — the
+`live` worktree directory and a `live --domain` home — are trusted the same
+way before Claude starts. If mat cannot record the trust, the launch fails
+before Claude starts, and the self-send fails without typing the command or
+pressing Enter.
+
 ### Worktree isolation
 
 By default every worktree-creating mode — `adhoc`, `team`, `duo`, `audit`,

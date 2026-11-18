@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v5.8.2 (2026-11-19)
+
+### Fixes
+- fix(claude): pre-trust --add-dir and /add-dir directories
+
 ## v5.8.1 … v5.6.0 (2026-11-17)
 
 ### Features
