@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v5.8.3 (2026-11-20)
+
+### Fixes
+- fix(test): wait for pending removal in blocked notification retry test
+
 ## v5.8.2 (2026-11-19)
 
 ### Fixes
