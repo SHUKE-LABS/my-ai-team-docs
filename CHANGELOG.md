@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v5.8.4 (2026-11-21)
+
+### Other Changes
+- test(explore): widen auto-refine waits for loaded runners
+
 ## v5.8.3 (2026-11-20)
 
 ### Fixes
