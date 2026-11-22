@@ -1520,25 +1520,30 @@ such as `reviewer` still require a tmux client.
 ### Claude session directories
 
 Claude keeps Bash's working directory only inside the session's configured
-directories. If a Bash call reports `Shell cwd was reset to <path>`, add the
-needed existing directory from that Claude pane with:
+directories. If a Bash call reports `Shell cwd was reset to <path>`, work
+there by absolute path — `git -C <dir> ...`, or `cd <dir> && ...` within one
+Bash call. To keep an existing directory across calls, add it from that Claude
+pane with:
 
 ```bash
 send-relay "$TMUX_PANE" "/add-dir <existing directory>"
 ```
 
-The command is the one allowed self-send for Claude directory setup; it takes
-effect immediately, including mid-turn. The path must exist and be a
+The command is the one allowed self-send for Claude directory setup. It runs
+only when the pane is idle: while a turn is running it types nothing and fails
+with `pane busy; retry after the turn`. The path must exist and be a
 directory. Other self-targeted messages and TUI commands remain refused.
 
 mat marks the directory trusted in the pane's Claude home before typing the
-command, so Claude does not stop on its "This session hasn't worked here
-before" prompt, and the send then answers only the "Yes, for this session"
-choice. Directories mat passes to Claude at launch with `--add-dir` — the
-`live` worktree directory and a `live --domain` home — are trusted the same
-way before Claude starts. If mat cannot record the trust, the launch fails
-before Claude starts, and the self-send fails without typing the command or
-pressing Enter.
+command. A running Claude session may still show its add-directory trust
+prompt; the send then selects `Yes, add it` only when the prompt names the
+requested directory with a known `No, exit` or `No, leave it out` choice, and
+otherwise fails without pressing Enter. It then answers only the "Yes, for
+this session" choice. Directories mat passes to Claude at launch with
+`--add-dir` — the `live` worktree directory and a `live --domain` home — are
+trusted the same way before Claude starts. If mat cannot record the trust, the
+launch fails before Claude starts, and the self-send fails without typing the
+command or pressing Enter.
 
 ### Worktree isolation
 
