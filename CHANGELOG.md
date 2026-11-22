@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v5.8.7 (2026-11-23)
+
+### Fixes
+- fix(relay): refuse mid-turn /add-dir self-send and answer the trust modal
+
 ## v5.8.6 … v5.8.5 (2026-11-22)
 
 ### Fixes
