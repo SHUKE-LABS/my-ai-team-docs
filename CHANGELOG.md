@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v5.8.5 (2026-11-22)
+## v5.8.6 … v5.8.5 (2026-11-22)
 
 ### Fixes
 - fix(bg-run): classify a task that exits after publishing its marker as finished
+- fix(merge-release): require the Remaining marker on fresh non-closing merges
 
 ## v5.8.4 (2026-11-21)
 
