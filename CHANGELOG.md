@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v5.8.8 (2026-11-24)
+
+### Fixes
+- fix(test): answer the arb mock's issue body read
+
 ## v5.8.7 (2026-11-23)
 
 ### Fixes
