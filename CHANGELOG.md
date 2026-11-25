@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v5.8.9 (2026-11-25)
+
+### Fixes
+- fix(config): quiet selector-only Claude warning when the gateway is set
+
 ## v5.8.8 (2026-11-24)
 
 ### Fixes
