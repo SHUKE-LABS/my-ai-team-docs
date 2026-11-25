@@ -129,8 +129,9 @@ backend. Run `claude setup-token`, export the result as `CLAUDE_CODE_OAUTH_TOKEN
 you are ready — no `backends.json` required. Edit `backends.json` only for
 multi-account setups, third-party endpoints, or other backend families.
 
-A native Claude backend is token-auth only: with no token it fails fast at
-launch rather than starting unauthenticated.
+A native Claude backend needs a token: with no token it fails fast at launch
+rather than starting unauthenticated. The exception is a selector-only backend
+routed through the [Light Anthropic gateway](#light-anthropic-gateway).
 
 To reuse a multi-account setup, copy `examples/mat/backends.json` into
 `~/.config/mat/backends.json` and trim the entries you do not want.
@@ -167,7 +168,7 @@ backend object:
 | --- | --- |
 | `nickname` | Required. The CLI alias and the slot name used in commands and locks. |
 | `config_dir` | Required. Home/config directory stem under `$HOME/.<config_dir>`. Kept independent from `nickname` on purpose. |
-| `auth_var` | Optional. Name of the environment variable holding the auth token or API key. Omit it (or set `null`) when the backend uses its own login flow. A `claude` or `leg` backend is token/API-key auth only. |
+| `auth_var` | Optional. Name of the environment variable holding the auth token or API key. Omit it (or set `null`) when the backend uses its own login flow. A `leg` backend is token/API-key auth only; a `claude` backend needs a token unless it is a selector-only gateway backend (see [Light Anthropic gateway](#light-anthropic-gateway)). |
 | `prompt_file` | Required. Prompt filename written into that backend's home (`CLAUDE.md` for Claude, `AGENTS.md` for Codex, and so on). |
 | `kind` | Required. Backend family: `claude`, `codex`, `copilot`, `pi`, `opencode`, `freebuff`, `grok`, `commandcode`, `agy`, or `leg`. The family decides which modes a backend can run — see [the notes below](#opencode-workers) and each family's subsection. |
 | `base_url_var` | Optional. Name of the environment variable whose value becomes the backend's API endpoint. Omit it for the default endpoint or a native login flow. |
@@ -784,7 +785,11 @@ appends `/v1/messages` itself).
 - A backend with a `base_url_var` and no `gateway_selector` ignores the gateway
   and uses its vendor endpoint directly.
 - A backend with `auth_var: null` is selector-only: valid on the gateway path,
-  and it fails fast at launch when the gateway is unset.
+  and it fails fast at launch when the gateway is unset. With
+  `MAT_ANTHROPIC_GATEWAY` set it loads without a warning; with it unset or
+  empty, loading `backends.json` warns that the backend requires
+  `MAT_ANTHROPIC_GATEWAY` — set the gateway, or give the backend a
+  `claude setup-token` token as its `auth_var`.
 
 With the gateway unset, every backend behaves exactly as it does without this
 feature.
