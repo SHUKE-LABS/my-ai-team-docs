@@ -2,10 +2,11 @@
 
 _Generated from release tags._
 
-## v5.9.0 (2026-11-26)
+## v5.10.0 … v5.9.0 (2026-11-26)
 
 ### Features
 - feat(tg-relay): deliver voice notes, audio, and documents
+- feat(live): announce a reattach before switching to a running live session
 
 ## v5.8.9 (2026-11-25)
 
