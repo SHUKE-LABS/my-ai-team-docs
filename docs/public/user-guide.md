@@ -2210,25 +2210,33 @@ guess.
 
 ### Photos and unsupported messages
 
-You can send an agent a photo. The relay downloads it to
-`/tmp/tg-<update-id>.<ext>`, and the agent receives the photo's caption followed
-by a final line naming that file:
+You can send an agent a photo, a voice note, an audio file, or a document. The
+relay downloads it to `/tmp/tg-<update-id>.<ext>`, and the agent receives the
+caption followed by a final line naming that file:
 
 ```
 look at the error dialog
 Image: /tmp/tg-812345.jpg
 ```
 
-The caption routes exactly like a text message: `#<session>`, `@<role>`, and
-replies work the same way. A photo without a caption goes to the current
-(sticky) target and carries only the `Image:` line. An album arrives as one
-message per photo; only the first carries the caption, and each later photo is
-delivered on its own with just its `Image:` line.
+The line prefix names the kind: `Image:` for a photo, `Voice:` for a voice
+note, `Audio:` for an audio file, and `File:` for a document. The extension
+comes from the file's original name when it has one (`rec.wav` arrives as
+`/tmp/tg-<update-id>.wav`), otherwise from Telegram's stored file, otherwise
+`.ogg` for voice notes and `.bin` for audio and documents. A document whose name
+ends in `.md` arrives as `/tmp/tg-<update-id>-file.md`.
 
-Every other non-text message — voice, documents, stickers, video, and so on —
-is refused with a reply such as `voice messages are not supported — not
-delivered.` A photo that cannot be downloaded, including one over Telegram's
-20 MB bot download limit, is refused with an `image download failed` reply.
+The caption routes exactly like a text message: `#<session>`, `@<role>`, and
+replies work the same way. Media without a caption goes to the current (sticky)
+target and carries only its path line. An album arrives as one message per
+item; only the first carries the caption, and each later item is delivered on
+its own with just its path line.
+
+Every other non-text message — stickers, GIFs, video, video notes, locations,
+contacts, polls, and so on — is refused with a reply such as `sticker messages
+are not supported — not delivered.` Media that cannot be downloaded, including
+anything over Telegram's 20 MB bot download limit, is refused with a reply
+naming the kind, such as `voice download failed` or `document download failed`.
 Nothing is delivered for a refused message.
 
 ### notify-user flags
