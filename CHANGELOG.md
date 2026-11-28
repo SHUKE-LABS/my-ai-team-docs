@@ -2,6 +2,11 @@
 
 _Generated from release tags._
 
+## v5.10.1 (2026-11-28)
+
+### Fixes
+- fix(issues): re-offer a merged non-closing Remaining: agent issue
+
 ## v5.10.0 … v5.9.0 (2026-11-26)
 
 ### Features
